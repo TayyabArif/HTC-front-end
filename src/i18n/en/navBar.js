@@ -1,0 +1,40 @@
+export const navBar = () => {
+  return {
+    dashboard: 'Dashboard',
+    work_orders: 'Work Orders',
+    sites: 'Sites',
+    proposals: 'Proposals',
+    manage_account: 'Manage Accounts',
+    account_settings: 'Account Settings',
+    company_settings: 'Company Settings',
+    masquerade: 'Masquerading',
+    client_company_settings: 'Client Company Settings',
+    bes_company_settings: 'BES Company Settings',
+    help: 'Help',
+    send_feedback: 'Send Feedback',
+    log_out: 'Log Out',
+    no_client: 'No Client Selected',
+    start_masquerade: 'Start Masquerade',
+    switch_client: 'Switch Client',
+    stop_masquerade: 'Stop Masquerade',
+    request_service: 'Request Service',
+    filters: 'Filters',
+    access_tab: {
+      submit: 'Submit',
+      select_site: 'Select which site(s) require service',
+      service_line: 'Select the service line',
+      landscape: 'Landscape',
+      snow: 'Snow Removal',
+      sweep: 'Sweep',
+      other: 'Other',
+      duedate: 'Due date',
+      description: 'Description of requested service',
+      add_text: 'Add text.',
+      res_message: 'your service request has been sent on',
+      representative: 'A Brightview representative will contact you shortly.',
+      po_number: 'Enter PO # or WO # (if applicable)',
+      user_from: 'A user from ',
+      error_message: 'Your service request could not be sent, please try again.'
+    }
+  }
+}
