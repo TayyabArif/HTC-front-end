@@ -31,7 +31,7 @@ export const navBar = () => {
       description: 'Description of requested service',
       add_text: 'Add text.',
       res_message: 'your service request has been sent on',
-      representative: 'A Brightview representative will contact you shortly.',
+      representative: 'A FTC Client Portal representative will contact you shortly.',
       po_number: 'Enter PO # or WO # (if applicable)',
       user_from: 'A user from ',
       error_message: 'Your service request could not be sent, please try again.'

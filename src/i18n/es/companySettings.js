@@ -31,7 +31,7 @@ export const companySettings = () => {
       }
     },
     contacts_card: {
-      title: 'Contactos de BrightView',
+      title: 'Contactos de FTC Client Portal',
       account: 'Gerente de Cuenta',
       technical: 'Especialista de Soporte Técnico'
     },

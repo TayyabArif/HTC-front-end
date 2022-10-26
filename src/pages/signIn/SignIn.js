@@ -229,11 +229,6 @@ const SignIn = () => {
                   {t('sign_in.title')}
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
-                <Typography align='center' className={classes.subtitle} >
-                  {t('sign_in.subtitle_1')}
-                </Typography>
-              </Grid>
             </Grid>
 
             {/* TODO: buttons not yet needed */}

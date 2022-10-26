@@ -12,7 +12,7 @@ export const signIn = () => {
     sign_in: 'Iniciar Sessión',
     messages: {
       wrong_user_password: 'Usuario o contraseña incorrectos. Por favor intente nuevamente.',
-      terms_and_conditions: 'Al seleccionar el botón Iniciar sesión, acepto los Términos y Condiciones de BrightView Enterprise Solutions.',
+      terms_and_conditions: 'Al seleccionar el botón Iniciar sesión, acepto los Términos y Condiciones de FTC Client Portal Enterprise Solutions.',
       terms_and_conditions_link: 'Términos y Condiciones.'
     },
     masquerade: {

@@ -12,7 +12,7 @@ export const signIn = () => {
     sign_in: 'Sign In',
     messages: {
       wrong_user_password: 'Incorrect user or password. Please try again.',
-      terms_and_conditions: 'By selecting the Sign In button, I accept the BrightView Enterprise Solutions',
+      terms_and_conditions: 'By selecting the Sign In button, I accept the FTC Client Portal Enterprise Solutions',
       terms_and_conditions_link: 'Terms and Conditions.'
     },
     masquerade: {

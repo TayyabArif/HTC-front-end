@@ -31,7 +31,7 @@ export const navBar = () => {
       description: 'Descripción del servicio requerido',
       add_text: 'Añadir texto.',
       res_message: 'su requerimento de servicio ha sido enviado el',
-      representative: 'Un representante de Brightview lo contactará en breve.',
+      representative: 'Un representante de FTC Client Portal lo contactará en breve.',
       po_number: 'Ingrese el número orden de compra o de trabajo (si aplica)',
       user_from: 'Un usuario perteneciente a ',
       error_message: 'Su requerimento de servicio no pudo ser enviado, por favor intente nuevamente.'
