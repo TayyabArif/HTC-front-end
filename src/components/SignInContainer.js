@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     height: '40px',
     textAlign: 'center',
-    backgroundColor: theme.colors.workOrders.dotsBack
+    backgroundColor: theme.colors.dotsBack
   },
   footerText: {
     fontWeight: '400',

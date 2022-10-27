@@ -14,8 +14,7 @@ export const general = () => {
       },
       select_all: 'Select All',
       select: 'Select',
-      time: 'Time',
-      no_masquerade: 'to begin masquerading as a client to view client sites and work orders.'
+      time: 'Time'
     },
     priority_options: {
       low: 'Low',

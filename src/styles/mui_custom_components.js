@@ -12,7 +12,6 @@ export const BasicButton = withStyles((theme) => ({
     height: '71px',
     textTransform: 'unset !important',
     [theme.breakpoints.down('md')]: {
-      border: `1px solid ${theme.colors.workOrders.dotsBack}`,
       borderRadius: '4px'
     },
     [theme.breakpoints.up('md')]: {

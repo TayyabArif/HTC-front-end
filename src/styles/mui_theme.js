@@ -102,118 +102,7 @@ const customTheme = createTheme({
     },
     dividers: '#EAEBEB',
     tradesBackground: '#F8F8F8',
-    openWork: '#47A0F4',
-    completedWork: '#6C7172',
-    inProgressWork: '#8BC400',
     mainContainerBackground: '#F8F8F8',
-    workOrders: {
-      counts: '#6C7172',
-      chipBack: '#F1F1F1',
-      selectedRow: '#F3F7F9',
-      dotsBack: '#E0E0E0',
-      columnTitle: '#6C7172',
-      emptyText: '#6C7172',
-      detailsTitle: '#6C7172',
-      emptyCardTitle: '#333333',
-      downloadIcon: '#C4C4C4',
-      detailsCardBorderColor: 'rgba(216, 216, 216, 0.25)',
-      tab: {
-        description: '#121212',
-        wonum: '#212121',
-        duedate: '#828282'
-      },
-      buttonPrimary: '#EEEEEE',
-      gradient: '#DCDCDC',
-      etaText: '#A0A0A0',
-      photoTimestamp: '#F2C94C',
-      columnFilterDefault: '#6C7172',
-      selectedSort: '#47A0F4'
-    },
-    sites: {
-      pullDrawer: '#E3E3E3',
-      activeWork: '#8BC400',
-      openedWork: '#47A0F4',
-      inProgressWork: '#8BC400',
-      returningWork: '#F49A47',
-      completedWork: '#4F4F4F',
-      incompleteWork: '#CE004A',
-      noWorkOrder: '#EEEEEE',
-      noActivity: '#CE004A',
-      clustersTextColor: '#FFFFFF',
-      returning: '#F49A47',
-      completed: '#4F4F4F',
-      incomplete: '#CE004A',
-      canceled: '#E0E0E0',
-      locationAddress: '#767583',
-      dateFilter: '#767583',
-      legendsBackground: '#F3F3F3',
-      legendsLabels: '#4F4F4F',
-      inputBorderRGB: 'rgba(0, 0, 0, 0.23)',
-      inputBorderRGBHover: 'rgba(0, 0, 0, 0.6)',
-      filters: {
-        leftColumnBackground: '#FDFDFD',
-        tagsBorder: '#EBEBEB',
-        fieldsBorder: '#E0E0E0',
-        fieldsLabels: '#6C7172',
-        fieldsBackground: '#FFFFFF',
-        selectedChips: '#4F4F4F',
-        selectedExceptionsDividers: '#B9B9B9'
-      },
-      markers: {
-        locationAddress: '#6C7172'
-      },
-      workOrderColors: {
-        open: '#F2C94C',
-        dispatched: '#47A0F4',
-        returning: '#F49A47',
-        in_progress: '#0072CE',
-        completed: '#8BC400',
-        noWorkOrder: '#333333',
-        canceled: '#6C7172',
-        incomplete: '#CE004A',
-        no_work_order: '#CE004A',
-        no_service_required: '#333333',
-        no_status: '#333333'
-      },
-      proposalColors: {
-        new: '#47A0F4',
-        proposed: '#0072CE',
-        revision_needed: '#F49A47',
-        approved: '#8BC400',
-        rejected: '#CE004A',
-        cancelled: '#6C7172'
-      },
-      siteView: {
-        headerInfo: '#293540',
-        arrowBackColor: '#FFFFFF',
-        selectedTabTextColor: '#FFFFFF',
-        unselectedTabTextColor: '#828282',
-        unselectedTabColor: '#F2F2F2',
-        chipFiltersBorder: '#EBEBEB',
-        selectedChipFiltersBackground: '#EBEBEB',
-        selectedChipFiltersText: '#4F4F4F',
-        unselectedChipFiltersBackground: '#FFFFFF',
-        unselectedChipFiltersText: '#828282'
-      }
-    },
-    proposals: {
-      chipBack: '#F1F1F1',
-      selectedRow: '#F3F7F9',
-      dateText: '#6C7172',
-      status: {
-        new: 'rgba(77, 166, 233, 0.85)',
-        new_solid: 'rgba(77, 166, 233)',
-        revisions: 'rgb(244, 154, 71, 0.86)',
-        revisions_solid: 'rgb(244, 154, 71)',
-        canceled: 'rgba(86, 86, 86, 0.85)',
-        canceled_solid: 'rgba(86, 86, 86)',
-        rejected: 'rgba(235, 87, 87, 0.85)',
-        rejected_solid: 'rgba(235, 87, 87)',
-        approved: 'rgba(143, 200, 61, 0.85)',
-        approved_solid: 'rgba(143, 200, 61)',
-        proposed: '#0072CE'
-      }
-    },
     settings: {
       fieldName: '#212121',
       fieldInfo: '#6C7172',
@@ -307,7 +196,8 @@ const customTheme = createTheme({
         }
       }
     },
-    stepperGray: '#828282'
+    stepperGray: '#828282',
+    dotsBack: '#E0E0E0'
   },
   typography: {
     fontFamily: 'Roboto',

@@ -1,6 +1,6 @@
 import { Link, useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 /** Material UI **/
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
@@ -14,9 +14,6 @@ import { SignInContainer } from '../../components/SignInContainer'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-
-/** Redux **/
-import { useDispatch } from 'react-redux'
 
 /** Images **/
 import googleIcon from '../../assets/icons/google.svg'
@@ -177,7 +174,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SignIn = () => {
-  const dispatch = useDispatch()
   const history = useHistory()
   const { t } = useTranslation()
   const classes = useStyles()
