@@ -1,4 +1,4 @@
-image: node:16.3.0-slim
+image: node:16.10.0-slim
 
 unitTesting: &unitTesting
   step:
