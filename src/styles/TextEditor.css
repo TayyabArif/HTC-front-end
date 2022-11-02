@@ -1,0 +1,51 @@
+.wrapperClassName{
+    padding: 0px 10px;
+    background-color: #FFFF;
+    border-radius: 8px;
+    border: 0.5px solid #E0E0E0;
+}
+.toolbarClassName{
+    border: none;
+    padding: 0px;
+    padding-top: 5px;
+    background-color: #FFFF;
+    position: relative;
+}
+
+.toolbarClassName .rdw-inline-wrapper{
+    margin-left: 25px;
+}
+.toolbarClassName .rdw-option-wrapper{
+    background-color: #FFFF;
+    min-width: 15px;
+    height: 15px;
+    border: none;
+    margin: 0px 2px;
+    padding: 3px;
+}
+
+.toolbarClassName .rdw-option-wrapper img{
+    width: 12px;
+    height: 12px;
+}
+.toolbarClassName .rdw-inline-wrapper .rdw-option-wrapper:first-child img{
+    width: 10px;
+    height: 10px;
+}
+.toolbarClassName .rdw-list-wrapper .rdw-option-wrapper img{
+    width: 11px;
+    height: 11px;
+}
+
+.editorClassName{
+    font-size: 12px;
+    min-height: 74px;
+}
+
+.editorClassName .public-DraftStyleDefault-block{
+    margin: 0;
+}
+
+.editorClassName ul, .editorClassName ol{
+    margin: 0px;
+}
