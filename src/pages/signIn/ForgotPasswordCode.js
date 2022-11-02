@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 /** Material UI **/
 import { HighlightButton } from '../../styles/mui_custom_components'
 import { LockOutlined } from '@material-ui/icons'
-import { Box, Grid, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Box, Grid, InputAdornment, makeStyles, TextField, Typography } from '@mui/material'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'

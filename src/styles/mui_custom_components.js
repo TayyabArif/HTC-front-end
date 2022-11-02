@@ -1,9 +1,9 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import { Box, Fab, InputBase, Paper, Tab, Tabs } from '@material-ui/core'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import { withStyles } from '@mui/styles'
+import Button from '@mui/material/Button'
+import { Fab, InputBase, Paper, Tab, Tabs } from '@mui/material'
+// import DatePicker from 'react-datepicker'
+// import 'react-datepicker/dist/react-datepicker.css'
 
 export const BasicButton = withStyles((theme) => ({
   root: {
@@ -231,34 +231,34 @@ export const StyledSiteViewTab = withStyles((theme) => ({
   }
 }))((props) => <Tab disableRipple {...props} />)
 
-export const CustomDatePicker = withStyles((theme) => ({
-  datePicker: {
-    '& .react-datepicker__header': {
-      backgroundColor: 'unset',
-      borderBottom: 'unset'
-    },
-    '& .react-datepicker__triangle': {
-      display: 'none'
-    },
-    '& .react-datepicker__current-month': {
-      fontFamily: 'Roboto',
-      color: `${theme.colors.text} !important`
-    },
-    '& .calendarTextColor': {
-      fontFamily: 'Roboto',
-      color: `${theme.colors.text} !important`
-    },
-    '& .react-datepicker__day--in-range': {
-      backgroundColor: `${theme.palette.primary.main} !important`
-    },
-    '& .react-datepicker__day--selected': {
-      backgroundColor: `${theme.palette.primary.main} !important`
-    }
-  }
-}))((props) => {
-  const { classes } = props
-  return (<Box className={classes.datePicker}><DatePicker {...props} /></Box>)
-})
+// export const CustomDatePicker = withStyles((theme) => ({
+//   datePicker: {
+//     '& .react-datepicker__header': {
+//       backgroundColor: 'unset',
+//       borderBottom: 'unset'
+//     },
+//     '& .react-datepicker__triangle': {
+//       display: 'none'
+//     },
+//     '& .react-datepicker__current-month': {
+//       fontFamily: 'Roboto',
+//       color: `${theme.colors.text} !important`
+//     },
+//     '& .calendarTextColor': {
+//       fontFamily: 'Roboto',
+//       color: `${theme.colors.text} !important`
+//     },
+//     '& .react-datepicker__day--in-range': {
+//       backgroundColor: `${theme.palette.primary.main} !important`
+//     },
+//     '& .react-datepicker__day--selected': {
+//       backgroundColor: `${theme.palette.primary.main} !important`
+//     }
+//   }
+// }))((props) => {
+//   const { classes } = props
+//   return (<Box className={classes.datePicker}><DatePicker {...props} /></Box>)
+// })
 
 export const MasqueradeIcon = (props) => {
   return (<svg width={props.width} height={props.height} viewBox="0 0 39 17" fill="none" xmlns="http://www.w3.org/2000/svg">

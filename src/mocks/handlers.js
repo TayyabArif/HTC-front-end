@@ -1,6 +1,6 @@
 import { rest } from 'msw'
-import moment from 'moment'
-const jwt = require('json-web-token')
+// import moment from 'moment'
+// const jwt = require('jsonwebtoken')
 
 const apiHost = process.env.REACT_APP_API_URL
 
@@ -12,21 +12,21 @@ export const handlers = [
     )
   }),
 
-  rest.post(`${apiHost}/oauth/token`, (req, res, ctx) => {
-    const token = jwt.encode('secret', {
-      id: 'eb5lffbjYTkQaEig',
-      clientId: 1,
-      userId: 36,
-      scopes: 'dashboard:read work_orders:read sites:read proposals:read company_settings:read company_settings:write account_settings:read account_settings:write company_settings.users:create company_settings.users:delete work_orders:view company_settings.manage_access:write company_settings.report_scheduler:write company_settings.users:edit masquerade:write company_settings.bes_notifications:write',
-      createdAt: moment().add(5, 'hours'),
-      iat: 1652997232,
-      exp: 1653083632
-    })
-
-    return res(
-      ctx.json({ access_token: token.value, token_type: 'Bearer', expires_in: 86399, refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRmTkFrbDU4OEh4RXVDVDMiLCJjbGllbnRJZCI6MSwidXNlcklkIjozNiwiY3JlYXRlZEF0IjoiMjAyMi0wNS0xOVQyMDoxNDoyMS45NjBaIiwiaWF0IjoxNjUyOTkxMjYxfQ.V3YHBDw22rOQOo2zFEPPxmygQyMgC82RdHvkaYyKkJQ' })
-    )
-  }),
+  // rest.post(`${apiHost}/oauth/token`, (req, res, ctx) => {
+  //   const token = jwt.encode('secret', {
+  //     id: 'eb5lffbjYTkQaEig',
+  //     clientId: 1,
+  //     userId: 36,
+  //     scopes: 'dashboard:read work_orders:read sites:read proposals:read company_settings:read company_settings:write account_settings:read account_settings:write company_settings.users:create company_settings.users:delete work_orders:view company_settings.manage_access:write company_settings.report_scheduler:write company_settings.users:edit masquerade:write company_settings.bes_notifications:write',
+  //     createdAt: moment().add(5, 'hours'),
+  //     iat: 1652997232,
+  //     exp: 1653083632
+  //   })
+  //
+  //   return res(
+  //     ctx.json({ access_token: token.value, token_type: 'Bearer', expires_in: 86399, refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRmTkFrbDU4OEh4RXVDVDMiLCJjbGllbnRJZCI6MSwidXNlcklkIjozNiwiY3JlYXRlZEF0IjoiMjAyMi0wNS0xOVQyMDoxNDoyMS45NjBaIiwiaWF0IjoxNjUyOTkxMjYxfQ.V3YHBDw22rOQOo2zFEPPxmygQyMgC82RdHvkaYyKkJQ' })
+  //   )
+  // }),
 
   rest.get(`${apiHost}/api/users/request-password-reset`, (req, res, ctx) => {
     return res(

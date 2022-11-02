@@ -5,7 +5,8 @@ import BackgroundSlider from 'react-background-slider'
 import { useSelector } from 'react-redux'
 
 /** Material UI **/
-import { Backdrop, Box, CircularProgress, CssBaseline, Grid, makeStyles, Typography } from '@material-ui/core'
+import { makeStyles } from '@mui/styles'
+import { Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography } from '@mui/material'
 
 /** Components **/
 import { SignInHeader } from './SignInHeader'

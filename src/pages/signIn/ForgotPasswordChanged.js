@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
-import { Grid, makeStyles, Typography } from '@material-ui/core'
+import { Grid, makeStyles, Typography } from '@mui/material'
 import { HighlightButton } from '../../styles/mui_custom_components'
 
 /** Components **/

@@ -8,7 +8,7 @@ import Routes from '../../Routes'
 import userEvent from '@testing-library/user-event'
 
 /** Material UI **/
-import { MuiThemeProvider } from '@material-ui/core'
+import { MuiThemeProvider } from '@mui/material'
 import customTheme from '../../styles/mui_theme'
 
 /** Components **/
