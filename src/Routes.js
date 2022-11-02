@@ -5,7 +5,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import SignIn from './pages/signIn/SignIn'
 
 const Routes = () => {
-    return (
+  return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">

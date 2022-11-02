@@ -3,11 +3,9 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import storage from 'redux-persist/lib/storage'
 
 import authReducer from './signIn'
-import sitesReducer from './sites'
 import filtersReducer from './filters'
 import loadingReducer from './loading'
 import serviceReducer from './requestService'
-import proposalsReducer from './proposals'
 
 const persistConfig = {
   key: 'root',
@@ -18,11 +16,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  sites: sitesReducer,
   filters: filtersReducer,
   loading: loadingReducer,
-  services: serviceReducer,
-  proposals: proposalsReducer
+  services: serviceReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

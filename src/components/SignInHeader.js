@@ -6,7 +6,7 @@ import React from 'react'
 import { Box, Grid, makeStyles } from '@material-ui/core'
 
 /** Images **/
-import bvLogo from '../assets/images/BVlogo.svg'
+import ftcLogo from '../assets/images/FTClogo.svg'
 
 const useStyles = makeStyles((theme) => ({
   headerBox: {
@@ -45,10 +45,10 @@ export const SignInHeader = () => {
 
   return (
     <Box p={5} className={classes.headerBox} >
-      <Grid container>
-        <Grid item xs className={classes.logoGrid} >
+      <Grid container justifyContent="center" alignItems="center" spacing={0} direction="column">
+        <Grid item xs className={classes.logoGrid}>
           <Link data-testid='bv-logo' to='/' >
-            <img className={classes.logo} height="44" src={bvLogo} />
+            <img className={classes.logo} height="42" src={ftcLogo} />
           </Link>
         </Grid>
         {/* TODO: Restyle language selector when needed (It's hidden until we decide to include it in the design) */}

@@ -9,12 +9,6 @@ import { contactUs } from './contactUs'
 import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
-import { sites } from './sites'
-import { companySettings } from './companySettings'
-import { accountSettings } from './accountSettings'
-import { workOrders } from './workOrders'
-import { completeRegistration } from './complete_registration'
-import { proposals } from './proposals'
 
 export const i18nEs = () => {
   return {
@@ -28,12 +22,6 @@ export const i18nEs = () => {
     contact_us_sent: contactUsSent(),
     nav_bar: navBar(),
     dashboard: dashboard(),
-    sites: sites(),
-    general: general(),
-    company_settings: companySettings(),
-    account_settings: accountSettings(),
-    work_orders: workOrders(),
-    complete_registration: completeRegistration(),
-    proposals: proposals()
+    general: general()
   }
 }
