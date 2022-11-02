@@ -6,7 +6,7 @@ unitTesting: &unitTesting
     script:
       - rm -Rf node_modules
       - npm install
-      # Perform tests here
+      # Add tests commands here
     caches:
       - node
 
