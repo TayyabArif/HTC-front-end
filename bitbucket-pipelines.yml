@@ -1,35 +1,74 @@
-# This is an example Starter pipeline configuration
-# Use a skeleton to build, test and deploy using manual and parallel steps
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:16.3.0-slim
 
-image: atlassian/default-image:3
+unitTesting: &unitTesting
+  step:
+    name: Perform tests
+    script:
+      - rm -Rf node_modules
+      - npm install
+      # Add tests commands here
+    caches:
+      - node
+
+deployCodeScript: &deployCodeScript
+  script:
+    - echo "Build, upload static code to S3 and invalidate cloudfront caches"
+    - npm install
+    - echo "Create ENV variables needed for test and build"
+    - export REACT_APP_FTC_OAUTH_SERVER_URL=${REACT_APP_FTC_OAUTH_SERVER_URL}
+    - export REACT_APP_FTC_API_SERVER_URL=${REACT_APP_FTC_API_SERVER_URL}
+    - export REACT_APP_FTC_CLIENT_ID=${REACT_APP_FTC_CLIENT_ID}
+    - export REACT_APP_FTC_CLIENT_SECRET=${REACT_APP_FTC_CLIENT_SECRET}
+    - npm run build
+    - echo "Upload Build to S3"
+    - pipe: atlassian/aws-s3-deploy:1.1.0
+      variables:
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+        S3_BUCKET: 'ftc-client-portal-deployments/${NODE_ENV}'
+        LOCAL_PATH: './build'
+        DELETE_FLAG: 'true'
+    - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+      variables:
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+        DISTRIBUTION_ID: ${AWS_CLOUDFRONT_DISTRIBUTION_ID}
 
 pipelines:
-  default:
-    - parallel:
+  pull-requests:
+    '**':
+      - <<: *unitTesting
       - step:
-          name: 'Build and Test'
-          script:
-            - echo "Your build and test goes here..."
+          name: Deploy to prestaging environment
+          deployment: prestaging
+          trigger: manual
+          services:
+            - docker
+          caches:
+            - docker
+          <<: *deployCodeScript
+    release/*:
+      - <<: *unitTesting
       - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
+          name: Deploy to staging environment
+          deployment: staging
+          trigger: manual
+          services:
+            - docker
+          caches:
+            - docker
+          <<: *deployCodeScript
+  tags:
+    '*':
+      - <<: *unitTesting
       - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
-
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Deployment to Staging'
-        deployment: staging
-        script:
-          - echo "Your deployment to staging script goes here..."
-    - step:
-        name: 'Deployment to Production'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - echo "Your deployment to production script goes here..."
+          name: Deploy to production environment
+          deployment: production
+          trigger: manual
+          services:
+            - docker
+          caches:
+            - docker
+          <<: *deployCodeScript
