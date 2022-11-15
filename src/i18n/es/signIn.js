@@ -10,6 +10,7 @@ export const signIn = () => {
     forgot_password: 'Olvidó su contraseña?',
     request_access: 'Solicitar Accesso',
     sign_in: 'Iniciar Sessión',
+    main_message: 'Administre todas sus ubicaciones, ejecute sus propios análisis y vea sus servicios en tiempo real.',
     messages: {
       wrong_user_password: 'Usuario o contraseña incorrectos. Por favor intente nuevamente.',
       terms_and_conditions: 'Al seleccionar el botón Iniciar sesión, acepto los Términos y Condiciones de FTC Client Portal.',

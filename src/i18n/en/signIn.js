@@ -10,6 +10,7 @@ export const signIn = () => {
     forgot_password: 'Forgot password?',
     request_access: 'Request Access',
     sign_in: 'Sign In',
+    main_message: 'Manage all your locations, run your own analytics, and view your services being performed in real-time.',
     messages: {
       wrong_user_password: 'Incorrect user or password. Please try again.',
       terms_and_conditions: 'By selecting the Sign In button, I accept the FTC Client Portal',

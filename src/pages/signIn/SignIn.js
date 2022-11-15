@@ -6,10 +6,7 @@ import React, { useState } from 'react'
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
 import { LockOutlined, PersonOutlineOutlined } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography } from '@mui/material'
-
-/** Components **/
-import { SignInContainer } from '../../components/SignInContainer'
+import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography, Container } from '@mui/material'
 
 /** Validations **/
 import { useForm } from 'react-hook-form'
@@ -19,11 +16,9 @@ import * as yup from 'yup'
 /** Images **/
 import googleIcon from '../../assets/icons/google.svg'
 import microsoftIcon from '../../assets/icons/microsoft.svg'
+import connectLogo from '../../assets/images/connect_logo.svg'
 
 const useStyles = makeStyles((theme) => ({
-  mainContainer: {
-    transform: 'scale(0.80)'
-  },
   mainItem: {
     maxWidth: '30em',
     [theme.breakpoints.down('md')]: {
@@ -31,9 +26,13 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '-50px'
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: '4em',
+      paddingTop: '180px',
       marginTop: '0px'
     }
+  },
+  connectIcon: {
+    width: '627px',
+    position: 'relative'
   },
   icon: {
     top: '-1px',
@@ -216,16 +215,14 @@ const SignIn = () => {
   }
 
   return (
-    <SignInContainer>
-      <div className={classes.mainContainer} >
+    <Container>
         <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
           <Grid className={classes.mainItem} item xs={12}>
             <Grid container justifyContent='center'>
-              <Grid item xs={12} >
-                <Typography align='center' className={classes.title} >
-                  {t('sign_in.title')}
-                </Typography>
-              </Grid>
+              <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo}/>
+              <Typography align={'center'} className={classes.signMessage}>
+                  {t('sign_in.main_message')}
+              </Typography>
             </Grid>
 
             {/* TODO: buttons not yet needed */}
@@ -353,8 +350,7 @@ const SignIn = () => {
             </Box>
           </Grid>
         </Grid>
-      </div>
-    </SignInContainer>
+    </Container>
   )
 }
 
