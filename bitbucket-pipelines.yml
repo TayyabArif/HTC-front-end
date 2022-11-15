@@ -1,4 +1,4 @@
-image: node:16.3.0-slim
+image: node:16.10.0-slim
 
 unitTesting: &unitTesting
   step:
@@ -26,7 +26,7 @@ deployCodeScript: &deployCodeScript
         AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
         AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
         AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-        S3_BUCKET: 'ftc-client-portal-deployments/${NODE_ENV}'
+        S3_BUCKET: 'ftc-client-portal-${NODE_ENV}-deployments'
         LOCAL_PATH: './build'
         DELETE_FLAG: 'true'
     - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
