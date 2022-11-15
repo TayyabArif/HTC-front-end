@@ -45,12 +45,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '20px'
     }
   },
-  subtitleGrid: {
-    maxWidth: '23em',
-    [theme.breakpoints.down('md')]: {
-      marginTop: '5px'
-    }
-  },
   link: {
     color: theme.palette.primary.main,
     textDecoration: 'none',
@@ -63,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '24px'
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '40px'
+      fontSize: '30px'
     }
   },
   emailField: {
@@ -176,12 +170,12 @@ const ForgotPassword = () => {
         <Grid className={classes.mainItem} item xs={12}>
 
           <Grid container justifyContent="center" alignItems="center">
-            <Grid item xs={12}>
-              <Typography align='center' className={classes.title} >
-                {t('forgot_password.title')}
+            <Grid item xs={12} textAlign="center">
+              <Typography variant="b" className={classes.title} >
+                {t('forgot_password.title').toUpperCase()}
               </Typography>
             </Grid>
-            <Grid className={classes.subtitleGrid} item xs={12}>
+            <Grid item xs={12} mt={3}>
               <Typography align='center' className={classes.subtitle} >
                 {t('forgot_password.subtitle_1')}
               </Typography>

@@ -1,7 +1,7 @@
 export const forgotPassword = () => {
   return {
-    title: 'Forgot Password?',
-    subtitle_1: 'Please enter the email address you’d like your password reset information sent to.',
+    title: 'Forgot Password',
+    subtitle_1: 'Please enter your email address to reset your password.',
     email: 'Email',
     send: 'Send',
     back_to_log_in: 'Back to login',

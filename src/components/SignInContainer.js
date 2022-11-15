@@ -74,12 +74,12 @@ export const SignInContainer = (props) => {
       <Grid container>
         <Grid item xs={3} md={8}></Grid>
         <Grid item md={1}>
-          <Typography component={'p'} className={classes.contactText}>
+          <Typography variant={'p'} className={ classes.contactText }>
             Contact us
           </Typography>
         </Grid>
         <Grid item md={1}>
-          <Typography component={'span'} align={'center'} className={classes.versionText}>
+          <Typography variant={'p'} align={'center'} className={classes.versionText}>
             &nbsp;v{pjson.version}
           </Typography>
         </Grid>
