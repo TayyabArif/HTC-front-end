@@ -10,7 +10,7 @@ import { authActions } from '../../store/signIn'
 /** Material UI **/
 import { EmailOutlined } from '@material-ui/icons'
 import { HighlightButton } from '../../styles/mui_custom_components'
-import { Box, Grid, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Box, Grid, InputAdornment, makeStyles, TextField, Typography } from '@mui/material'
 
 /** Validations **/
 import * as yup from 'yup'

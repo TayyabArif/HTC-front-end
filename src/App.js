@@ -1,7 +1,7 @@
 import React from 'react'
 import Routes from './Routes'
 import customTheme from './styles/mui_theme'
-import { MuiThemeProvider } from '@material-ui/core'
+import { ThemeProvider } from '@mui/material'
 import './assets/fonts/Roboto-Regular.woff2'
 
 function App () {
@@ -12,9 +12,9 @@ function App () {
   }
 
   return (
-    <MuiThemeProvider theme={customTheme}>
+    <ThemeProvider theme={customTheme}>
       <Routes/>
-    </MuiThemeProvider>
+    </ThemeProvider>
   )
 }
 

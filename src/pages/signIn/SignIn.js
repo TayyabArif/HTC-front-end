@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 
 /** Material UI **/
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
-import { LockOutlined, PersonOutlineOutlined } from '@material-ui/icons'
-import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core'
+import { LockOutlined, PersonOutlineOutlined } from '@mui/icons-material'
+import { makeStyles } from '@mui/styles'
+import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
@@ -333,12 +334,12 @@ const SignIn = () => {
 
               <Grid className={classes.buttons} container justifyContent='center' spacing={3}>
                 <Grid item xs={7} align="right" >
-                  <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} className={classes.requestButton} >
+                  <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
                     {t('sign_in.request_access')}
                   </BasicButton>
                 </Grid>
                 <Grid item xs={5}>
-                  <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' className={classes.signButton} >
+                  <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
                     {t('sign_in.sign_in')}
                   </HighlightButton>
                 </Grid>

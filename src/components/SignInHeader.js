@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 
 /** Material UI **/
-import { Box, Grid, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@mui/styles'
+import { Box, Grid } from '@mui/material'
 
 /** Images **/
 import ftcLogo from '../assets/images/FTClogo.svg'
