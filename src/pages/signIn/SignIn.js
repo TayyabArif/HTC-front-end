@@ -1,6 +1,6 @@
 import { Link, useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 /** Material UI **/
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
@@ -221,6 +221,15 @@ const SignIn = () => {
   const [showErrors, setShowErrors] = useState(false)
   const [rememberMe, setRemember] = useState(false)
 
+  useEffect(() => {
+    const authStore = store.getState().auth
+    console.log(authStore)
+    if (authStore.email) {
+      setEmail(authStore.email)
+      setRemember(true)
+    }
+  }, [])
+
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
     email: yup.string().required(t('general.messages.errors.required')),
@@ -235,8 +244,10 @@ const SignIn = () => {
     try {
       dispatch(loadingActions.show())
       await login(email, password)
+      console.log(rememberMe)
       if (rememberMe) {
-        dispatch(authActions.setRememberEmail(email))
+        console.log('seteo!!')
+        dispatch(authActions.setRemember(email))
       } else {
         const authStore = store.getState().auth
         if (authStore.email) {
