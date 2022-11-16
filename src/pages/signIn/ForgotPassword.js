@@ -8,8 +8,8 @@ import { loadingActions } from '../../store/loading'
 import { authActions } from '../../store/signIn'
 
 /** Material UI **/
-import { EmailOutlined } from '@mui/icons-material'
-import { HighlightButton } from '../../styles/mui_custom_components'
+import { ChevronLeft as ChevronLeftIcon, PersonOutline as PersonOutlineIcon } from '@mui/icons-material'
+import { RoundedButton } from '../../styles/mui_custom_components'
 import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   link: {
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.text,
     textDecoration: 'none',
     margin: 'auto',
     fontSize: '16px'
@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '20px',
     fontWeight: '400',
     '& .MuiOutlinedInput-root': {
+      borderRadius: '40px',
       '&.Mui-focused fieldset': {
         borderColor: theme.colors.inputBorder,
         borderWidth: '1px'
@@ -77,8 +78,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%'
     },
     [theme.breakpoints.up('md')]: {
-      width: '5em',
-      borderRadius: '0px 4px 4px 0px'
+      width: '5em'
     }
   },
   sendButtonBox: {
@@ -180,7 +180,7 @@ const ForgotPassword = () => {
                 {t('forgot_password.subtitle_1')}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={8}>
               <Box mt={4}>
                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
                   <Grid container justifyContent="center">
@@ -202,7 +202,7 @@ const ForgotPassword = () => {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <EmailOutlined/>
+                              <PersonOutlineIcon/>
                             </InputAdornment>
                           ),
                           classes: {
@@ -212,26 +212,31 @@ const ForgotPassword = () => {
                         onInput={handleEmailChange}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={12} md={2}>
+                  </Grid>
+                  <Grid container justifyContent="left">
+                    <Grid align={'left'} item>
+                      <Box pt={2} className={classes.linkBox}>
+                        <ChevronLeftIcon />
+                        <Link data-testid={'back_log_in'} className={classes.link} to="/sign-in" variant="body2">
+                          {t('forgot_password.back_to_log_in')}
+                        </Link>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                  <Grid container justifyContent="right">
+                    <Grid item xs={12} sm={12} md={3}>
                       <Grid container direction="column">
                         <Grid align={'center'} item>
                           <Box className={classes.sendButtonBox}>
-                            <HighlightButton
-                              data-testid={'submit_button'}
-                              disabled={!validateEmail(email)}
-                              className={classes.sendButton}
-                              type="submit"
-                              variant="contained"
+                            <RoundedButton
+                                data-testid={'submit_button'}
+                                disabled={!validateEmail(email)}
+                                className={classes.sendButton}
+                                type="submit"
+                                variant="contained"
                             >
                               {t('forgot_password.send')}
-                            </HighlightButton>
-                          </Box>
-                        </Grid>
-                        <Grid align={'center'} item>
-                          <Box pt={2} className={classes.linkBox}>
-                            <Link data-testid={'back_log_in'} className={classes.link} to="/sign-in" variant="body2">
-                              {t('forgot_password.back_to_log_in')}
-                            </Link>
+                            </RoundedButton>
                           </Box>
                         </Grid>
                       </Grid>
@@ -240,7 +245,6 @@ const ForgotPassword = () => {
                 </form>
               </Box>
             </Grid>
-
           </Grid>
         </Grid>
       </Grid>
