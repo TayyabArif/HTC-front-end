@@ -11,7 +11,7 @@ import { authActions } from '../store/signIn'
  * @type {ApisauceInstance}
  */
 const api = create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_FTC_OAUTH_SERVER_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'
