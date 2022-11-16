@@ -1,25 +1,28 @@
 import React from 'react'
 import { withStyles } from '@mui/styles'
-import Button from '@mui/material/Button'
-import { Fab, InputBase, Paper, Tab, Tabs } from '@mui/material'
+import { Fab, InputBase, Paper, Tab, Tabs, Button } from '@mui/material'
 
 export const BasicButton = withStyles((theme) => ({
   root: {
-    background: theme.colors.basicButtonBackground,
-    width: 'auto',
-    height: '71px',
+    background: `${theme.colors.basicButtonBackground} !important`,
+    color: `${theme.palette.primary.main} !important`,
     textTransform: 'unset !important',
     [theme.breakpoints.down('md')]: {
       borderRadius: '4px'
     },
     [theme.breakpoints.up('md')]: {
-      border: `1px solid ${theme.palette.primary.main}`,
-      borderRadius: '4px'
+      border: `1px solid ${theme.palette.primary.main} !important`,
+      borderRadius: '36px !important',
+      fontSize: '18px !important',
+      fontWeight: '700 !important',
+      height: '58px !important',
+      width: '209px !important'
     },
     paddingLeft: '15px',
     paddingRight: '15px',
     '& .MuiTouchRipple-root span': {
-      backgroundColor: theme.palette.primary.main
+      backgroundColor: `${theme.palette.primary.main} !important`,
+      color: `${theme.colors.basicButtonBackground} !important`
     }
   },
   contained: {
@@ -60,11 +63,14 @@ export const BasicSmallButton = withStyles((theme) => ({
 export const HighlightButton = withStyles((theme) => ({
   root: {
     background: theme.palette.primary.main,
-    width: 'auto',
-    height: '71px',
     textTransform: 'unset !important',
     paddingLeft: '35px',
-    paddingRight: '35px'
+    paddingRight: '35px',
+    borderRadius: '36px !important',
+    fontSize: '18px !important',
+    fontWeight: '700 !important',
+    height: '58px !important',
+    width: '135px !important'
   },
   contained: {
     boxShadow: '0 0 0 0'
@@ -112,17 +118,18 @@ export const MapCounter = withStyles({
 
 export const SignInButton = withStyles((theme) => ({
   root: {
-    background: theme.colors.signInButton.background,
-    height: '71px',
+    background: `${theme.colors.signInButton.background} !important`,
+    height: '71px !important',
     textTransform: 'unset !important',
-    paddingLeft: '35px',
-    paddingRight: '30px'
+    paddingLeft: '20px !important',
+    paddingRight: '20px !important',
+    color: `${theme.colors.signInButton.label} !important`
   },
   contained: {
     boxShadow: '0 0 0 0'
   },
   label: {
-    color: theme.colors.signInButton.label
+    color: `${theme.colors.signInButton.label} !important`
   }
 }))(Button)
 

@@ -17,8 +17,23 @@ import * as yup from 'yup'
 import googleIcon from '../../assets/icons/google.svg'
 import microsoftIcon from '../../assets/icons/microsoft.svg'
 import connectLogo from '../../assets/images/connect_logo.svg'
+import signinLogo from '../../assets/images/signin_logo.svg'
+
+/** Redux **/
+import { useDispatch } from 'react-redux'
+import { loadingActions } from '../../store/loading'
+import { authActions } from '../../store/signIn'
+import { store } from '../../store'
+
+/** Services **/
+import { login } from '../../services/AuthService'
 
 const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    margin: '0px !important',
+    padding: '0px !important',
+    maxWidth: '1980px !important'
+  },
   mainItem: {
     maxWidth: '30em',
     [theme.breakpoints.down('md')]: {
@@ -26,12 +41,17 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '-50px'
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: '180px',
+      paddingTop: '140px',
       marginTop: '0px'
     }
   },
+  signMessage: {
+    marginTop: '15px !important',
+    fontSize: '14px !important'
+  },
   connectIcon: {
     width: '627px',
+    margin: '0px auto',
     position: 'relative'
   },
   icon: {
@@ -74,17 +94,20 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   buttons: {
+    width: '560px !important',
+    margin: '0px auto',
     marginTop: theme.spacing(4)
   },
   link: {
     fontWeight: '400',
     color: theme.colors.text,
     textDecoration: 'none',
+    fontFamily: 'Rubik',
     [theme.breakpoints.down('md')]: {
       fontSize: '16px'
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
+      fontSize: '14px'
     }
   },
   linkBox: {
@@ -96,17 +119,17 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '16px'
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
+      fontSize: '14px !important'
     }
   },
   errorMessage: {
-    color: theme.colors.errorText,
-    fontWeight: '400',
-    fontSize: '15px'
+    color: `${theme.colors.errorText} !important`,
+    fontWeight: '300 !important',
+    fontSize: '14px !important'
   },
   terms: {
-    fontWeight: '400',
-    fontSize: '14px',
+    fontWeight: '300 !important',
+    fontSize: '12px !important',
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
@@ -119,9 +142,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none'
   },
   signWith: {
-    width: '100%',
-    fontSize: '20px',
-    padding: '6px 10px'
+    width: '100% !important',
+    fontSize: '20px !important',
+    padding: '6px 10px',
+    borderRadius: '15px !important'
   },
   signWithGrid: {
     width: '100%',
@@ -138,21 +162,24 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '15px'
     },
     [theme.breakpoints.up('md')]: {
-      marginTop: '40px'
+      width: '570px',
+      margin: '40px auto 0px auto',
+      paddingLeft: '3%'
     }
   },
   fields: {
     '& .MuiOutlinedInput-root': {
+      borderRadius: '36px',
+      fontSize: '14px',
+      height: '36px',
+      width: '560px',
       '&.Mui-focused fieldset': {
         borderColor: theme.colors.inputBorder,
         borderWidth: '1px'
       }
     },
-    [theme.breakpoints.down('md')]: {
-      margin: '0px 0px 8px 0px'
-    },
-    [theme.breakpoints.up('md')]: {
-      margin: '16px 0px 8px 0px'
+    '& .MuiFormControl-root': {
+      width: '530px'
     }
   },
   requestButton: {
@@ -170,10 +197,22 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '129px'
     }
+  },
+  rememberForgot: {
+    width: '560px !important',
+    margin: '0px auto'
+  },
+  signinIcon: {
+    width: '310px'
+  },
+  signDivider: {
+    margin: '40px auto !important',
+    width: '550px'
   }
 }))
 
 const SignIn = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
   const { t } = useTranslation()
   const classes = useStyles()
@@ -184,7 +223,7 @@ const SignIn = () => {
 
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
-    email: yup.string().required(t('general.messages.errors.required')).email(t('general.messages.errors.email')),
+    email: yup.string().required(t('general.messages.errors.required')),
     password: yup.string().required(t('general.messages.errors.required'))
   })
 
@@ -193,6 +232,24 @@ const SignIn = () => {
   })
 
   const onSubmit = async () => {
+    try {
+      dispatch(loadingActions.show())
+      await login(email, password)
+      if (rememberMe) {
+        dispatch(authActions.setRememberEmail(email))
+      } else {
+        const authStore = store.getState().auth
+        if (authStore.email) {
+          dispatch(authActions.removeRemember())
+        }
+      }
+      dispatch(loadingActions.hide())
+    } catch (error) {
+      if (error.code === 401 || error.code === 404 || error.code === 500) {
+        setShowErrors(true)
+      }
+      dispatch(loadingActions.hide())
+    }
   }
 
   const requestAccessClickHandler = (event) => {
@@ -215,51 +272,53 @@ const SignIn = () => {
   }
 
   return (
-    <Container>
-        <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
-          <Grid className={classes.mainItem} item xs={12}>
-            <Grid container justifyContent='center'>
-              <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo}/>
-              <Typography align={'center'} className={classes.signMessage}>
-                  {t('sign_in.main_message')}
-              </Typography>
-            </Grid>
-
-            {/* TODO: buttons not yet needed */}
-            <Box className={classes.boxSignWith} hidden={true} >
-              <Grid container justifyContent='center' alignItems='center' spacing={4} >
-                <Grid item sm={6} className={classes.signWithGrid}>
-                  <SignInButton
-                    fullWidth
-                    className={classes.signWith}
-                    type='button'
-                    variant='contained'
-                    startIcon={<img alt={'google'} className={classes.icon} src={googleIcon}/> }>
-                    {t('sign_in.sign_in_google')}
-                  </SignInButton>
-                </Grid>
-                <Grid item sm={6} className={classes.signWithGrid} >
-                  <SignInButton
-                    fullWidth
-                    className={classes.signWith}
-                    type='button'
-                    variant='contained'
-                    startIcon={<img alt={'microsoft'} className={classes.icon} src={microsoftIcon}/>}>
-                    {t('sign_in.sign_in_microsoft')}
-                  </SignInButton>
-                </Grid>
+    <Container fullWidth className={classes.mainContainer}>
+      <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
+        <Grid className={classes.mainItem} item xs={12}>
+          <Grid container justifyContent='center'>
+            <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo} />
+          </Grid>
+          <Grid container justifyContent='center'>
+            <Typography align={'center'} classes={{ root: classes.signMessage }}>
+              {t('sign_in.main_message')}
+            </Typography>
+          </Grid>
+          <Divider classes={{ root: classes.signDivider }} />
+          {/* TODO: buttons not yet needed */}
+          <Box className={classes.boxSignWith} hidden>
+            <Grid container spacing={4} >
+              <Grid item sm={5.8} className={classes.signWithGrid}>
+                <SignInButton
+                  fullWidth
+                  className={classes.signWith}
+                  type='button'
+                  variant='contained'
+                  startIcon={<img alt={'google'} className={classes.icon} src={googleIcon} />}>
+                  {t('sign_in.sign_in_google')}
+                </SignInButton>
               </Grid>
-            </Box>
+              <Grid item sm={6.2} className={classes.signWithGrid} >
+                <SignInButton
+                  fullWidth
+                  className={classes.signWith}
+                  type='button'
+                  variant='contained'
+                  startIcon={<img alt={'microsoft'} className={classes.icon} src={microsoftIcon} />}>
+                  {t('sign_in.sign_in_microsoft')}
+                </SignInButton>
+              </Grid>
+            </Grid>
+          </Box>
 
-            <Divider className={classes.divider} variant='inset'/>
+          <Divider className={classes.divider} variant='inset' />
 
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
                 classes={{ root: classes.fields }}
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 id='email'
                 placeholder={t('sign_in.email_address')}
                 name='email'
@@ -272,7 +331,7 @@ const SignIn = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
-                      <PersonOutlineOutlined/>
+                      <PersonOutlineOutlined style={{ fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                   classes: {
@@ -282,12 +341,13 @@ const SignIn = () => {
                 onInput={handleEmailChange}
                 value={email}
               />
+              </Box>
+              <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
                 classes={{ root: classes.fields }}
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='password'
                 placeholder={t('sign_in.password')}
                 type='password'
@@ -299,7 +359,7 @@ const SignIn = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
-                      <LockOutlined/>
+                      <LockOutlined style={{ fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                   classes: {
@@ -308,48 +368,51 @@ const SignIn = () => {
                 }}
                 onInput={handlePasswordChange}
               />
+            </Box>
+            <Box hidden={!showErrors} width="560px" margin="0px auto" >
+              <Typography align={'left'} className={classes.errorMessage}>
+                {t('sign_in.messages.wrong_user_password')}
+              </Typography>
+            </Box>
 
-              <Grid container>
-                <Grid item xs >
-                  <FormControlLabel classes={{ label: classes.rememberMe }} control={<Checkbox style={{ transform: 'scale(0.6)' }} checked={rememberMe} onChange={handleChangeRemember} color='primary'/>}
-                                    label={t('sign_in.remember_me')}/>
-                </Grid>
-                <Grid item>
-                  <Box className={classes.linkBox}>
-                    <Link data-testid='forgot_password' className={classes.link} to='/forgot-password' variant='body2'>
-                      {t('sign_in.forgot_password')}
-                    </Link>
-                  </Box>
-                </Grid>
+            <Grid container className={classes.rememberForgot}>
+              <Grid item xs >
+                <FormControlLabel classes={{ label: classes.rememberMe }} control={<Checkbox style={{ transform: 'scale(0.6)' }} checked={rememberMe} onChange={handleChangeRemember} color='primary' />}
+                  label={t('sign_in.remember_me')} />
               </Grid>
-
-              <Box hidden={!showErrors}>
-                <Typography align={'center'} className={classes.errorMessage}>
-                  {t('sign_in.messages.wrong_user_password')}
-                </Typography>
-              </Box>
-
-              <Grid className={classes.buttons} container justifyContent='center' spacing={3}>
-                <Grid item xs={7} align="right" >
-                  <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
-                    {t('sign_in.request_access')}
-                  </BasicButton>
-                </Grid>
-                <Grid item xs={5}>
-                  <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
-                    {t('sign_in.sign_in')}
-                  </HighlightButton>
-                </Grid>
+              <Grid item>
+                <Box className={classes.linkBox}>
+                  <Link data-testid='forgot_password' className={classes.link} to='/forgot-password' variant='body2'>
+                    {t('sign_in.forgot_password')}
+                  </Link>
+                </Box>
               </Grid>
-            </form>
+            </Grid>
 
             <Box textAlign='center' pt={2}>
               <Typography component={'span'} align={'center'} className={classes.terms}>
-                {t('sign_in.messages.terms_and_conditions')}<br/> <Link to={'FIX ME'} onClick={() => window.open(process.env.REACT_APP_CONDITIONS_URL, '_blank')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
+                {t('sign_in.messages.terms_and_conditions')} <Link to={'FIX ME'} onClick={() => window.open(process.env.REACT_APP_CONDITIONS_URL, '_blank')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
               </Typography>
             </Box>
-          </Grid>
+
+            <Grid className={classes.buttons} container justifyContent='center' >
+              <Grid item xs={7} >
+                <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
+                  {t('sign_in.request_access')}
+                </BasicButton>
+              </Grid>
+              <Grid item xs={5} textAlign={'end'}>
+                <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
+                  {t('sign_in.sign_in')}
+                </HighlightButton>
+              </Grid>
+            </Grid>
+          </form>
         </Grid>
+      </Grid>
+      <Box textAlign={'left'} marginLeft={'10%'}>
+        <img alt={'Connect AD Platform'} className={classes.signinIcon} src={signinLogo} />
+      </Box>
     </Container>
   )
 }

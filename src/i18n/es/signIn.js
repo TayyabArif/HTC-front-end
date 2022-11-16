@@ -4,7 +4,7 @@ export const signIn = () => {
     subtitle_1: 'Por favor inicie sesión con su correo empresarial',
     sign_in_google: 'Inicie sesión con Google',
     sign_in_microsoft: 'Inicie sesión con Microsoft',
-    email_address: 'Correo',
+    email_address: 'Correo o Usuario',
     password: 'Contraseña',
     remember_me: 'Recordarme',
     forgot_password: 'Olvidó su contraseña?',
@@ -12,9 +12,9 @@ export const signIn = () => {
     sign_in: 'Iniciar Sessión',
     main_message: 'Administre todas sus ubicaciones, ejecute sus propios análisis y vea sus servicios en tiempo real.',
     messages: {
-      wrong_user_password: 'Usuario o contraseña incorrectos. Por favor intente nuevamente.',
-      terms_and_conditions: 'Al seleccionar el botón Iniciar sesión, acepto los Términos y Condiciones de FTC Client Portal.',
-      terms_and_conditions_link: 'Términos y Condiciones.'
+      wrong_user_password: 'Las credenciales ingresadas son inválidas. Por favor intente nuevamente.',
+      terms_and_conditions: 'Al utilizar la plataforma ConnectAD, usted acepta los ',
+      terms_and_conditions_link: 'términos y condiciones.'
     },
     masquerade: {
       title: 'Máscara',
