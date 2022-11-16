@@ -28,6 +28,8 @@ import { store } from '../../store'
 /** Services **/
 import { login } from '../../services/AuthService'
 
+const pjson = require('../../../package.json')
+
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     margin: '0px !important',
@@ -111,7 +113,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   linkBox: {
-    paddingTop: '10px'
+    paddingTop: '10px',
+    paddingRight: '6px'
   },
   rememberMe: {
     fontWeight: '400',
@@ -129,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
   },
   terms: {
     fontWeight: '300 !important',
-    fontSize: '12px !important',
+    fontSize: '14px !important',
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
@@ -180,6 +183,11 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiFormControl-root': {
       width: '530px'
+    },
+    '& .MuiInputBase-root': {
+      '& input': {
+        WebkitBoxShadow: '0 0 0 1000px white inset'
+      }
     }
   },
   requestButton: {
@@ -208,6 +216,15 @@ const useStyles = makeStyles((theme) => ({
   signDivider: {
     margin: '40px auto !important',
     width: '550px'
+  },
+  contactUs: {
+    fontSize: '14px !important',
+    fontWeight: '400 !important',
+    marginTop: '5px !important'
+  },
+  version: {
+    fontSize: '20px !important',
+    fontWeight: 'normal !important'
   }
 }))
 
@@ -223,7 +240,6 @@ const SignIn = () => {
 
   useEffect(() => {
     const authStore = store.getState().auth
-    console.log(authStore)
     if (authStore.email) {
       setEmail(authStore.email)
       setRemember(true)
@@ -244,9 +260,7 @@ const SignIn = () => {
     try {
       dispatch(loadingActions.show())
       await login(email, password)
-      console.log(rememberMe)
       if (rememberMe) {
-        console.log('seteo!!')
         dispatch(authActions.setRemember(email))
       } else {
         const authStore = store.getState().auth
@@ -338,6 +352,12 @@ const SignIn = () => {
                 autoFocus
                 error={!!errors.email}
                 helperText={errors.email && errors.email.message}
+                FormHelperTextProps={{
+                  classes: {
+                    root: classes.errorMessage,
+                    error: classes.errorMessage
+                  }
+                }}
                 {...register('email')}
                 InputProps={{
                   startAdornment: (
@@ -363,9 +383,15 @@ const SignIn = () => {
                 placeholder={t('sign_in.password')}
                 type='password'
                 id='password'
-                autoComplete='current-password'
+                autoComplete='new-password'
                 error={!!errors.password}
                 helperText={errors.password && errors.password.message}
+                FormHelperTextProps={{
+                  classes: {
+                    root: classes.errorMessage,
+                    error: classes.errorMessage
+                  }
+                }}
                 {...register('password')}
                 InputProps={{
                   startAdornment: (
@@ -421,9 +447,20 @@ const SignIn = () => {
           </form>
         </Grid>
       </Grid>
-      <Box textAlign={'left'} marginLeft={'10%'}>
-        <img alt={'Connect AD Platform'} className={classes.signinIcon} src={signinLogo} />
-      </Box>
+      <Grid container>
+        <Grid item textAlign={'left'} marginLeft={'7%'} xs={2}>
+          <img alt={'Connect AD Platform'} className={classes.signinIcon} src={signinLogo} />
+        </Grid>
+        <Grid item xs={6} />
+        <Grid item textAlign={'right'} marginLeft="auto" marginTop="auto" display="flex" xs={2}>
+          <Typography align={'left'} className={classes.contactUs}>
+                {t('sign_in.contact_us')}&emsp;
+              </Typography>
+              <Typography align={'left'} className={classes.version}>
+                &emsp;V{pjson.version}
+              </Typography>
+        </Grid>
+      </Grid>
     </Container>
   )
 }
