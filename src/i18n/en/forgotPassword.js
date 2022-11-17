@@ -5,11 +5,10 @@ export const forgotPassword = () => {
     email: 'Enter email address',
     send: 'Submit',
     back_to_log_in: 'Back to Sign In',
-    email_not_found: 'Sorry, your email is not in our system',
+    email_not_found: 'The email entered is invalid, please try again',
     email_sent: {
-      title: 'Email Sent!',
-      subtitle_1: 'Thank you for submitting your request',
-      subtitle_2: 'Please check your email to continue the process',
+      title: 'Reset Password Sent!',
+      subtitle_1: 'A reset password email has been sent. Please check your spam/junk folder if you’re not receiving emails from the ConnectAD Platform.',
       log_in: 'Log In'
     }
   }

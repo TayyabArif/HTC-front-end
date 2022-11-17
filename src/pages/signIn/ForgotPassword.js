@@ -52,12 +52,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px'
   },
   title: {
-    fontWeight: '700',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '24px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '30px'
+    '&.MuiTypography-root': {
+      fontFamily: 'Rubik Bold',
+      lineHeight: '36px',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '24px'
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '30px'
+      }
     }
   },
   emailField: {
@@ -168,10 +171,9 @@ const ForgotPassword = () => {
         className={classes.gridContainer}
       >
         <Grid className={classes.mainItem} item xs={12}>
-
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12} textAlign="center">
-              <Typography variant="b" className={classes.title} >
+              <Typography className={classes.title} >
                 {t('forgot_password.title').toUpperCase()}
               </Typography>
             </Grid>

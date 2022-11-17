@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 import RubikRegular from '../assets/fonts/Rubik-Regular.ttf'
+import RubikBold from '../assets/fonts/Rubik-Bold.ttf'
+import RubikLight from '../assets/fonts/Rubik-Light.ttf'
 
 const customTheme = createTheme({
   breakpoints: {
@@ -204,6 +206,21 @@ const customTheme = createTheme({
           font-display: swap;
           font-weight: 400;
           src: local('Rubik'), local('Rubik'), url(${RubikRegular}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+        @font-face {
+          font-family: 'Rubik Bold';
+          font-style: bold;
+          font-display: swap;
+          font-weight: 700;
+          src: local('Rubik'), local('Rubik'), url(${RubikBold}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+        @font-face {
+          font-family: 'Rubik Light';
+          font-style: normal;
+          font-display: swap;
+          src: local('Rubik'), local('Rubik'), url(${RubikLight}) format('truetype');
           unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
         }
       `,

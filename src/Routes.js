@@ -8,6 +8,7 @@ import ForgotPassword from './pages/signIn/ForgotPassword'
 
 /** Redux **/
 import { useSelector } from 'react-redux'
+import ForgotPasswordEmailSent from './pages/signIn/ForgotPasswordEmailSent'
 
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
@@ -31,6 +32,9 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/forgot-password">
                     <ForgotPassword />
+                </Route>
+                <Route path='/forgot-password/sent'>
+                    <ForgotPasswordEmailSent/>
                 </Route>
                 <Route exact path="/sign-in">
                     <SignIn/>

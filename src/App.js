@@ -4,7 +4,6 @@ import customTheme from './styles/mui_theme'
 import { ThemeProvider } from '@mui/material'
 import './assets/fonts/Rubik-Regular.ttf'
 import './assets/fonts/Rubik-Bold.ttf'
-import './assets/fonts/Rubik-Italic.ttf'
 import './assets/fonts/Rubik-Light.ttf'
 
 function App () {

@@ -1,44 +1,43 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
-import { Grid, makeStyles, Typography } from '@mui/material'
-import { HighlightButton } from '../../styles/mui_custom_components'
+import { Box, Grid, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
-import { Box } from '@mui/material'
+import { ChevronLeft as ChevronLeftIcon } from '@mui/icons-material'
 
 const useStyles = makeStyles((theme) => ({
-  mainGrid: {
-    minHeight: '70vh',
-    transform: 'scale(0.80)'
-  },
   title: {
-    fontWeight: '700',
-    fontSize: '40px'
+    '&.MuiTypography-root': {
+      fontFamily: 'Rubik Bold',
+      fontWeight: '700',
+      fontSize: '30px'
+    }
   },
   subtitle: {
-    fontWeight: '400',
-    fontSize: '20px'
+    '&.MuiTypography-root': {
+      fontWeight: '400',
+      fontSize: '14px',
+      lineHeight: '17px'
+    }
   },
-  buttons: {
-    marginTop: theme.spacing(4)
+  linkBox: {
+    width: 'max-content',
+    display: 'flex'
   },
-  buttonLog: {
-    width: '100%'
+  link: {
+    color: theme.palette.primary.text,
+    textDecoration: 'none',
+    margin: 'auto',
+    fontSize: '14px'
   }
 }))
 
 const ForgotPasswordEmailSent = () => {
-  const history = useHistory()
-
-  const logInClickHandler = (event) => {
-    event.preventDefault()
-    history.push('/sign-in')
-  }
-
   const { t } = useTranslation()
   const classes = useStyles()
 
@@ -46,46 +45,31 @@ const ForgotPasswordEmailSent = () => {
     <SignInContainer>
       <Grid
         data-testid={'forgot_password_sent'}
-        className={classes.mainGrid}
         container
-        spacing={0}
-        direction="column"
         alignItems="center"
         justifyContent="center"
       >
-
-        <Grid item xs={12}>
-
-          <Grid container justifyContent='center' alignItems='center'>
-
-            <Grid item xs={12}>
-              <Typography align='center' className={classes.title} component="h4" variant="h4">
-                {t('forgot_password.email_sent.title')}
+        <Grid item xs={12} md={6}>
+          <Grid container justifyContent="center">
+            <Grid item xs={12} mt={20} textAlign="center">
+              <Typography align='center' className={classes.title}>
+                {t('forgot_password.email_sent.title').toUpperCase()}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography align='center' className={classes.subtitle} component="h2" variant="subtitle1">
+            <Grid item xs={12} textAlign="center">
+              <Typography align='center' className={classes.subtitle}>
                 {t('forgot_password.email_sent.subtitle_1')}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Box pt={2}>
-                <Typography align='center' className={classes.subtitle} component="h2" variant="subtitle2">
-                  {t('forgot_password.email_sent.subtitle_2')}
-                </Typography>
+          </Grid>
+          <Grid container justifyContent="left">
+            <Grid align={'left'} item mb={10}>
+              <Box pt={2} className={classes.linkBox}>
+                <ChevronLeftIcon />
+                <Link data-testid={'back_log_in'} className={classes.link} to="/sign-in" variant="body2">
+                  {t('forgot_password.back_to_log_in')}
+                </Link>
               </Box>
-            </Grid>
-
-            <Grid className={classes.buttons} container justifyContent="center" spacing={3}>
-                <HighlightButton
-                  data-testid={'log_in'}
-                  type="button"
-                  variant="contained"
-                  onClick={logInClickHandler}
-                  className={classes.buttonLog}
-                >
-                  {t('forgot_password.email_sent.log_in')}
-                </HighlightButton>
             </Grid>
           </Grid>
         </Grid>
