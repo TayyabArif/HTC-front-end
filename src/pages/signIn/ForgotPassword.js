@@ -134,7 +134,10 @@ const ForgotPassword = () => {
     dispatch(loadingActions.show())
     try {
       const response = await requestResetPassword(email)
+      console.log(response)
       if (response && response.status) {
+        dispatch(loadingActions.hide())
+      } else {
         ReactGA.event({
           category: 'request',
           action: 'forgot_password_request'
@@ -142,8 +145,6 @@ const ForgotPassword = () => {
         dispatch(authActions.setChangedEmail(email))
         dispatch(loadingActions.hide())
         history.replace('/forgot-password/sent')
-      } else {
-        dispatch(loadingActions.hide())
       }
     } catch (error) {
       dispatch(loadingActions.hide())
