@@ -35,14 +35,14 @@ export const login = async (username, password, redirect = '/work-orders') => {
     )
 
     // uncomment to redirect
-    /* store.dispatch(
+    store.dispatch(
       authActions.setRedirect({
         redirect: redirect
       })
     )
     setTimeout(() => {
       store.dispatch(authActions.resetRedirect({}))
-    }, 1000) */
+    }, 1000)
   } catch (e) {
     console.error(e)
     throw e

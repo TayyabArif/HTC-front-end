@@ -8,6 +8,8 @@ export const navBar = () => {
     access_tab: {
       submit: 'Submit',
       error_message: 'Your service request could not be sent, please try again.'
-    }
+    },
+    work_orders: 'Work Orders',
+    locations: 'Locations'
   }
 }
