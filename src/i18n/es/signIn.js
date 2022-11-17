@@ -13,7 +13,7 @@ export const signIn = () => {
     main_message: 'Administre todas sus ubicaciones, ejecute sus propios análisis y vea sus servicios en tiempo real.',
     contact_us: 'Contáctenos',
     messages: {
-      wrong_user_password: 'Las credenciales ingresadas son inválidas. Por favor intente nuevamente.',
+      wrong_user_password: 'Usuario o contraseña incorrectas. Por favor intente nuevamente.',
       terms_and_conditions: 'Al utilizar la plataforma ConnectAD, usted acepta los ',
       terms_and_conditions_link: 'términos y condiciones.'
     },
