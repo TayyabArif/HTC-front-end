@@ -14,111 +14,19 @@ import {
   Menu,
   MenuItem
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { StyledNavTab, StyledNavTabs } from '../styles/mui_custom_components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /** Services **/
 import { removeAuthorizationHeader } from '../lib/Api'
-import { navBarHeaderHeight } from '../lib/Constants'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '&.Mui-disabled': {
-      backgroundColor: 'transparent !important'
-    }
-  },
-  disabled: {
-    backgroundColor: 'transparent'
-  },
-  menu: {
-    borderRadius: '0px',
-    height: navBarHeaderHeight,
-    '&:hover': {
-      backgroundColor: 'transparent'
-    }
-  },
-  title: {
-    fontSize: '18px',
-    fontWeight: '700',
-    alignSelf: 'center'
-  },
-  menuItem: {
-    fontSize: '12px'
-  },
-  menuIcon: {
-    height: '23px',
-    color: theme.colors.text
-  },
-  navBar: {
-    backgroundColor: theme.colors.navBarColor,
-    height: navBarHeaderHeight,
-    position: 'fixed',
-    top: '0px',
-    left: '0px',
-    width: '100%',
-    zIndex: 1000
-  },
-  icon: {
-    color: theme.colors.settings.fieldInfo,
-    textAlign: 'center',
-    width: '50px',
-    height: '22px',
-    marginLeft: '8px'
-  },
-  yesClient: {
-    color: theme.palette.primary.light,
-    fontWeight: '500',
-    fontSize: '20px'
-  },
-  noClient: {
-    color: theme.colors.settings.fieldInfo,
-    fontWeight: '500',
-    fontSize: '20px'
-  },
-  bvLabel: {
-    color: theme.colors.basicDisabledButtonColor,
-    fontWeight: '500',
-    fontSize: '14px'
-  },
-  flexDiv: {
-    display: 'flex'
-  },
-  alertIcon: {
-    width: '20px'
-  },
-  alert: {
-    width: '100%'
-  },
-  alertTypo: {
-    fontSize: '16px',
-    color: theme.palette.primary.contrastText,
-    fontWeight: 'bold',
-    width: '100%',
-    display: 'flex'
-  },
-  snackbar: {
-    width: '100%',
-    padding: '0px 50px'
-  },
-  logoImage: {
-    width: '170px',
-    height: navBarHeaderHeight,
-    padding: '12px 0',
-    objectFit: 'contain'
-  },
-  finalGrid: {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  header: {
-    height: navBarHeaderHeight,
-    display: 'flex',
-    flexDirection: 'row'
-  }
-}))
+/** Icons */
+import GridIcon from '../assets/icons/grid_icon.svg'
+
+/** Styles */
+import { navBarStyles } from '../styles/classes/CommonClasses'
 
 export const NavBar = () => {
+  const classes = navBarStyles()
   const userStore = useSelector(state => state.auth.user)
   const dispatch = useDispatch()
 
@@ -153,8 +61,6 @@ export const NavBar = () => {
     history.replace('/')
   }
 
-  const classes = useStyles()
-
   return (
     <Box pl={3} pr={3} className={classes.navBar}>
       <Grid container className={classes.header}>
@@ -173,7 +79,7 @@ export const NavBar = () => {
                     iconPosition="end"
                   />
                   <StyledNavTab
-                    value={'/refreshpage'}
+                    value={'/locations'}
                     label={t('nav_bar.locations')}
                   />
                 <StyledNavTab
@@ -208,10 +114,7 @@ export const NavBar = () => {
             color="inherit"
             disableRipple
           >
-            <FontAwesomeIcon
-              icon={['fal', 'grid']}
-              className={classes.menuIcon}
-            />
+            <img src={GridIcon} className={classes.menuIcon} />
           </IconButton>
         </Grid>
       </Grid>

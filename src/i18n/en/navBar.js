@@ -10,6 +10,8 @@ export const navBar = () => {
       error_message: 'Your service request could not be sent, please try again.'
     },
     work_orders: 'Work Orders',
-    locations: 'Locations'
+    locations: 'Locations',
+    account_settings: 'Account Settings',
+    company_settings: 'Company Settings'
   }
 }

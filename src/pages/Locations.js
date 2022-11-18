@@ -6,7 +6,7 @@ import { Container } from '@mui/material'
 const WorkOrders = (props) => {
   return (
     <Container>
-      WORK ORDERS
+        LOCATIONS
     </Container>
   )
 }

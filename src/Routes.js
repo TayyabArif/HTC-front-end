@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux'
 import { MainContainer } from './components/MainContainer'
 import Dashboard from './pages/Dashboard'
 import WorkOrders from './pages/WorkOrders'
+import Locations from './pages/Locations'
+import CompanySettings from './pages/CompanySettings'
 
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
@@ -19,9 +21,9 @@ const Routes = () => {
 
   if (token && user) {
     return (
-      <MainContainer>
-        <BrowserRouter>
-          <Switch>
+      <BrowserRouter>
+        <Switch>
+          <MainContainer>
             <Route exact path="/">
               <Redirect
                 to={redirect?.redirect ? redirect.redirect : '/work-orders'}
@@ -33,9 +35,18 @@ const Routes = () => {
             <Route exact path="/work-orders">
               <WorkOrders />
             </Route>
-          </Switch>
-        </BrowserRouter>
-      </MainContainer>
+            <Route exact path="/locations">
+              <Locations />
+            </Route>
+            <Route exact path="/company-settings">
+              <CompanySettings />
+            </Route>
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
+          </MainContainer>
+        </Switch>
+      </BrowserRouter>
     )
   } else {
     return (
@@ -46,6 +57,9 @@ const Routes = () => {
           </Route>
           <Route exact path="/sign-in">
             <SignIn />
+          </Route>
+          <Route path="*">
+            <Redirect to="/sign-in" />
           </Route>
         </Switch>
       </BrowserRouter>)
