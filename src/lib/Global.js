@@ -24,3 +24,16 @@ export const validateEmail = (email) => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(email)
 }
+
+/**
+ *
+ * @param {Array} zipCodesList array of zip codes object
+ * @returns The number of selected zip codes
+ */
+ export const getSelectedZiCodesNumber = zipCodesList => {
+  let zipCodesLength = 0
+  for (const item of zipCodesList) {
+    if (item.selected) zipCodesLength++
+  }
+  return zipCodesLength
+}

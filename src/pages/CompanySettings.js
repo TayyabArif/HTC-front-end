@@ -8,7 +8,6 @@ import {
   updateCompany,
   uploadCompanyFile
 } from '../services/ApiService'
-import { getRoles } from '../lib/Api'
 
 import { RolesCard } from '../components/companySettings/RolesCard'
 import { UsersCard } from '../components/companySettings/UsersCard'
@@ -27,29 +26,20 @@ import {
   DialogActions,
   DialogTitle,
   DialogContentText
-} from '@material-ui/core'
+} from '@mui/material'
 import { useSelector } from 'react-redux'
-import { ProfileInfoCard } from '../components/companysettings/ProfileInfoCard'
-import { TradesServicesCard } from '../components/companysettings/TradesServicesCard'
+import { ProfileInfoCard } from '../components/companySettings/ProfileInfoCard'
+import { TradesServicesCard } from '../components/companySettings/TradesServicesCard'
 import { cloneDeep } from 'lodash'
 import { CompanyProfileComponent } from '../components/companyprofile/CompanyProfileComponent'
 import { InsuranceComponent } from '../components/companyprofile/InsuranceComponent'
 import { ClientsComponent } from '../components/companyprofile/ClientsComponent'
-import { ServiceComponent } from '../components/companyprofile/ServiceComponent'
 import {
   getBase64,
   getSelectedZiCodesNumber,
-  parseMapPin,
   profileMandatoryValidation,
   validateEmail
 } from '../lib/Global'
-import {
-  callLocationApi,
-  callZipApi,
-  parsePolygonList,
-  parseStateList,
-  parseZipList
-} from '../services/ApiLocationService'
 import { maxFileSize } from '../lib/Constants'
 
 const useStyles = makeStyles(theme => ({
@@ -169,11 +159,6 @@ const CompanySettings = props => {
   const [ftcUsers, setFtcUsers] = useState([])
   const [mobileUsers, setMobileUsers] = useState([])
   const [compliance, setCompliance] = useState('')
-  // Map components
-  const [markers, setMarkers] = useState([])
-  const [paths, setPaths] = useState([])
-  const [initialPosition, setInitialPosition] = useState()
-  const [centerRadius, setCenterRadius] = useState(null)
   const [open, setOpen] = useState(false)
   const [openConfirm, setOpenConfirm] = useState(false)
   const [logoData, setLogoData] = useState()
@@ -244,37 +229,9 @@ const CompanySettings = props => {
   }, [company])
 
   const loadAsyncStates = async () => {
-    const countries = company?.country?.length
-    let statesArray = []
-    if (countries === 1) {
-      const statesData = await callLocationApi('POST', '/states', {
-        country: company?.country[0]
-      })
-      if (statesData?.data?.states) {
-        statesArray = parseStateList(statesData?.data?.states)
-      }
-    } else if (countries > 1) {
-      const newCountries = [...company.country]
-      const index = newCountries.indexOf('Mexico')
-      if (index > -1) newCountries.splice(newCountries.indexOf('Mexico'), 1)
-      newCountries.forEach(async element => {
-        const statesData = await callLocationApi('POST', '/states', {
-          country: element
-        })
-        statesArray.push(...parseStateList(statesData?.data?.states))
-      })
-    }
-    return statesArray
   }
 
   const updateRoles = async () => {
-    try {
-      const response = await getRoles(userStore.userInfo.company_id)
-      setRoles(response)
-    } catch (error) {
-      console.error(error)
-      setRoles([])
-    }
   }
 
   const updateUsers = async () => {
@@ -296,60 +253,6 @@ const CompanySettings = props => {
   }
 
   const parseDataToMapView = async serviceAreaSelected => {
-    const selectionZipArray = cloneDeep(serviceAreaSelected.zip)
-    if (!selectionZipArray?.length) return
-    if (serviceAreaSelected.radius) {
-      setCenterRadius({
-        lat: serviceAreaSelected.lat,
-        lng: serviceAreaSelected.lng,
-        radius: ~~serviceAreaSelected.radius
-      })
-    }
-    const cities = selectionZipArray
-    const markList = parseMapPin(cities)
-    setMarkers(markList)
-
-    findCenter(markList)
-    // zip id list to query polygons
-    const zipIds = []
-    markList?.map(async marker => {
-      zipIds.push(marker.id)
-    })
-    // query polygon data for selected area
-    const zipResponse = await callZipApi('POST', '/areas/', {
-      zipId: JSON.stringify(zipIds)
-    })
-    const pathList = []
-    // parse pathlist from response
-    pathList.push(parsePolygonList(zipResponse))
-    setPaths(pathList)
-  }
-
-  const [zoom, setZoom] = useState()
-  const findCenter = markers => {
-    let minLat = 90
-    let maxLat = -90
-    let minLng = 180
-    let maxLng = -180
-    markers?.forEach(mark => {
-      if (mark.lat < minLat) minLat = mark.lat
-      if (mark.lat > maxLat) maxLat = mark.lat
-      if (mark.lng < minLng) minLng = mark.lng
-      if (mark.lng > maxLng) maxLng = mark.lng
-    })
-    const mapCenter = {
-      lat: minLat + (maxLat - minLat) / 2,
-      lng: minLng + (maxLng - minLng) / 2
-    }
-    const coordDiff = Math.abs(maxLat - minLat) + Math.abs(maxLng - minLng)
-    let zoomCalc
-    if (coordDiff < 1) zoomCalc = 9
-    else if (coordDiff < 2) zoomCalc = 8
-    else if (coordDiff < 4) zoomCalc = 7
-    else zoomCalc = 6
-
-    setZoom(zoomCalc)
-    setInitialPosition(mapCenter)
   }
 
   const handleClose = () => {
@@ -370,50 +273,6 @@ const CompanySettings = props => {
   }
 
   const getZipCodesFiltered = async serviceArea => {
-    const { state_code, city, radius, lat, lng, unselected } = serviceArea
-    let zip = []
-    if (radius && lat && lng) {
-      zip = await callZipApi('GET', `/radius/${radius}/${lat}/${lng}`)
-    } else {
-      if (city?.includes('All Cities')) {
-        zip = await callZipApi('GET', `/state/${state_code}`)
-      } else {
-        zip =
-          (await callZipApi('POST', `/cities/state/${state_code}`, {
-            cities: JSON.stringify(city)
-          })) ?? []
-        if (zip?.length) {
-          zip = zip?.filter(
-            item =>
-              item._source?.state === state_code &&
-              city.includes(item._source?.primary_city) &&
-              item._score > 8
-          )
-        }
-      }
-    }
-    zip = parseZipList(zip)
-    if (unselected) {
-      zip = filterUnselectedZipCodes(zip, unselected)
-    }
-    return zip
-  }
-
-  const filterUnselectedZipCodes = (zipCodeList, unselected) => {
-    if (!zipCodeList?.length) return []
-    const { cities, zip, county } = unselected
-    const newZipList = []
-    for (const item of zipCodeList) {
-      if (
-        cities?.includes(item.city) ||
-        zip?.includes(item.zip) ||
-        county?.includes(item.county)
-      ) {
-        item.selected = false
-      }
-      newZipList.push(item)
-    }
-    return newZipList
   }
 
   const handleSave = async () => {
@@ -462,7 +321,7 @@ const CompanySettings = props => {
     }
   }
 
-  function editComponent(targetComponent) {
+  function editComponent (targetComponent) {
     switch (targetComponent) {
       case 'profile':
         return (
@@ -492,10 +351,6 @@ const CompanySettings = props => {
       case 'trades':
         return (
           <ClientsComponent profile={company} handleChange={handleChange} />
-        )
-      case 'service':
-        return (
-          <ServiceComponent profile={company} handleChange={handleChange} />
         )
       default:
         break
@@ -592,7 +447,7 @@ const CompanySettings = props => {
     }
   }
 
-  function equalObjects(object1, object2) {
+  function equalObjects (object1, object2) {
     if (!object1 || !object2) return
     const keys1 = Object.keys(object1)
     const keys2 = Object.keys(object2)
@@ -612,7 +467,7 @@ const CompanySettings = props => {
     }
     return true
   }
-  function isObject(object) {
+  function isObject (object) {
     return object != null && typeof object === 'object'
   }
 
@@ -922,9 +777,9 @@ const CompanySettings = props => {
           >
             {logoError
               ? t('company_profile.error.file_size').replace(
-                  '$size$',
-                  maxFileSize
-                )
+                '$size$',
+                maxFileSize
+              )
               : t('company_settings.card.update_question')}
           </DialogContentText>
         </DialogContent>
@@ -932,13 +787,15 @@ const CompanySettings = props => {
           <Button onClick={handleClose}>
             {t('company_settings.card.cancel')}
           </Button>
-          {logoError ? (
-            ''
-          ) : (
+          {logoError
+            ? (
+                ''
+              )
+            : (
             <Button onClick={updateProfileLogo} autoFocus>
               {t('company_settings.card.save')}
             </Button>
-          )}
+              )}
         </DialogActions>
       </Dialog>
     </Container>
