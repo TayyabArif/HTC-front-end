@@ -76,14 +76,14 @@ export const userHasAuthorization = scopes => {
   const request = scopes.split(':')
   const authStore = store.getState().auth
   const allowedScopes = authStore.user?.userInfo?.scopes
-  let requestedScope
   if (request && request.length) {
-    requestedScope = allowedScopes?.permissions[request[0]]
+    const requestedScope = allowedScopes?.permissions[request[0]]
+    if (requestedScope && requestedScope[request[1]]) {
+      return true
+    }
   }
 
-  if (requestedScope && requestedScope[request[1]]) {
-    return true
-  }
+  
   return false
 }
 
