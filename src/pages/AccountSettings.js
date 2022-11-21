@@ -17,11 +17,11 @@ const useStyles = makeStyles(theme => ({
     height: '400px'
   },
   title: {
+    fontFamily: 'Rubik',
     display: 'flex',
-    fontSize: '20px',
     color: theme.colors.white,
-    padding: '24px 0px 32px 62px',
-    fontWeight: '700'
+    padding: '24px 0px 32px 62px'
+
   },
   titleBackground: {
     top: 0,
@@ -38,14 +38,17 @@ const useStyles = makeStyles(theme => ({
 const AccountSettings = () => {
   const { t } = useTranslation()
   const classes = useStyles()
+  const titleStyle = {
+    fontWeight: 'bold'
+  }
 
   return (
         <MainContainer>
             <Container className={classes.container} maxWidth={false} disableGutters>
                 <Box className={classes.titleBackground}></Box>
                 <Box display="flex" flexDirection="row">
-                    <Typography className={classes.title}>
-                        {t('account_settings.title').toUpperCase()}
+                    <Typography className={classes.title} variant="h4" sx={titleStyle}>
+                        {t('account_settings.title')}
                     </Typography>
                 </Box>
                 <Grid container>
