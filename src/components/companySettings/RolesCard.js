@@ -5,7 +5,6 @@ import { AccessPanel } from './AccessPanel'
 
 // mui components
 import {
-  makeStyles,
   Typography,
   Card,
   CardContent,
@@ -19,47 +18,11 @@ import * as ApiServices from '../../services/ApiService'
 import { userHasAuthorization } from '../../services/AuthService'
 import ReactGA from 'react-ga4'
 import GlobalChip from '../form/Chip'
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    borderRadius: '8px',
-    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    borderBottom: `1px solid ${theme.colors.disabledField}`
-  },
-  title: {
-    fontSize: '20px',
-    margin: '23px 0px 22px 20px',
-    fontStyle: 'normal',
-    fontWeight: '900',
-    lineHeight: '23px',
-    color: theme.colors.company.title
-  },
-  actions: {
-    display: 'flex',
-    padding: '0px 0px'
-  },
-  addButton: {
-    marginLeft: 'auto',
-    marginRight: '12px',
-    color: theme.palette.primary.light
-  },
-  content: {
-    padding: '0px 20px 30px 20px'
-  },
-  itemDivider: {
-    borderBottom: '1px solid ' + theme.colors.grey_2
-  },
-  roleItem: {
-    fontSize: '16px',
-    fontWeight: 600,
-    paddingBottom: '2em',
-    minWidth: '10em'
-  }
-}))
+import { rolesCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const RolesCard = props => {
   const { roles, updateRoles } = props
-  const classes = useStyles()
+  const classes = rolesCardStyles()
   const { t } = useTranslation()
 
   const [openPanel, setOpenPanel] = useState(false)

@@ -4,8 +4,8 @@ import { navBarHeaderHeight } from '../../lib/Constants'
 
 export const mainContainerStyles = makeStyles(theme => ({
   scrollContainer: {
-    margin: '0px',
-    padding: '0px',
+    margin: '0px !important',
+    padding: '0px !important',
     maxWidth: '100%',
     maxHeight: '100%',
     overflowY: 'auto'

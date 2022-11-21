@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 
 // mui components
 import {
-  makeStyles,
   Container,
   Typography,
   Avatar,
@@ -19,102 +18,10 @@ import GlobalSelect from '../form/Select'
 import { YesNoQuestion } from '../form/YesNoQuestion'
 import GlobalLaborHours from '../form/LaborHours'
 import GlobalAddressInput from '../form/AddressInput'
-
-const useStyles = makeStyles(theme => ({
-  infoContainer: {
-    fontSize: '14px',
-    fontWeight: '600',
-    paddingTop: '24px'
-  },
-  itemContainer: {
-    padding: '24px 80px 0px 80px',
-    [theme.breakpoints.down('md')]: {
-      padding: '24px 0 0 0'
-    }
-  },
-  title: {
-    fontSize: '20px',
-    fontWeight: '700',
-    color: theme.colors.black,
-    lineHeight: '24px',
-    letterSpacing: '0.05em'
-  },
-  subtitle: {
-    fontSize: '14px',
-    fontWeight: '300',
-    lineHeight: '17px',
-    color: theme.colors.black,
-    paddingTop: '9px'
-  },
-  avatar: {
-    width: '200px',
-    height: '200px',
-    '&.MuiAvatar-img': {
-      objectFit: 'contain'
-    }
-  },
-  emptyAvatar: {
-    width: '200px',
-    height: '200px',
-    background: theme.colors.profile.avatar_bg,
-    color: theme.colors.profile.avatar_icon
-  },
-  errorAvatar: {
-    width: '200px',
-    height: '200px',
-    background: theme.colors.profile.avatar_bg,
-    color: theme.colors.errorColor,
-    border: '1px dashed ' + theme.colors.errorColor
-  },
-  uploadButton: {
-    background: theme.colors.grey_2,
-    color: theme.colors.profile.text_grey,
-    textTransform: 'none',
-    fontSize: '12px',
-    fontWeight: '400',
-    borderRadius: '100px',
-    width: '13em',
-    height: '36px',
-    boxShadow: 'none',
-    marginLeft: '3em'
-  },
-  labels: {
-    fontSize: '16px',
-    color: theme.colors.grey,
-    paddingBottom: '7px'
-  },
-  outlinedInput: {
-    borderRadius: '50px',
-    width: '100%',
-    height: '36px',
-    fontSize: '12px',
-    color: theme.colors.profile.text_grey
-  },
-  formContainer: {
-    gap: '4em',
-    margin: '2em 6em 0 6em',
-    [theme.breakpoints.down('md')]: {
-      margin: '2em 0 0 0',
-      flexDirection: 'column'
-    }
-  },
-  headerContainer: {
-    gap: '1em',
-    margin: '2em 6em 0 6em',
-    [theme.breakpoints.down('md')]: {
-      margin: '2em 0 0 0'
-    }
-  },
-  error: {
-    marginLeft: '5px',
-    marginTop: '0.5em',
-    fontSize: '12px',
-    color: theme.colors.errorText
-  }
-}))
+import { companyProfileStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const CompanyProfileComponent = props => {
-  const classes = useStyles()
+  const classes = companyProfileStyles()
   const { t } = useTranslation()
   const { profile, handleChange, handleImageChange, setValidHours } = props
   const [address, setAddress] = useState()
@@ -195,7 +102,8 @@ export const CompanyProfileComponent = props => {
           </Typography>
         </Grid>
       </Grid>
-      {props.showLogo ? (
+      {props.showLogo
+        ? (
         <Box display="flex" className={classes.headerContainer}>
           <Box flex={1} display="flex" alignItems="center">
             {props.logoError && (
@@ -235,9 +143,10 @@ export const CompanyProfileComponent = props => {
             </Button>
           </Box>
         </Box>
-      ) : (
-        ''
-      )}
+          )
+        : (
+            ''
+          )}
       <Box display="flex" className={classes.formContainer}>
         <Box flex={1}>
           <GlobalInput

@@ -2,39 +2,13 @@
 import React, { useEffect, useState } from 'react'
 
 /** Material UI **/
-import { Box, Chip, makeStyles } from '@mui/material'
+import { Box, Chip } from '@mui/material'
 import GlobalInput from './TextInput'
 import { useTranslation } from 'react-i18next'
+import { chipStyles } from '../../styles/classes/FormClasses'
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  chipContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '0.5em',
-    paddingTop: '1em'
-  },
-  chip: {
-    fontSize: '12px',
-    fontWeight: '400',
-    padding: '16px 0px',
-    lineHeight: '14px'
-  },
-  chipSelected: {
-    fontSize: '12px',
-    fontWeight: '400',
-    backgroundColor: theme.colors.iconBlue + ' !important',
-    color: 'white',
-    border: '1px solid ' + theme.colors.iconBlue,
-    padding: '16px 0px',
-    lineHeight: '14px'
-  }
-}))
-
-export default function GlobalChip(props) {
-  const classes = useStyles()
+export default function GlobalChip (props) {
+  const classes = chipStyles()
   const [chips, setChips] = useState(props.chips)
   const { t } = useTranslation()
 
@@ -42,7 +16,7 @@ export default function GlobalChip(props) {
     handleSelectionChanged(chips[0])
   }, [])
 
-  function handleSelectionChanged(id, event) {
+  function handleSelectionChanged (id, event) {
     const newSet = new Set(props.selected)
     if (newSet.has(id)) {
       if (newSet.size > 1) {
@@ -57,7 +31,7 @@ export default function GlobalChip(props) {
   }
 
   // function for search input
-  function handleFilterChange(value) {
+  function handleFilterChange (value) {
     const result = value
       ? chips.filter(chip => chip.toLowerCase().includes(value.toLowerCase()))
       : props.chips

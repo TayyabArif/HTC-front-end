@@ -1,68 +1,15 @@
 import { React, useState, useEffect } from 'react'
 
 // mui components
-import { makeStyles, Container, Grid, Typography, Box } from '@mui/material'
+import { Container, Grid, Typography, Box } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import GlobalCheckbox from '../form/TextCheckbox'
 import GlobalChip from '../form/Chip'
 import { ServiceCard } from './ServicesCard'
-
-const useStyles = makeStyles(theme => ({
-  infoContainer: {
-    fontSize: '14px',
-    fontWeight: '600',
-    paddingTop: '24px'
-  },
-  itemContainer: {
-    padding: '24px 80px 0px 80px',
-    [theme.breakpoints.down('md')]: {
-      padding: '24px 0 0 0'
-    }
-  },
-  noTopPadding: {
-    paddingLeft: '80px',
-    paddingRight: '80px',
-    [theme.breakpoints.down('md')]: {
-      padding: '0'
-    }
-  },
-  title: {
-    fontSize: '20px',
-    fontWeight: '700',
-    color: theme.colors.black,
-    lineHeight: '24px',
-    letterSpacing: '0.05em'
-  },
-  title_secondary: {
-    fontSize: '16px',
-    fontWeight: '700',
-    color: theme.colors.black,
-    lineHeight: '19px',
-    letterSpacing: '0.05em',
-    marginLeft: '80px',
-    marginTop: '36px'
-  },
-  subtitle: {
-    fontSize: '14px',
-    fontWeight: '300',
-    lineHeight: '17px',
-    color: theme.colors.black,
-    paddingTop: '9px',
-    letterSpacing: '0em'
-  },
-  checkboxes: {
-    gridGap: '27px',
-    [theme.breakpoints.down('md')]: {
-      gridGap: '12px'
-    }
-  },
-  required: {
-    color: theme.colors.errorText
-  }
-}))
+import { clientsComponentStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const ClientsComponent = props => {
-  const classes = useStyles()
+  const classes = clientsComponentStyles()
   const { t } = useTranslation()
   // Clients will be hardcoded until further instructions
   const [clients, setClients] = useState([
@@ -203,7 +150,7 @@ export const ClientsComponent = props => {
     props.handleChange(servedClients, 'clients')
   }
 
-  function removeTrade(trade) {
+  function removeTrade (trade) {
     const newSet = new Set(tradesSelected)
     // filter chips selected
     if (newSet.has(trade)) {
@@ -222,7 +169,7 @@ export const ClientsComponent = props => {
     props.handleChange(tradesAndServices, 'trades')
   }, [tradesAndServices])
 
-  function handleServiceSelected(trade, selection, rates) {
+  function handleServiceSelected (trade, selection, rates) {
     const obj =
       tradesAndServices.length > 0
         ? tradesAndServices.filter(data => data.name !== trade)
@@ -232,7 +179,7 @@ export const ClientsComponent = props => {
     props.handleChange(obj, 'trades')
   }
 
-  function handleRatesChanged(trade, rates) {
+  function handleRatesChanged (trade, rates) {
     const obj = tradesAndServices.map(item => {
       if (item.name === trade) {
         return { ...item, rates: { ...rates } }

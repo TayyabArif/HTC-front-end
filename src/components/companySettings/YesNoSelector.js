@@ -6,11 +6,11 @@ import {
   FormControl,
   Select,
   MenuItem,
-  makeStyles,
   Radio,
   Typography
 } from '@mui/material'
 import { KeyboardArrowDownOutlined } from '@mui/icons-material'
+import { yesNoSelectorStyles } from '../../styles/classes/CompanySettingsClasses'
 
 const yesNoOptions = [
   {
@@ -29,65 +29,10 @@ const iconStyle = {
   cursor: 'pointer'
 }
 
-const useStyles = makeStyles(theme => ({
-  radio: {
-    marginLeft: 'auto'
-  },
-  select: {
-    '&:focus': {
-      backgroundColor: 'transparent'
-    }
-  },
-  chip: {
-    fontSize: '12px',
-    color: theme.colors.text,
-    height: '22px',
-    borderRadius: '100px',
-    padding: '4px 0px',
-    backgroundColor: 'transparent',
-    border: `1px solid ${theme.colors.settings.border}`
-  },
-  item: {
-    fontSize: '16px',
-    height: '36px',
-    display: 'none',
-    justifyContent: 'flex-start',
-    width: '303px'
-  },
-  root: {
-    fontSize: '12px',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    width: '303px',
-    marginLeft: '0px',
-    height: '36px'
-  },
-  errorRoot: {
-    fontSize: '12px',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    width: '303px',
-    marginLeft: '0px',
-    height: '36px',
-    borderColor: theme.colors.errorText
-  },
-  selectLabel: {
-    fontSize: '16px'
-  },
-  content: { marginLeft: '0px' },
-  menuItem: {
-    fontSize: '12px',
-    height: '36px',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    width: '303px'
-  }
-}))
-
 export const YesNoSelector = props => {
   const [openSelect, setOpenSelect] = useState(false)
 
-  const classes = useStyles()
+  const classes = yesNoSelectorStyles()
   const rootRef = useRef()
   const { t } = useTranslation()
 

@@ -1,42 +1,13 @@
 import React, { useState } from 'react'
-import { Box, makeStyles } from '@mui/material'
+import { Box } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import GlobalSelect from '../form/Select'
 import GlobalInputButtons from '../form/TextInputButtons'
-
-const useStyles = makeStyles(theme => ({
-  leftComponent: {
-    marginRight: '10px',
-    minWidth: '14em',
-    [theme.breakpoints.down('md')]: {
-      minWidth: 'auto',
-      flex: 1
-    }
-  },
-  rightComponent: {
-    marginRight: '10px',
-    minWidth: '13em',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    [theme.breakpoints.down('md')]: {
-      minWidth: 'auto',
-      flex: 1
-    }
-  },
-  label: {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(1),
-    fontSize: '12px',
-    color: theme.colors.labels
-  },
-  iconMargin: {
-    marginRight: '7px'
-  }
-}))
+import { statesComponentStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const StatesComponent = props => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = statesComponentStyles()
   const { data, updateData } = props
   const [addDisabled, setAddDisabled] = useState(false)
 
@@ -61,7 +32,7 @@ export const StatesComponent = props => {
     setAddDisabled(validateEmptyStates(data))
   }
 
-  function validateEmptyStates(data) {
+  function validateEmptyStates (data) {
     const emptyState = data.some(function (val) {
       return val.state === ''
     })

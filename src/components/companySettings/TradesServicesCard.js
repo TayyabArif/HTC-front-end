@@ -1,49 +1,12 @@
-import { Box, Button, Card, makeStyles, Typography } from '@mui/material'
+import { Box, Button, Card, Typography } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import GlobalChip from '../form/Chip'
 import GlobalCheckbox from '../form/TextCheckbox'
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    borderRadius: '8px',
-    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    marginBottom: '2em',
-    padding: '1em',
-    color: theme.colors.text
-  },
-  cardTitle: {
-    fontSize: '20px',
-    fontWeight: '900'
-  },
-  editButton: {
-    alignSelf: 'flex-start',
-    marginLeft: 'auto',
-    marginRight: '0',
-    color: theme.colors.iconBlue,
-    textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '0.05em',
-    lineHeight: '19px'
-  },
-  cardSubtitle: {
-    fontSize: '16px',
-    fontWeight: '500'
-  },
-  sectionDivider: {
-    marginTop: '1em',
-    marginBottom: '1em'
-  },
-  ratesContainer: {
-    gap: '1em',
-    marginTop: '1em',
-    minWidth: '29em'
-  }
-}))
+import { tradesServicesCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 const EditButton = props => {
-  const classes = useStyles()
+  const classes = tradesServicesCardStyles()
   return (
     <Button className={classes.editButton} onClick={props.onClick}>
       {props.label}
@@ -52,7 +15,7 @@ const EditButton = props => {
 }
 
 export const TradesServicesCard = props => {
-  const classes = useStyles()
+  const classes = tradesServicesCardStyles()
   const { t } = useTranslation()
 
   const handleEditProfile = () => {

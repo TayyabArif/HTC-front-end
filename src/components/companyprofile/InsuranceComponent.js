@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 
 // mui components
 import {
-  makeStyles,
   Container,
   Grid,
   Typography,
@@ -17,75 +16,10 @@ import { YesNoQuestion } from '../form/YesNoQuestion'
 import { StatesComponent } from './StatesComponent'
 import { maxFileSize } from '../../lib/Constants'
 import { getCompanyFile } from '../../services/ApiService'
-
-const useStyles = makeStyles(theme => ({
-  infoContainer: {
-    fontSize: '14px',
-    fontWeight: '600',
-    paddingTop: '24px'
-  },
-  titleContainer: {
-    padding: '24px 80px 0px 80px',
-    columnCount: '2',
-    [theme.breakpoints.down('md')]: {
-      columnCount: '1',
-      padding: '24px 0 0 0'
-    }
-  },
-  itemContainer: {
-    padding: '24px 80px 0px 80px',
-    columnCount: '2',
-    [theme.breakpoints.down('md')]: {
-      columnCount: '1',
-      padding: '24px 0 0 0',
-      flexDirection: 'column'
-    }
-  },
-  title: {
-    fontSize: '20px',
-    fontWeight: '700',
-    color: theme.colors.black,
-    lineHeight: '24px',
-    letterSpacing: '0.05em'
-  },
-  subtitle: {
-    fontSize: '14px',
-    fontWeight: '300',
-    lineHeight: '17px',
-    color: theme.colors.black,
-    paddingTop: '9px',
-    letterSpacing: '0em'
-  },
-  componentDivider: {
-    marginRight: '10px'
-  },
-  questionDivider: {
-    marginRight: '10px',
-    marginTop: '10px'
-  },
-  question: {
-    fontSize: '12px',
-    paddingTop: '12px',
-    color: theme.colors.grey
-  },
-  centerInput: {
-    textAlign: 'center',
-    marginRight: '0',
-    marginLeft: 'auto',
-    width: '6em !important'
-  },
-  rightColumn: {
-    [theme.breakpoints.down('md')]: {
-      paddingTop: '12px'
-    }
-  },
-  required: {
-    color: theme.colors.errorText
-  }
-}))
+import { insuranceComponentStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const InsuranceComponent = props => {
-  const classes = useStyles()
+  const classes = insuranceComponentStyles()
   const { t } = useTranslation()
   const { profile, handleChange, handleFileChange, setFileUploaded } = props
   const [statesRegistered, setStatesRegistered] = useState()
@@ -102,11 +36,11 @@ export const InsuranceComponent = props => {
     }
   }, [statesRegistered])
 
-  function handleClear(field) {
+  function handleClear (field) {
     setFileUploaded(null, field)
   }
 
-  async function handleFileDownload(event, name) {
+  async function handleFileDownload (event, name) {
     try {
       const response = await getCompanyFile(name)
       const byteArray = new Uint8Array(response.body.data)
@@ -137,23 +71,6 @@ export const InsuranceComponent = props => {
       </Grid>
       <Box display="flex" className={classes.itemContainer}>
         <Box flex={1} className={classes.componentDivider}>
-          <Box className={classes.componentDivider}>
-            <GlobalNumberInput
-              onChange={handleChange}
-              field="ein"
-              placeholder={t('company_profile.placeholder.ein')}
-              value={profile?.ein}
-              label={t('company_profile.labels.ein')}
-              format="#########"
-              required={
-                props.requiredFields &&
-                Object.prototype.hasOwnProperty.call(
-                  props?.requiredFields,
-                  'ein'
-                )
-              }
-            />
-          </Box>
           <StatesComponent
             states={props.states}
             data={statesRegistered}
@@ -181,22 +98,6 @@ export const InsuranceComponent = props => {
                 {t('company_profile.questions.trucks')}
               </InputLabel>
             </Box>
-            <Box flex={1}>
-              <GlobalNumberInput
-                onChange={handleChange}
-                field="q_trucks"
-                value={profile?.insurance_questions?.q_trucks}
-                className={classes.centerInput}
-                format="###"
-                required={
-                  props.requiredFields &&
-                  Object.prototype.hasOwnProperty.call(
-                    props?.requiredFields,
-                    'q_trucks'
-                  )
-                }
-              />
-            </Box>
           </Box>
           <Box
             display="flex"
@@ -212,22 +113,6 @@ export const InsuranceComponent = props => {
                   ) && <span className={classes.required}>*</span>}
                 {t('company_profile.questions.field_employees')}
               </InputLabel>
-            </Box>
-            <Box flex={1}>
-              <GlobalNumberInput
-                onChange={handleChange}
-                field="q_field_employees"
-                value={profile?.insurance_questions?.q_field_employees}
-                className={classes.centerInput}
-                format="###"
-                required={
-                  props.requiredFields &&
-                  Object.prototype.hasOwnProperty.call(
-                    props?.requiredFields,
-                    'q_field_employees'
-                  )
-                }
-              />
             </Box>
           </Box>
           <Box
@@ -245,22 +130,6 @@ export const InsuranceComponent = props => {
                 {t('company_profile.questions.administrative_employees')}
               </InputLabel>
             </Box>
-            <Box flex={1}>
-              <GlobalNumberInput
-                onChange={handleChange}
-                field="q_administrative_employees"
-                value={profile?.insurance_questions?.q_administrative_employees}
-                className={classes.centerInput}
-                format="###"
-                required={
-                  props.requiredFields &&
-                  Object.prototype.hasOwnProperty.call(
-                    props?.requiredFields,
-                    'q_administrative_employees'
-                  )
-                }
-              />
-            </Box>
           </Box>
           <Box
             display="flex"
@@ -276,22 +145,6 @@ export const InsuranceComponent = props => {
                   ) && <span className={classes.required}>*</span>}
                 {t('company_profile.questions.years')}
               </InputLabel>
-            </Box>
-            <Box flex={1}>
-              <GlobalNumberInput
-                onChange={handleChange}
-                field="q_business_years"
-                value={profile?.insurance_questions?.q_business_years}
-                className={classes.centerInput}
-                format="###"
-                required={
-                  props.requiredFields &&
-                  Object.prototype.hasOwnProperty.call(
-                    props?.requiredFields,
-                    'q_business_years'
-                  )
-                }
-              />
             </Box>
           </Box>
           <Box>

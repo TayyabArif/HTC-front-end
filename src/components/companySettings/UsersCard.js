@@ -7,7 +7,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  makeStyles,
   Typography,
   Box
 } from '@mui/material'
@@ -16,67 +15,11 @@ import {
 import { Button } from 'antd'
 import GlobalChip from '../form/Chip'
 import GlobalInput from '../form/TextInput'
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    borderRadius: '8px',
-    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    marginBottom: '2em',
-    padding: '1em',
-    color: theme.colors.text,
-    minHeight: '470px'
-  },
-  cardTitle: {
-    fontSize: '20px',
-    fontWeight: '900',
-    minWidth: 'fit-content',
-    marginRight: '1em'
-  },
-  actions: {
-    padding: '0px 0px',
-    display: 'flex',
-    alignItems: 'baseline'
-  },
-  content: {
-    padding: '0px 20px 30px 0px'
-  },
-  editButton: {
-    alignSelf: 'flex-start',
-    marginLeft: 'auto',
-    marginRight: '0',
-    color: theme.colors.iconBlue,
-    textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '0.05em',
-    lineHeight: '19px',
-    boxShadow: 'none',
-    border: 'none'
-  },
-  itemDivider: {
-    borderBottom: '1px solid ' + theme.colors.grey_2
-  },
-  userItem: {
-    fontSize: '16px',
-    fontWeight: 600,
-    minWidth: '10em',
-    cursor: 'pointer'
-  },
-  lineItem: {
-    padding: '1em 0 1em'
-  },
-  searchBar: {
-    width: '40%'
-  },
-  usersList: {
-    maxHeight: '350px',
-    overflow: 'auto'
-  }
-}))
+import { usersCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const UsersCard = props => {
   const { roles, users } = props
-  const classes = useStyles()
+  const classes = usersCardStyles()
   const { t } = useTranslation()
   const [roleOptions, setRoleOptions] = useState(null)
   const [filterUser, setFilterUser] = useState(null)
@@ -102,7 +45,7 @@ export const UsersCard = props => {
   }
 
   const EditButton = props => {
-    const classes = useStyles()
+    const classes = usersCardStyles()
     return (
       <Button className={classes.editButton} onClick={props.onClick}>
         {props.label}

@@ -1,35 +1,10 @@
 import React from 'react'
-import { ToggleButton, ToggleButtonGroup, Box, makeStyles, Typography } from '@mui/material'
+import { ToggleButton, ToggleButtonGroup, Box, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  label: {
-    fontSize: '12px',
-    color: theme.colors.grey
-  },
-  button: {
-    '& .MuiToggleButton-root': {
-      fontSize: '12px',
-      margin: '10px 10px',
-      borderRadius: '45px !important',
-      padding: '8px 0px',
-      width: '6em',
-      border: '1px solid rgba(0, 0, 0, 0.12) !important',
-      textTransform: 'none',
-      color: theme.colors.profile.text_grey
-    },
-    '& .Mui-selected': {
-      backgroundColor: theme.colors.iconBlue + ' !important',
-      color: theme.colors.white + '!important'
-    }
-  }
-}))
+import { yesNoQuestionStyles } from '../../styles/classes/FormClasses'
 
 export const YesNoQuestion = props => {
-  const classes = useStyles()
+  const classes = yesNoQuestionStyles()
   const { t } = useTranslation()
 
   const handleChange = event => {

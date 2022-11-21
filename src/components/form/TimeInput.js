@@ -2,41 +2,13 @@
 import React from 'react'
 
 /** Material UI **/
-import { makeStyles, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import { TimePicker } from 'antd'
+import { textInputStyles } from '../../styles/classes/FormClasses'
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  label: {
-    color: theme.colors.grey,
-    fontSize: '12px',
-    marginBottom: '0.5em'
-  },
-  timeInput: {
-    'label + &': {
-      marginTop: theme.spacing(3)
-    },
-    borderRadius: 45,
-    border: '1px solid ' + theme.colors.profile.border_input,
-    fontSize: 12,
-    width: '9em',
-    padding: '8px 10px',
-    transition: theme.transitions.create([
-      'border-color',
-      'background-color',
-      'box-shadow'
-    ]),
-    '& .ant-picker-dropdown': {
-      zIndex: '3000'
-    }
-  }
-}))
-
-export default function GlobalTimeInput(props) {
-  const classes = useStyles()
+export default function GlobalTimeInput (props) {
+  const classes = textInputStyles()
 
   const handleChange = (time, timeString) => {
     props.onChange(timeString, props.field)

@@ -2,50 +2,16 @@ import React, { useEffect, useState } from 'react'
 import {
   Box,
   IconButton,
-  makeStyles,
   Paper,
   Typography
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
 import GlobalChip from '../form/Chip'
-
-const useStyles = makeStyles(theme => ({
-  component: {
-    width: '100%',
-    borderRadius: '36px',
-    marginTop: '20px',
-    padding: '1em 1.5em'
-  },
-  service_title: {
-    fontSize: '20px',
-    color: theme.colors.iconBlue,
-    fontWeight: '700',
-    marginTop: 'auto',
-    marginBottom: 'auto'
-  },
-  removeButton: {
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    color: theme.colors.buttonGrey,
-    fontSize: '22px'
-  },
-  chipsContainer: {
-    marginBottom: '1.5em'
-  },
-  ratesContainer: {
-    gap: '1em',
-    minWidth: '34em',
-    flexDirection: 'row',
-    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-      minWidth: '100%'
-    }
-  }
-}))
+import { servicesCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const ServiceCard = props => {
-  const classes = useStyles()
+  const classes = servicesCardStyles()
   const { t } = useTranslation()
   const [servicesSelected, setServicesSelected] = useState(new Set())
   const [rates, setRates] = useState({
@@ -54,7 +20,7 @@ export const ServiceCard = props => {
     travel_cost: ''
   })
 
-  function handleButtonRemove(event, item) {
+  function handleButtonRemove (event, item) {
     props.removeCard(item)
   }
   useEffect(() => {
@@ -72,19 +38,8 @@ export const ServiceCard = props => {
     handleSelection()
   }, [servicesSelected])
 
-  function handleSelection() {
+  function handleSelection () {
     props.handleSelection(props.trade, servicesSelected, rates)
-  }
-
-  function handleRateChanged(value, rate) {
-    const newRates = { ...rates, [rate]: value.slice(1) }
-    setRates(newRates)
-    props.handleRates(props.trade, newRates)
-  }
-  const withValueCap = (inputObj) => {
-    const { value } = inputObj
-    if (value <= 9999.99) return true
-    return false
   }
 
   return (

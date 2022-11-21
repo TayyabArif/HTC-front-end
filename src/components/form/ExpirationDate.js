@@ -3,13 +3,13 @@ import {
   Box,
   InputBase,
   InputLabel,
-  makeStyles,
   MenuItem,
   Select
 } from '@mui/material'
 import customTheme from '../../styles/mui_theme'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'react-i18next'
+import { expirationDateStyles } from '../../styles/classes/FormClasses'
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -50,43 +50,8 @@ const BootstrapInputError = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  text: {
-    width: '100%',
-    textAlign: 'initial',
-    fontStyle: 'normal'
-  },
-  label: {
-    marginTop: '0.1em',
-    marginBottom: '0.9em',
-    fontSize: '12px',
-    color: theme.colors.labels
-  },
-  label_error: {
-    marginTop: '0.1em',
-    marginBottom: '0.9em',
-    fontSize: '12px',
-    color: theme.colors.error
-  },
-  componentDivider: {
-    marginRight: '10px'
-  },
-  componentContainer: {
-    minWidth: '13em'
-  },
-  iconMargin: {
-    maxHeight: '24px',
-    marginRight: '7px'
-  },
-  required: {
-    color: theme.colors.errorText
-  }
-}))
 export const ExpirationDate = props => {
-  const classes = useStyles()
+  const classes = expirationDateStyles()
   const { t } = useTranslation()
   const months = [...populateMonths()]
   const years = [...populateYears()]
@@ -95,7 +60,7 @@ export const ExpirationDate = props => {
   const [monthError, setMonthError] = useState()
   const [yearError, setYearError] = useState()
 
-  function populateMonths() {
+  function populateMonths () {
     const months = []
     for (let i = 1; i < 13; i++) {
       months.push({ label: i, value: i })
@@ -103,7 +68,7 @@ export const ExpirationDate = props => {
     return months
   }
 
-  function populateYears() {
+  function populateYears () {
     const years = []
     const current = new Date().getFullYear()
     for (let i = current; i < current + 6; i++) {
@@ -121,7 +86,7 @@ export const ExpirationDate = props => {
     dateValidation()
   }, [monthSelected, yearSelected])
 
-  function dateValidation() {
+  function dateValidation () {
     const d = new Date()
     const currentYear = d.getFullYear()
     const currentMonth = d.getMonth() + 1

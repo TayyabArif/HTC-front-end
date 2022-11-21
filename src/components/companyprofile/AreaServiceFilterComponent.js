@@ -2,58 +2,19 @@ import { React, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 // mui components
-import { makeStyles, Box } from '@mui/material'
+import { Box } from '@mui/material'
 import { cloneDeep } from 'lodash'
 
 import GlobalInput from '../form/TextInput'
 import GlobalSelect from '../form/Select'
 import GlobalChip from '../form/Chip'
 import GlobalPaginatingList from '../form/PaginatingList'
-
-const useStyles = makeStyles(theme => ({
-  noTopPadding: {
-    paddingLeft: 15
-  },
-  topPadding: {
-    paddingTop: 10
-  },
-  saveButton: {
-    color: 'white',
-    textTransform: 'none',
-    fontSize: '12px',
-    fontWeight: '400',
-    borderRadius: '100px',
-    alignSelf: 'flex-end',
-    marginTop: '10px',
-    backgroundColor: theme.colors.iconBlue
-  },
-  multiselectContent: {
-    borderColor: theme.colors.buttonGrey,
-    border: '1px solid',
-    borderRadius: 5,
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingTop: 8
-  },
-  multiselectZip: {
-    maxHeight: 375,
-    overflow: 'auto'
-  },
-  selector: {
-    fontSize: '12px',
-    marginBottom: '0.5em',
-    textAlign: 'left',
-    marginLeft: '5px',
-    textTransform: 'none',
-    width: '100%',
-    justifyContent: 'flex-start'
-  }
-}))
+import { areaServiceFilterStyles } from '../../styles/classes/CompanySettingsClasses'
 
 const filters = ['city', 'zip', 'county']
 
 export const AreaServiceFilterComponent = props => {
-  const classes = useStyles()
+  const classes = areaServiceFilterStyles()
   const { t } = useTranslation()
   const { currentSelection } = props
   const [filterSelected, setFilterSelected] = useState(new Set())
@@ -399,8 +360,9 @@ export const AreaServiceFilterComponent = props => {
         {/* TODO: split zip code array */}
         {filterSelected.has('zip') && (
           <Box className={[classes.multiselectContent, classes.multiselectZip]}>
-            {zipCodesList?.length > 0 ? (
-              zipCodesList.map((subList, index) => (
+            {zipCodesList?.length > 0
+              ? (
+                  zipCodesList.map((subList, index) => (
                 <GlobalSelect
                   key={index}
                   options={subList}
@@ -412,10 +374,11 @@ export const AreaServiceFilterComponent = props => {
                   value={zipValues ?? []}
                   multiple={true}
                 />
-              ))
-            ) : (
+                  ))
+                )
+              : (
               <GlobalInput value="No results" disabled />
-            )}
+                )}
           </Box>
         )}
       </Box>

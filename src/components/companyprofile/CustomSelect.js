@@ -1,27 +1,9 @@
 import React, { useState } from 'react'
-import { makeStyles, MenuItem, OutlinedInput, Select } from '@material-ui/core'
-
-const useStyles = makeStyles(theme => ({
-  outlinedInput: {
-    borderRadius: '50px',
-    width: '100%',
-    height: '36px',
-    fontSize: '12px',
-    color: theme.colors.profile.text_grey
-  },
-  select: {
-    fontSize: '12px',
-    color: theme.colors.profile.text_grey
-  },
-  selectRoot: {
-    '&:focus': {
-      borderRadius: '50px'
-    }
-  }
-}))
+import { MenuItem, OutlinedInput, Select } from '@material-ui/core'
+import { customSelectStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const CustomSelect = props => {
-  const classes = useStyles()
+  const classes = customSelectStyles()
   const { items, placeholder, itemSelected, handleSelect, name, multiple } =
     props
 
@@ -44,7 +26,7 @@ export const CustomSelect = props => {
         if (multiple) {
           return selected.join(', ')
         } else {
-            return selected
+          return selected
         }
       }}
       onOpen={event => {

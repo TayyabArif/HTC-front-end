@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 
 // mui components
 import {
-  makeStyles,
   Container,
   Grid,
   Typography,
@@ -17,64 +16,10 @@ import {
 } from '../../styles/mui_custom_theme'
 import { useTranslation } from 'react-i18next'
 import { isEqual } from 'lodash'
-
-const useStyles = makeStyles(theme => ({
-  infoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: '1169px',
-    padding: '24px',
-    [theme.breakpoints.down('md')]: {
-      padding: '24px 0',
-      minWidth: 'auto'
-    }
-  },
-  titleContainer: {
-    padding: '10px 80px',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  addMoreContainer: {
-    padding: '0px 80px 10px 80px',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('md')]: {
-      padding: '20px 2em',
-      minWidth: 'auto'
-    },
-    [theme.breakpoints.down('sm')]: {
-      padding: '20px 0',
-      minWidth: 'auto'
-    }
-  },
-  userContainer: {
-    columnCount: 2,
-    justifyContent: 'center',
-    [theme.breakpoints.down('md')]: {
-      padding: '0 5px'
-    }
-  },
-  title: {
-    fontSize: '20px',
-    fontWeight: '700',
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: '15px'
-    }
-  },
-  appButton: {
-    [theme.breakpoints.down('md')]: {
-      padding: '3px 0px !important',
-      marginRight: '15px !important'
-    }
-  }
-}))
+import { usersComponentStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const UsersComponent = props => {
-  const classes = useStyles()
+  const classes = usersComponentStyles()
   const { t } = useTranslation()
   const [webUsers, setWebUsers] = useState([])
   const [mobileUsers, setMobileUsers] = useState([])

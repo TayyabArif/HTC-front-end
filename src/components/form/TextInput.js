@@ -4,9 +4,10 @@ import React from 'react'
 /** Material UI **/
 import { alpha, styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
-import { FormLabel, makeStyles, Typography } from '@mui/material'
+import { FormLabel, Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import customTheme from '../../styles/mui_theme'
+import { textInputStyles } from '../../styles/classes/FormClasses'
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -52,31 +53,8 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  label: {
-    color: customTheme.colors.grey,
-    fontSize: '12px',
-    marginBottom: '0.5em',
-    textAlign: 'left',
-    marginLeft: '5px'
-  },
-  error: {
-    marginTop: '0.5em',
-    fontSize: '10px',
-    color: theme.colors.errorText,
-    textAlign: 'left',
-    marginLeft: '15px'
-  },
-  required: {
-    color: theme.colors.errorText
-  }
-}))
-
-export default function GlobalInput(props) {
-  const classes = useStyles()
+export default function GlobalInput (props) {
+  const classes = textInputStyles()
   const { label, onChange, validate, error, helperText, ...rest } = props
 
   const handleChange = event => {

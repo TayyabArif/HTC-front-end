@@ -14,123 +14,8 @@ import {
   Box,
   Typography
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { Clear as ClearIcon } from '@mui/icons-material'
-
-const useStyles = makeStyles(theme => ({
-  list: {
-    width: 'auto'
-  },
-  fullList: {
-    width: 'auto'
-  },
-  drawerPaper: {
-    width: '360px',
-    borderRadius: '8px',
-    maxHeight: 'calc(100% - 96px)',
-    marginTop: '96px',
-    overflowY: 'auto'
-  },
-  buttonMain: {
-    color: theme.colors.backdropColor,
-    backgroundColor: theme.colors.inProgressWork,
-    '&$buttonDisabled': {
-      backgroundColor: theme.colors.settings.disabled
-    },
-    paddingBottom: '5px',
-    fontSize: '14px',
-    fontWeight: '700',
-    textTransform: 'none',
-    borderRadius: '8px',
-    marginLeft: '196px',
-    width: '135px',
-    height: '40px',
-    marginTop: '17px',
-    marginBottom: '17px'
-  },
-  buttonDisabled: {},
-  state: {
-    marginBottom: '4px',
-    color: theme.colors.settings.fieldInfo,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  title: {
-    padding: '32px 14px',
-    marginRight: '100px',
-    color: theme.colors.text,
-    fontSize: '20px',
-    fontWeight: 'bold',
-    width: '200px'
-  },
-  label: {
-    marginTop: '16px',
-    marginBottom: '4px',
-    color: theme.colors.settings.fieldInfo,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  delete: {
-    textTransform: 'none',
-    fontSize: '14px',
-    fontWeight: '700',
-    color: theme.colors.settings.delete,
-    borderColor: 'transparent',
-    borderRadius: '100px',
-    padding: '3px 30px',
-    marginTop: '15px',
-    marginLeft: '15px'
-  },
-  save: {
-    textTransform: 'none',
-    fontSize: '14px',
-    fontWeight: '700',
-    color: theme.colors.settings.button_info,
-    borderColor: theme.colors.settings.button_info,
-    borderRadius: '100px',
-    padding: '3px 30px',
-    marginRight: '0px',
-    marginLeft: 'auto',
-    marginTop: '15px'
-  },
-  saveOk: {
-    textTransform: 'none',
-    fontSize: '14px',
-    fontWeight: '700',
-    color: theme.colors.text,
-    borderColor: theme.colors.settings.button_info,
-    borderRadius: '100px',
-    padding: '3px 30px',
-    marginRight: '0px',
-    marginLeft: 'auto',
-    marginTop: '15px'
-  },
-  inputName: {
-    marginTop: 'unset',
-    backgroundColor: theme.colors.filters.fieldsBackground,
-    fontSize: 16,
-    borderRadius: '8px',
-    width: '303px',
-    height: '36px',
-    marginBottom: '8px'
-  },
-  textField: {
-    fontSize: 16,
-    padding: '8.5px 11px'
-  },
-  bottomDiv: {
-    display: 'flex',
-    marginBottom: '100px',
-    width: '303px'
-  },
-  errorMessage: {
-    color: theme.colors.errorText,
-    fontWeight: '400',
-    fontSize: '12px',
-    marginLeft: '15px'
-  },
-  drawerTitle: { display: 'flex', alignItems: 'center' }
-}))
+import { accessPanelStyles } from '../../styles/classes/CompanySettingsClasses'
 
 const iconStyle = {
   width: '24px',
@@ -139,7 +24,7 @@ const iconStyle = {
 }
 
 export const AccessPanel = props => {
-  const classes = useStyles()
+  const classes = accessPanelStyles()
   const { t } = useTranslation()
   const [data, setData] = useState({
     name: '',
@@ -252,13 +137,15 @@ export const AccessPanel = props => {
         InputProps={{
           className: classes.textField,
           endAdornment:
-            data.name !== '' ? (
+            data.name !== ''
+              ? (
               <InputAdornment position="end">
                 <IconButton onClick={() => handlechangeValues('', 'name')}>
                   <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
                 </IconButton>
               </InputAdornment>
-            ) : null
+                )
+              : null
         }}
         inputProps={{
           style: {
@@ -333,7 +220,8 @@ export const AccessPanel = props => {
           <ClearIcon style={iconStyle} onClick={handleClose} />
         </div>
         {fields()}
-        {props.data.id && props.data.id !== 0 ? (
+        {props.data.id && props.data.id !== 0
+          ? (
           <div className={classes.bottomDiv}>
             <Button
               variant="outlined"
@@ -356,7 +244,8 @@ export const AccessPanel = props => {
               {t('company_settings.roles_card.panel_save')}
             </Button>
           </div>
-        ) : (
+            )
+          : (
           <div className={classes.bottomDiv}>
             <Button
               variant="outlined"
@@ -371,7 +260,7 @@ export const AccessPanel = props => {
               {t('company_settings.roles_card.panel_create')}
             </Button>
           </div>
-        )}
+            )}
       </Drawer>
     </div>
   )

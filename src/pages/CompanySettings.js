@@ -16,7 +16,6 @@ import { UsersCard } from '../components/companySettings/UsersCard'
 import {
   Typography,
   Container,
-  makeStyles,
   Box,
   Card,
   Avatar,
@@ -41,117 +40,11 @@ import {
   validateEmail
 } from '../lib/Global'
 import { maxFileSize } from '../lib/Constants'
-
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    '.pac-container': {
-      zIndex: '999999 !important',
-      width: '303px !important'
-    }
-  },
-  container: {
-    padding: '0px',
-    margin: '0px',
-    maxWidth: '100%',
-    width: '100%',
-    height: '400px'
-  },
-  cardsContainer: {
-    gap: '3em',
-    margin: '0px 47px'
-  },
-  card: {
-    borderRadius: '8px',
-    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    marginBottom: '2em',
-    padding: '1em'
-  },
-  title: {
-    fontSize: '20px',
-    fontWeight: '900',
-    color: theme.colors.text,
-    padding: '24px 0px 30px 42px'
-  },
-  cardTitle: {
-    fontSize: '20px',
-    fontWeight: '900',
-    color: theme.colors.text
-  },
-  avatar: {
-    width: '140px',
-    height: '140px',
-    '&.MuiAvatar-img': {
-      objectFit: 'contain'
-    }
-  },
-  emptyAvatar: {
-    width: '140px',
-    height: '140px',
-    backgroundColor: 'white',
-    border: '4px solid black'
-  },
-  editButton: {
-    marginLeft: 'auto',
-    marginRight: '0',
-    color: theme.colors.iconBlue,
-    textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '0.05em',
-    lineHeight: '19px'
-  },
-  dialog: {
-    width: '80%'
-  },
-  saveButton: {
-    background: theme.colors.iconBlue,
-    color: 'white',
-    textTransform: 'none',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    borderRadius: '36px',
-    width: '160px',
-    alignSelf: 'flex-end',
-    marginRight: '84px',
-    marginBottom: '37px',
-    marginTop: '48px'
-  },
-  editComponent: {
-    '& .MuiDialog-paperWidthSm': {
-      maxWidth: '70%',
-      minWidth: '70%'
-    },
-    '& .MuiDialogContent-root': {
-      padding: '0px'
-    }
-  },
-  error: {
-    color: theme.colors.workOrderColors.no_work_order
-  },
-  compliant: {
-    color: theme.colors.workOrderColors.approved
-  },
-  dialogTitle: {
-    fontSize: '20px',
-    fontWeight: 'bold'
-  },
-  dialogText: {
-    fontSize: '18px',
-    fontWeight: '500'
-  },
-  background: {
-    maxWidth: '100%',
-    backgroundColor: theme.colors.complianceBlue,
-    height: '400px',
-    position: 'absolute',
-    top: 0,
-    zIndex: -1
-  }
-}))
+import { companySettingsStyles } from '../styles/classes/CompanySettingsClasses'
 
 const CompanySettings = props => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = companySettingsStyles()
   const userStore = useSelector(state => state.auth.user)
   const [company, setCompany] = useState(null)
   const [updatedCompany, setUpdatedCompany] = useState(null)
@@ -194,6 +87,7 @@ const CompanySettings = props => {
     } catch (error) {
       console.error('Error retrieving company profile: ', error)
     }
+    setRoles([])
     updateRoles()
     updateUsers()
   }, [])

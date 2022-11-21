@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 
 // mui components
 import {
-  makeStyles,
   Container,
   ThemeProvider,
   Box,
@@ -25,65 +24,12 @@ import { createClientUser } from '../../services/ApiService'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 import customTheme from '../../styles/mui_theme'
-
-const useStyles = makeStyles(theme => ({
-  userContainer: {
-    padding: '24px',
-    borderWidth: '1px',
-    border: `1px solid ${theme.colors.disabledField}`,
-    borderRadius: '36px',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '480px',
-    height: '380px',
-    marginBottom: '20px'
-  },
-  column: {
-    flex: 10
-  },
-  separation: {
-    flex: 1
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  dialogPaper: {
-    width: '577px',
-    height: '302px',
-    boxShadow: '3.79882px 5.69823px 27.2249px rgba(216, 216, 216, 0.25)',
-    borderRadius: '8px'
-  },
-  dialogTitle: {
-    fontWeight: '700',
-    fontSize: '24px',
-    textAlign: 'center',
-    letterSpacing: '0.05em'
-  },
-  dialogContentFont: {
-    fontSize: '18px',
-    textAlign: 'center',
-    color: theme.colors.basicDisabledButtonColor,
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    lineHeight: '21px'
-  },
-  dialogContent: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  dialogButtonContainer: {
-    alignSelf: 'flex-end',
-    marginBottom: '10px'
-  }
-}))
+import { userCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const UserCard = props => {
   const { t } = useTranslation()
   const { roles, affiliateId, mobileOnly, updateUser } = props
-  const classes = useStyles()
+  const classes = userCardStyles()
   const [saveEnabled, setSaveEnabled] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
 
@@ -152,12 +98,12 @@ export const UserCard = props => {
     validateUser()
   }, [formik.values])
 
-  function handleBlur(event) {
+  function handleBlur (event) {
     formik.handleBlur(event)
     validateUser()
   }
 
-  function handleChange(event) {
+  function handleChange (event) {
     formik.handleChange(event)
     validateUser()
   }
@@ -423,14 +369,16 @@ export const UserCard = props => {
             disabled={formik.values.createdAt}
             validate
           />
-          {mobileOnly ? (
+          {mobileOnly
+            ? (
             <GlobalInput
               label={t('account_settings.info_card.access_type')}
               value={t('company_settings.mobile_only')}
               style={textStyle}
               disabled
             />
-          ) : (
+              )
+            : (
             <GlobalSelect
               label={t('account_settings.info_card.access_type')}
               options={
@@ -442,13 +390,13 @@ export const UserCard = props => {
                       }
                     ]
                   : roles && roles.length > 0
-                  ? [
-                      ...roles.map(item => ({
-                        value: item.id,
-                        label: item.name
-                      }))
-                    ]
-                  : []
+                    ? [
+                        ...roles.map(item => ({
+                          value: item.id,
+                          label: item.name
+                        }))
+                      ]
+                    : []
               }
               placeholder={`${t('account_settings.form.enter')} Access Type`}
               style={textStyle}
@@ -464,7 +412,7 @@ export const UserCard = props => {
               disabled={formik.values.createdAt}
               validate
             />
-          )}
+              )}
 
           <Box className={classes.buttonContainer}>
             <ThemeProvider theme={buttonSettingsDisabled}>

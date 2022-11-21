@@ -8,13 +8,13 @@ import {
   Box,
   Button,
   IconButton,
-  makeStyles,
   Typography
 } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import customTheme from '../../styles/mui_theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
+import { textInputButtonsStyles } from '../../styles/classes/FormClasses'
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
@@ -54,49 +54,8 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  addButton: {
-    background: customTheme.colors.iconBlue,
-    color: 'white',
-    textTransform: 'none',
-    fontSize: '7px',
-    fontWeight: '400',
-    lineHeight: '14px',
-    borderRadius: '35px',
-    padding: '2px 12px',
-    marginBottom: '1em',
-    minWidth: '45%',
-    '&.Mui-disabled': {
-      backgroundColor: customTheme.colors.basicDisabledButtonBackground
-    },
-    [theme.breakpoints.down('md')]: {
-      maxHeight: '20px'
-    }
-  },
-  removeButton: {
-    fontSize: '12px',
-    marginBottom: '4px',
-    marginLeft: '75%'
-  },
-  inputContainer: {
-    width: '100%'
-  },
-  label: {
-    fontSize: 12,
-    marginBottom: '0.5em',
-    color: customTheme.colors.labels
-  },
-  inputRoot: {
-    width: '100%',
-    paddingRight: '25px'
-  }
-}))
-
-export default function GlobalInputButtons(props) {
-  const classes = useStyles()
+export default function GlobalInputButtons (props) {
+  const classes = textInputButtonsStyles()
   const { t } = useTranslation()
 
   const handleChange = event => {
@@ -118,7 +77,8 @@ export default function GlobalInputButtons(props) {
             <Typography className={classes.label}>{props.label}</Typography>
           </Box>
           <Box flex={1} display="flex" justifyContent="flex-end">
-            {props.index === 0 ? (
+            {props.index === 0
+              ? (
               <Button
                 className={classes.addButton}
                 onClick={handleButtonAdd}
@@ -127,7 +87,8 @@ export default function GlobalInputButtons(props) {
               >
                 {t('general.labels.add')}
               </Button>
-            ) : (
+                )
+              : (
               <IconButton
                 onClick={handleButtonRemove}
                 size="small"
@@ -135,7 +96,7 @@ export default function GlobalInputButtons(props) {
               >
                 <FontAwesomeIcon icon="fa-regular fa-circle-xmark" />
               </IconButton>
-            )}
+                )}
           </Box>
         </Box>
       </Box>

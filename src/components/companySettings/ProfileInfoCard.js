@@ -4,105 +4,16 @@ import {
   Card,
   InputLabel,
   Link,
-  makeStyles,
   Typography
 } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { getCompanyFile } from '../../services/ApiService'
 import GlobalInput from '../form/TextInput'
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    borderRadius: '8px',
-    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    marginBottom: '2em',
-    padding: '1em',
-    color: theme.colors.text
-  },
-  cardTitle: {
-    fontSize: '20px',
-    fontWeight: '900'
-  },
-  editButton: {
-    alignSelf: 'flex-start',
-    marginLeft: 'auto',
-    marginRight: '0',
-    color: theme.colors.iconBlue,
-    textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '0.05em',
-    lineHeight: '19px'
-  },
-  cardSubtitle: {
-    fontSize: '16px',
-    fontWeight: '500',
-    marginBottom: '1em'
-  },
-  sectionDivider: {
-    marginTop: '2em'
-  },
-  boxContainer: {
-    gap: '1em'
-  },
-  marginContainer: {
-    marginRight: '1em'
-  },
-  disabledText: {
-    '& input.Mui-disabled': {
-      WebkitTextFillColor: theme.colors.text,
-      padding: '0.5em 1em'
-    }
-  },
-  disabledTextCenter: {
-    '& input.Mui-disabled': {
-      textAlign: 'center',
-      WebkitTextFillColor: theme.colors.text,
-      padding: '0.5em 1em',
-      marginTop: '0.5em'
-    }
-  },
-  question: {
-    fontSize: '12px',
-    paddingTop: '12px',
-    color: theme.colors.grey
-  },
-  centerInput: {
-    textAlign: 'center',
-    marginRight: '0',
-    marginLeft: 'auto',
-    padding: '0.5em 1em !important'
-  },
-  fileCard: {
-    backgroundColor: theme.colors.grey_2,
-    margin: '1em 1em 1em auto',
-    padding: '1em',
-    border: '1px solid ' + theme.colors.profile.darkCard,
-    borderRadius: '12px',
-    boxShadow: 'none',
-    width: '200px'
-  },
-  fileTitle: {
-    fontSize: '12px',
-    fontWeight: '800',
-    marginBottom: '0.5em'
-  },
-  fileData: {
-    fontSize: '12px',
-    paddingBottom: '0.5em'
-  },
-  fileLink: {
-    fontSize: '12px',
-    textDecoration: 'underline',
-    color: theme.colors.iconBlue,
-    paddingBottom: '0.5em',
-    wordBreak: 'break-all'
-  }
-}))
+import { profileInfoCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 const EditButton = props => {
-  const classes = useStyles()
+  const classes = profileInfoCardStyles()
   return (
         <Button className={classes.editButton} onClick={props.onClick}>
             {props.label}
@@ -111,7 +22,7 @@ const EditButton = props => {
 }
 
 const FileCard = props => {
-  const classes = useStyles()
+  const classes = profileInfoCardStyles()
   const { t } = useTranslation()
 
   function toMonthName (monthNumber) {
@@ -176,7 +87,7 @@ const FileCard = props => {
 }
 
 export const ProfileInfoCard = props => {
-  const classes = useStyles()
+  const classes = profileInfoCardStyles()
   const { t } = useTranslation()
 
   const handleEditProfile = () => {
@@ -415,15 +326,6 @@ export const ProfileInfoCard = props => {
                                     {t('company_profile.questions.trucks')}
                                 </InputLabel>
                             </Box>
-                            <Box flex={1}>
-                                <GlobalNumberInput
-                                    field="q_trucks"
-                                    value={props?.profile?.insurance_questions?.q_trucks ?? 'N/A'}
-                                    className={classes.centerInput}
-                                    disabled
-                                    placeholder="N/A"
-                                />
-                            </Box>
                         </Box>
                         <Box
                             display="flex"
@@ -434,18 +336,6 @@ export const ProfileInfoCard = props => {
                                 <InputLabel className={classes.question}>
                                     {t('company_profile.questions.field_employees')}
                                 </InputLabel>
-                            </Box>
-                            <Box flex={1}>
-                                <GlobalNumberInput
-                                    field="q_trucks"
-                                    value={
-                                        props?.profile?.insurance_questions?.q_field_employees ??
-                                        'N/A'
-                                    }
-                                    className={classes.centerInput}
-                                    disabled
-                                    placeholder="N/A"
-                                />
                             </Box>
                         </Box>
                         <Box
@@ -458,18 +348,6 @@ export const ProfileInfoCard = props => {
                                     {t('company_profile.questions.administrative_employees')}
                                 </InputLabel>
                             </Box>
-                            <Box flex={1}>
-                                <GlobalNumberInput
-                                    field="q_trucks"
-                                    value={
-                                        props?.profile?.insurance_questions
-                                          ?.q_administrative_employees ?? 'N/A'
-                                    }
-                                    className={classes.centerInput}
-                                    disabled
-                                    placeholder="N/A"
-                                />
-                            </Box>
                         </Box>
                         <Box
                             display="flex"
@@ -480,18 +358,6 @@ export const ProfileInfoCard = props => {
                                 <InputLabel className={classes.question}>
                                     {t('company_profile.questions.years')}
                                 </InputLabel>
-                            </Box>
-                            <Box flex={1}>
-                                <GlobalNumberInput
-                                    field="q_business_years"
-                                    value={
-                                        props?.profile?.insurance_questions?.q_business_years ??
-                                        'N/A'
-                                    }
-                                    className={classes.centerInput}
-                                    disabled
-                                    placeholder="N/A"
-                                />
                             </Box>
                         </Box>
                         <Box

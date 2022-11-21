@@ -2,48 +2,17 @@
 import React, { useEffect, useState } from 'react'
 
 /** Material UI **/
-import { Box, FormLabel, makeStyles, Typography } from '@mui/material'
+import { Box, FormLabel, Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import GlobalSelect from './Select'
 import { useTranslation } from 'react-i18next'
 import GlobalTimeInput from './TimeInput'
 import GlobalInput from './TextInput'
 import moment from 'moment'
+import { laborHoursStyles } from '../../styles/classes/FormClasses'
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  label: {
-    fontSize: '12px',
-    color: theme.colors.grey,
-    marginBottom: '0.5em'
-  },
-  timeContainer: {
-    gap: '1em',
-    [theme.breakpoints.down('md')]: {
-      gap: '0.5em'
-    }
-  },
-  days: {
-    minWidth: '11em',
-    [theme.breakpoints.down('md')]: {
-      minWidth: 'auto'
-    }
-  },
-  error: {
-    marginLeft: '5px',
-    marginBottom: '1em',
-    fontSize: '10px',
-    color: theme.colors.errorText
-  },
-  iconMargin: {
-    marginRight: '7px'
-  }
-}))
-
-export default function GlobalLaborHours(props) {
-  const classes = useStyles()
+export default function GlobalLaborHours (props) {
+  const classes = laborHoursStyles()
   const { t } = useTranslation()
   const { laborhours, hoursError, setHoursError } = props
   const [hours, setHours] = useState()

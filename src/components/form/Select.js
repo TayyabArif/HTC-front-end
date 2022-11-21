@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 /** Material UI **/
 import { styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
-import { FormLabel, makeStyles, Typography } from '@mui/material'
+import { FormLabel, Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { selectStyles } from '../../styles/classes/FormClasses'
 
 import customTheme from '../../styles/mui_theme'
 
@@ -42,51 +43,8 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  text: {
-    textAlign: 'initial',
-    fontStyle: 'normal'
-  },
-  label: {
-    color: customTheme.colors.grey,
-    fontSize: '12px',
-    marginBottom: '0.5em',
-    textAlign: 'left',
-    marginLeft: '5px'
-  },
-  itemContent: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  error: {
-    fontSize: '10px',
-    color: theme.colors.errorText,
-    textAlign: 'left',
-    marginLeft: '15px'
-  },
-  iconMargin: {
-    marginRight: '7px'
-  },
-  required: {
-    color: theme.colors.errorText
-  },
-  highlightField: {
-    border: '1px solid ' + theme.colors.errorText,
-    borderRadius: '45px'
-  },
-  normalField: {
-    border: '1px solid ' + theme.colors.profile.border_input,
-    borderRadius: '45px'
-  }
-}))
-
-export default function GlobalSelect(props) {
-  const classes = useStyles()
+export default function GlobalSelect (props) {
+  const classes = selectStyles()
   const {
     label,
     field,
@@ -138,14 +96,16 @@ export default function GlobalSelect(props) {
 
   return (
     <FormControl variant="standard" fullWidth={true}>
-      {label ? (
+      {label
+        ? (
         <Typography id="text-label" className={classes.label}>
           {props.required && <span className={classes.required}>*</span>}
           {label}
         </Typography>
-      ) : (
-        ''
-      )}
+          )
+        : (
+            ''
+          )}
       <Select
         className={
           props.required && fieldError

@@ -83,6 +83,40 @@ const customTheme = createTheme({
     alert: '#47a0f499',
     borderBrowser: '#C3C3C3',
     filtersBorder: '#0000003b',
+    workOrderColors: {
+      open: '#2F80ED',
+      completed: '#4F4F4F',
+      in_progress: '#219653',
+      active: '#8BC400',
+      draft: '#828282',
+      submitted: '#4F4F4F',
+      declined: '#EB5757',
+      approved: '#27AE60',
+      no_work_order: '#CE004A',
+      not_available: '#BDBDBD'
+    },
+    profile: {
+      text_grey: '#212121',
+      avatar_bg: '#F9F9F9',
+      avatar_icon: '#4F4F4F',
+      border_input: '#ced4da',
+      border_focus: '#80bdff',
+      box_shadow: 'rgba(0,123,255,.25)',
+      borders: '#F2F2F2',
+      darkCard: '#E0E0E0',
+      disabled_bg: '#F5F5F5',
+      mapFill: '#AF1199',
+      mapStroke: '#FFFFFF'
+    },
+    filters: {
+      leftColumnBackground: '#FDFDFD',
+      tagsBorder: '#EBEBEB',
+      fieldsBorder: '#E0E0E0',
+      fieldsLabels: '#6C7172',
+      fieldsBackground: '#FFFFFF',
+      selectedChips: 'blue',
+      selectedExceptionsDividers: '#B9B9B9'
+    },
     signInButton: {
       background: '#F2F2F2',
       label: '#676767'

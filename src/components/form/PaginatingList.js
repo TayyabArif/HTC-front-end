@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 /** Material UI **/
-import { Box, makeStyles, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import FormControl from '@mui/material/FormControl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -9,55 +9,10 @@ import customTheme from '../../styles/mui_theme'
 import { BootstrapSelectContainer } from '../../styles/mui_custom_components'
 import GlobalInput from './TextInput'
 import { useTranslation } from 'react-i18next'
+import { paginatingListStyles } from '../../styles/classes/FormClasses'
 
-const useStyles = makeStyles(theme => ({
-  bottomSpacing: {
-    marginBottom: 10
-  },
-  text: {
-    textTransform: 'none',
-    fontSize: '12px',
-    textAlign: 'left',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%'
-  },
-  label: {
-    color: customTheme.colors.grey,
-    fontSize: '12px',
-    marginBottom: '0.5em',
-    textAlign: 'left',
-    marginLeft: '5px'
-  },
-  itemContent: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: '0.5em'
-  },
-  error: {
-    fontSize: '10px',
-    color: theme.colors.errorText
-  },
-  multiselectContent: {
-    borderColor: theme.colors.buttonGrey,
-    border: '1px solid',
-    borderRadius: 5,
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingTop: 8
-  },
-  multiselectZip: {
-    maxHeight: 375,
-    overflow: 'auto'
-  }
-}))
-
-export default function GlobalPaginatingList(props) {
-  const classes = useStyles()
+export default function GlobalPaginatingList (props) {
+  const classes = paginatingListStyles()
   const listInnerRef = useRef()
   const { t } = useTranslation()
   const { label, onChange, options, value } = props
@@ -119,13 +74,15 @@ export default function GlobalPaginatingList(props) {
 
   return (
     <FormControl variant="standard" fullWidth={true}>
-      {label ? (
+      {label
+        ? (
         <Typography id="text-label" className={classes.label}>
           {label}
         </Typography>
-      ) : (
-        ''
-      )}
+          )
+        : (
+            ''
+          )}
       <Box
         className={[classes.multiselectContent, classes.multiselectZip]}
         ref={listInnerRef}
