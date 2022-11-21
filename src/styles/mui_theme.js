@@ -106,6 +106,9 @@ const customTheme = createTheme({
       inputBorder: '#0000003A',
       roleButton: '#E0E0E018'
     },
+    accountSettings: {
+      bgBlue: '#6F7D94'
+    },
     workStatusBorder: 'rgba(71,160,244,0.1)',
     infoWindowBackground: '#FBFBFB',
     columnTitle: '#6C7172',

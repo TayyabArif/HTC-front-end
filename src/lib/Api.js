@@ -257,3 +257,36 @@ export const sendNotification = async (
     }
   )
 }
+
+/**
+ * Update Account Settings
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const updateAccountSettings = async params => {
+  const response = await callAPI('PUT', '/users/me', params, true)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
+ * Create user
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const createUser = async (params, step) => {
+  const response = await callAPI('POST', `/users?step=${step}`, params, false)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
+ * Update User
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const updateUser = async (id, params) => {
+  const response = await callAPI('PUT', `/users/${id}`, params, true)
+  if (!response || response.status === 204) return true
+  return response
+}

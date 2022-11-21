@@ -9,6 +9,7 @@ import { contactUs } from './contactUs'
 import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
+import { accountSettings } from './accountSettings'
 
 export const i18nEn = () => {
   return {
@@ -22,6 +23,7 @@ export const i18nEn = () => {
     contact_us_sent: contactUsSent(),
     nav_bar: navBar(),
     dashboard: dashboard(),
-    general: general()
+    general: general(),
+    account_settings: accountSettings()
   }
 }

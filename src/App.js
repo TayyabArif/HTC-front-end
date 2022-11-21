@@ -1,7 +1,7 @@
 import React from 'react'
 import Routes from './Routes'
 import customTheme from './styles/mui_theme'
-import { ThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/styles'
 import './assets/fonts/Roboto-Regular.woff2'
 
 function App () {
