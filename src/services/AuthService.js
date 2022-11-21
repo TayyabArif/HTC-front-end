@@ -1,9 +1,9 @@
 import * as Auth from '../lib/Auth'
 import * as Api from '../lib/Api'
-import { getClient, sendNotification } from '../lib/Api'
+import { sendNotification } from '../lib/Api'
 import { authActions } from '../store/signIn'
 import { store } from '../store'
-import { convertToSlug, decodeToken } from '../lib/Global'
+import { decodeToken } from '../lib/Global'
 import { loadingActions } from '../store/loading'
 import ReactGA from 'react-ga4'
 
@@ -31,17 +31,6 @@ export const login = async (username, password) => {
       ReactGA.event({
         category: 'request',
         action: 'sign_in_request'
-      })
-
-      getClient(user.client_id).then(response => {
-        ReactGA.event({
-          category: 'request',
-          action: `${convertToSlug(response.organization_name)}_activity`,
-          label: `Sign in of user attached to client ${response.organization_name}`
-        })
-        store.dispatch(authActions.setClientInfo(response))
-      }).catch(e => {
-        console.error(e)
       })
 
       store.dispatch(authActions.setUser({

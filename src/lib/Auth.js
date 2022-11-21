@@ -6,7 +6,7 @@ import { create } from 'apisauce'
  * @type {ApisauceInstance}
  */
 const auth = create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_FTC_API_SERVER_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'

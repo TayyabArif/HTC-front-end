@@ -11,10 +11,11 @@ import { authActions } from '../store/signIn'
  * @type {ApisauceInstance}
  */
 const api = create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_FTC_API_SERVER_URL,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json',
+    PORTAL: 'CLIENT'
   },
   timeout: 30000
 })
@@ -128,10 +129,7 @@ const delayCallApi = async (type, route, params, authorized, attempt, delay, del
  * @returns {Promise<object>} The API response data
  */
 export const resetPasswordRequest = async (email = '') => {
-  return await callAPI('GET', '/api/users/request-password-reset',
-    new URLSearchParams({
-      email
-    }), 0)
+  return await callAPI('POST', '/users/forgotpassword', { email }, false)
 }
 
 /**

@@ -1,27 +1,52 @@
 import React from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
+/** Components **/
 /** Sign in **/
 import SignIn from './pages/signIn/SignIn'
+import ForgotPassword from './pages/signIn/ForgotPassword'
+
+/** Redux **/
+import { useSelector } from 'react-redux'
+import ForgotPasswordEmailSent from './pages/signIn/ForgotPasswordEmailSent'
 
 /** Settings */
 import AccountSettings from './pages/AccountSettings'
 
 const Routes = () => {
+  const token = useSelector(state => state.auth.token)
+  const user = useSelector(state => state.auth.user)
+
+  if (token && user) {
+    return (
+          <BrowserRouter>
+              <Switch>
+                  <Route exact path="/">
+                  </Route>
+              </Switch>
+          </BrowserRouter>
+    )
+  }
   return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to={'/sign-in'}/>
-          </Route>
-          <Route exact path="/sign-in">
-            <SignIn/>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/">
+                    <Redirect to={'/sign-in'}/>
+                </Route>
+                <Route exact path="/forgot-password">
+                    <ForgotPassword />
+                </Route>
+                <Route path='/forgot-password/sent'>
+                    <ForgotPasswordEmailSent/>
+                </Route>
+                <Route exact path="/sign-in">
+                    <SignIn/>
           </Route>
             <Route exact path="/account-settings">
                 <AccountSettings />
-            </Route>
-        </Switch>
-      </BrowserRouter>)
+                </Route>
+            </Switch>
+        </BrowserRouter>)
 }
 
 export default Routes
