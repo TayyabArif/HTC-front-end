@@ -53,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     '&.MuiTypography-root': {
+      fontWeight: '700',
       fontFamily: 'Rubik Bold',
-      lineHeight: '36px',
+      lineHeight: 1.5,
       [theme.breakpoints.down('md')]: {
         fontSize: '24px'
       },
@@ -186,8 +187,8 @@ const ForgotPassword = () => {
             <Grid item xs={12} md={8}>
               <Box mt={4}>
                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                  <Grid container justifyContent="center">
-                    <Grid item xs={12} sm={12} md={10}>
+                  <Grid container justifyContent="left">
+                    <Grid item xs={12}>
                       <TextField
                         className={classes.emailField}
                         variant="outlined"
@@ -227,7 +228,7 @@ const ForgotPassword = () => {
                     </Grid>
                   </Grid>
                   <Grid container justifyContent="right">
-                    <Grid item xs={12} sm={12} md={3}>
+                    <Grid item xs={12} sm={12} md={2}>
                       <Grid container direction="column">
                         <Grid align={'center'} item>
                           <Box className={classes.sendButtonBox}>

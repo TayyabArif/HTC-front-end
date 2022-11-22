@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   contactText: {
     fontWeight: '400',
     fontSize: '14px'
+  },
+  footerContainer: {
+    bottom: 10,
+    position: 'absolute'
   }
 }))
 
@@ -63,25 +67,23 @@ export const SignInContainer = (props) => {
             {props.children}
           </Box>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Grid container justifyContent="right">
-            <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
+          <Grid container className={classes.footerContainer}>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={8}>
               <img src={conectadLogo} alt="Connectad Logo"/>
             </Grid>
+            <Grid item md={1} alignSelf="flex-end">
+              <Typography variant={'p'} className={ classes.contactText }>
+                Contact us
+              </Typography>
+            </Grid>
+            <Grid item md={1} alignSelf="flex-end">
+              <Typography variant={'p'} align={'center'} className={classes.versionText}>
+                &nbsp;v{pjson.version}
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={3} md={8}></Grid>
-        <Grid item md={1}>
-          <Typography variant={'p'} className={ classes.contactText }>
-            Contact us
-          </Typography>
-        </Grid>
-        <Grid item md={1}>
-          <Typography variant={'p'} align={'center'} className={classes.versionText}>
-            &nbsp;v{pjson.version}
-          </Typography>
         </Grid>
       </Grid>
     </div>
