@@ -197,15 +197,7 @@ export const UpdateAccountInfo = props => {
     password: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.length_6')),
-    passwordConfirm: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6'))
-      .oneOf(
-        [yup.ref('password')],
-        t('account_settings.messages.errors.password_match')
-      )
   })
 
   /** End VALIDATIONS **/
@@ -229,8 +221,6 @@ export const UpdateAccountInfo = props => {
 
   const handleChangeValues = event => {
     const value = event.target.value
-    console.log(event.target.name)
-    console.log(value)
     setUpdatedInfo({
       ...updatedInfo,
       [event.target.name]: value
@@ -384,9 +374,9 @@ export const UpdateAccountInfo = props => {
               </FormLabel>
             </div>
 
-            <Grid container xs={12} p={3} pt={0}>
+            <Grid container p={3} pt={0}>
               <Grid item xs={12}>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={6}>
                     <TextInput
                         value={updatedInfo.firstName}
@@ -426,7 +416,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
                         value={updatedInfo.email}
@@ -446,7 +436,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <PhoneInput
                         value={updatedInfo.phone}
@@ -466,7 +456,7 @@ export const UpdateAccountInfo = props => {
                   </Grid>
                 </Grid>
 
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <Selector
                         id={'roles'}
@@ -498,7 +488,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <Selector
                         id={'role'}
@@ -525,7 +515,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <Selector
                         id={'emailNotifications'}
@@ -550,7 +540,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
                         value={updatedInfo.employeeId}
@@ -570,7 +560,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
                         value={updatedInfo.username}
@@ -588,7 +578,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container xs={12} mt={2}>
+                <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
                         value={updatedInfo.password}

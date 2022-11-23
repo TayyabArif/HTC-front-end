@@ -60,9 +60,10 @@ const processApiResponse = (response) => {
 const callAPI = async (type, route, params = {}, authorized = 1, attempt = 1) => {
   const authStore = store.getState().auth
   let response
-
   if (authorized) {
-    api.setHeader('Authorization', `Bearer ${authStore.token.access_token}`)
+    // api.setHeader('Authorization', `Bearer ${authStore.token.access_token}`)
+    // TODO only for test purposes
+    api.setHeader('Authorization', `Bearer ${authStore.user.token}`)
   }
 
   switch (type) {
