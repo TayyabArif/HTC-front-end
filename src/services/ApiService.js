@@ -122,3 +122,15 @@ export const updateClientUser = async (id, params) => {
   }
   store.dispatch(loadingActions.hide())
 }
+
+export const getCompanyRoles = async companyId => {
+  store.dispatch(loadingActions.show())
+  try {
+    const companyRoles = await Api.getCompanyRoles(companyId)
+    store.dispatch(loadingActions.hide())
+    return companyRoles
+  } catch (e) {
+    store.dispatch(loadingActions.hide())
+    throw e
+  }
+}

@@ -34,18 +34,14 @@ import { isEqual } from 'lodash'
 import { navBarHeaderHeight } from '../../lib/Constants'
 
 const useStyles = makeStyles(theme => ({
-  presentation: {
-    padding: '0px 5px',
-    paddingBottom: '40px',
-    marginTop: '19px',
-    overflowY: 'auto'
-  },
   title: {
-    color: 'black',
-    fontSize: '20px',
-    fontWeight: '700',
-    font: 'Rubik',
-    margin: '32px 0px'
+    '&.MuiFormLabel-root': {
+      color: 'black',
+      fontSize: '20px',
+      fontWeight: '700',
+      fontFamily: 'Rubik Bold',
+      margin: '32px 0px 0px 0px'
+    }
   },
   save: {
     textTransform: 'none',
@@ -86,7 +82,7 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
     marginTop: navBarHeaderHeight,
-    width: '360px',
+    width: '387px',
     borderRadius: '8px',
     overflow: 'auto',
     overflowX: 'hidden',
@@ -95,9 +91,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: '19px',
     marginBottom: '20px',
     display: 'flex'
-  },
-  element: {
-    marginTop: '20px'
   },
   footer: {
     marginRight: 20,
@@ -110,7 +103,8 @@ const useStyles = makeStyles(theme => ({
   drawerContainer: { height: '100%', position: 'relative' },
   drawerTitle: { alignItems: 'center', paddingLeft: '20px' },
   drawerContent: {
-    marginLeft: '20px'
+    '&.MuiGrid-root': {
+    }
   }
 }))
 
@@ -143,11 +137,12 @@ export const UpdateAccountInfo = props => {
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
     password: passwordPlaceHolder,
-    passwordConfirm: passwordPlaceHolder
+    employeeId: accountInfo.userInfo.employeeId,
+    emailNotifications: accountInfo.userInfo.emailNotifications
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
-  useEffect(async () => {
+  useEffect(() => {
     if (editDrawer) {
       try {
         setOpen(true)
@@ -169,9 +164,7 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.lastName ||
       !updatedInfo.email ||
       !updatedInfo.username ||
-      (updatedInfo.password && !updatedInfo.passwordConfirm) ||
-      (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-      (!updatedInfo.password && !updatedInfo.passwordConfirm)
+      !updatedInfo.password
     ) {
       save = false
     }
@@ -236,6 +229,8 @@ export const UpdateAccountInfo = props => {
 
   const handleChangeValues = event => {
     const value = event.target.value
+    console.log(event.target.name)
+    console.log(value)
     setUpdatedInfo({
       ...updatedInfo,
       [event.target.name]: value
@@ -263,7 +258,9 @@ export const UpdateAccountInfo = props => {
         username: updatedInfo.username,
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
-        role: updatedInfo.role
+        role: updatedInfo.role,
+        employeeId: updatedInfo.employeeId,
+        emailNotifications: updatedInfo.emailNotifications
       }
 
       if (updatedInfo.password !== passwordPlaceHolder) {
@@ -284,6 +281,8 @@ export const UpdateAccountInfo = props => {
       newUserData.userInfo.roles = newData.roles
       newUserData.userInfo.role = newData.role
       newUserData.userInfo.password = newData.password
+      newUserData.userInfo.employeeId = newData.employeeId
+      newUserData.userInfo.emailNotifications = newData.emailNotifications
 
       store.dispatch(authActions.setUser(newUserData))
       handleClosePanel(newUserData)
@@ -378,178 +377,234 @@ export const UpdateAccountInfo = props => {
         >
           <div className={classes.drawerContainer}>
             <div className={classes.drawerTitle}>
-              <FormLabel component="legend" classes={{ root: classes.title }}>
+              <FormLabel component="legend" className={classes.title}>
                 {event === 'new'
                   ? t('account_settings.info_card.new_user_title')
                   : t('account_settings.info_card.title')}
               </FormLabel>
             </div>
 
-            <Grid container spacing={1}>
-              <Grid item xs={12} className={classes.drawerContent}>
-                <div style={{ marginTop: 12 }}></div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    maxWidth: '309px',
-                    overflow: 'hidden'
-                  }}
-                >
-                  <TextInput
-                    value={updatedInfo.firstName}
-                    id="firstName"
-                    name="firstName"
-                    handleChange={handleChangeValues}
-                    label={t('account_settings.info_card.first_name')}
-                    error={!!errors.firstName}
-                    helperText={errors.firstName && errors.firstName.message}
-                    {...register('firstName')}
-                    inputStyle={{
-                      width: '100%',
-                      borderRightColor: 'red',
-                      borderRightWidth: '1px',
-                      borderRightStyle: 'solid',
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderColor: '#B8B8B8'
-                    }}
-                  />
+            <Grid container xs={12} p={3} pt={0}>
+              <Grid item xs={12}>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={6}>
+                    <TextInput
+                        value={updatedInfo.firstName}
+                        id="firstName"
+                        name="firstName"
+                        handleChange={handleChangeValues}
+                        label={t('account_settings.info_card.first_name')}
+                        error={!!errors.firstName}
+                        helperText={errors.firstName && errors.firstName.message}
+                        {...register('firstName')}
+                        inputStyle={{
+                          width: '100%',
+                          borderRightColor: 'red',
+                          borderRightWidth: '1px',
+                          borderRightStyle: 'solid',
+                          borderTopRightRadius: 0,
+                          borderBottomRightRadius: 0,
+                          borderColor: '#B8B8B8'
+                        }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextInput
+                        value={updatedInfo.lastName}
+                        id="lastName"
+                        name="lastName"
+                        handleChange={handleChangeValues}
+                        label={t('account_settings.info_card.last_name')}
+                        error={!!errors.lastName}
+                        helperText={errors.lastName && errors.lastName.message}
+                        {...register('lastName')}
+                        inputStyle={{
+                          width: '100%',
+                          borderTopLeftRadius: 0,
+                          borderBottomLeftRadius: 0
+                        }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                        value={updatedInfo.email}
+                        id="email"
+                        name="email"
+                        handleChange={handleChangeValues}
+                        label={t('account_settings.info_card.email')}
+                        error={!!errors.email}
+                        helperText={errors.email && errors.email.message}
+                        {...register('email')}
+                        endAdornment={true}
+                        inputStyle={{
+                          width: '100%',
+                          borderTopLeftRadius: 0,
+                          borderBottomLeftRadius: 0
+                        }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <PhoneInput
+                        value={updatedInfo.phone}
+                        id="phone"
+                        name="phone"
+                        handleChange={handleChangeValues}
+                        label={t('account_settings.info_card.phone_number')}
+                        error={!!errors.phone}
+                        helperText={errors.phone && errors.phone.message}
+                        inputStyle={{
+                          width: '100%',
+                          borderTopLeftRadius: 0,
+                          borderBottomLeftRadius: 0
+                        }}
+                        {...register('phone')}
+                    />
+                  </Grid>
+                </Grid>
 
-                  <TextInput
-                    value={updatedInfo.lastName}
-                    id="lastName"
-                    name="lastName"
-                    handleChange={handleChangeValues}
-                    label={t('account_settings.info_card.last_name')}
-                    error={!!errors.lastName}
-                    helperText={errors.lastName && errors.lastName.message}
-                    {...register('lastName')}
-                    inputStyle={{
-                      width: '100%',
-                      borderTopLeftRadius: 0,
-                      borderBottomLeftRadius: 0
-                    }}
-                  />
-                </div>
-
-                <TextInput
-                  value={updatedInfo.email}
-                  id="email"
-                  name="email"
-                  handleChange={handleChangeValues}
-                  label={t('account_settings.info_card.email')}
-                  error={!!errors.email}
-                  helperText={errors.email && errors.email.message}
-                  {...register('email')}
-                />
-
-                <PhoneInput
-                  value={updatedInfo.phone}
-                  id="phone"
-                  name="phone"
-                  handleChange={handleChangeValues}
-                  label={t('account_settings.info_card.phone_number')}
-                  error={!!errors.phone}
-                  helperText={errors.phone && errors.phone.message}
-                  {...register('phone')}
-                />
-
-                <Selector
-                  id={'roles'}
-                  value={
-                    mobile
-                      ? t('company_settings.mobile_only')
-                      : roles
-                        ? roles[0].name
-                        : ''
-                  }
-                  label={t('account_settings.info_card.company_role')}
-                  handleChange={handleChangeValues}
-                  options={
-                    mobile
-                      ? [
-                          {
-                            id: 'no_value',
-                            name: t('company_settings.mobile_only')
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <Selector
+                        id={'roles'}
+                        value={
+                          mobile
+                            ? t('company_settings.mobile_only')
+                            : roles
+                              ? roles[0].name
+                              : ''
+                        }
+                        label={t('account_settings.info_card.company_role')}
+                        handleChange={handleChangeValues}
+                        options={
+                          mobile
+                            ? [
+                                {
+                                  id: 'no_value',
+                                  name: t('company_settings.mobile_only')
+                                }
+                              ]
+                            : roles && roles.length > 0
+                              ? [...roles]
+                              : []
+                        }
+                        error={!!errors.roles}
+                        helperText={errors.roles && errors.roles.message}
+                        disabled={accountOwner}
+                        {...register('roles')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <Selector
+                        id={'role'}
+                        value={
+                            t('create_account.user_roles', {
+                              returnObjects: true
+                            })[updatedInfo.role] ?? ''
+                        }
+                        label={t('company_settings.users_card.role')}
+                        handleChange={handleChangeValues}
+                        options={Object.keys(
+                          t('create_account.user_roles', { returnObjects: true })
+                        ).map(key => {
+                          return {
+                            id: key,
+                            name: t('create_account.user_roles', {
+                              returnObjects: true
+                            })[key]
                           }
-                        ]
-                      : roles && roles.length > 0
-                        ? [...roles]
-                        : []
-                  }
-                  error={!!errors.roles}
-                  helperText={errors.roles && errors.roles.message}
-                  disabled={accountOwner}
-                  {...register('roles')}
-                />
-
-                <Selector
-                  id={'role'}
-                  value={
-                    t('create_account.user_roles', {
-                      returnObjects: true
-                    })[updatedInfo.role] ?? ''
-                  }
-                  label={t('company_settings.users_card.role')}
-                  handleChange={handleChangeValues}
-                  options={Object.keys(
-                    t('create_account.user_roles', { returnObjects: true })
-                  ).map(key => {
-                    return {
-                      id: key,
-                      name: t('create_account.user_roles', {
-                        returnObjects: true
-                      })[key]
-                    }
-                  })}
-                  error={!!errors.role}
-                  helperText={errors.role && errors.role.message}
-                  {...register('role')}
-                />
-
-                <TextInput
-                  value={updatedInfo.username}
-                  id="username"
-                  handleChange={handleChangeValues}
-                  label={
-                    t('account_settings.info_card.username') +
-                    ' ' +
-                    t('account_settings.form.username_chars')
-                  }
-                  error={!!errors.username}
-                  helperText={errors.username && errors.username.message}
-                  {...register('username')}
-                />
-
-                <TextInput
-                  value={updatedInfo.password}
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder={'********'}
-                  handleChange={handleChangeValues}
-                  label={t('account_settings.info_card.password')}
-                  error={!!errors.password}
-                  helperText={errors.password && errors.password.message}
-                  {...register('password')}
-                />
-
-                <TextInput
-                  value={updatedInfo.passwordConfirm}
-                  id="passwordConfirm"
-                  name="passwordConfirm"
-                  type="password"
-                  handleChange={handleChangeValues}
-                  placeholder={'********'}
-                  label={t('account_settings.info_card.password_confirm')}
-                  error={!!errors.passwordConfirm}
-                  helperText={
-                    errors.passwordConfirm && errors.passwordConfirm.message
-                  }
-                  {...register('passwordConfirm')}
-                />
-
+                        })}
+                        error={!!errors.role}
+                        helperText={errors.role && errors.role.message}
+                        {...register('role')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <Selector
+                        id={'emailNotifications'}
+                        value={
+                            t('create_account.email_notifications', {
+                              returnObjects: true
+                            })[updatedInfo.emailNotifications] ?? ''
+                        }
+                        label={t('company_settings.users_card.notifications')}
+                        handleChange={handleChangeValues}
+                        options={Object.keys(
+                          t('create_account.email_notifications', { returnObjects: true })
+                        ).map(key => {
+                          return {
+                            id: key,
+                            name: t('create_account.email_notifications', {
+                              returnObjects: true
+                            })[key]
+                          }
+                        })}
+                        {...register('emailNotifications')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                        value={updatedInfo.employeeId}
+                        id="employeeId"
+                        name="employeeId"
+                        handleChange={handleChangeValues}
+                        label={t('account_settings.info_card.employee_id')}
+                        error={!!errors.employeeId}
+                        helperText={errors.employeeId && errors.employeeId.message}
+                        {...register('employeeId')}
+                        variant="filled"
+                        inputStyle={{
+                          width: '100%',
+                          borderTopRightRadius: 0,
+                          borderBottomRightRadius: 0
+                        }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                        value={updatedInfo.username}
+                        id="username"
+                        handleChange={handleChangeValues}
+                        label={
+                            t('account_settings.info_card.username') +
+                            ' ' +
+                            t('account_settings.form.username_chars')
+                        }
+                        error={!!errors.username}
+                        helperText={errors.username && errors.username.message}
+                        endAdornment={true}
+                        {...register('username')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container xs={12} mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                        value={updatedInfo.password}
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder={'********'}
+                        handleChange={handleChangeValues}
+                        label={t('account_settings.info_card.password')}
+                        error={!!errors.password}
+                        helperText={errors.password && errors.password.message}
+                        endAdornment={true}
+                        {...register('password')}
+                    />
+                  </Grid>
+                </Grid>
                 <Box pt={1} hidden={!errorMessage}>
                   <Typography align={'left'} className={classes.errorMessage}>
                     {props.errorMessage

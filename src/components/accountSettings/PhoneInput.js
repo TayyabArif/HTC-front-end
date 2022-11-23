@@ -6,27 +6,28 @@ import {
   TextField
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useTranslation } from 'react-i18next'
 
 import { NumericFormat as NumberFormat } from 'react-number-format'
+import { HighlightOff } from '@mui/icons-material'
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiFilledInput-input': {
+      fontFamily: 'Rubik',
       border: `1px solid ${theme.colors.signInButton.background}`,
       color: `${theme.colors.text} !important`,
       backgroundColor: theme.colors.signInButton.background,
-      width: '288px',
-      borderRadius: '6px'
+      borderRadius: '6px',
+      fontSize: '10.7px'
     },
     '& .MuiFilledInput-root': {
       backgroundColor: theme.colors.signInButton.background,
       borderRadius: '6px'
     },
     '& .MuiIconButton-sizeSmall': {
-      marginLeft: '20px'
+      marginLeft: '0px'
     },
     '& .MuiIconButton-sizeSmall:hover': {
       backgroundColor: theme.colors.signInButton.background
@@ -35,13 +36,18 @@ const useStyles = makeStyles(theme => ({
       paddingRight: 0
     },
     '& .MuiFormLabel-root': {
-      top: '4px'
+      color: theme.colors.settings.fieldName,
+      top: '4px',
+      fontSize: '16px'
     },
     '& .Mui-focused': {
-      color: theme.colors.workOrders.tab.duedate
+      color: theme.colors.tab.duedate
     },
     '& .MuiFormHelperText-root': {
       fontSize: '10px'
+    },
+    '& .MuiInputBase-input': {
+      fontSize: '16px'
     }
   },
   input: {
@@ -52,17 +58,25 @@ const useStyles = makeStyles(theme => ({
     marginTop: 'unset',
     fontSize: 10,
     borderRadius: '8px',
-    color: theme.colors.workOrders.tab.duedate
+    color: theme.colors.tab.duedate
   },
   textField: {
     height: '52px',
-    fontSize: 16,
-    maxWidth: '309px',
     backgroundColor: theme.colors.signInButton.background
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '15px'
+    '& svg': {
+      fontSize: '25px'
+    },
+    '&.MuiButtonBase-root': {
+      padding: '0px'
+    }
+  },
+  formControl: {
+    '& .MuiFormControl-root': {
+      margin: 0
+    }
   }
 }))
 
@@ -112,7 +126,7 @@ export const PhoneInput = React.forwardRef(
     }
 
     return (
-      <FormControl style={{ marginLeft: '0px' }}>
+      <FormControl fullWidth className={classes.formControl}>
         <TextField
           id={id}
           name={name}
@@ -140,7 +154,7 @@ export const PhoneInput = React.forwardRef(
                     className={classes.icon}
                     size="small"
                   >
-                    <FontAwesomeIcon icon={['far', 'xmark']} size="xs" />
+                    <HighlightOff />
                   </IconButton>
                 )}
               </InputAdornment>

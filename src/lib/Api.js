@@ -288,3 +288,16 @@ export const updateUser = async (id, params) => {
   if (!response || response.status === 204) return true
   return response
 }
+
+/**
+ * GET Company Roles list
+ * @returns Company Roles list
+ */
+export const getCompanyRoles = async companyId => {
+  try {
+    const response = await callAPI('GET', '/roles/company/' + companyId)
+    return response
+  } catch {
+    return false
+  }
+}

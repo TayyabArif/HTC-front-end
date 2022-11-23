@@ -17,10 +17,14 @@ const useStyles = makeStyles(theme => ({
     height: '400px'
   },
   title: {
-    fontFamily: 'Rubik',
-    display: 'flex',
-    color: theme.colors.white,
-    padding: '24px 0px 32px 62px'
+    '&.MuiTypography-root': {
+      fontFamily: 'Rubik Bold',
+      display: 'flex',
+      color: theme.colors.white,
+      padding: '24px 0px 32px 62px',
+      fontWeight: 700,
+      fontSize: '28px'
+    }
 
   },
   titleBackground: {
@@ -38,16 +42,13 @@ const useStyles = makeStyles(theme => ({
 const AccountSettings = () => {
   const { t } = useTranslation()
   const classes = useStyles()
-  const titleStyle = {
-    fontWeight: 'bold'
-  }
 
   return (
         <MainContainer>
             <Container className={classes.container} maxWidth={false} disableGutters>
                 <Box className={classes.titleBackground}></Box>
                 <Box display="flex" flexDirection="row">
-                    <Typography className={classes.title} variant="h4" sx={titleStyle}>
+                    <Typography className={classes.title}>
                         {t('account_settings.title')}
                     </Typography>
                 </Box>

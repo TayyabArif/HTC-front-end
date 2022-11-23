@@ -4,9 +4,9 @@ export const accountSettings = () => {
     info_card: {
       title: 'Account Details',
       new_user_title: 'New User',
-      name: 'Name',
-      first_name: 'First name',
-      last_name: 'Last name',
+      name: '',
+      first_name: 'First Name',
+      last_name: 'Last Name',
       email: 'Email Address',
       username: 'Username',
       company_role: 'Role',
@@ -17,7 +17,8 @@ export const accountSettings = () => {
       password_confirm: 'Password Confirm',
       profile_pic: 'Profile Pic',
       user_title: 'Title',
-      access_type: 'Access Type'
+      access_type: 'Access Type',
+      edit_button: 'Edit'
     },
     form: {
       save: 'Save',

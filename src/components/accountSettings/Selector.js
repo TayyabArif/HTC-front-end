@@ -7,13 +7,12 @@ import {
   TextField
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ArrowDropDown } from '@mui/icons-material'
 
 const useStyles = makeStyles(theme => ({
   textField: {
     height: '52px',
     fontSize: 16,
-    width: '309px',
     backgroundColor: theme.colors.signInButton.background,
     color: theme.colors.text
   },
@@ -21,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: 'unset',
     fontSize: 10,
     borderRadius: '8px',
-    color: theme.colors.workOrders.tab.duedate,
+    color: theme.colors.tab.duedate,
     backgroundColor: theme.colors.signInButton.background
   },
   root: {
@@ -29,7 +28,8 @@ const useStyles = makeStyles(theme => ({
       border: `1px solid ${theme.colors.signInButton.background}`,
       color: `${theme.colors.text} !important`,
       backgroundColor: theme.colors.signInButton.background,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      fontSize: '10.7px'
     },
     '& .MuiFilledInput-root': {
       backgroundColor: theme.colors.signInButton.background,
@@ -44,6 +44,14 @@ const useStyles = makeStyles(theme => ({
     '& .MuiFormHelperText-root': {
       fontSize: '10px'
     },
+    '& .MuiFormLabel-root': {
+      color: theme.colors.settings.fieldName,
+      top: '4px',
+      fontSize: '16px'
+    },
+    '& .MuiInputBase-input': {
+      fontSize: '16px'
+    },
     marginBottom: '12px'
   },
   input: {
@@ -52,9 +60,16 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '5px'
+    '&.MuiButtonBase-root': {
+      padding: '0px'
+    }
   },
-  menuItem: theme.filtersClasses.menuItem
+  menuItem: theme.filtersClasses.menuItem,
+  formControl: {
+    '& .MuiFormControl-root': {
+      margin: 0
+    }
+  }
 }))
 
 export const Selector = React.forwardRef((props, ref) => {
@@ -74,8 +89,9 @@ export const Selector = React.forwardRef((props, ref) => {
   return (
     <FormControl
       variant="filled"
-      className={classes.formControl}
       disabled={props.disabled}
+      fullWidth
+      className={classes.formControl}
     >
       <TextField
         id={props.id}
@@ -97,8 +113,7 @@ export const Selector = React.forwardRef((props, ref) => {
           className: classes.textField,
           endAdornment: (
             <InputAdornment position="end">
-              <FontAwesomeIcon
-                icon={['fas', 'caret-down']}
+              <ArrowDropDown
                 className={classes.icon}
               />
             </InputAdornment>
@@ -118,7 +133,7 @@ export const Selector = React.forwardRef((props, ref) => {
             <MenuItem
               key={option.id}
               value={option.id}
-              classes={{ root: classes.menuItem }}
+              className={classes.menuItem}
               onClick={() => {
                 props.handleChange({
                   target: { name: props.id, value: option.id }

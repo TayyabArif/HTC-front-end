@@ -10,6 +10,7 @@ import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
 import { accountSettings } from './accountSettings'
+import { companySettings } from './companySettings'
 
 export const i18nEn = () => {
   return {
@@ -24,6 +25,8 @@ export const i18nEn = () => {
     nav_bar: navBar(),
     dashboard: dashboard(),
     general: general(),
-    account_settings: accountSettings()
+    account_settings: accountSettings(),
+    company_settings: companySettings(),
+    create_account: requestAccess()
   }
 }
