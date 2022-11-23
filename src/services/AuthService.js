@@ -1,11 +1,8 @@
 import * as Auth from '../lib/Auth'
 import * as Api from '../lib/Api'
-import { getClient, sendNotification } from '../lib/Api'
 import { authActions } from '../store/signIn'
 import { store } from '../store'
-import { convertToSlug, decodeToken } from '../lib/Global'
-import { loadingActions } from '../store/loading'
-import ReactGA from 'react-ga4'
+import { decodeToken } from '../lib/Global'
 
 /**
  * Call to login auth server endpoint
@@ -14,47 +11,38 @@ import ReactGA from 'react-ga4'
  * @param password
  * @returns {Promise<void>}
  */
-export const login = async (username, password) => {
+export const login = async (username, password, redirect = '/work-orders') => {
   try {
-    const userScopes = await Api.getUserScopes(username)
+    const response = await Auth.login(username, password)
+    store.dispatch(authActions.login(response))
+    const tokenInfo = decodeToken(response.access_token)
+    const user = await Api.getUser()
 
-    let scopeParam = []
-    if (userScopes && userScopes.length) {
-      scopeParam = userScopes.map((item) => item.scope)
-    }
-    const response = await Auth.login(username, password, scopeParam.join(' '))
-    if (response) {
-      store.dispatch(authActions.login(response))
-      const tokenInfo = decodeToken(response.access_token)
-      const user = await Api.getUser(tokenInfo.userId)
-
-      ReactGA.event({
-        category: 'request',
-        action: 'sign_in_request'
-      })
-
-      getClient(user.client_id).then(response => {
-        ReactGA.event({
-          category: 'request',
-          action: `${convertToSlug(response.organization_name)}_activity`,
-          label: `Sign in of user attached to client ${response.organization_name}`
-        })
-        store.dispatch(authActions.setClientInfo(response))
-      }).catch(e => {
-        console.error(e)
-      })
-
-      store.dispatch(authActions.setUser({
-        ...tokenInfo,
-        userInfo: user
-      }))
-
-      if (!userHasAuthorization('masquerade:write')) {
-        sendNotification('client_log_in', user.client_id, user.id).catch(e => {
-          console.error(e)
-        })
+    if (!user.scopes?.name) {
+      store.dispatch(authActions.logout())
+      throw {
+        name: 'Invalid user',
+        error: 'There are no permissions for this user',
+        code: 402
       }
     }
+
+    store.dispatch(
+      authActions.setUser({
+        ...tokenInfo,
+        userInfo: user
+      })
+    )
+
+    // uncomment to redirect
+    /* store.dispatch(
+      authActions.setRedirect({
+        redirect: redirect
+      })
+    )
+    setTimeout(() => {
+      store.dispatch(authActions.resetRedirect({}))
+    }, 1000) */
   } catch (e) {
     console.error(e)
     throw e
@@ -67,14 +55,14 @@ export const login = async (username, password) => {
  * @param refreshToken
  * @returns {Promise<void>}
  */
-export const refreshToken = async (refreshToken) => {
+export const refreshToken = async refreshToken => {
   const response = await Auth.refreshToken(refreshToken)
   if (response) {
-    store.dispatch(authActions.setToken(
-      {
+    store.dispatch(
+      authActions.setToken({
         ...response
-      }
-    ))
+      })
+    )
   }
 }
 
@@ -84,17 +72,18 @@ export const refreshToken = async (refreshToken) => {
  * @param scopes
  * @returns {boolean}
  */
-export const userHasAuthorization = (scopes) => {
+export const userHasAuthorization = scopes => {
+  const request = scopes.split(':')
   const authStore = store.getState().auth
-  const allowedScopes = authStore.user.scopes.split(' ')
-
-  const found = scopes
-    .split(' ')
-    .every((scope) => allowedScopes.includes(scope))
-
-  if (found) {
-    return true
+  const allowedScopes = authStore.user?.userInfo?.scopes
+  if (request && request.length) {
+    const requestedScope = allowedScopes?.permissions[request[0]]
+    if (requestedScope && requestedScope[request[1]]) {
+      return true
+    }
   }
+
+  
   return false
 }
 
@@ -104,7 +93,7 @@ export const userHasAuthorization = (scopes) => {
  * @param email
  * @returns {Promise<*>}
  */
-export const requestResetPassword = async (email) => {
+export const requestResetPassword = async email => {
   try {
     const response = await Api.resetPasswordRequest(email)
 
@@ -122,16 +111,24 @@ export const requestResetPassword = async (email) => {
 /**
  * Reset password
  *
- * @param selector
- * @param token
- * @param password
- * @param password2
- * @param apiToken
+ * @param email
  * @returns {Promise<*>}
  */
-export const resetPassword = async (selector, token, password, password2, apiToken) => {
+export const resetPassword = async (
+  selector,
+  token,
+  password,
+  password2,
+  apiToken
+) => {
   try {
-    const response = await Auth.resetPassword(selector, token, password, password2, apiToken)
+    const response = await Auth.resetPassword(
+      selector,
+      token,
+      password,
+      password2,
+      apiToken
+    )
 
     if (response) {
       return response
@@ -140,25 +137,6 @@ export const resetPassword = async (selector, token, password, password2, apiTok
     }
   } catch (e) {
     console.error(e)
-    throw e
-  }
-}
-
-/**
- * Call to complete registration auth server endpoint
- *
- * @param email
- * @param password
- * @returns {Promise<void>}
- */
-export const completeRegistration = async (email, password, invitationToken) => {
-  store.dispatch(loadingActions.show())
-  try {
-    await Api.completeRegistration(email, password, invitationToken)
-    await login(email, password)
-    store.dispatch(loadingActions.hide())
-  } catch (e) {
-    store.dispatch(loadingActions.hide())
     throw e
   }
 }

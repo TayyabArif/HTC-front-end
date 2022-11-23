@@ -1,15 +1,12 @@
 import { Link, useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 /** Material UI **/
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
 import { LockOutlined, PersonOutlineOutlined } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography } from '@mui/material'
-
-/** Components **/
-import { SignInContainer } from '../../components/SignInContainer'
+import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography, Container } from '@mui/material'
 
 /** Validations **/
 import { useForm } from 'react-hook-form'
@@ -19,10 +16,25 @@ import * as yup from 'yup'
 /** Images **/
 import googleIcon from '../../assets/icons/google.svg'
 import microsoftIcon from '../../assets/icons/microsoft.svg'
+import connectLogo from '../../assets/images/connect_logo.svg'
+import signinLogo from '../../assets/images/signin_logo.svg'
+
+/** Redux **/
+import { useDispatch } from 'react-redux'
+import { loadingActions } from '../../store/loading'
+import { authActions } from '../../store/signIn'
+import { store } from '../../store'
+
+/** Services **/
+import { login } from '../../services/AuthService'
+
+const pjson = require('../../../package.json')
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    transform: 'scale(0.80)'
+    margin: '0px !important',
+    padding: '0px !important',
+    maxWidth: '1980px !important'
   },
   mainItem: {
     maxWidth: '30em',
@@ -31,9 +43,19 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '-50px'
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: '4em',
+      paddingTop: '140px',
       marginTop: '0px'
     }
+  },
+  signMessage: {
+    marginTop: '15px !important',
+    fontSize: '14px !important',
+    fontWieght: '300 !important'
+  },
+  connectIcon: {
+    width: '627px',
+    margin: '0px auto',
+    position: 'relative'
   },
   icon: {
     top: '-1px',
@@ -75,21 +97,25 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   buttons: {
+    width: '560px !important',
+    margin: '0px auto',
     marginTop: theme.spacing(4)
   },
   link: {
     fontWeight: '400',
     color: theme.colors.text,
     textDecoration: 'none',
+    fontFamily: 'Rubik',
     [theme.breakpoints.down('md')]: {
       fontSize: '16px'
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
+      fontSize: '14px'
     }
   },
   linkBox: {
-    paddingTop: '10px'
+    paddingTop: '10px',
+    paddingRight: '6px'
   },
   rememberMe: {
     fontWeight: '400',
@@ -97,17 +123,17 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '16px'
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
+      fontSize: '14px !important'
     }
   },
   errorMessage: {
-    color: theme.colors.errorText,
-    fontWeight: '400',
-    fontSize: '15px'
+    color: `${theme.colors.errorText} !important`,
+    fontWeight: '300 !important',
+    fontSize: '14px !important'
   },
   terms: {
-    fontWeight: '400',
-    fontSize: '14px',
+    fontWeight: '400 !important',
+    fontSize: '14px !important',
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
@@ -120,9 +146,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none'
   },
   signWith: {
-    width: '100%',
-    fontSize: '20px',
-    padding: '6px 10px'
+    width: '100% !important',
+    fontSize: '20px !important',
+    padding: '6px 10px',
+    borderRadius: '15px !important'
   },
   signWithGrid: {
     width: '100%',
@@ -139,21 +166,25 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '15px'
     },
     [theme.breakpoints.up('md')]: {
-      marginTop: '40px'
+      width: '570px',
+      margin: '40px auto 0px auto',
+      paddingLeft: '3%'
     }
   },
   fields: {
     '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: theme.colors.inputBorder,
-        borderWidth: '1px'
+      borderRadius: '36px',
+      fontSize: '14px',
+      height: '36px',
+      width: '560px'
+    },
+    '& .MuiFormControl-root': {
+      width: '530px'
+    },
+    '& .MuiInputBase-root': {
+      '& input': {
+        WebkitBoxShadow: '0 0 0 1000px white inset'
       }
-    },
-    [theme.breakpoints.down('md')]: {
-      margin: '0px 0px 8px 0px'
-    },
-    [theme.breakpoints.up('md')]: {
-      margin: '16px 0px 8px 0px'
     }
   },
   requestButton: {
@@ -171,10 +202,31 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '129px'
     }
+  },
+  rememberForgot: {
+    width: '560px !important',
+    margin: '0px auto'
+  },
+  signinIcon: {
+    width: '310px'
+  },
+  signDivider: {
+    margin: '40px auto !important',
+    width: '550px'
+  },
+  contactUs: {
+    fontSize: '14px !important',
+    fontWeight: '400 !important',
+    marginTop: '6px !important'
+  },
+  version: {
+    fontSize: '20px !important',
+    fontWeight: '300 !important'
   }
 }))
 
 const SignIn = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
   const { t } = useTranslation()
   const classes = useStyles()
@@ -183,10 +235,18 @@ const SignIn = () => {
   const [showErrors, setShowErrors] = useState(false)
   const [rememberMe, setRemember] = useState(false)
 
+  useEffect(() => {
+    const authStore = store.getState().auth
+    if (authStore.email) {
+      setEmail(authStore.email)
+      setRemember(true)
+    }
+  }, [])
+
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
-    email: yup.string().required(t('general.messages.errors.required')).email(t('general.messages.errors.email')),
-    password: yup.string().required(t('general.messages.errors.required'))
+    email: yup.string().required(t('general.messages.errors.sign_in')),
+    password: yup.string().required(t('general.messages.errors.sign_in'))
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -194,6 +254,24 @@ const SignIn = () => {
   })
 
   const onSubmit = async () => {
+    try {
+      dispatch(loadingActions.show())
+      await login(email, password)
+      if (rememberMe) {
+        dispatch(authActions.setRemember(email))
+      } else {
+        const authStore = store.getState().auth
+        if (authStore.email) {
+          dispatch(authActions.removeRemember())
+        }
+      }
+      dispatch(loadingActions.hide())
+    } catch (error) {
+      if (error.code === 401 || error.code === 404 || error.code === 500) {
+        setShowErrors(true)
+      }
+      dispatch(loadingActions.hide())
+    }
   }
 
   const requestAccessClickHandler = (event) => {
@@ -216,53 +294,53 @@ const SignIn = () => {
   }
 
   return (
-    <SignInContainer>
-      <div className={classes.mainContainer} >
-        <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
-          <Grid className={classes.mainItem} item xs={12}>
-            <Grid container justifyContent='center'>
-              <Grid item xs={12} >
-                <Typography align='center' className={classes.title} >
-                  {t('sign_in.title')}
-                </Typography>
+    <Container fullWidth className={classes.mainContainer}>
+      <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
+        <Grid className={classes.mainItem} item xs={12}>
+          <Grid container justifyContent='center'>
+            <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo} />
+          </Grid>
+          <Grid container justifyContent='center'>
+            <Typography align={'center'} classes={{ root: classes.signMessage }}>
+              {t('sign_in.main_message')}
+            </Typography>
+          </Grid>
+          <Divider classes={{ root: classes.signDivider }} />
+          {/* TODO: buttons not yet needed */}
+          <Box className={classes.boxSignWith} hidden>
+            <Grid container spacing={4} >
+              <Grid item sm={5.8} className={classes.signWithGrid}>
+                <SignInButton
+                  fullWidth
+                  className={classes.signWith}
+                  type='button'
+                  variant='contained'
+                  startIcon={<img alt={'google'} className={classes.icon} src={googleIcon} />}>
+                  {t('sign_in.sign_in_google')}
+                </SignInButton>
+              </Grid>
+              <Grid item sm={6.2} className={classes.signWithGrid} >
+                <SignInButton
+                  fullWidth
+                  className={classes.signWith}
+                  type='button'
+                  variant='contained'
+                  startIcon={<img alt={'microsoft'} className={classes.icon} src={microsoftIcon} />}>
+                  {t('sign_in.sign_in_microsoft')}
+                </SignInButton>
               </Grid>
             </Grid>
+          </Box>
 
-            {/* TODO: buttons not yet needed */}
-            <Box className={classes.boxSignWith} hidden={true} >
-              <Grid container justifyContent='center' alignItems='center' spacing={4} >
-                <Grid item sm={6} className={classes.signWithGrid}>
-                  <SignInButton
-                    fullWidth
-                    className={classes.signWith}
-                    type='button'
-                    variant='contained'
-                    startIcon={<img alt={'google'} className={classes.icon} src={googleIcon}/> }>
-                    {t('sign_in.sign_in_google')}
-                  </SignInButton>
-                </Grid>
-                <Grid item sm={6} className={classes.signWithGrid} >
-                  <SignInButton
-                    fullWidth
-                    className={classes.signWith}
-                    type='button'
-                    variant='contained'
-                    startIcon={<img alt={'microsoft'} className={classes.icon} src={microsoftIcon}/>}>
-                    {t('sign_in.sign_in_microsoft')}
-                  </SignInButton>
-                </Grid>
-              </Grid>
-            </Box>
+          <Divider className={classes.divider} variant='inset' />
 
-            <Divider className={classes.divider} variant='inset'/>
-
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
                 classes={{ root: classes.fields }}
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 id='email'
                 placeholder={t('sign_in.email_address')}
                 name='email'
@@ -270,12 +348,17 @@ const SignIn = () => {
                 type='text'
                 autoFocus
                 error={!!errors.email}
-                helperText={errors.email && errors.email.message}
+                FormHelperTextProps={{
+                  classes: {
+                    root: classes.errorMessage,
+                    error: classes.errorMessage
+                  }
+                }}
                 {...register('email')}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
-                      <PersonOutlineOutlined/>
+                      <PersonOutlineOutlined style={{ fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                   classes: {
@@ -285,24 +368,31 @@ const SignIn = () => {
                 onInput={handleEmailChange}
                 value={email}
               />
+              </Box>
+              <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
                 classes={{ root: classes.fields }}
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='password'
                 placeholder={t('sign_in.password')}
                 type='password'
                 id='password'
-                autoComplete='current-password'
+                autoComplete='new-password'
                 error={!!errors.password}
-                helperText={errors.password && errors.password.message}
+                helperText={errors.password && errors.email && errors.email.message}
+                FormHelperTextProps={{
+                  classes: {
+                    root: classes.errorMessage,
+                    error: classes.errorMessage
+                  }
+                }}
                 {...register('password')}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
-                      <LockOutlined/>
+                      <LockOutlined style={{ fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                   classes: {
@@ -311,50 +401,63 @@ const SignIn = () => {
                 }}
                 onInput={handlePasswordChange}
               />
+            </Box>
+            <Box hidden={!showErrors} width="560px" margin="0px auto" >
+              <Typography align={'left'} className={classes.errorMessage}>
+                {t('sign_in.messages.wrong_user_password')}
+              </Typography>
+            </Box>
 
-              <Grid container>
-                <Grid item xs >
-                  <FormControlLabel classes={{ label: classes.rememberMe }} control={<Checkbox style={{ transform: 'scale(0.6)' }} checked={rememberMe} onChange={handleChangeRemember} color='primary'/>}
-                                    label={t('sign_in.remember_me')}/>
-                </Grid>
-                <Grid item>
-                  <Box className={classes.linkBox}>
-                    <Link data-testid='forgot_password' className={classes.link} to='/forgot-password' variant='body2'>
-                      {t('sign_in.forgot_password')}
-                    </Link>
-                  </Box>
-                </Grid>
+            <Grid container className={classes.rememberForgot}>
+              <Grid item xs >
+                <FormControlLabel classes={{ label: classes.rememberMe }} control={<Checkbox style={{ transform: 'scale(0.6)' }} checked={rememberMe} onChange={handleChangeRemember} color='primary' />}
+                  label={t('sign_in.remember_me')} />
               </Grid>
-
-              <Box hidden={!showErrors}>
-                <Typography align={'center'} className={classes.errorMessage}>
-                  {t('sign_in.messages.wrong_user_password')}
-                </Typography>
-              </Box>
-
-              <Grid className={classes.buttons} container justifyContent='center' spacing={3}>
-                <Grid item xs={7} align="right" >
-                  <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
-                    {t('sign_in.request_access')}
-                  </BasicButton>
-                </Grid>
-                <Grid item xs={5}>
-                  <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
-                    {t('sign_in.sign_in')}
-                  </HighlightButton>
-                </Grid>
+              <Grid item>
+                <Box className={classes.linkBox}>
+                  <Link data-testid='forgot_password' className={classes.link} to='/forgot-password' variant='body2'>
+                    {t('sign_in.forgot_password')}
+                  </Link>
+                </Box>
               </Grid>
-            </form>
+            </Grid>
 
             <Box textAlign='center' pt={2}>
               <Typography component={'span'} align={'center'} className={classes.terms}>
-                {t('sign_in.messages.terms_and_conditions')}<br/> <Link to={'FIX ME'} onClick={() => window.open(process.env.REACT_APP_CONDITIONS_URL, '_blank')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
+                {t('sign_in.messages.terms_and_conditions')} <Link to={'FIX ME'} onClick={() => window.open(process.env.REACT_APP_CONDITIONS_URL, '_blank')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
               </Typography>
             </Box>
-          </Grid>
+
+            <Grid className={classes.buttons} container justifyContent='center' >
+              <Grid item xs={7} >
+                <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
+                  {t('sign_in.request_access')}
+                </BasicButton>
+              </Grid>
+              <Grid item xs={5} textAlign={'end'}>
+                <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
+                  {t('sign_in.sign_in')}
+                </HighlightButton>
+              </Grid>
+            </Grid>
+          </form>
         </Grid>
-      </div>
-    </SignInContainer>
+      </Grid>
+      <Grid container>
+        <Grid item textAlign={'left'} marginLeft={'7%'} xs={2}>
+          <img alt={'Connect AD Platform'} className={classes.signinIcon} src={signinLogo} />
+        </Grid>
+        <Grid item xs={6} />
+        <Grid item textAlign={'right'} marginLeft="auto" marginTop="auto" display="flex" xs={2}>
+          <Typography align={'left'} className={classes.contactUs}>
+                {t('sign_in.contact_us')}&emsp;
+              </Typography>
+              <Typography align={'left'} className={classes.version}>
+                &emsp;v{pjson.version}
+              </Typography>
+        </Grid>
+      </Grid>
+    </Container>
   )
 }
 
