@@ -12,27 +12,16 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { legalEntities } from '../../lib/Constants'
 import GlobalInput from '../form/TextInput'
 import GlobalSelect from '../form/Select'
-import { YesNoQuestion } from '../form/YesNoQuestion'
-import GlobalLaborHours from '../form/LaborHours'
 import GlobalAddressInput from '../form/AddressInput'
 import { companyProfileStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const CompanyProfileComponent = props => {
   const classes = companyProfileStyles()
   const { t } = useTranslation()
-  const { profile, handleChange, handleImageChange, setValidHours } = props
+  const { profile, handleChange, handleImageChange } = props
   const [address, setAddress] = useState()
-  const [hoursError, setHoursError] = useState({
-    weekdays: false,
-    weekend: false
-  })
-  const [afterhoursError, setAfterhoursError] = useState({
-    weekdays: false,
-    weekend: false
-  })
 
   useEffect(() => {
     setAddress({ ...profile.address })
@@ -42,41 +31,12 @@ export const CompanyProfileComponent = props => {
     handleChange(address, 'address')
   }, [address])
 
-  useEffect(() => {
-    let laborHours = true
-    if (
-      hoursError.weekdays ||
-      hoursError.weekend ||
-      afterhoursError.weekdays ||
-      afterhoursError.weekend
-    ) {
-      laborHours = false
-    }
-    setValidHours(laborHours)
-  }, [hoursError, afterhoursError])
-
   const countries = [
     { value: 'United States', label: 'United States (US)' },
     { value: 'Canada', label: 'Canada' },
     { value: 'Mexico', label: 'Mexico' }
   ]
 
-  const handleSupportChange = (value, field) => {
-    if (value) {
-      setAfterhoursError(false)
-    }
-    handleChange(value, field)
-  }
-  const handleBusinessHours = (value, field) => {
-    const newObj = { ...profile.business_hours }
-    newObj[field] = value
-    handleChange(newObj, 'business_hours')
-  }
-  const handleAfterHours = (value, field) => {
-    const newObj = { ...profile.after_hours }
-    newObj[field] = value
-    handleChange(newObj, 'after_hours')
-  }
   const addressChanged = (value, field, addressInfo) => {
     const newAddress = {
       address: value,
@@ -104,144 +64,124 @@ export const CompanyProfileComponent = props => {
       </Grid>
       {props.showLogo
         ? (
-        <Box display="flex" className={classes.headerContainer}>
-          <Box flex={1} display="flex" alignItems="center">
-            {props.logoError && (
-              <Avatar alt="profile" className={classes.errorAvatar}>
-                <FormLabel className={classes.error}>
-                  {props.helperText}
-                </FormLabel>
-              </Avatar>
-            )}
-            {!props.logoError && (
-              <Avatar
-                alt="profile"
-                src={profile?.logo?.url ?? null}
-                className={
-                  profile?.logo?.url ? classes.avatar : classes.emptyAvatar
-                }
-                imgProps={{ style: { objectFit: 'contain' } }}
+          <Box display="flex" className={classes.headerContainer}>
+            <Box flex={1} display="flex" alignItems="center">
+              {props.logoError && (
+                <Avatar alt="profile" className={classes.errorAvatar}>
+                  <FormLabel className={classes.error}>
+                    {props.helperText}
+                  </FormLabel>
+                </Avatar>
+              )}
+              {!props.logoError && (
+                <Avatar
+                  alt="profile"
+                  src={profile?.logo?.url ?? null}
+                  className={
+                    profile?.logo?.url ? classes.avatar : classes.emptyAvatar
+                  }
+                  imgProps={{ style: { objectFit: 'contain' } }}
+                >
+                  <FontAwesomeIcon icon={['fal', 'building']} size="4x" />
+                </Avatar>
+              )}
+            </Box>
+            <Box flex={4} display="flex" alignItems="center">
+              <Button
+                id="profile-logo"
+                variant="contained"
+                component="label"
+                className={classes.uploadButton}
               >
-                <FontAwesomeIcon icon={['fal', 'building']} size="4x" />
-              </Avatar>
-            )}
+                {t('company_profile.labels.upload')}
+                <input
+                  hidden
+                  accept="image/png, image/jpeg, image/jpg, image/bitmap"
+                  type="file"
+                  onChange={handleImageChange}
+                />
+              </Button>
+            </Box>
           </Box>
-          <Box flex={4} display="flex" alignItems="center">
-            <Button
-              id="profile-logo"
-              variant="contained"
-              component="label"
-              className={classes.uploadButton}
-            >
-              {t('company_profile.labels.upload')}
-              <input
-                hidden
-                accept="image/png, image/jpeg, image/jpg, image/bitmap"
-                type="file"
-                onChange={handleImageChange}
-              />
-            </Button>
-          </Box>
-        </Box>
           )
         : (
             ''
           )}
-      <Box display="flex" className={classes.formContainer}>
-        <Box flex={1}>
-          <GlobalInput
-            onChange={handleChange}
-            field="name"
-            placeholder={t('company_profile.placeholder.company_legal')}
-            value={profile?.name}
-            label={t('company_profile.labels.company_legal')}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'name')}
-          />
-          <GlobalSelect
-            options={legalEntities}
-            onChange={handleChange}
-            label={t('company_profile.labels.entity')}
-            field="legal_entity"
-            placeholder={`${t('company_profile.placeholder.entity')}`}
-            value={profile?.legal_entity ?? ''}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'legal_entity')}
-          />
-          <GlobalInput
-            onChange={handleChange}
-            field="dba"
-            placeholder={t('company_profile.placeholder.dba')}
-            value={profile?.dba}
-            label={t('company_profile.labels.full_dba')}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'dba')}
-          />
-          <GlobalAddressInput
-            id="address"
-            field="address"
-            name="address"
-            label={t('company_settings.info_card.address')}
-            value={profile?.address?.address ?? ''}
-            onChange={addressChanged}
-            onFocus={handleFocus}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'address')}
-          />
-          <GlobalSelect
-            options={countries}
-            onChange={handleChange}
-            label={t('company_profile.labels.country')}
-            field="country"
-            placeholder={`${t('company_profile.placeholder.country')}`}
-            value={profile?.country ?? []}
-            multiple={true}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'country')}
-          />
-          <GlobalInput
-            onChange={handleChange}
-            field="dispatch_email"
-            placeholder={t('company_profile.placeholder.dispatch')}
-            value={profile?.dispatch_email}
-            label={t('company_profile.labels.dispatch')}
-            error={props.dispatchError}
-            helperText={t('company_profile.error.email')}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'dispatch_email')}
-          />
-          <GlobalInput
-            onChange={handleChange}
-            field="invoice_email"
-            placeholder={t('company_profile.placeholder.invoice_email')}
-            value={profile?.invoice_email}
-            label={t('company_profile.labels.invoice_email')}
-            error={props.invoiceError}
-            helperText={t('company_profile.error.email')}
-            required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'invoice_email')}
-          />
+      <Box className={classes.formContainer}>
+        <GlobalInput
+          onChange={handleChange}
+          field="name"
+          placeholder={t('company_profile.placeholder.company_legal')}
+          value={profile?.name}
+          label={t('company_profile.labels.company_legal')}
+          required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'name')}
+        />
+        <GlobalAddressInput
+          id="address"
+          field="address"
+          name="address"
+          label={t('company_settings.info_card.address')}
+          value={profile?.address?.address ?? ''}
+          onChange={addressChanged}
+          onFocus={handleFocus}
+          required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'address')}
+        />
+        <GlobalSelect
+          options={countries}
+          onChange={handleChange}
+          label={t('company_profile.labels.country')}
+          field="country"
+          placeholder={`${t('company_profile.placeholder.country')}`}
+          value={profile?.country ?? []}
+          multiple={true}
+          required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'country')}
+        />
+        <Box display="flex">
+          <Box marginRight="5px" flex={1}>
+            <GlobalInput
+              onChange={handleChange}
+              field="dispatch_email"
+              placeholder={t('company_profile.placeholder.business_hours')}
+              value={profile?.business_hours?.phone}
+              label={t('company_profile.labels.business_hours')}
+              error={props.dispatchError}
+              helperText={t('company_profile.error.email')}
+              required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
+            />
+          </Box>
+          <Box marginLeft="5px" flex={1}>
+            <GlobalInput
+              onChange={handleChange}
+              field="dispatch_email"
+              placeholder={t('company_profile.placeholder.after_hours')}
+              value={profile?.business_hours?.phone}
+              label={t('company_profile.labels.after_hours')}
+              error={props.dispatchError}
+              helperText={t('company_profile.error.email')}
+              required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
+            />
+          </Box>
         </Box>
-        <Box flex={1}>
-          <YesNoQuestion
-            label={t('company_profile.questions.support_hours')}
-            field="support_24_7"
-            onChange={handleSupportChange}
-            value={profile?.support_24_7 ? 'yes' : 'no'}
-          />
-          <GlobalLaborHours
-            labeldays={t('company_profile.labels.days_operation')}
-            labelhours={t('company_profile.labels.times_operation')}
-            laborhours={{ ...profile?.business_hours }}
-            field="business_hours"
-            onChange={handleBusinessHours}
-            hoursError={hoursError}
-            setHoursError={setHoursError}
-          />
-          <GlobalLaborHours
-            labeldays={t('company_profile.labels.days_operation_after')}
-            labelhours={t('company_profile.labels.times_operation_after')}
-            laborhours={{ ...profile?.after_hours }}
-            field="after_hours"
-            onChange={handleAfterHours}
-            disableComponent={profile?.support_24_7}
-            hoursError={afterhoursError}
-            setHoursError={setAfterhoursError}
-          />
-        </Box>
+        <GlobalInput
+          onChange={handleChange}
+          field="dispatch_email"
+          placeholder={t('company_profile.placeholder.dispatch')}
+          value={profile?.email}
+          label={t('company_profile.labels.email')}
+          error={props.dispatchError}
+          helperText={t('company_profile.error.email')}
+          required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
+        />
+        <GlobalInput
+          onChange={handleChange}
+          field="invoice_email"
+          placeholder={t('company_profile.placeholder.invoice_email')}
+          value={profile?.invoice_email}
+          label={t('company_profile.labels.invoice_email')}
+          error={props.invoiceError}
+          helperText={t('company_profile.error.email')}
+          required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'invoice_email')}
+        />
       </Box>
     </Container>
   )

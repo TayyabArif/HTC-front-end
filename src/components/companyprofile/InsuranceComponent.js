@@ -24,7 +24,7 @@ export const InsuranceComponent = props => {
   const { profile, handleChange, handleFileChange, setFileUploaded } = props
   const [statesRegistered, setStatesRegistered] = useState()
 
-  useEffect(async () => {
+  useEffect(() => {
     if (profile?.states_registered) {
       setStatesRegistered([...profile?.states_registered])
     }

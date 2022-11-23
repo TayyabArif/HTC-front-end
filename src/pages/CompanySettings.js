@@ -11,6 +11,7 @@ import {
 
 import { RolesCard } from '../components/companySettings/RolesCard'
 import { UsersCard } from '../components/companySettings/UsersCard'
+import { SupportCard } from '../components/companySettings/SupportCard'
 
 // mui components
 import {
@@ -28,7 +29,6 @@ import {
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { ProfileInfoCard } from '../components/companySettings/ProfileInfoCard'
-import { TradesServicesCard } from '../components/companySettings/TradesServicesCard'
 import { cloneDeep } from 'lodash'
 import { CompanyProfileComponent } from '../components/companyprofile/CompanyProfileComponent'
 import { InsuranceComponent } from '../components/companyprofile/InsuranceComponent'
@@ -51,7 +51,6 @@ const CompanySettings = props => {
   const [roles, setRoles] = useState(null)
   const [ftcUsers, setFtcUsers] = useState([])
   const [mobileUsers, setMobileUsers] = useState([])
-  const [compliance, setCompliance] = useState('')
   const [open, setOpen] = useState(false)
   const [openConfirm, setOpenConfirm] = useState(false)
   const [logoData, setLogoData] = useState()
@@ -70,7 +69,11 @@ const CompanySettings = props => {
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
 
-  useEffect(async () => {
+  useEffect(() => {
+    initialMethod()
+  }, [])
+
+  const initialMethod = async () => {
     try {
       setComplianceFields(
         userStore.userInfo?.configurations?.onboarding?.compliance
@@ -90,9 +93,13 @@ const CompanySettings = props => {
     setRoles([])
     updateRoles()
     updateUsers()
-  }, [])
+  }
 
-  useEffect(async () => {
+  useEffect(() => {
+    changeServiceArea()
+  }, [reloadServiceArea])
+
+  const changeServiceArea = async () => {
     if (reloadServiceArea) {
       if (updatedCompany?.service_area) {
         updatedCompany.service_area[0].zip = await getZipCodesFiltered(
@@ -102,27 +109,22 @@ const CompanySettings = props => {
       }
       setRealoadServiceArea(false)
     }
-  }, [reloadServiceArea])
+  }
 
   useEffect(() => {
     setUpdatedCompany({ ...company })
-    setCompliance(calculateCompliance())
   }, [company])
-
-  useEffect(() => {
-    setCompliance(calculateCompliance())
-  }, [ftcUsers, mobileUsers])
 
   useEffect(() => {
     handleValidations(updatedCompany)
   }, [fileError, validHours])
 
-  useEffect(async () => {
-    // load states/territories
-    setStates(await loadAsyncStates())
+  useEffect(() => {
+    loadAsyncStates()
   }, [company])
 
   const loadAsyncStates = async () => {
+    setStates([])
   }
 
   const updateRoles = async () => {
@@ -551,18 +553,11 @@ const CompanySettings = props => {
     <Container className={classes.container}>
       <Box
         className={classes.background}
-        style={{ width: compliance ? compliance.split('%')[0] + '%' : '100%' }}
+        style={{ width: '30%' }}
       />
       <Box display="flex" flexDirection="row">
         <Typography classes={{ root: classes.title }}>
           {t('company_settings.title')}
-        </Typography>
-        <Typography
-          className={`${classes.title} ${
-            compliance?.includes('100%') ? classes.compliant : classes.error
-          }`}
-        >
-          {compliance}
         </Typography>
       </Box>
       <Box display="flex" className={classes.cardsContainer}>
@@ -580,6 +575,9 @@ const CompanySettings = props => {
               >
                 {' '}
               </Avatar>
+              <Box className={classes.uploadButton} >
+                {t('company_settings.upload_logo')}
+              </Box>
               <label htmlFor="profile-logo" className={classes.editButton}>
                 <Button
                   id="profile-logo"
@@ -603,11 +601,8 @@ const CompanySettings = props => {
             setOpen={setOpen}
             setComponent={setComponent}
           />
-          {/* trades & services card */}
-          <TradesServicesCard
-            profile={company}
-            setOpen={setOpen}
-            setComponent={setComponent}
+          <SupportCard
+            company={company}
           />
         </Box>
         <Box flex={1} marginBottom="4em">

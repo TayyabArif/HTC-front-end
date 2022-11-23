@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-// import RubikRegular from '../assets/fonts/Rubik-VariableFont_wght.ttf'
+import RubikRegular from '../assets/fonts/Rubik-VariableFont_wght.ttf'
 
 const customTheme = createTheme({
   breakpoints: {
@@ -83,6 +83,8 @@ const customTheme = createTheme({
     alert: '#47a0f499',
     borderBrowser: '#C3C3C3',
     filtersBorder: '#0000003b',
+    complianceBlue: '#E2EBF3',
+    iconBlue: '#2F80ED',
     workOrderColors: {
       open: '#2F80ED',
       completed: '#4F4F4F',
@@ -229,7 +231,7 @@ const customTheme = createTheme({
       color: '#333333'
     }
   },
-  /* components: {
+  components: {
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
@@ -261,7 +263,7 @@ const customTheme = createTheme({
         borderRadius: '10px'
       }
     }
-  }, */
+  },
   filtersClasses: {
     mainInput1: {
       fontSize: '12px',

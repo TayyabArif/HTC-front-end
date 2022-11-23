@@ -5,7 +5,12 @@ export const addressInputStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   label: {
-    marginLeft: '5px'
+    fontFamily: 'Rubik',
+    fontWeight: '400',
+    marginBottom: '0.5em',
+    textAlign: 'left',
+    marginLeft: '5px',
+    color: theme.colors.stepperGray
   },
   required: {
     color: theme.colors.errorText
@@ -164,10 +169,12 @@ export const selectStyles = makeStyles(theme => ({
     fontStyle: 'normal'
   },
   label: {
-    fontSize: '12px',
+    fontSize: '15px',
+    fontWeight: '400',
     marginBottom: '0.5em',
     textAlign: 'left',
-    marginLeft: '5px'
+    marginLeft: '5px',
+    color: theme.colors.stepperGray
   },
   itemContent: {
     width: '100%',
@@ -246,13 +253,15 @@ export const textCheckboxStyles = makeStyles(theme => ({
 
 export const textInputStyles = makeStyles(theme => ({
   bottomSpacing: {
-    marginBottom: 10
+    marginBottom: 20
   },
   label: {
-    fontSize: '12px',
+    fontSize: '15px',
+    fontWeight: '400',
     marginBottom: '0.5em',
     textAlign: 'left',
-    marginLeft: '5px'
+    marginLeft: '5px',
+    color: theme.colors.stepperGray
   },
   error: {
     marginTop: '0.5em',

@@ -20,7 +20,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     borderRadius: 45,
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
-    fontSize: 12,
+    fontSize: 15,
     padding: '7px 26px 7px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: [

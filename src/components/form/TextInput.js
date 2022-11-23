@@ -18,7 +18,8 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     position: 'relative',
     backgroundColor: theme.palette.mode === 'light' ? 'white' : '#2b2b2b',
     border: '1px solid ' + customTheme.colors.profile.border_input,
-    fontSize: 12,
+    fontSize: 15,
+    fontWeight: '400',
     width: '100%',
     padding: '10px 12px',
     transition: theme.transitions.create([
@@ -27,16 +28,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       'box-shadow'
     ]),
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
+      'Rubik'
     ].join(','),
     '&:focus': {
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
@@ -44,7 +36,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
     '&::placeholder': {
       textOverflow: 'ellipsis !important',
-      color: customTheme.colors.profile.text_grey,
+      color: theme.colors.profile.text_grey + ' !important',
       opacity: '1'
     },
     '&:invalid': {

@@ -1,8 +1,7 @@
 import React from 'react'
 import Routes from './Routes'
 import customTheme from './styles/mui_theme'
-import { ThemeProvider } from '@mui/material'
-import './assets/fonts/Roboto-Regular.woff2'
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 
 function App () {
   // Start Mock Service Worker if the app is running in test mode
@@ -12,9 +11,11 @@ function App () {
   }
 
   return (
-    <ThemeProvider theme={customTheme}>
-      <Routes/>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={customTheme}>
+        <Routes />
+      </ThemeProvider>
+    </StyledEngineProvider>
   )
 }
 

@@ -12,7 +12,8 @@ export const companySettingsStyles = makeStyles(theme => ({
     margin: '0px',
     maxWidth: '100%',
     width: '100%',
-    height: '400px'
+    height: '400px',
+    backgroundColor: theme.colors.complianceBlue
   },
   cardsContainer: {
     gap: '3em',
@@ -21,12 +22,12 @@ export const companySettingsStyles = makeStyles(theme => ({
   card: {
     borderRadius: '8px',
     boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    marginBottom: '2em',
+    marginBottom: '16px',
     padding: '1em'
   },
   title: {
-    fontSize: '20px',
-    fontWeight: '900',
+    fontSize: '28px',
+    fontWeight: '700',
     color: theme.colors.text,
     padding: '24px 0px 30px 42px'
   },
@@ -53,8 +54,8 @@ export const companySettingsStyles = makeStyles(theme => ({
     marginRight: '0',
     color: theme.colors.iconBlue,
     textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
+    fontSize: '20px',
+    fontWeight: '500',
     letterSpacing: '0.05em',
     lineHeight: '19px'
   },
@@ -104,6 +105,18 @@ export const companySettingsStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 0,
     zIndex: -1
+  },
+  uploadButton: {
+    borderRadius: '100px',
+    width: '152px',
+    height: '36px',
+    fontSize: '12px',
+    fontWeight: '400',
+    color: theme.colors.text,
+    backgroundColor: theme.colors.signInButton.background,
+    textAlign: 'center',
+    padding: '10px',
+    margin: 'auto 0px auto 25px'
   }
 }))
 
@@ -457,6 +470,48 @@ export const statesComponentStyles = makeStyles(theme => ({
   }
 }))
 
+export const supportCardStyles = makeStyles(theme => ({
+  title: {
+    fontSize: '25px',
+    fontWeight: '700',
+    color: theme.colors.black,
+    lineHeight: '24px',
+    letterSpacing: '0.05em',
+    margin: '23px 0px 22px 20px'
+  },
+  card: {
+    borderRadius: '8px',
+    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
+    borderBottom: `1px solid ${theme.colors.disabledField}`
+  },
+  actions: {
+    display: 'flex',
+    padding: '0px 0px'
+  },
+  content: {
+    padding: '0px 20px 30px 20px'
+  },
+  versionLabel: {
+    fontSize: '15px',
+    fontWeight: '400',
+    marginBottom: '25px'
+  },
+  link: {
+    fontSize: '15px',
+    fontWeight: '400',
+    color: theme.palette.primary.light,
+    width: '100%',
+    cursor: 'pointer',
+    textDecoration: 'none'
+  },
+  contacts: {
+    fontSize: '15px',
+    fontWeight: '400',
+    color: theme.colors.stepperGray,
+    marginBottom: '25px'
+  }
+}))
+
 export const userCardStyles = makeStyles(theme => ({
   userContainer: {
     padding: '24px',
@@ -685,13 +740,13 @@ export const profileInfoCardStyles = makeStyles(theme => ({
   card: {
     borderRadius: '8px',
     boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    marginBottom: '2em',
+    marginBottom: '16px',
     padding: '1em',
     color: theme.colors.text
   },
   cardTitle: {
-    fontSize: '20px',
-    fontWeight: '900'
+    fontSize: '25px',
+    fontWeight: '700'
   },
   editButton: {
     alignSelf: 'flex-start',
@@ -699,8 +754,8 @@ export const profileInfoCardStyles = makeStyles(theme => ({
     marginRight: '0',
     color: theme.colors.iconBlue,
     textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
+    fontSize: '20px',
+    fontWeight: '500',
     letterSpacing: '0.05em',
     lineHeight: '19px'
   },
@@ -716,6 +771,7 @@ export const profileInfoCardStyles = makeStyles(theme => ({
     gap: '1em'
   },
   marginContainer: {
+    marginTop: '32px',
     marginRight: '1em'
   },
   disabledText: {
