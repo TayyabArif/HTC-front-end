@@ -5,17 +5,14 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { BrowserRouter } from 'react-router-dom'
 import Routes from '../../Routes'
-import userEvent from '@testing-library/user-event'
 
 /** Material UI **/
 import { ThemeProvider } from '@mui/material'
 import customTheme from '../../styles/mui_theme'
 
 /** Components **/
-import ForgotPasswordChanged from '../../pages/signIn/ForgotPasswordChanged'
 import ForgotPassword from '../../pages/signIn/ForgotPassword'
 import ForgotPasswordCode from '../../pages/signIn/ForgotPasswordCode'
-import ForgotPasswordEmailSent from '../../pages/signIn/ForgotPasswordEmailSent'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: key => key })
@@ -26,8 +23,8 @@ describe('Sign In tests', () => {
     auth: {
       token: null,
       user: null,
-      changedEmail: 'dayandnight',
-      changedPass: 'adftc123'
+      changedEmail: null,
+      changedPass: null
     },
     loading: { loading: false }
   }

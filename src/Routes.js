@@ -2,13 +2,15 @@ import React from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 /** Components **/
+import ForgotPasswordEmailSent from './pages/signIn/ForgotPasswordEmailSent'
+import ForgotPasswordCode from './pages/signIn/ForgotPasswordCode'
+
 /** Sign in **/
 import SignIn from './pages/signIn/SignIn'
 import ForgotPassword from './pages/signIn/ForgotPassword'
 
 /** Redux **/
 import { useSelector } from 'react-redux'
-import ForgotPasswordEmailSent from './pages/signIn/ForgotPasswordEmailSent'
 
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
@@ -35,6 +37,9 @@ const Routes = () => {
                 </Route>
                 <Route path='/forgot-password/sent'>
                     <ForgotPasswordEmailSent/>
+                </Route>
+                <Route path="/forgot-password/code">
+                    <ForgotPasswordCode />
                 </Route>
                 <Route exact path="/sign-in">
                     <SignIn/>
