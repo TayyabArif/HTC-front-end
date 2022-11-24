@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GlobalInput from '../form/TextInput'
 import GlobalSelect from '../form/Select'
 import GlobalAddressInput from '../form/AddressInput'
+import NumberInput from '../form/NumberInput'
 import { companyProfileStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const CompanyProfileComponent = props => {
@@ -36,6 +37,18 @@ export const CompanyProfileComponent = props => {
     { value: 'Canada', label: 'Canada' },
     { value: 'Mexico', label: 'Mexico' }
   ]
+
+  const handleBusinessHours = (value, field) => {
+    const newObj = { ...profile.business_hours }
+    newObj[field] = value
+    handleChange(newObj, 'business_hours')
+  }
+
+  const handleAfterHours = (value, field) => {
+    const newObj = { ...profile.after_hours }
+    newObj[field] = value
+    handleChange(newObj, 'after_hours')
+  }
 
   const addressChanged = (value, field, addressInfo) => {
     const newAddress = {
@@ -138,33 +151,30 @@ export const CompanyProfileComponent = props => {
         />
         <Box display="flex">
           <Box marginRight="5px" flex={1}>
-            <GlobalInput
-              onChange={handleChange}
-              field="dispatch_email"
+            <NumberInput
+              onChange={handleBusinessHours}
+              field="business_hours"
               placeholder={t('company_profile.placeholder.business_hours')}
               value={profile?.business_hours?.phone}
               label={t('company_profile.labels.business_hours')}
-              error={props.dispatchError}
-              helperText={t('company_profile.error.email')}
-              required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
+              format="(###) ### ####"
             />
           </Box>
           <Box marginLeft="5px" flex={1}>
-            <GlobalInput
-              onChange={handleChange}
-              field="dispatch_email"
+            <NumberInput
+              onChange={handleAfterHours}
+              field="after_hours"
               placeholder={t('company_profile.placeholder.after_hours')}
-              value={profile?.business_hours?.phone}
+              value={profile?.after_hours?.phone}
               label={t('company_profile.labels.after_hours')}
-              error={props.dispatchError}
-              helperText={t('company_profile.error.email')}
-              required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
+              format="(###) ### ####"
+              disabled={profile?.support_24_7}
             />
           </Box>
         </Box>
         <GlobalInput
           onChange={handleChange}
-          field="dispatch_email"
+          field="email"
           placeholder={t('company_profile.placeholder.dispatch')}
           value={profile?.email}
           label={t('company_profile.labels.email')}

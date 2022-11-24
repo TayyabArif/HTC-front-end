@@ -131,7 +131,6 @@ export const NavBar = () => {
           vertical: 'top',
           horizontal: 'center'
         }}
-        getContentAnchorEl={null}
       >
         {/* TODO: un hide dropdown options when needed */}
         <MenuItem

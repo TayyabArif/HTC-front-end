@@ -67,7 +67,6 @@ export const YesNoSelector = props => {
             vertical: 'top',
             horizontal: 'center'
           },
-          getContentAnchorEl: null,
           PaperProps: {
             style: {
               backgroundColor: 'white',

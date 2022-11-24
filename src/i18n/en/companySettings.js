@@ -10,7 +10,7 @@ export const companySettings = () => {
       name: 'Company Legal Name',
       name_placeholder: 'Enter company name',
       legal_entity: 'Legal Entity (LLC, C-Corp, etc)',
-      address: 'Full Company Address',
+      address: 'Company Address',
       street: 'Street',
       city: 'City',
       zip_code: 'Zip/Postal Code',

@@ -43,7 +43,6 @@ export const CustomSelect = props => {
           vertical: 'top',
           horizontal: 'left'
         },
-        getContentAnchorEl: null,
         PaperProps: {
           style: {
             maxHeight: '210px'

@@ -2,7 +2,7 @@
 import React from 'react'
 
 /** Material UI **/
-import { alpha, styled } from '@mui/material/styles'
+import { alpha, styled } from '@mui/system'
 import InputBase from '@mui/material/InputBase'
 import { FormLabel, Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
@@ -36,7 +36,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
     '&::placeholder': {
       textOverflow: 'ellipsis !important',
-      color: theme.colors.profile.text_grey + ' !important',
+      color: customTheme.colors.profile.text_grey,
       opacity: '1'
     },
     '&:invalid': {

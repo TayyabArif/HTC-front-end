@@ -115,6 +115,33 @@ export const laborHoursStyles = makeStyles(theme => ({
   }
 }))
 
+export const numberInputStyles = makeStyles(theme => ({
+  bottomSpacing: {
+    marginBottom: 10
+  },
+  label: {
+    fontSize: '15px',
+    fontWeight: '400',
+    marginBottom: '0.5em',
+    textAlign: 'left',
+    marginLeft: '5px',
+    color: theme.colors.stepperGray
+  },
+  error: {
+    fontSize: '10px',
+    color: theme.colors.errorText,
+    textAlign: 'left',
+    paddingTop: '5px',
+    marginLeft: '15px'
+  },
+  required: {
+    color: theme.colors.errorText
+  },
+  borderError: {
+    borderColor: theme.colors.errorText
+  }
+}))
+
 export const paginatingListStyles = makeStyles(theme => ({
   bottomSpacing: {
     marginBottom: 10
