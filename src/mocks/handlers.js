@@ -2,7 +2,7 @@ import { rest } from 'msw'
 import moment from 'moment'
 const jwt = require('jwt-encode')
 
-const apiHost = process.env.REACT_APP_API_URL
+const apiHost = process.env.REACT_APP_FTC_OAUTH_SERVER_URL
 
 export const handlers = [
 

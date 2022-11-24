@@ -8,7 +8,7 @@ import Routes from '../../Routes'
 import userEvent from '@testing-library/user-event'
 
 /** Material UI **/
-import { MuiThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
 import customTheme from '../../styles/mui_theme'
 
 /** Components **/
@@ -34,9 +34,9 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -59,10 +59,10 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
           <ForgotPassword/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -82,10 +82,10 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
           <ForgotPasswordCode/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -102,10 +102,10 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
           <ForgotPasswordChanged/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -126,10 +126,10 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
           <ForgotPasswordEmailSent/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 

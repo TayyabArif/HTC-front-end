@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
-import { Grid, makeStyles, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { HighlightButton } from '../../styles/mui_custom_components'
+import { makeStyles } from '@mui/styles'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
