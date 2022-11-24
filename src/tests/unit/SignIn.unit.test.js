@@ -23,7 +23,12 @@ jest.mock('react-i18next', () => ({
 
 describe('Sign In tests', () => {
   const initialState = {
-    auth: { token: null, user: null },
+    auth: {
+      token: null,
+      user: null,
+      changedEmail: 'dayandnight',
+      changedPass: 'adftc123'
+    },
     loading: { loading: false }
   }
   const mockStore = configureStore()
@@ -95,53 +100,5 @@ describe('Sign In tests', () => {
     const submitBtn = screen.getByTestId('submit_button')
     expect(submitBtn).toBeInTheDocument()
     expect(submitBtn).toBeDisabled()
-  })
-
-  test('Test Forgot password Changed', () => {
-    store = mockStore(initialState)
-
-    render(<Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={customTheme}>
-          <Routes/>
-          <ForgotPasswordChanged/>
-        </ThemeProvider>
-      </BrowserRouter>
-    </Provider>)
-
-    const forgotPasswordChangedPage = screen.getByTestId('forgot_password_changed_page')
-    expect(forgotPasswordChangedPage).toBeInTheDocument()
-
-    const logIn = screen.getByTestId('log_in')
-
-    expect(logIn).toBeInTheDocument()
-    userEvent.click(logIn)
-
-    const signInPage = screen.getByTestId('sign_in_page')
-    expect(signInPage).toBeInTheDocument()
-  })
-
-  test('Test Forgot password Email Sent', () => {
-    store = mockStore(initialState)
-
-    render(<Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={customTheme}>
-          <Routes/>
-          <ForgotPasswordEmailSent/>
-        </ThemeProvider>
-      </BrowserRouter>
-    </Provider>)
-
-    const forgotPasswordChangedPage = screen.getByTestId('forgot_password_sent')
-    expect(forgotPasswordChangedPage).toBeInTheDocument()
-
-    const logIn = screen.getByTestId('log_in')
-
-    expect(logIn).toBeInTheDocument()
-    userEvent.click(logIn)
-
-    const signInPage = screen.getByTestId('sign_in_page')
-    expect(signInPage).toBeInTheDocument()
   })
 })
