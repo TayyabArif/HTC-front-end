@@ -9,7 +9,8 @@ const initialAuthState = {
   clientInfo: null,
   masqueradeClientInfo: null,
   refreshTokenFlag: 0,
-  prevToken: null
+  prevToken: null,
+  email: null
 }
 
 /**
@@ -39,7 +40,7 @@ const authSlice = createSlice({
     setUser (state, action) {
       state.user = action.payload
     },
-    setRememberEmail (state, action) {
+    setRemember (state, action) {
       state.email = action.payload
     },
     removeRemember (state) {
