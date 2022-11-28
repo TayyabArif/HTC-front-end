@@ -5,84 +5,10 @@ import {
   InputAdornment,
   TextField
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { HighlightOff } from '@mui/icons-material/'
 
 import { useTranslation } from 'react-i18next'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiFilledInput-input': {
-      fontFamily: 'Rubik',
-      border: `1px solid ${theme.colors.signInButton.background}`,
-      color: `${theme.colors.text} !important`,
-      backgroundColor: theme.colors.signInButton.background,
-      borderRadius: '6px',
-      fontSize: '10.7px'
-    },
-    '& .MuiFilledInput-root': {
-      backgroundColor: theme.colors.signInButton.background,
-      borderRadius: '6px'
-    },
-    '& .MuiIconButton-sizeSmall': {
-      marginLeft: '0px'
-    },
-    '& .MuiIconButton-sizeSmall:hover': {
-      backgroundColor: theme.colors.signInButton.background
-    },
-    '& .MuiFilledInput-adornedEnd': {
-      paddingRight: 0
-    },
-    '& .MuiFormLabel-root': {
-      color: theme.colors.settings.fieldName,
-      top: '4px',
-      fontSize: '16px'
-    },
-    '& .Mui-focused': {
-      color: theme.colors.tab.duedate
-    },
-    '& .MuiFormHelperText-root': {
-      fontSize: '10px'
-    },
-    '& .MuiInputBase-input': {
-      fontSize: '16px'
-    },
-    marginTop: 'unset',
-    marginBottom: '12px',
-    flex: 1
-  },
-  label: {
-    marginTop: 'unset',
-    fontSize: 10,
-    borderRadius: '8px',
-    color: theme.colors.tab.duedate
-  },
-  textField: {
-    height: '52px',
-    backgroundColor: theme.colors.signInButton.background
-  },
-  textFieldAnimation: {
-    '& input': {
-      '&.pac-target-input': {
-        animationName: 'none'
-      }
-    }
-  },
-  icon: {
-    color: theme.colors.company.iconColor,
-    '& svg': {
-      fontSize: '25px'
-    },
-    '&.MuiButtonBase-root': {
-      padding: '0px'
-    }
-  },
-  formControl: {
-    '& .MuiFormControl-root': {
-      margin: 0
-    }
-  }
-}))
+import {TextInputClasses} from "../../styles/classes/AccountSettingsClasses";
 
 // eslint-disable-next-line react/display-name
 export const TextInput = React.forwardRef(
@@ -103,7 +29,7 @@ export const TextInput = React.forwardRef(
     },
     ref
   ) => {
-    const classes = useStyles()
+    const classes = TextInputClasses()
     const inputRef = useRef()
     const { t } = useTranslation()
 

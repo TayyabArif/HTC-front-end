@@ -1,6 +1,5 @@
 // main components
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 
 import { TextInput } from './TextInput'
@@ -25,88 +24,17 @@ import { store } from '../../store'
 import { authActions } from '../../store/signIn'
 import * as ApiServices from '../../services/ApiService'
 import { PhoneInput } from './PhoneInput'
+import { isEqual } from 'lodash'
+
+/**
+ * Styles
+ **/
 import {
   buttonSettingsDisabled,
   disableButtonStyle,
   enableButtonStyle
 } from '../../styles/mui_custom_theme'
-import { isEqual } from 'lodash'
-import { navBarHeaderHeight } from '../../lib/Constants'
-
-const useStyles = makeStyles(theme => ({
-  title: {
-    '&.MuiFormLabel-root': {
-      color: 'black',
-      fontSize: '20px',
-      fontWeight: '700',
-      fontFamily: 'Rubik Bold',
-      margin: '32px 0px 0px 0px'
-    }
-  },
-  save: {
-    textTransform: 'none',
-    fontSize: '18px',
-    font: 'Rubik',
-    fontWeight: '700',
-    color: theme.colors.backgroundColor,
-    borderRadius: '100px',
-    borderColor: theme.colors.textGray,
-    width: '161px',
-    height: '49px',
-    backgroundColor: theme.colors.textGray,
-    float: 'right',
-    marginRight: 36
-  },
-  errorMessage: {
-    color: theme.colors.errorText,
-    fontWeight: '400',
-    fontSize: '12px'
-  },
-  avatar: {
-    width: '140px',
-    height: '140px'
-  },
-  photoPicker: {
-    display: 'none'
-  },
-  photoPickerButton: {
-    borderColor: 'transparent',
-    color: theme.colors.basicDisabledButtonColor,
-    fontSize: '10px',
-    marginTop: '6px'
-  },
-  imageGroup: {
-    alignItems: 'center',
-    width: '313px'
-  },
-  drawerPaper: {
-    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
-    marginTop: navBarHeaderHeight,
-    width: '387px',
-    borderRadius: '8px',
-    overflow: 'auto',
-    overflowX: 'hidden',
-    zIndex: 1500,
-    boxSizing: 'content-box',
-    marginRight: '19px',
-    marginBottom: '20px',
-    display: 'flex'
-  },
-  footer: {
-    marginRight: 20,
-    marginBottom: 20,
-    height: '49px',
-    width: '341px',
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  drawerContainer: { height: '100%', position: 'relative' },
-  drawerTitle: { alignItems: 'center', paddingLeft: '20px' },
-  drawerContent: {
-    '&.MuiGrid-root': {
-    }
-  }
-}))
+import { UpdateAccountInfoClasses } from '../../styles/classes/AccountSettingsClasses'
 
 export const UpdateAccountInfo = props => {
   const {
@@ -120,11 +48,21 @@ export const UpdateAccountInfo = props => {
     accountOwner,
     mobile
   } = props
-  const classes = useStyles()
+  const classes = UpdateAccountInfoClasses()
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
   const [enableSave, setEnableSave] = useState()
+
+  // inline styles
+  const styles = {
+    emailNotifications: {
+      display: 'none'
+    },
+    employeeId: {
+      display: 'none'
+    }
+  }
 
   const passwordPlaceHolder = '********'
   const startingInfo = {
@@ -136,9 +74,7 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
-    password: passwordPlaceHolder,
-    employeeId: accountInfo.userInfo.employeeId,
-    emailNotifications: accountInfo.userInfo.emailNotifications
+    password: passwordPlaceHolder
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
@@ -248,9 +184,7 @@ export const UpdateAccountInfo = props => {
         username: updatedInfo.username,
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
-        role: updatedInfo.role,
-        employeeId: updatedInfo.employeeId,
-        emailNotifications: updatedInfo.emailNotifications
+        role: updatedInfo.role
       }
 
       if (updatedInfo.password !== passwordPlaceHolder) {
@@ -271,8 +205,6 @@ export const UpdateAccountInfo = props => {
       newUserData.userInfo.roles = newData.roles
       newUserData.userInfo.role = newData.role
       newUserData.userInfo.password = newData.password
-      newUserData.userInfo.employeeId = newData.employeeId
-      newUserData.userInfo.emailNotifications = newData.emailNotifications
 
       store.dispatch(authActions.setUser(newUserData))
       handleClosePanel(newUserData)
@@ -515,7 +447,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container mt={2}>
+                <Grid container mt={2} sx={styles.emailNotifications}>
                   <Grid item xs={12}>
                     <Selector
                         id={'emailNotifications'}
@@ -540,7 +472,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container mt={2}>
+                <Grid container mt={2} sx={styles.employeeId}>
                   <Grid item xs={12}>
                     <TextInput
                         value={updatedInfo.employeeId}

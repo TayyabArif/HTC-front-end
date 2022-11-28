@@ -5,80 +5,12 @@ import {
   InputAdornment,
   TextField
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 
 import { useTranslation } from 'react-i18next'
 
 import { NumericFormat as NumberFormat } from 'react-number-format'
 import { HighlightOff } from '@mui/icons-material'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiFilledInput-input': {
-      fontFamily: 'Rubik',
-      border: `1px solid ${theme.colors.signInButton.background}`,
-      color: `${theme.colors.text} !important`,
-      backgroundColor: theme.colors.signInButton.background,
-      borderRadius: '6px',
-      fontSize: '10.7px'
-    },
-    '& .MuiFilledInput-root': {
-      backgroundColor: theme.colors.signInButton.background,
-      borderRadius: '6px'
-    },
-    '& .MuiIconButton-sizeSmall': {
-      marginLeft: '0px'
-    },
-    '& .MuiIconButton-sizeSmall:hover': {
-      backgroundColor: theme.colors.signInButton.background
-    },
-    '& .MuiFilledInput-adornedEnd': {
-      paddingRight: 0
-    },
-    '& .MuiFormLabel-root': {
-      color: theme.colors.settings.fieldName,
-      top: '4px',
-      fontSize: '16px'
-    },
-    '& .Mui-focused': {
-      color: theme.colors.tab.duedate
-    },
-    '& .MuiFormHelperText-root': {
-      fontSize: '10px'
-    },
-    '& .MuiInputBase-input': {
-      fontSize: '16px'
-    }
-  },
-  input: {
-    marginTop: 'unset',
-    marginBottom: '12px'
-  },
-  label: {
-    marginTop: 'unset',
-    fontSize: 10,
-    borderRadius: '8px',
-    color: theme.colors.tab.duedate
-  },
-  textField: {
-    height: '52px',
-    backgroundColor: theme.colors.signInButton.background
-  },
-  icon: {
-    color: theme.colors.company.iconColor,
-    '& svg': {
-      fontSize: '25px'
-    },
-    '&.MuiButtonBase-root': {
-      padding: '0px'
-    }
-  },
-  formControl: {
-    '& .MuiFormControl-root': {
-      margin: 0
-    }
-  }
-}))
+import { PhoneInputClasses } from '../../styles/classes/AccountSettingsClasses'
 
 const NumberFormatCustom = forwardRef(function NumberFormatCustom (props, ref) {
   const { onChange, ...other } = props
@@ -117,7 +49,7 @@ export const PhoneInput = React.forwardRef(
     },
     ref
   ) => {
-    const classes = useStyles()
+    const classes = PhoneInputClasses()
     const inputRef = useRef()
     const { t } = useTranslation()
 

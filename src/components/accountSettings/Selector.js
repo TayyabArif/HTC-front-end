@@ -6,74 +6,11 @@ import {
   MenuItem,
   TextField
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { ArrowDropDown } from '@mui/icons-material'
-
-const useStyles = makeStyles(theme => ({
-  textField: {
-    height: '52px',
-    fontSize: 16,
-    backgroundColor: theme.colors.signInButton.background,
-    color: theme.colors.text
-  },
-  label: {
-    marginTop: 'unset',
-    fontSize: 10,
-    borderRadius: '8px',
-    color: theme.colors.tab.duedate,
-    backgroundColor: theme.colors.signInButton.background
-  },
-  root: {
-    '& .MuiFilledInput-input': {
-      border: `1px solid ${theme.colors.signInButton.background}`,
-      color: `${theme.colors.text} !important`,
-      backgroundColor: theme.colors.signInButton.background,
-      cursor: 'pointer',
-      fontSize: '10.7px'
-    },
-    '& .MuiFilledInput-root': {
-      backgroundColor: theme.colors.signInButton.background,
-      cursor: 'pointer'
-    },
-    '& .MuiFilledInput-underline:before': {
-      border: 'transparent'
-    },
-    '& .MuiFilledInput-underline:after': {
-      border: 'transparent'
-    },
-    '& .MuiFormHelperText-root': {
-      fontSize: '10px'
-    },
-    '& .MuiFormLabel-root': {
-      color: theme.colors.settings.fieldName,
-      top: '4px',
-      fontSize: '16px'
-    },
-    '& .MuiInputBase-input': {
-      fontSize: '16px'
-    },
-    marginBottom: '12px'
-  },
-  input: {
-    marginTop: 'unset',
-    marginBottom: '12px'
-  },
-  icon: {
-    color: theme.colors.company.iconColor,
-    '&.MuiButtonBase-root': {
-      padding: '0px'
-    }
-  },
-  menuItem: theme.filtersClasses.menuItem,
-  formControl: {
-    '& .MuiFormControl-root': {
-      margin: 0
-    }
-  }
-}))
+import { SelectorClasses } from '../../styles/classes/AccountSettingsClasses'
 
 export const Selector = React.forwardRef((props, ref) => {
-  const classes = useStyles({ disabled: props.disabled })
+  const classes = SelectorClasses({ disabled: props.disabled })
   const [anchorEl, setAnchorEl] = useState(null)
   const inputRef = useRef()
 
