@@ -83,7 +83,6 @@ export const userHasAuthorization = scopes => {
     }
   }
 
-
   return false
 }
 
