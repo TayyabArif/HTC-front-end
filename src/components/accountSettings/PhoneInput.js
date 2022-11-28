@@ -8,7 +8,7 @@ import {
 
 import { useTranslation } from 'react-i18next'
 
-import { NumericFormat as NumberFormat } from 'react-number-format'
+import { PatternFormat as NumberFormat } from 'react-number-format'
 import { HighlightOff } from '@mui/icons-material'
 import { PhoneInputClasses } from '../../styles/classes/AccountSettingsClasses'
 
@@ -22,7 +22,7 @@ const NumberFormatCustom = forwardRef(function NumberFormatCustom (props, ref) {
         onChange({
           target: {
             name: props.name,
-            value: values.value
+            value: values.formattedValue
           }
         })
       }}
@@ -53,10 +53,6 @@ export const PhoneInput = React.forwardRef(
     const inputRef = useRef()
     const { t } = useTranslation()
 
-    const handleChangeInt = event => {
-      handleChange(event, id)
-    }
-
     return (
       <FormControl fullWidth className={classes.formControl}>
         <TextField
@@ -65,13 +61,13 @@ export const PhoneInput = React.forwardRef(
           key={id}
           value={value}
           label={label}
-          onChange={handleChange}
           size="small"
           variant="filled"
           margin="normal"
           inputRef={inputRef}
           InputProps={{
             inputComponent: NumberFormatCustom,
+            onChange: handleChange,
             className: classes.textField,
             style: inputStyle,
             disableUnderline: true,
@@ -98,13 +94,12 @@ export const PhoneInput = React.forwardRef(
           placeholder={
             placeholder ? t('account_settings.form.enter') + ' ' + label : ''
           }
-          classes={{ root: classes.root }}
+          className={classes.root}
           autoComplete="off"
           error={error}
           helperText={helperText}
           ref={ref}
           type={type ?? 'text'}
-          onInput={handleChangeInt}
           {...rest}
         />
       </FormControl>

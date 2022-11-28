@@ -134,7 +134,6 @@ const ForgotPassword = () => {
     dispatch(loadingActions.show())
     try {
       const response = await requestResetPassword(email)
-      console.log(response)
       if (response && response.status) {
         dispatch(loadingActions.hide())
       } else {

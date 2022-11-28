@@ -127,7 +127,10 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   },
   editButton: {
     '&.MuiTypography-root': {
-      color: theme.colors.settings.editButton
+      color: theme.colors.settings.editButton,
+      fontFamily: 'Rubik',
+      fontWeight: '500',
+      marginTop: 0
     }
   },
   field: {
@@ -192,7 +195,9 @@ export const PhoneInputClasses = makeStyles(theme => ({
     '& .MuiFormLabel-root': {
       color: theme.colors.settings.fieldName,
       top: '4px',
-      fontSize: '16px'
+      fontSize: '10.7px',
+      fontWeight: '400',
+      letterSpacing: '0.53px'
     },
     '& .Mui-focused': {
       color: theme.colors.tab.duedate
@@ -260,7 +265,9 @@ export const TextInputClasses = makeStyles(theme => ({
     '& .MuiFormLabel-root': {
       color: theme.colors.settings.fieldName,
       top: '4px',
-      fontSize: '16px'
+      fontSize: '10.7px',
+      fontWeight: '400',
+      letterSpacing: '0.53px'
     },
     '& .Mui-focused': {
       color: theme.colors.tab.duedate
@@ -330,7 +337,7 @@ export const SelectorClasses = makeStyles(theme => ({
       cursor: 'pointer',
       fontSize: '10.7px'
     },
-    '& .MuiFilledInput-root': {
+    '& .MuiFilledInput-root.Mui-disabled': {
       backgroundColor: theme.colors.signInButton.background,
       cursor: 'pointer'
     },
@@ -346,7 +353,9 @@ export const SelectorClasses = makeStyles(theme => ({
     '& .MuiFormLabel-root': {
       color: theme.colors.settings.fieldName,
       top: '4px',
-      fontSize: '16px'
+      fontSize: '10.7px',
+      fontWeight: '400',
+      letterSpacing: '0.53px'
     },
     '& .MuiInputBase-input': {
       fontSize: '16px'

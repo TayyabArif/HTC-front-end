@@ -44,7 +44,7 @@ export const Selector = React.forwardRef((props, ref) => {
         onClose={handleClose}
         autoComplete="off"
         disabled={props.disabled}
-        classes={{ root: classes.root }}
+        className={ classes.root }
         InputLabelProps={{ className: classes.label }}
         InputProps={{
           className: classes.textField,

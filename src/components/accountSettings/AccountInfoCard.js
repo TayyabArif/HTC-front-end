@@ -92,20 +92,19 @@ export const AccountInfoCard = props => {
                     </Grid>
                     <Grid item>
                         <Button onClick={() => { setEditDrawer(true) }}>
-                            <Typography className={clsx(classes.title, classes.editButton)} pr={3}>
+                            <Typography className={clsx(classes.editButton, classes.title)} pr={3}>
                                 {t('account_settings.info_card.edit_button')}
                             </Typography>
                         </Button>
-
                     </Grid>
                 </Grid>
                 <CardContent className={classes.content}>
                     <Grid container>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <Typography className={classes.field}>{t('account_settings.info_card.first_name')}</Typography>
                             <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.firstName}</Typography>
                         </Grid>
-                        <Grid item xs={5} ml={2}>
+                        <Grid item xs={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.last_name')}</Typography>
                             <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.lastName ?? '--'}</Typography>
                         </Grid>
