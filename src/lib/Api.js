@@ -139,8 +139,8 @@ export const resetPasswordRequest = async (email = '') => {
  *
  * @returns {Promise<object>} The API response data
  */
-export const getUser = async (id) => {
-  return await callAPI('GET', `/api/users/${id}`)
+export const getUser = async () => {
+  return await callAPI('GET', '/users/me')
 }
 
 /**

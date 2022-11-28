@@ -8,7 +8,7 @@ import {
 import { HighlightOff } from '@mui/icons-material/'
 
 import { useTranslation } from 'react-i18next'
-import {TextInputClasses} from "../../styles/classes/AccountSettingsClasses";
+import { TextInputClasses } from '../../styles/classes/AccountSettingsClasses'
 
 // eslint-disable-next-line react/display-name
 export const TextInput = React.forwardRef(

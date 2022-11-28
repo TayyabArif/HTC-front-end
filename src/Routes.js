@@ -23,6 +23,9 @@ const Routes = () => {
               <Switch>
                   <Route exact path="/">
                   </Route>
+                  <Route exact path="/account-settings">
+                      <AccountSettings />
+                  </Route>
               </Switch>
           </BrowserRouter>
     )
@@ -42,9 +45,6 @@ const Routes = () => {
                 <Route exact path="/sign-in">
                     <SignIn/>
           </Route>
-            <Route exact path="/account-settings">
-                <AccountSettings />
-                </Route>
             </Switch>
         </BrowserRouter>)
 }
