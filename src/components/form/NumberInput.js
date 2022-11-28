@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 /** Material UI **/
 import { styled } from '@mui/system'
@@ -42,11 +42,12 @@ const BootstrapInput = styled(NumericFormat)(({ theme }) => ({
     boxShadow: '0 0 0 0.2rem ' + customTheme.colors.profile.box_shadow,
     outline: 'none'
   },
-  '&::placeholder': {
-    textOverflow: 'ellipsis !important'
+  '&:placeholder': {
+    textOverflow: 'ellipsis !important',
+    color: customTheme.colors.profile.text_grey,
+    opacity: '1'
   },
   '&:disabled': {
-    backgroundColor: customTheme.colors.profile.disabled_bg,
     color: 'rgba(0, 0, 0, 0.25)'
   },
   '&:invalid': {
@@ -56,6 +57,7 @@ const BootstrapInput = styled(NumericFormat)(({ theme }) => ({
 
 export default function GlobalNumberInput (props) {
   const classes = numberInputStyles()
+  const [value, setValue] = useState('')
   const { label, onChange, validate, error, helperText, ...rest } = props
 
   const handleChange = event => {
@@ -63,8 +65,13 @@ export default function GlobalNumberInput (props) {
       onChange(event)
       return
     }
+    setValue(event.target.value)
     onChange(event.target.value, props.field)
   }
+
+  useEffect(() => {
+    setValue(props.value)
+  }, [props.value])
 
   return (
     <FormControl variant="standard" fullWidth={true}>
@@ -80,6 +87,7 @@ export default function GlobalNumberInput (props) {
           )}
       <BootstrapInput
         {...rest}
+        value={value}
         onChange={handleChange}
         className={props.error ? classes.borderError : props?.className}
       />

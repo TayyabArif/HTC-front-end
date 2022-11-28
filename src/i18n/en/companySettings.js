@@ -106,7 +106,8 @@ export const companySettings = () => {
       update: 'Update logo',
       update_question: 'Are you sure you want to update the Company logo?',
       cancel: 'Cancel',
-      no_file: 'No document uploaded'
+      no_file: 'No document uploaded',
+      access: 'Access'
     },
     support_card: {
       title: 'Technical Support',
@@ -116,6 +117,19 @@ export const companySettings = () => {
       version: 'Software Version',
       knowledge: 'Knowledge Base Support',
       privacy: 'Privacy Policy & Terms of Conditions'
+    },
+    preferences_card: {
+      title: 'Preferences',
+      work_types: 'Work Types',
+      description: 'Control which work types are visible.',
+      clear: 'Clear',
+      apply: 'Apply',
+      types: {
+        maintenance: 'Maintenance',
+        enhancement: 'Enhancement',
+        seasonal: 'Seasonal',
+        complaint: 'Complaint'
+      }
     }
   }
 }

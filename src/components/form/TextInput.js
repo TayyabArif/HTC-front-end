@@ -2,7 +2,7 @@
 import React from 'react'
 
 /** Material UI **/
-import { alpha, styled } from '@mui/system'
+import { alpha, styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
 import { FormLabel, Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
@@ -19,7 +19,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'light' ? 'white' : '#2b2b2b',
     border: '1px solid ' + customTheme.colors.profile.border_input,
     fontSize: 15,
-    fontWeight: '400',
     width: '100%',
     padding: '10px 12px',
     transition: theme.transitions.create([
@@ -34,7 +33,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
       borderColor: theme.palette.primary.main
     },
-    '&::placeholder': {
+    '&:placeholder': {
       textOverflow: 'ellipsis !important',
       color: customTheme.colors.profile.text_grey,
       opacity: '1'

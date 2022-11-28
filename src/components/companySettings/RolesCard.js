@@ -121,7 +121,7 @@ export const RolesCard = props => {
     <Card className={classes.card} data-testid={'company_access_card'}>
       <CardActions disableSpacing classes={{ root: classes.actions }}>
         <Typography classes={{ root: classes.title }}>
-          {t('company_settings.card.roles')}
+          {t('company_settings.card.access')}
         </Typography>
         {userHasAuthorization('company_settings.manage_access:write') && (
           <IconButton

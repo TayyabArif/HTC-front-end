@@ -106,14 +106,14 @@ export const ProfileInfoCard = props => {
                         className={classes.boxContainer}
                     >
                         <GlobalInput
-                            field="businesshours_phone"
+                            field="business_hours_phone"
                             value={props?.profile?.business_hours?.phone ?? 'N/A'}
                             label={t('company_profile.labels.business_hours')}
                             disabled
                             className={classes.disabledText}
                         />
                         <GlobalInput
-                            field="countries"
+                            field="after_hours_phone"
                             value={props?.profile?.after_hours?.phone ?? 'N/A'}
                             label={t('company_profile.labels.after_hours')}
                             disabled

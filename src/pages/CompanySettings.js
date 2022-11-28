@@ -8,10 +8,12 @@ import {
   updateCompany,
   uploadCompanyFile
 } from '../services/ApiService'
+import { getRoles } from '../lib/Api'
 
 import { RolesCard } from '../components/companySettings/RolesCard'
 import { UsersCard } from '../components/companySettings/UsersCard'
 import { SupportCard } from '../components/companySettings/SupportCard'
+import { PreferencesCard } from '../components/companySettings/PreferencesCard'
 
 // mui components
 import {
@@ -47,6 +49,7 @@ const CompanySettings = props => {
   const classes = companySettingsStyles()
   const userStore = useSelector(state => state.auth.user)
   const [company, setCompany] = useState(null)
+  const [afterHoursPhone, setAfterHoursPhone] = useState(null)
   const [updatedCompany, setUpdatedCompany] = useState(null)
   const [roles, setRoles] = useState(null)
   const [ftcUsers, setFtcUsers] = useState([])
@@ -79,6 +82,7 @@ const CompanySettings = props => {
         userStore.userInfo?.configurations?.onboarding?.compliance
       )
       const response = await getCompanyProfile(userStore.userInfo.company_id)
+      setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
       // TODO concat all service areas
       if (response?.service_area) {
@@ -90,7 +94,6 @@ const CompanySettings = props => {
     } catch (error) {
       console.error('Error retrieving company profile: ', error)
     }
-    setRoles([])
     updateRoles()
     updateUsers()
   }
@@ -128,6 +131,13 @@ const CompanySettings = props => {
   }
 
   const updateRoles = async () => {
+    try {
+      const response = await getRoles(userStore.userInfo.company_id)
+      setRoles(response)
+    } catch (error) {
+      console.error(error)
+      setRoles([])
+    }
   }
 
   const updateUsers = async () => {
@@ -210,6 +220,7 @@ const CompanySettings = props => {
       await updateCompany(userStore.userInfo.company_id, newProfile)
       // get updated object
       const response = await getCompanyProfile(userStore.userInfo.company_id)
+      setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
       setOpen(false)
     } catch (error) {
@@ -229,6 +240,7 @@ const CompanySettings = props => {
             invoiceError={invoiceError}
             setValidHours={setValidHours}
             requiredFields={complianceFields?.information?.fields}
+            afterHoursPhone={afterHoursPhone}
           />
         )
       case 'insurance':
@@ -264,7 +276,7 @@ const CompanySettings = props => {
   }, [open])
 
   const handleChange = (value, field) => {
-    const data = { ...updatedCompany }
+    let data = { ...updatedCompany }
     if (!field) return
     if (field.match(/coi_.*/)) {
       const tempData = { ...data?.coi }
@@ -286,18 +298,7 @@ const CompanySettings = props => {
       const countries = typeof value === 'string' ? value.split(',') : value
       data.country = countries
     } else {
-      data[field] = value
-    }
-    // restore default values
-    if (data.support_24_7) {
-      data.after_hours = {
-        phone: '',
-        weekend_days: 'weekend',
-        time_from: null,
-        time_to: null,
-        weekend_time_from: null,
-        weekend_time_to: null
-      }
+      data = { ...data, [field]: value }
     }
     setUpdatedCompany({ ...data })
     handleValidations(data)
@@ -441,6 +442,7 @@ const CompanySettings = props => {
     setUpdatedCompany(data)
     handleClose()
     await handleSave()
+    setAfterHoursPhone(data?.after_hours?.phone)
     setCompany(data)
   }
   const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -601,6 +603,7 @@ const CompanySettings = props => {
             setOpen={setOpen}
             setComponent={setComponent}
           />
+          <PreferencesCard />
           <SupportCard
             company={company}
           />
@@ -614,15 +617,6 @@ const CompanySettings = props => {
             users={ftcUsers}
             updateUsers={updateUsers}
             mobile={false}
-          />
-          {/* Mobile only users */}
-          <UsersCard
-            roles={roles}
-            company={company}
-            cardtitle={t('company_settings.card.field_users')}
-            users={mobileUsers}
-            updateUsers={updateUsers}
-            mobile={true}
           />
           <RolesCard updateRoles={updateRoles} roles={roles} />
         </Box>

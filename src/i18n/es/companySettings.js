@@ -107,7 +107,8 @@ export const companySettings = () => {
       update_question:
         'Está seguro que desea actualizar el logo de la compañía?',
       cancel: 'Cancelar',
-      no_file: 'Ningún documento cargado'
+      no_file: 'Ningún documento cargado',
+      access: 'Acceso'
     },
     support_card: {
       title: 'Soporte Técnico',
@@ -117,6 +118,19 @@ export const companySettings = () => {
       version: 'Versión de Softeware',
       knowledge: 'Soporte Base Conocimientos',
       privacy: 'Política de Privacida, Términos y Condiciones'
+    },
+    preferences_card: {
+      title: 'Preferencias',
+      work_types: 'Tipos de Trabajos',
+      description: 'Controla qué tipos de trabajo son visibles.',
+      clear: 'Limpiar',
+      apply: 'Aplicar',
+      types: {
+        maintenance: 'Mantenimiento',
+        enhancement: 'Mejora',
+        seasonal: 'Temporada',
+        complaint: 'Reclamo'
+      }
     }
   }
 }

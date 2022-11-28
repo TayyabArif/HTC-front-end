@@ -11,6 +11,7 @@ import { navBar } from './navBar'
 import { dashboard } from './dashboard'
 import { companySettings } from './companySettings'
 import { companyProfile } from './companyProfile'
+import { accountSettings } from './accountSettings'
 
 export const i18nEs = () => {
   return {
@@ -26,6 +27,7 @@ export const i18nEs = () => {
     dashboard: dashboard(),
     general: general(),
     company_settings: companySettings(),
-    companyProfile: companyProfile()
+    companyProfile: companyProfile(),
+    account_settings: accountSettings()
   }
 }

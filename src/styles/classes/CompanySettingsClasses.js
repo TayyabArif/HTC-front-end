@@ -16,7 +16,7 @@ export const companySettingsStyles = makeStyles(theme => ({
     backgroundColor: theme.colors.complianceBlue
   },
   cardsContainer: {
-    gap: '3em',
+    gap: '50px',
     margin: '0px 47px'
   },
   card: {
@@ -406,6 +406,98 @@ export const profileStepsStyles = makeStyles(theme => ({
   }
 }))
 
+export const preferencesCardStyles = makeStyles(theme => ({
+  title: {
+    fontSize: '25px',
+    fontWeight: '700',
+    color: theme.colors.black,
+    lineHeight: '24px',
+    letterSpacing: '0.05em',
+    margin: '23px 0px 22px 20px'
+  },
+  card: {
+    borderRadius: '8px',
+    boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
+    borderBottom: `1px solid ${theme.colors.disabledField}`,
+    marginBottom: '16px'
+  },
+  actions: {
+    display: 'flex',
+    padding: '0px 0px'
+  },
+  content: {
+    padding: '0px 20px 30px 20px'
+  },
+  subtitle: {
+    fontSize: '14px',
+    fontWeight: '500',
+    margin: '0 0 -25px 15px'
+  },
+  buttonBox: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+  list: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  listItemIcon: {
+    maxWidth: 'unset',
+    minWidth: 'unset',
+    width: '15px',
+    height: '15px'
+  },
+  chip: {
+    fontSize: '12px',
+    margin: '3px',
+    height: '32px',
+    backgroundColor: theme.colors.chipVisible,
+    '&.MuiChip-deletable:focus': {
+      backgroundColor: theme.colors.chipVisible
+    }
+  },
+  chipVisibleOff: {
+    backgroundColor: theme.colors.chipVisibleOff,
+    '&.MuiChip-deletable:focus': {
+      backgroundColor: theme.colors.chipVisibleOff
+    }
+  },
+  chipText: {
+    userSelect: 'none',
+    fontSize: '12px',
+    fontWeight: '400',
+    lineHeight: '2',
+    marginRight: '6px'
+  },
+  checkbox: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    '&.Mui-checked': {
+      color: theme.palette.primary.main,
+      backgroundColor: 'transparent'
+    }
+  },
+  whiteIcon: {
+    color: theme.colors.white
+  },
+  gridIcon: {
+    cursor: 'pointer',
+    transform: 'translate(0px, 3px)',
+    width: '15px',
+    height: '15px',
+    marginLeft: '5px',
+    marginRight: '5px'
+  },
+  gridIconVisibleOff: {
+    color: theme.colors.chipVisible
+  },
+  description: {
+    fontSize: '10px',
+    color: '#6C7172',
+    margin: '0 0 -25px 15px'
+  }
+}))
+
 export const servicesCardStyles = makeStyles(theme => ({
   component: {
     width: '100%',
@@ -482,7 +574,8 @@ export const supportCardStyles = makeStyles(theme => ({
   card: {
     borderRadius: '8px',
     boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
-    borderBottom: `1px solid ${theme.colors.disabledField}`
+    borderBottom: `1px solid ${theme.colors.disabledField}`,
+    marginBottom: '16px'
   },
   actions: {
     display: 'flex',
@@ -833,12 +926,12 @@ export const rolesCardStyles = makeStyles(theme => ({
     borderBottom: `1px solid ${theme.colors.disabledField}`
   },
   title: {
-    fontSize: '20px',
-    margin: '23px 0px 22px 20px',
-    fontStyle: 'normal',
-    fontWeight: '900',
-    lineHeight: '23px',
-    color: theme.colors.company.title
+    fontSize: '25px',
+    fontWeight: '700',
+    color: theme.colors.black,
+    lineHeight: '24px',
+    letterSpacing: '0.05em',
+    margin: '23px 0px 22px 20px'
   },
   actions: {
     display: 'flex',
@@ -856,8 +949,8 @@ export const rolesCardStyles = makeStyles(theme => ({
     borderBottom: '1px solid ' + theme.colors.grey_2
   },
   roleItem: {
-    fontSize: '16px',
-    fontWeight: 600,
+    fontSize: '20px',
+    fontWeight: 500,
     paddingBottom: '2em',
     minWidth: '10em'
   }
@@ -911,8 +1004,8 @@ export const usersCardStyles = makeStyles(theme => ({
     minHeight: '470px'
   },
   cardTitle: {
-    fontSize: '20px',
-    fontWeight: '900',
+    fontSize: '25px',
+    fontWeight: '700',
     minWidth: 'fit-content',
     marginRight: '1em'
   },
@@ -925,16 +1018,14 @@ export const usersCardStyles = makeStyles(theme => ({
     padding: '0px 20px 30px 0px'
   },
   editButton: {
-    alignSelf: 'flex-start',
     marginLeft: 'auto',
     marginRight: '0',
     color: theme.colors.iconBlue,
     textTransform: 'none',
-    fontSize: '16px',
-    fontWeight: '600',
+    fontSize: '20px',
+    fontWeight: '500',
     letterSpacing: '0.05em',
     lineHeight: '19px',
-    boxShadow: 'none',
     border: 'none'
   },
   itemDivider: {

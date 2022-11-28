@@ -10,19 +10,30 @@ import {
   Typography,
   Box
 } from '@mui/material'
-
-// services
 import { Button } from 'antd'
 import GlobalChip from '../form/Chip'
 import GlobalInput from '../form/TextInput'
+import { useSelector } from 'react-redux'
+import { UpdateAccountInfo } from '../accountSettings/UpdateAccountInfo'
+
+// services
+import { userHasAuthorization } from '../../services/AuthService'
+
+// styles
 import { usersCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const UsersCard = props => {
   const { roles, users } = props
   const classes = usersCardStyles()
   const { t } = useTranslation()
+  const userStore = useSelector(state => state.auth.user)
+
   const [roleOptions, setRoleOptions] = useState(null)
   const [filterUser, setFilterUser] = useState(null)
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [panelEvent, setPanelEvent] = useState(null)
+  const [openPanel, setOpenPanel] = useState(false)
 
   useEffect(() => {
     setFilterUser(users)
@@ -39,9 +50,25 @@ export const UsersCard = props => {
   }, [roles])
 
   const handleNewPanel = () => {
+    setSelectedUser({
+      firstName: null,
+      lastName: null,
+      photo_url: null,
+      roles: null,
+      username: null
+    })
+    setErrorMessage(null)
+    setPanelEvent('new')
+    setOpenPanel(true)
   }
 
   const handleEditPanel = obj => {
+    if (userHasAuthorization('company_settings:write')) {
+      setSelectedUser(obj)
+      setErrorMessage(null)
+      setPanelEvent('edit')
+      setOpenPanel(true)
+    }
   }
 
   const EditButton = props => {
@@ -123,6 +150,24 @@ export const UsersCard = props => {
           ))}
         </Box>
       </CardContent>
+      {selectedUser && (
+        <UpdateAccountInfo
+          errorMessage={errorMessage}
+          editDrawer={openPanel}
+          handleClosePanel={() => {
+            setOpenPanel(false)
+            setSelectedUser(null)
+          }}
+          accountInfo={{ ...userStore, userInfo: selectedUser }}
+          updateUsers={props.updateUsers}
+          event={panelEvent}
+          roles={roles}
+          roleOptions={roleOptions}
+          affiliateId={props.company.affiliate_id}
+          accountOwner={selectedUser.id === userStore.userInfo.id}
+          mobile={props.mobile}
+        />
+      )}
     </Card>
   )
 }

@@ -21,7 +21,7 @@ import { companyProfileStyles } from '../../styles/classes/CompanySettingsClasse
 export const CompanyProfileComponent = props => {
   const classes = companyProfileStyles()
   const { t } = useTranslation()
-  const { profile, handleChange, handleImageChange } = props
+  const { profile, handleChange, handleImageChange, afterHoursPhone } = props
   const [address, setAddress] = useState()
 
   useEffect(() => {
@@ -150,25 +150,26 @@ export const CompanyProfileComponent = props => {
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'country')}
         />
         <Box display="flex">
-          <Box marginRight="5px" flex={1}>
+          <Box marginRight="5px" flex={1} key="business_hours_box">
             <NumberInput
+              key="business_hours_input"
               onChange={handleBusinessHours}
-              field="business_hours"
+              field="phone"
               placeholder={t('company_profile.placeholder.business_hours')}
               value={profile?.business_hours?.phone}
               label={t('company_profile.labels.business_hours')}
               format="(###) ### ####"
             />
           </Box>
-          <Box marginLeft="5px" flex={1}>
+          <Box marginLeft="5px" flex={1} key="after_hours_box" >
             <NumberInput
+              key="after_hours_input"
               onChange={handleAfterHours}
-              field="after_hours"
+              field="phone"
               placeholder={t('company_profile.placeholder.after_hours')}
-              value={profile?.after_hours?.phone}
+              value={afterHoursPhone}
               label={t('company_profile.labels.after_hours')}
               format="(###) ### ####"
-              disabled={profile?.support_24_7}
             />
           </Box>
         </Box>

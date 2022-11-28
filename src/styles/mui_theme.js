@@ -85,6 +85,26 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    workOrders: {
+      counts: '#6C7172',
+      chipBack: '#F1F1F1',
+      selectedRow: 'rgba(93, 181, 224, 0.1)',
+      dotsBack: '#E0E0E0',
+      columnTitle: '#6C7172',
+      emptyText: '#6C7172',
+      detailsTitle: '#6C7172',
+      emptyCardTitle: '#333333',
+      downloadIcon: '#C4C4C4',
+      detailsCardBorderColor: 'rgba(216, 216, 216, 0.25)',
+      tab: {
+        description: '#121212',
+        wonum: '#212121',
+        duedate: '#828282'
+      },
+      buttonPrimary: '#EEEEEE',
+      gradient: '#DCDCDC',
+      etaText: '#A0A0A0'
+    },
     workOrderColors: {
       open: '#2F80ED',
       completed: '#4F4F4F',
