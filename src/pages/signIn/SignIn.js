@@ -294,7 +294,7 @@ const SignIn = () => {
   }
 
   return (
-    <Container fullWidth className={classes.mainContainer}>
+    <Container className={classes.mainContainer}>
       <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
         <Grid className={classes.mainItem} item xs={12}>
           <Grid container justifyContent='center'>
