@@ -16,7 +16,7 @@ const api = create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    PORTAL: 'TRUE'
+    PORTAL: 'CLIENT'
   },
   timeout: 30000
 })
@@ -179,7 +179,29 @@ const callIframeAPI = async (type, route, params = {}) => {
       return processApiResponse(response)
     }
   }
-  return processApiResponse(response)
+}
+
+/**
+ * Send reset password request
+ *
+ * @param email
+ * @returns {Promise<object>} The API response data
+ */
+export const resetPasswordRequest = async (email = '') => {
+  return await callAPI('POST', '/users/forgotpassword', { email }, false)
+}
+
+/**
+ * Get User Scopes
+ *
+ * @param email
+ * @returns {Promise<object[]>} The API response data
+ */
+export const getUserScopes = async (email = '') => {
+  return await callAPI('GET', '/api/users/scopes',
+    new URLSearchParams({
+      email
+    }), 0)
 }
 
 /**
@@ -190,13 +212,4 @@ const callIframeAPI = async (type, route, params = {}) => {
 export const getUser = async (iframe = false) => {
   if (iframe) return await callIframeAPI('GET', '/users/me')
   return await callAPI('GET', '/users/me')
-}
-
-/**
- * Reset Password
- *
- * @returns {Promise<object>} The API response data
- */
-export const resetPasswordRequest = async email => {
-  return await callAPI('POST', '/users/forgotpassword', { email }, false)
 }

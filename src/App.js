@@ -2,7 +2,9 @@ import React from 'react'
 import Routes from './Routes'
 import customTheme from './styles/mui_theme'
 import { ThemeProvider } from '@mui/material'
-import './assets/fonts/Roboto-Regular.woff2'
+import './assets/fonts/Rubik-Regular.ttf'
+import './assets/fonts/Rubik-Bold.ttf'
+import './assets/fonts/Rubik-Light.ttf'
 
 function App () {
   // Start Mock Service Worker if the app is running in test mode

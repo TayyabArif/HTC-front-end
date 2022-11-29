@@ -7,7 +7,7 @@ export const muiThemeHeaderDate = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Rubik',
     fontSize: 12
   }
 })
@@ -32,7 +32,7 @@ export const muiThemeDateFilter = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Rubik',
     fontSize: 12
   },
   overrides: {
