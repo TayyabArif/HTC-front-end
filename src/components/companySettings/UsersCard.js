@@ -93,7 +93,7 @@ export const UsersCard = props => {
   }
 
   return (
-    <Card className={classes.card} data-testid={'company_users_card'}>
+    <Card className={classes.card} data-testid={'users_card'}>
       <CardActions disableSpacing classes={{ root: classes.actions }}>
         <Typography classes={{ root: classes.cardTitle }}>
           {props.cardtitle}

@@ -565,7 +565,7 @@ const CompanySettings = props => {
       <Box display="flex" className={classes.cardsContainer}>
         <Box flex={1}>
           {/* Logo card */}
-          <Card className={classes.card}>
+          <Card data-testid='logo_card' className={classes.card}>
             <Box display="flex" flexDirection="row">
               <Avatar
                 alt="profile"

@@ -28,7 +28,7 @@ export const ProfileInfoCard = props => {
   }
 
   return (
-        <Card className={classes.card}>
+        <Card data-testid='profile_info_card' className={classes.card}>
             <Box display="flex" flexDirection="row">
                 <Typography classes={{ root: classes.cardTitle }}>
                     {t('company_settings.card.profile')}

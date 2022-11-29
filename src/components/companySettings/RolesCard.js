@@ -118,7 +118,7 @@ export const RolesCard = props => {
   const permissionsMobile = [t('company_settings.roles_card.no_portal_access')]
 
   return (
-    <Card className={classes.card} data-testid={'company_access_card'}>
+    <Card className={classes.card} data-testid={'roles_card'}>
       <CardActions disableSpacing classes={{ root: classes.actions }}>
         <Typography classes={{ root: classes.title }}>
           {t('company_settings.card.access')}

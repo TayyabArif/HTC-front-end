@@ -106,7 +106,7 @@ export const PreferencesCard = props => {
   }
 
   return (
-        <Card className={classes.card} data-testid={'company_access_card'}>
+        <Card className={classes.card} data-testid='preferences_card' >
             <CardActions disableSpacing classes={{ root: classes.actions }}>
                 <Typography classes={{ root: classes.title }}>
                     {t('company_settings.preferences_card.title')}
