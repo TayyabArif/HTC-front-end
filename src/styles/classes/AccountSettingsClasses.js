@@ -376,6 +376,9 @@ export const SelectorClasses = makeStyles(theme => ({
   formControl: {
     '& .MuiFormControl-root': {
       margin: 0
+    },
+    '& .MuiInputBase-input.Mui-disabled': {
+      'text-fill-color': 'unset'
     }
   }
 }))
