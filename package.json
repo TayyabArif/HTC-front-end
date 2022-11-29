@@ -39,11 +39,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-test-mode": "REACT_APP_STAGE=test react-scripts start",
+    "start-test-mode": "react-scripts start",
     "build": "react-scripts build",
-    "test-unit": "REACT_APP_STAGE=test REACT_APP_API_URL=http://localhost:3000 react-scripts test unit",
+    "test-unit": "react-scripts test unit",
     "test-e2e": "react-scripts test e2e",
-    "e2e": "REACT_APP_STAGE=test REACT_APP_API_URL=http://localhost:3000 PORT=3001 start-server-and-test start http://localhost:3001 test-e2e",
+    "e2e": "start-server-and-test start test-e2e",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "lint-fix": "eslint src/**/*.js --fix"
