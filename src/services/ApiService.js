@@ -107,6 +107,7 @@ export const createClientUser = async (
   roles,
   role,
   password,
+  employeeId,
   avoidEmail = false
 ) => {
   store.dispatch(loadingActions.show())
@@ -122,7 +123,8 @@ export const createClientUser = async (
         phone,
         photo_url: photoUrl,
         username,
-        password
+        password,
+        employee_id: employeeId
       },
       '1st'
     )
@@ -150,7 +152,8 @@ export const createClientUser = async (
         phone,
         photo_url: photoUrl,
         username,
-        password
+        password,
+        employee_id: employeeId
       },
       '2nd'
     )
@@ -177,7 +180,8 @@ export const createClientUser = async (
         photo_url: photoUrl,
         username,
         password,
-        avoidEmail
+        employee_id: employeeId,
+        avoid_email: avoidEmail
       },
       'final'
     )

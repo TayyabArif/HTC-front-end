@@ -17,7 +17,16 @@ export const accountSettings = () => {
       password_confirm: 'Password Confirm',
       profile_pic: 'Profile Pic',
       user_title: 'Title',
-      access_type: 'Access Type'
+      access_type: 'Access Type',
+      access: 'Access',
+      placeholder_first: 'Enter first',
+      placeholder_last: 'Enter last',
+      placeholder_email: 'Enter email address',
+      placeholder_phone: 'Enter phone',
+      placeholder_username: 'Create username',
+      placeholder_pass: 'Create password',
+      placeholder_repass: 'Re-enter password',
+      placeholder_employee: 'Enter ID'
     },
     form: {
       save: 'Save',

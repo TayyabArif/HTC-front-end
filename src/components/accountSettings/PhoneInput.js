@@ -93,7 +93,8 @@ export const PhoneInput = React.forwardRef(
             )
           }}
           InputLabelProps={{
-            className: classes.label
+            className: classes.label,
+            shrink: true
           }}
           placeholder={
             placeholder ? t('account_settings.form.enter') + ' ' + label : ''

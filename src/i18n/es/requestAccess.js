@@ -12,6 +12,21 @@ export const requestAccess = () => {
     email_address: 'Correo',
     request_access: 'Solicitar Acceso',
     company_name: 'Empresa',
+    user_roles: {
+      accounting: 'Contabilidad',
+      account_manager: 'Administrador de Cuenta',
+      administrator: 'Administrador',
+      crew_member: 'Miembro de Equipo',
+      crew_leader: 'Lider de Equipo',
+      dispatcher: 'Despachador',
+      field_supervisor: 'Supervisor de Campo',
+      installer: 'Instalador',
+      manager: 'Gerente',
+      operations_manager: 'Gerente de Operaciones',
+      owner: 'Dueño',
+      president: 'Presidente',
+      technician: 'Técnico'
+    },
     messages: {
       errors: {
         invalid_domain_structure: 'Por favor ingrese un nombre de dominio válido',

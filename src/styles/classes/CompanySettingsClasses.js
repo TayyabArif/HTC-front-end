@@ -494,7 +494,7 @@ export const preferencesCardStyles = makeStyles(theme => ({
   description: {
     fontSize: '10px',
     color: '#6C7172',
-    margin: '0 0 -25px 15px'
+    margin: '0 0 25px 15px'
   }
 }))
 

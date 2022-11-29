@@ -10,7 +10,9 @@ export const general = () => {
         email: 'Debe ser un correo válido',
         password_does_not_match: 'La contraseña no coincide',
         no_sites_found: 'No existen resultados. Intente nuevamente.',
-        size: 'El tamaño del archivo no puede exceder 25 MB'
+        size: 'El tamaño del archivo no puede exceder 25 MB',
+        length_6: 'El campo debe tener al menos 6 caracteres',
+        phone: 'Número de teléfono inválido'
       },
       select_all: 'Todos',
       select: 'Seleccionar',

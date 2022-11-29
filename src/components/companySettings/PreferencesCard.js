@@ -125,7 +125,7 @@ export const PreferencesCard = props => {
                     setColumns={setColumns}
                 />
                 <Typography classes={{ root: classes.description }}>{t('company_settings.preferences_card.description')}</Typography>
-                <Box className={classes.buttonBox}>
+                <Box display="none !important" className={classes.buttonBox} >
 
                     <Button onClick={() => { setDbWorkTypes(defWorkTypes) }} size="small" >
                         {t('company_settings.preferences_card.clear')}

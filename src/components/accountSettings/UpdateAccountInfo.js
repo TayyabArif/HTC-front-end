@@ -61,7 +61,6 @@ export const UpdateAccountInfo = props => {
   const [photoBase64, setPhotoBase64] = useState()
   const [enableSave, setEnableSave] = useState()
 
-  const passwordPlaceHolder = '********'
   const startingInfo = {
     firstName: accountInfo.userInfo.firstName,
     lastName: accountInfo.userInfo.lastName,
@@ -71,14 +70,19 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
-    password: passwordPlaceHolder,
-    passwordConfirm: passwordPlaceHolder
+    employeeId: accountInfo.userInfo.employee_id,
+    password: '',
+    passwordConfirm: ''
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
   /* Image Handling */
   let firstRender = true
-  useEffect(async () => {
+  useEffect(() => {
+    loadImage()
+  }, [])
+
+  const loadImage = async () => {
     try {
       if (firstRender) {
         let newBase64
@@ -95,7 +99,7 @@ export const UpdateAccountInfo = props => {
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  }
 
   const changeFileHandler = event => {
     const file = event.target.files[0]
@@ -115,7 +119,7 @@ export const UpdateAccountInfo = props => {
   }
 
   /* End Image Handling */
-  useEffect(async () => {
+  useEffect(() => {
     if (editDrawer) {
       try {
         setOpen(true)
@@ -134,12 +138,12 @@ export const UpdateAccountInfo = props => {
     let save = true
     if (
       !updatedInfo.firstName ||
-      !updatedInfo.lastName ||
-      !updatedInfo.email ||
-      !updatedInfo.username ||
-      (updatedInfo.password && !updatedInfo.passwordConfirm) ||
-      (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-      (!updatedInfo.password && !updatedInfo.passwordConfirm)
+            !updatedInfo.lastName ||
+            !updatedInfo.email ||
+            !updatedInfo.username ||
+            (updatedInfo.password && !updatedInfo.passwordConfirm) ||
+            (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+            (!updatedInfo.password && !updatedInfo.passwordConfirm)
     ) {
       save = false
     }
@@ -166,6 +170,10 @@ export const UpdateAccountInfo = props => {
       .required(t('account_settings.messages.errors.required'))
       .min(10, t('general.messages.errors.phone')),
     username: yup
+      .string()
+      .required(t('account_settings.messages.errors.required'))
+      .min(6, t('general.messages.errors.length_6')),
+    employeeId: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6')),
@@ -231,10 +239,11 @@ export const UpdateAccountInfo = props => {
         username: updatedInfo.username,
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
-        role: updatedInfo.role
+        role: updatedInfo.role,
+        employeeId: updatedInfo.employeeId
       }
 
-      if (updatedInfo.password !== passwordPlaceHolder) {
+      if (updatedInfo.password !== '') {
         newData = { ...newData, password: updatedInfo.password }
       }
 
@@ -252,6 +261,7 @@ export const UpdateAccountInfo = props => {
       newUserData.userInfo.roles = newData.roles
       newUserData.userInfo.role = newData.role
       newUserData.userInfo.password = newData.password
+      newUserData.userInfo.employee_id = newData.employeeId
 
       store.dispatch(authActions.setUser(newUserData))
       handleClosePanel(newUserData)
@@ -280,7 +290,8 @@ export const UpdateAccountInfo = props => {
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
-        updatedInfo.password
+        updatedInfo.password,
+        updatedInfo.employeeId
       )
       handleClose()
       updateUsers()
@@ -303,10 +314,11 @@ export const UpdateAccountInfo = props => {
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
+        employee_id: updatedInfo.employeeId,
         password:
-          updatedInfo.password === passwordPlaceHolder
-            ? undefined
-            : updatedInfo.password
+                    updatedInfo.password === ''
+                      ? undefined
+                      : updatedInfo.password
       })
       handleClose()
       updateUsers()
@@ -315,9 +327,9 @@ export const UpdateAccountInfo = props => {
       if (e.details && e.details?.details?.length > 0) {
         const error = e.details.details[0]
         const name =
-          error.path.substr(1, error.path.length - 1) === 'role'
-            ? 'title'
-            : error.path.substr(1, error.path.length - 1)
+                    error.path.substr(1, error.path.length - 1) === 'role'
+                      ? 'title'
+                      : error.path.substr(1, error.path.length - 1)
         setErrorMessage(name + ' ' + error.message)
       } else if (e.message) {
         setErrorMessage(t('company_profile.error.general_error'))
@@ -330,253 +342,273 @@ export const UpdateAccountInfo = props => {
   /** End Submit Handle **/
 
   return (
-    <div>
-      <Drawer
-        BackdropProps={{ invisible: true }}
-        anchor={'right'}
-        open={open}
-        onClose={handleClose}
-        classes={{ paper: classes.drawerPaper }}
-        disableAutoFocus
-      >
-        <form
-          noValidate
-          onSubmit={handleSubmit(onSubmit, onError)}
-          onReset={reset}
-        >
-          <div className={classes.drawerContainer}>
-            <div className={classes.drawerTitle}>
-              <FormLabel component="legend" classes={{ root: classes.title }}>
-                {event === 'new'
-                  ? t('account_settings.info_card.new_user_title')
-                  : t('account_settings.info_card.title')}
-              </FormLabel>
-            </div>
-
-            <Grid container spacing={1}>
-              <Grid item xs={12} className={classes.drawerContent}>
-                <FormGroup classes={{ root: classes.imageGroup }}>
-                  <Avatar
-                    alt="profile"
-                    src={photoBase64}
-                    ref={photo}
-                    classes={{ root: classes.avatar }}
-                  />
-
-                  <Link
-                    size="small"
-                    onClick={handleImagePicker}
-                    color="primary"
-                    classes={{ root: classes.photoPickerButton }}
-                    type="button"
-                  >
-                    {t(
-                      updatedInfo.photo_url
-                        ? 'account_settings.form.edit'
-                        : 'account_settings.form.add'
-                    )}
-                  </Link>
-                  <input
-                    ref={photoPicker}
-                    style={{ display: 'none' }}
-                    type="file"
-                    name="file"
-                    onChange={changeFileHandler}
-                  />
-                </FormGroup>
-
-                <div style={{ marginTop: 12 }}></div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    maxWidth: '309px',
-                    overflow: 'hidden'
-                  }}
+        <div>
+            <Drawer
+                BackdropProps={{ invisible: true }}
+                anchor={'right'}
+                open={open}
+                onClose={handleClose}
+                classes={{ paper: classes.drawerPaper }}
+                disableAutoFocus
+            >
+                <form
+                    noValidate
+                    onSubmit={handleSubmit(onSubmit, onError)}
+                    onReset={reset}
                 >
-                  <TextInput
-                    value={updatedInfo.firstName}
-                    id="firstName"
-                    name="firstName"
-                    handleChange={handleChangeValues}
-                    label={t('account_settings.info_card.first_name')}
-                    error={!!errors.firstName}
-                    helperText={errors.firstName && errors.firstName.message}
-                    {...register('firstName')}
-                    inputStyle={{
-                      width: '100%',
-                      borderRightColor: 'red',
-                      borderRightWidth: '1px',
-                      borderRightStyle: 'solid',
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderColor: '#B8B8B8'
-                    }}
-                  />
+                    <div className={classes.drawerContainer}>
+                        <div className={classes.drawerTitle}>
+                            <FormLabel component="legend" classes={{ root: classes.title }}>
+                                {event === 'new'
+                                  ? t('account_settings.info_card.new_user_title')
+                                  : t('account_settings.info_card.title')}
+                            </FormLabel>
+                        </div>
 
-                  <TextInput
-                    value={updatedInfo.lastName}
-                    id="lastName"
-                    name="lastName"
-                    handleChange={handleChangeValues}
-                    label={t('account_settings.info_card.last_name')}
-                    error={!!errors.lastName}
-                    helperText={errors.lastName && errors.lastName.message}
-                    {...register('lastName')}
-                    inputStyle={{
-                      width: '100%',
-                      borderTopLeftRadius: 0,
-                      borderBottomLeftRadius: 0
-                    }}
-                  />
-                </div>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} className={classes.drawerContent}>
+                                <FormGroup classes={{ root: classes.imageGroup }}>
+                                    <Avatar
+                                        alt="profile"
+                                        src={photoBase64}
+                                        ref={photo}
+                                        classes={{ root: classes.avatar }}
+                                    />
 
-                <TextInput
-                  value={updatedInfo.email}
-                  id="email"
-                  name="email"
-                  handleChange={handleChangeValues}
-                  label={t('account_settings.info_card.email')}
-                  error={!!errors.email}
-                  helperText={errors.email && errors.email.message}
-                  {...register('email')}
-                />
+                                    <Link
+                                        size="small"
+                                        onClick={handleImagePicker}
+                                        color="primary"
+                                        classes={{ root: classes.photoPickerButton }}
+                                        type="button"
+                                    >
+                                        {t(
+                                          updatedInfo.photo_url
+                                            ? 'account_settings.form.edit'
+                                            : 'account_settings.form.add'
+                                        )}
+                                    </Link>
+                                    <input
+                                        ref={photoPicker}
+                                        style={{ display: 'none' }}
+                                        type="file"
+                                        name="file"
+                                        onChange={changeFileHandler}
+                                    />
+                                </FormGroup>
 
-                <PhoneInput
-                  value={updatedInfo.phone}
-                  id="phone"
-                  name="phone"
-                  handleChange={handleChangeValues}
-                  label={t('account_settings.info_card.phone_number')}
-                  error={!!errors.phone}
-                  helperText={errors.phone && errors.phone.message}
-                  {...register('phone')}
-                />
+                                <div style={{ marginTop: 12 }}></div>
+                                <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'row',
+                                      maxWidth: '309px',
+                                      overflow: 'hidden'
+                                    }}
+                                >
+                                    <TextInput
+                                        value={updatedInfo.firstName}
+                                        id="firstName"
+                                        name="firstName"
+                                        handleChange={handleChangeValues}
+                                        label={t('account_settings.info_card.first_name')}
+                                        placeholder={t('account_settings.info_card.placeholder_first')}
+                                        error={!!errors.firstName}
+                                        helperText={errors.firstName && errors.firstName.message}
+                                        {...register('firstName')}
+                                        inputStyle={{
+                                          width: '100%',
+                                          borderRightColor: 'red',
+                                          borderRightWidth: '1px',
+                                          borderRightStyle: 'solid',
+                                          borderTopRightRadius: 0,
+                                          borderBottomRightRadius: 0,
+                                          borderColor: '#B8B8B8'
+                                        }}
+                                    />
 
-                <Selector
-                  id={'roles'}
-                  value={
-                    mobile
-                      ? t('company_settings.mobile_only')
-                      : roles
-                        ? roles[0].name
-                        : ''
-                  }
-                  label={t('account_settings.info_card.company_role')}
-                  handleChange={handleChangeValues}
-                  options={
-                    mobile
-                      ? [
-                          {
-                            id: 'no_value',
-                            name: t('company_settings.mobile_only')
-                          }
-                        ]
-                      : roles && roles.length > 0
-                        ? [...roles]
-                        : []
-                  }
-                  error={!!errors.roles}
-                  helperText={errors.roles && errors.roles.message}
-                  disabled={accountOwner}
-                  {...register('roles')}
-                />
+                                    <TextInput
+                                        value={updatedInfo.lastName}
+                                        id="lastName"
+                                        name="lastName"
+                                        handleChange={handleChangeValues}
+                                        label={t('account_settings.info_card.last_name')}
+                                        placeholder={t('account_settings.info_card.placeholder_last')}
+                                        error={!!errors.lastName}
+                                        helperText={errors.lastName && errors.lastName.message}
+                                        {...register('lastName')}
+                                        inputStyle={{
+                                          width: '100%',
+                                          borderTopLeftRadius: 0,
+                                          borderBottomLeftRadius: 0
+                                        }}
+                                    />
+                                </div>
 
-                <Selector
-                  id={'role'}
-                  value={
-                    t('create_account.user_roles', {
-                      returnObjects: true
-                    })[updatedInfo.role] ?? ''
-                  }
-                  label={t('company_settings.users_card.role')}
-                  handleChange={handleChangeValues}
-                  options={Object.keys(
-                    t('create_account.user_roles', { returnObjects: true })
-                  ).map(key => {
-                    return {
-                      id: key,
-                      name: t('create_account.user_roles', {
-                        returnObjects: true
-                      })[key]
-                    }
-                  })}
-                  error={!!errors.role}
-                  helperText={errors.role && errors.role.message}
-                  {...register('role')}
-                />
+                                <TextInput
+                                    value={updatedInfo.email}
+                                    id="email"
+                                    name="email"
+                                    handleChange={handleChangeValues}
+                                    label={t('account_settings.info_card.email')}
+                                    placeholder={t('account_settings.info_card.placeholder_email')}
+                                    error={!!errors.email}
+                                    helperText={errors.email && errors.email.message}
+                                    {...register('email')}
+                                />
 
-                <TextInput
-                  value={updatedInfo.username}
-                  id="username"
-                  handleChange={handleChangeValues}
-                  label={
-                    t('account_settings.info_card.username') +
-                    ' ' +
-                    t('account_settings.form.username_chars')
-                  }
-                  error={!!errors.username}
-                  helperText={errors.username && errors.username.message}
-                  {...register('username')}
-                />
+                                <PhoneInput
+                                    value={updatedInfo.phone}
+                                    id="phone"
+                                    name="phone"
+                                    handleChange={handleChangeValues}
+                                    label={t('account_settings.info_card.phone_number')}
+                                    placeholder={t('account_settings.info_card.placeholder_phone')}
+                                    error={!!errors.phone}
+                                    helperText={errors.phone && errors.phone.message}
+                                    {...register('phone')}
+                                />
 
-                <TextInput
-                  value={updatedInfo.password}
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder={'********'}
-                  handleChange={handleChangeValues}
-                  label={t('account_settings.info_card.password')}
-                  error={!!errors.password}
-                  helperText={errors.password && errors.password.message}
-                  {...register('password')}
-                />
+                                <Selector
+                                    id={'roles'}
+                                    value={
+                                        mobile
+                                          ? t('company_settings.mobile_only')
+                                          : roles
+                                            ? roles[0].name
+                                            : ''
+                                    }
+                                    label={t('account_settings.info_card.access')}
+                                    handleChange={handleChangeValues}
+                                    options={
+                                        mobile
+                                          ? [
+                                              {
+                                                id: 'no_value',
+                                                name: t('company_settings.mobile_only')
+                                              }
+                                            ]
+                                          : roles && roles.length > 0
+                                            ? [...roles]
+                                            : []
+                                    }
+                                    error={!!errors.roles}
+                                    helperText={errors.roles && errors.roles.message}
+                                    disabled={accountOwner}
+                                    {...register('roles')}
+                                />
 
-                <TextInput
-                  value={updatedInfo.passwordConfirm}
-                  id="passwordConfirm"
-                  name="passwordConfirm"
-                  type="password"
-                  handleChange={handleChangeValues}
-                  placeholder={'********'}
-                  label={t('account_settings.info_card.password_confirm')}
-                  error={!!errors.passwordConfirm}
-                  helperText={
-                    errors.passwordConfirm && errors.passwordConfirm.message
-                  }
-                  {...register('passwordConfirm')}
-                />
+                                <Selector
+                                    id={'role'}
+                                    value={
+                                        t('request_access.user_roles', {
+                                          returnObjects: true
+                                        })[updatedInfo.role] ?? ''
+                                    }
+                                    label={t('company_settings.users_card.role')}
+                                    handleChange={handleChangeValues}
+                                    options={Object.keys(
+                                      t('request_access.user_roles', { returnObjects: true })
+                                    ).map(key => {
+                                      return {
+                                        id: key,
+                                        name: t('request_access.user_roles', {
+                                          returnObjects: true
+                                        })[key]
+                                      }
+                                    })}
+                                    error={!!errors.role}
+                                    helperText={errors.role && errors.role.message}
+                                    {...register('role')}
+                                />
 
-                <Box pt={1} hidden={!errorMessage}>
-                  <Typography align={'left'} className={classes.errorMessage}>
-                    {props.errorMessage
-                      ? t('account_settings.form.' + props.errorMessage)
-                      : errorMessage}
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
+                                <TextInput
+                                    value={updatedInfo.employeeId}
+                                    id="employeeId"
+                                    name="employeeId"
+                                    handleChange={handleChangeValues}
+                                    label={t('account_settings.info_card.employee_id')}
+                                    placeholder={t('account_settings.info_card.placeholder_employee')}
+                                    error={!!errors.employeeId}
+                                    helperText={errors.employeeId && errors.employeeId.message}
+                                    {...register('employeeId')}
+                                    inputStyle={{
+                                      width: '100%'
+                                    }}
+                                />
 
-            <div className={classes.footer}>
-              <ThemeProvider theme={buttonSettingsDisabled}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="primary"
-                  type="submit"
-                  disabled={!enableSave}
-                  style={!enableSave ? disableButtonStyle : enableButtonStyle}
-                >
-                  {event === 'new'
-                    ? t('account_settings.form.create')
-                    : t('account_settings.form.save')}
-                </Button>
-              </ThemeProvider>
-            </div>
-          </div>
-        </form>
-      </Drawer>
-    </div>
+                                <TextInput
+                                    value={updatedInfo.username}
+                                    id="username"
+                                    handleChange={handleChangeValues}
+                                    label={
+                                        t('account_settings.info_card.username') +
+                                        ' ' +
+                                        t('account_settings.form.username_chars')
+                                    }
+                                    placeholder={t('account_settings.info_card.placeholder_username')}
+                                    error={!!errors.username}
+                                    helperText={errors.username && errors.username.message}
+                                    {...register('username')}
+                                />
+
+                                <TextInput
+                                    value={updatedInfo.password}
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    placeholder={t('account_settings.info_card.placeholder_pass')}
+                                    handleChange={handleChangeValues}
+                                    label={t('account_settings.info_card.password')}
+                                    error={!!errors.password}
+                                    helperText={errors.password && errors.password.message}
+                                    {...register('password')}
+                                />
+
+                                <TextInput
+                                    value={updatedInfo.passwordConfirm}
+                                    id="passwordConfirm"
+                                    name="passwordConfirm"
+                                    type="password"
+                                    handleChange={handleChangeValues}
+                                    placeholder={t('account_settings.info_card.placeholder_repass')}
+                                    label={t('account_settings.info_card.password_confirm')}
+                                    error={!!errors.passwordConfirm}
+                                    helperText={
+                                        errors.passwordConfirm && errors.passwordConfirm.message
+                                    }
+                                    {...register('passwordConfirm')}
+                                />
+
+                                <Box pt={1} hidden={!errorMessage}>
+                                    <Typography align={'left'} className={classes.errorMessage}>
+                                        {props.errorMessage
+                                          ? t('account_settings.form.' + props.errorMessage)
+                                          : errorMessage}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                        </Grid>
+
+                        <div className={classes.footer}>
+                            <ThemeProvider theme={buttonSettingsDisabled}>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    color="primary"
+                                    type="submit"
+                                    disabled={!enableSave}
+                                    style={!enableSave ? disableButtonStyle : enableButtonStyle}
+                                >
+                                    {event === 'new'
+                                      ? t('account_settings.form.create')
+                                      : t('account_settings.form.save')}
+                                </Button>
+                            </ThemeProvider>
+                        </div>
+                    </div>
+                </form>
+            </Drawer>
+        </div>
   )
 }
