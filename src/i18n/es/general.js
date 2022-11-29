@@ -12,7 +12,8 @@ export const general = () => {
         no_sites_found: 'No existen resultados. Intente nuevamente.',
         size: 'El tamaño del archivo no puede exceder 25 MB',
         length_6: 'El campo debe tener al menos 6 caracteres',
-        phone: 'Número de teléfono inválido'
+        phone: 'Número de teléfono inválido',
+        sign_in: 'Ambos campos son requeridos para ingresar.'
       },
       select_all: 'Todos',
       select: 'Seleccionar',
