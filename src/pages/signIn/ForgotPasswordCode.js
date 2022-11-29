@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 /** Material UI **/
 import { HighlightButton } from '../../styles/mui_custom_components'
-import { LockOutlined } from '@material-ui/icons'
+import { LockOutlined } from '@mui/icons-material'
 import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
@@ -43,13 +43,16 @@ const useStyles = makeStyles((theme) => ({
     top: '-4px'
   },
   title: {
-    fontWeight: 'bold',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '24px',
-      marginBottom: '10px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '40px'
+    '&.MuiTypography-root': {
+      fontFamily: 'Rubik Bold',
+      fontWeight: '700',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '20px',
+        marginBottom: '10px'
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '30px'
+      }
     }
   },
   buttons: {
@@ -67,17 +70,15 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   fields: {
+    marginTop: '0px',
+    fontSize: '20px',
+    fontWeight: '400',
     '& .MuiOutlinedInput-root': {
+      borderRadius: '40px',
       '&.Mui-focused fieldset': {
         borderColor: theme.colors.inputBorder,
         borderWidth: '1px'
       }
-    },
-    [theme.breakpoints.down('md')]: {
-      margin: '4px 0px'
-    },
-    [theme.breakpoints.up('md')]: {
-      margin: '16px 0px 8px 0px'
     }
   },
   resetButton: {
@@ -94,9 +95,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right'
   },
   errorMessage: {
-    color: theme.colors.errorText,
-    fontWeight: '400',
-    fontSize: '15px'
+    '&.MuiTypography-root': {
+      color: theme.colors.errorText,
+      fontWeight: '400',
+      fontSize: '15px'
+    }
   }
 }))
 
@@ -105,16 +108,13 @@ const ForgotPasswordCode = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [newPassword, setNewPassword] = useState('')
-  const [reEnterNewPassword, setReEnterNewPassword] = useState('')
   const authStore = store.getState().auth
   const [error, setError] = useState()
 
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
     code: yup.string().required(t('general.messages.errors.required')),
-    new_password: yup.string().required(t('general.messages.errors.required')).test('len', t('forgot_password_code.min_6_chars'), (val) => val.toString().length >= 6),
-    re_enter_new_password: yup.string().required(t('general.messages.errors.required')).oneOf([yup.ref('new_password'), null], t('general.messages.errors.password_does_not_match'))
-      .test('len', t('forgot_password_code.min_6_chars'), (val) => val.toString().length >= 6)
+    new_password: yup.string().required(t('general.messages.errors.required')).test('len', t('forgot_password_code.min_6_chars'), (val) => val.toString().length >= 6)
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -128,13 +128,18 @@ const ForgotPasswordCode = () => {
       const selector = queryParams.get('selector')
       const token = queryParams.get('token')
       const apiToken = queryParams.get('apiToken')
-      await resetPassword(selector, token, newPassword, reEnterNewPassword, apiToken)
+      await resetPassword(selector, token, newPassword, newPassword, apiToken)
       await login(authStore.changedEmail, newPassword)
       dispatch(loadingActions.hide())
     } catch (error) {
       console.error(error)
-      if (error.data && error.data === 'Password Already Used') {
-        setError(t('forgot_password_code.error_message'))
+      switch (error.message) {
+        case 'Invalid Password':
+          setError(t('forgot_password_code.invalid_password'))
+          break
+        case 'Invalid Token':
+          setError(t('forgot_password_code.invalid_token'))
+          break
       }
       dispatch(loadingActions.hide())
     }
@@ -145,26 +150,26 @@ const ForgotPasswordCode = () => {
     setNewPassword(event.target.value)
   }
 
-  const handleReEnterNewPasswordChange = (event) => {
-    setError(null)
-    setReEnterNewPassword(event.target.value)
-  }
-
   return (
     <SignInContainer>
       <Grid data-testid={'forgot_password_code_page'} className={classes.mainGrid} container spacing={0} direction='column' alignItems='center'>
         <Grid className={classes.mainItem} item xs={12}>
           <Grid container justifyContent='center' alignItems='center'>
-            <Grid item xs={12}>
-              <Typography align='center' className={classes.title} component='h4' variant='h4'>
-                {t('forgot_password_code.title')}
+            <Grid item xs={12} textAlign="center">
+              <Typography align='center' className={classes.title} variant='p'>
+                {t('forgot_password_code.title').toUpperCase()}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={3}>
+              <Typography align='center' className={classes.subtitle} >
+                {t('forgot_password_code.subtitle')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={8}>
               <Box className={classes.formBox} >
                 <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
                   <TextField
-                    classes={{ root: classes.fields }}
+                    className={classes.fields}
                     variant='outlined'
                     margin='normal'
                     required
@@ -192,43 +197,14 @@ const ForgotPasswordCode = () => {
                     }}
                     onInput={handleNewPasswordChange}
                   />
-                  <TextField
-                    classes={{ root: classes.fields }}
-                    variant='outlined'
-                    margin='normal'
-                    required
-                    fullWidth
-                    type='password'
-                    name='re_enter_new_password'
-                    placeholder={t('forgot_password_code.re_enter_new_password')}
-                    autoComplete='off'
-                    id='re_enter_new_password'
-                    inputProps={{
-                      minLength: 6
-                    }}
-                    error={!!errors.re_enter_new_password}
-                    helperText={errors.re_enter_new_password && errors.re_enter_new_password.message}
-                    {...register('re_enter_new_password')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <LockOutlined/>
-                        </InputAdornment>
-                      ),
-                      classes: {
-                        notchedOutline: classes.fieldsOutlined
-                      }
-                    }}
-                    onInput={handleReEnterNewPasswordChange}
-                  />
                   <Box hidden={error === null}>
                     <Typography align={'left'} className={classes.errorMessage}>
                       {error}
                     </Typography>
                   </Box>
-                  <Grid className={classes.buttons} container justifyContent='flex-end' spacing={3}>
+                  <Grid className={classes.buttons} container justifyContent='flex-end' spacing={3} mt={2}>
                     <Grid item className={classes.buttonGrid} >
-                      <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!newPassword || !reEnterNewPassword || newPassword !== reEnterNewPassword} type='submit' variant='contained' onClick={onSubmit} >
+                      <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!newPassword} type='submit' variant='contained' onClick={onSubmit} >
                         {t('forgot_password_code.reset_password')}
                       </HighlightButton>
                     </Grid>
