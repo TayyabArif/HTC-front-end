@@ -25,8 +25,14 @@ const processApiResponse = response => {
   if (!response.ok) {
     const title = `${response.status} - ${response.problem}`
     let message = `There was an error calling to the Auth Server: ${response.originalError}`
-    if (response.data && response.data.error) {
-      message = `${response.data.error_description}`
+    if (response.data) {
+      if (typeof response.data === 'string') {
+        message = `${response.data}`
+      } else {
+        if (response.data.error) {
+          message = `${response.data.error_description}`
+        }
+      }
     }
 
     throw {

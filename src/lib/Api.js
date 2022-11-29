@@ -135,6 +135,19 @@ export const resetPasswordRequest = async (email = '') => {
 }
 
 /**
+ * Get User Scopes
+ *
+ * @param email
+ * @returns {Promise<object[]>} The API response data
+ */
+export const getUserScopes = async (email = '') => {
+  return await callAPI('GET', '/api/users/scopes',
+    new URLSearchParams({
+      email
+    }), 0)
+}
+
+/**
  * Get User
  *
  * @returns {Promise<object>} The API response data
