@@ -225,7 +225,7 @@ export const updateUser = async (id, params) => {
  */
 export const getCompanyRoles = async companyId => {
   try {
-    const response = await callAPI('GET', '/roles/company/' + companyId)
+    const response = await callAPI('GET', `/roles/company/${companyId}`)
     return response
   } catch {
     return false
