@@ -121,16 +121,21 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       fontFamily: 'Rubik Bold',
       fontSize: '24px',
       fontWeight: '700',
-      margin: '23px 0px 22px 20px',
-      textTransform: 'none'
+      margin: '23px 0px 22px 20px'
     }
   },
   editButton: {
-    '&.MuiTypography-root': {
+    '&.MuiButtonBase-root': {
+      marginTop: '5px',
+      marginRight: '10px'
+    },
+    '& .MuiTypography-root': {
       color: theme.colors.settings.editButton,
       fontFamily: 'Rubik',
       fontWeight: '500',
-      marginTop: 0
+      padding: 0,
+      fontSize: '19px',
+      textTransform: 'none'
     }
   },
   field: {

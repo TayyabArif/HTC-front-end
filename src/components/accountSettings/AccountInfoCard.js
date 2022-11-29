@@ -19,7 +19,6 @@ import { UpdateAccountInfo } from './UpdateAccountInfo'
 import { getCompanyRoles } from '../../services/ApiService'
 
 /** Styles **/
-import clsx from 'clsx'
 import { AccountInfoCardClasses } from '../../styles/classes/AccountSettingsClasses'
 
 export const AccountInfoCard = props => {
@@ -90,9 +89,9 @@ export const AccountInfoCard = props => {
                             {t('account_settings.info_card.title')}
                         </Typography>
                     </Grid>
-                    <Grid item>
-                        <Button onClick={() => { setEditDrawer(true) }}>
-                            <Typography className={clsx(classes.editButton, classes.title)} pr={3}>
+                    <Grid item textAlign="center">
+                        <Button size="small" onClick={() => { setEditDrawer(true) }} className={classes.editButton}>
+                            <Typography pr={3}>
                                 {t('account_settings.info_card.edit_button')}
                             </Typography>
                         </Button>
@@ -136,7 +135,7 @@ export const AccountInfoCard = props => {
                         </Grid>
                         <Grid item xs={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.user_title')}</Typography>
-                            <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.role}</Typography>
+                            <Typography className={classes.info} mt={1}>{t('request_access.user_roles.' + userInfo?.userInfo?.role)}</Typography>
                         </Grid>
                         <Grid item xs={3} ml={2} sx={styles.employeeId}>
                             <Typography classes={{ root: classes.field }}>{t('account_settings.info_card.employee_id')}</Typography>
