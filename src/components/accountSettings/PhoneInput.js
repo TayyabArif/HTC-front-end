@@ -67,7 +67,7 @@ export const PhoneInput = React.forwardRef(
           inputRef={inputRef}
           InputProps={{
             inputComponent: NumberFormatCustom,
-            onChange: handleChange,
+            onKeyUp: handleChange,
             className: classes.textField,
             style: inputStyle,
             disableUnderline: true,

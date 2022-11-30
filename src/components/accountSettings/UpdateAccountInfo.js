@@ -74,7 +74,8 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
-    password: passwordPlaceHolder
+    password: passwordPlaceHolder,
+    passwordConfirm: passwordPlaceHolder
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
@@ -93,22 +94,6 @@ export const UpdateAccountInfo = props => {
     handleClosePanel(accountInfo)
   }
 
-  useEffect(() => {
-    let save = true
-    if (
-      !updatedInfo.firstName ||
-      !updatedInfo.lastName ||
-      !updatedInfo.email ||
-      !updatedInfo.username ||
-      !updatedInfo.password
-    ) {
-      save = false
-    }
-
-    if (isEqual(updatedInfo, startingInfo)) save = false
-    setEnableSave(save)
-  }, [updatedInfo])
-
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
     firstName: yup
@@ -125,7 +110,7 @@ export const UpdateAccountInfo = props => {
       .string()
       .trim()
       .required(t('account_settings.messages.errors.required'))
-      .min(10, t('general.messages.errors.phone')),
+      .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
     username: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -133,7 +118,15 @@ export const UpdateAccountInfo = props => {
     password: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
+      .min(6, t('general.messages.errors.length_6')),
+    passwordConfirm: yup
+      .string()
+      .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6'))
+      .oneOf(
+        [yup.ref('password')],
+        t('account_settings.messages.errors.password_match')
+      )
   })
 
   /** End VALIDATIONS **/
@@ -150,6 +143,31 @@ export const UpdateAccountInfo = props => {
     mode: 'all',
     resolver: yupResolver(validationSchema)
   })
+
+  useEffect(() => {
+    let save = true
+    if (
+      !updatedInfo.firstName ||
+        !updatedInfo.lastName ||
+        !updatedInfo.email ||
+        !updatedInfo.username ||
+        !updatedInfo.phone ||
+        (updatedInfo.password && !updatedInfo.passwordConfirm) ||
+        (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+        (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      errors?.email?.message ||
+      errors?.phone?.message ||
+      errors?.username?.message ||
+      errors?.password?.message ||
+      errors?.passwordConfirm?.message
+    ) {
+      save = false
+    }
+
+    if (isEqual(updatedInfo, startingInfo)) save = false
+
+    setEnableSave(save)
+  }, [updatedInfo, errors])
 
   const onSubmit = data => {
     handleChangeUser()
@@ -524,6 +542,25 @@ export const UpdateAccountInfo = props => {
                         helperText={errors.password && errors.password.message}
                         endAdornment={true}
                         {...register('password')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                        value={updatedInfo.passwordConfirm}
+                        id="passwordConfirm"
+                        name="passwordConfirm"
+                        type="password"
+                        handleChange={handleChangeValues}
+                        placeholder={'********'}
+                        label={t('account_settings.info_card.password_confirm')}
+                        error={!!errors.passwordConfirm}
+                        endAdornment={true}
+                        helperText={
+                            errors.passwordConfirm && errors.passwordConfirm.message
+                        }
+                        {...register('passwordConfirm')}
                     />
                   </Grid>
                 </Grid>
