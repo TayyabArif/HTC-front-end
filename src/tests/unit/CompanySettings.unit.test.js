@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from '../../store'
 
 /** Material UI **/
-import { MuiThemeProvider } from '@material-ui/core'
+import { ThemeProvider } from '@mui/material'
 import customTheme from '../../styles/mui_theme'
 
 /** Components **/
@@ -55,19 +55,20 @@ describe('Company Settings', () => {
     render(
       <Provider store={mockStore(initialState)}>
     <BrowserRouter>
-      <MuiThemeProvider theme={customTheme}>
+      <ThemeProvider theme={customTheme}>
         <CompanySettings testingWidth={1800}/>
-      </MuiThemeProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </Provider>
     )
 
-    const container = document.querySelector('#CS_container')
+    const companySettingsPage = screen.getByTestId('company_settings_page')
+    expect(companySettingsPage).toBeInTheDocument()
 
-    const companyLogoCard = getByTestId(container, 'logo_card')
+    const companyLogoCard = screen.getByTestId('logo_card')
     expect(companyLogoCard).toBeInTheDocument()
 
-    const profileInfoCard = getByTestId(container, 'profile_info_card')
+    const profileInfoCard = screen.getByTestId('profile_info_card')
     expect(profileInfoCard).toBeInTheDocument()
 
     const preferencesCard = screen.getByTestId('preferences_card')

@@ -552,7 +552,7 @@ const CompanySettings = props => {
   }
 
   return (
-    <Container className={classes.container}>
+    <Container data-testid={'company_settings_page'} className={classes.container}>
       <Box
         className={classes.background}
         style={{ width: '30%' }}
