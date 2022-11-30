@@ -95,7 +95,7 @@ function EnhancedTableHead (props) {
   const filterComponents = [
     // { id: 'client_name', type: 'InputFieldFilter' },
     { id: 'site_name', type: 'InputFieldFilter' },
-    { id: 'priority', type: 'InputFieldFilter' },
+    { id: 'priority', type: 'SlideFilter', options: [{ label: 'Emergency', value: 'Emergency' }] },
     { id: 'trade', type: 'SlideFilter', options: tradesOptions },
     { id: 'service', type: 'SlideFilter', options: servicesOptions },
     { id: 'won', type: 'InputFieldFilter' },
@@ -105,7 +105,7 @@ function EnhancedTableHead (props) {
     { id: 'wostat', type: 'SlideFilter', options: woStatusOptions }
     // { id: 'invoices', type: 'SlideFilter', options: inStatusOptions }
   ]
-
+  console.log(tradesOptions)
   let count = 0
   const checked = rowCount > 0 && numSelected === rowCount
   if (checked) {
