@@ -159,7 +159,8 @@ export const UpdateAccountInfo = props => {
       errors?.phone?.message ||
       errors?.username?.message ||
       errors?.password?.message ||
-      errors?.passwordConfirm?.message
+      errors?.passwordConfirm?.message ||
+        (updatedInfo.password !== updatedInfo.passwordConfirm)
     ) {
       save = false
     }
