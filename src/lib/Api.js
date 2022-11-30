@@ -233,6 +233,7 @@ export const workOrdersPortal = async (
   expiration_date = '',
   status = '',
   invoices = '',
+  priority = '',
   sort = '',
   limit = 25,
   page = 1
@@ -241,7 +242,7 @@ export const workOrdersPortal = async (
   try {
     return await callAPI(
       'GET',
-      '/workorders',
+      '/workorders/client',
       new URLSearchParams({
         showAll,
         query,
@@ -254,6 +255,7 @@ export const workOrdersPortal = async (
         expiration_date,
         status,
         invoices,
+        priority,
         sort,
         limit,
         page,

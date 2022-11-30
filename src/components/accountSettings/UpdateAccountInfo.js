@@ -78,7 +78,7 @@ export const UpdateAccountInfo = props => {
 
   /* Image Handling */
   let firstRender = true
-  useEffect(async () => {
+  useEffect(() => {
     try {
       if (firstRender) {
         let newBase64
@@ -115,7 +115,7 @@ export const UpdateAccountInfo = props => {
   }
 
   /* End Image Handling */
-  useEffect(async () => {
+  useEffect(() => {
     if (editDrawer) {
       try {
         setOpen(true)

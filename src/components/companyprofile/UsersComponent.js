@@ -7,7 +7,7 @@ import {
   Typography,
   ThemeProvider,
   Button
-} from '@material-ui/core'
+} from '@mui/material'
 import { UserCard } from './UserCard'
 import {
   buttonSettingsDisabled,

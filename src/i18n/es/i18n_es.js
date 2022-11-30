@@ -12,6 +12,7 @@ import { dashboard } from './dashboard'
 import { companySettings } from './companySettings'
 import { companyProfile } from './companyProfile'
 import { accountSettings } from './accountSettings'
+import { workOrders } from './workOrders'
 
 export const i18nEs = () => {
   return {
@@ -28,6 +29,7 @@ export const i18nEs = () => {
     general: general(),
     company_settings: companySettings(),
     companyProfile: companyProfile(),
-    account_settings: accountSettings()
+    account_settings: accountSettings(),
+    work_orders: workOrders()
   }
 }

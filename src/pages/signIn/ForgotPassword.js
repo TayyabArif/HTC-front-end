@@ -8,7 +8,7 @@ import { loadingActions } from '../../store/loading'
 import { authActions } from '../../store/signIn'
 
 /** Material UI **/
-import { EmailOutlined } from '@material-ui/icons'
+import { EmailOutlined } from '@mui/icons-material'
 import { HighlightButton } from '../../styles/mui_custom_components'
 import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'

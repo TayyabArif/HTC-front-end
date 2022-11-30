@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 /** Material UI **/
 import { HighlightButton } from '../../styles/mui_custom_components'
-import { LockOutlined } from '@material-ui/icons'
+import { LockOutlined } from '@mui/icons-material'
 import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 

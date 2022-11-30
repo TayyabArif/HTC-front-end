@@ -293,8 +293,7 @@ const customTheme = createTheme({
       marginLeft: '0px',
       height: '32px',
       border: '1px solid #0000003b',
-      display: 'flex',
-      padding: '10px 0px 10px 10px'
+      display: 'flex'
     },
     mainInput2: {
       fontSize: '12px',
@@ -304,8 +303,7 @@ const customTheme = createTheme({
       marginLeft: '0px',
       height: '36px',
       border: '1px solid #0000003b',
-      display: 'flex',
-      padding: '10px 0px 10px 10px'
+      display: 'flex'
     },
     searchInput1: {
       fontSize: '12px',

@@ -7,13 +7,7 @@ import { authActions } from '../store/signIn'
 import { useDispatch, useSelector } from 'react-redux'
 
 /** Material UI **/
-import {
-  Box,
-  Grid,
-  IconButton,
-  Menu,
-  MenuItem
-} from '@mui/material'
+import { Box, Grid, IconButton, Menu, MenuItem } from '@mui/material'
 import { StyledNavTab, StyledNavTabs } from '../styles/mui_custom_components'
 
 /** Services **/
@@ -71,30 +65,30 @@ export const NavBar = () => {
             }}
             display={'inline-flex'}
           >
-              <StyledNavTabs value={value} onChange={handleChangeNavBar}>
-                <StyledNavTab style={{ display: 'none' }} value={''} />
-                  <StyledNavTab
-                    value={'/work-orders'}
-                    label={t('nav_bar.work_orders')}
-                    iconPosition="end"
-                  />
-                  <StyledNavTab
-                    value={'/locations'}
-                    label={t('nav_bar.locations')}
-                  />
-                <StyledNavTab
-                  style={{ display: 'none' }}
-                  value={'/account-settings'}
-                />
-                <StyledNavTab
-                  style={{ display: 'none' }}
-                  value={'/company-settings'}
-                />
-                <StyledNavTab
-                  style={{ display: 'none' }}
-                  value={'/company-profile'}
-                />
-              </StyledNavTabs>
+            <StyledNavTabs value={value} onChange={handleChangeNavBar}>
+              <StyledNavTab style={{ display: 'none' }} value={''} />
+              <StyledNavTab
+                value={'/work-orders'}
+                label={t('nav_bar.work_orders')}
+                iconPosition="end"
+              />
+              <StyledNavTab
+                value={'/locations'}
+                label={t('nav_bar.locations')}
+              />
+              <StyledNavTab
+                style={{ display: 'none' }}
+                value={'/account-settings'}
+              />
+              <StyledNavTab
+                style={{ display: 'none' }}
+                value={'/company-settings'}
+              />
+              <StyledNavTab
+                style={{ display: 'none' }}
+                value={'/company-profile'}
+              />
+            </StyledNavTabs>
           </Box>
         </Grid>
         <Grid align="right" item xs={3} className={classes.finalGrid}>
@@ -140,18 +134,18 @@ export const NavBar = () => {
         >
           {t('nav_bar.manage_account')}
         </MenuItem>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => handleChangeMenu('/account-settings')}
-          >
-            {t('nav_bar.account_settings')}
-          </MenuItem>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => handleChangeMenu('/company-settings')}
-          >
-            {t('nav_bar.company_settings')}
-          </MenuItem>
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => handleChangeMenu('/account-settings')}
+        >
+          {t('nav_bar.account_settings')}
+        </MenuItem>
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => handleChangeMenu('/company-settings')}
+        >
+          {t('nav_bar.company_settings')}
+        </MenuItem>
         <MenuItem
           style={{ display: 'none' }}
           className={classes.menuItem}

@@ -2,7 +2,9 @@ export const general = () => {
   return {
     labels: {
       cancel: 'Cancelar',
-      apply: 'Aplicar'
+      apply: 'Aplicar',
+      search: 'Buscar',
+      select: 'Selecciona'
     },
     messages: {
       errors: {
