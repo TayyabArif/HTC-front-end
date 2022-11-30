@@ -61,6 +61,7 @@ export const UpdateAccountInfo = props => {
   const [photoBase64, setPhotoBase64] = useState()
   const [enableSave, setEnableSave] = useState()
 
+  const passwordPlaceHolder = '********'
   const startingInfo = {
     firstName: accountInfo.userInfo.firstName,
     lastName: accountInfo.userInfo.lastName,
@@ -71,8 +72,8 @@ export const UpdateAccountInfo = props => {
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
     employeeId: accountInfo.userInfo.employee_id,
-    password: '',
-    passwordConfirm: ''
+    password: passwordPlaceHolder,
+    passwordConfirm: passwordPlaceHolder
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
@@ -243,7 +244,7 @@ export const UpdateAccountInfo = props => {
         employeeId: updatedInfo.employeeId
       }
 
-      if (updatedInfo.password !== '') {
+      if (updatedInfo.password !== passwordPlaceHolder) {
         newData = { ...newData, password: updatedInfo.password }
       }
 
@@ -315,10 +316,9 @@ export const UpdateAccountInfo = props => {
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
         employee_id: updatedInfo.employeeId,
-        password:
-                    updatedInfo.password === ''
-                      ? undefined
-                      : updatedInfo.password
+        password: updatedInfo.password === passwordPlaceHolder
+          ? undefined
+          : updatedInfo.password
       })
       handleClose()
       updateUsers()
@@ -338,6 +338,14 @@ export const UpdateAccountInfo = props => {
   }
 
   const onError = (errors, e) => console.error(errors, e)
+
+  const handleStyles = () => {
+    if (enableSave) {
+      return enableButtonStyle
+    } else {
+      return disableButtonStyle
+    }
+  }
 
   /** End Submit Handle **/
 
@@ -598,7 +606,7 @@ export const UpdateAccountInfo = props => {
                                     color="primary"
                                     type="submit"
                                     disabled={!enableSave}
-                                    style={!enableSave ? disableButtonStyle : enableButtonStyle}
+                                    style={handleStyles()}
                                 >
                                     {event === 'new'
                                       ? t('account_settings.form.create')
