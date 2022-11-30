@@ -87,6 +87,12 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    company: {
+      title: '#333333',
+      inputBorder: '#0000003A',
+      roleButton: '#E0E0E018',
+      iconColor: '#B0B0B0'
+    },
     workOrders: {
       counts: '#6C7172',
       chipBack: '#F1F1F1',
@@ -158,11 +164,6 @@ const customTheme = createTheme({
       cardBorderColor: 'rgba(216, 216, 216, 0.25)',
       delete: '#FC5E5E',
       disabledButton: '#C4C4C4'
-    },
-    company: {
-      title: '#333333',
-      inputBorder: '#0000003A',
-      roleButton: '#E0E0E018'
     },
     workStatusBorder: 'rgba(71,160,244,0.1)',
     infoWindowBackground: '#FBFBFB',

@@ -137,7 +137,8 @@ export const textInputStyles = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '15px'
+    margin: '8px 0px 0px 0px',
+    padding: '0px'
   }
 }))
 

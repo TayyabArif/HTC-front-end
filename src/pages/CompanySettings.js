@@ -577,24 +577,35 @@ const CompanySettings = props => {
               >
                 {' '}
               </Avatar>
-              <Box className={classes.uploadButton} >
-                {t('company_settings.upload_logo')}
-              </Box>
-              <label htmlFor="profile-logo" className={classes.editButton}>
-                <Button
-                  id="profile-logo"
-                  component="label"
-                  className={classes.editButton}
-                >
-                  {t('company_settings.buttons.edit')}
-                  <input
-                    hidden
-                    accept="image/png, image/jpeg, image/jpg, image/bitmap"
-                    type="file"
-                    onChange={handleImageChange}
-                  />
-                </Button>
-              </label>
+              {!company?.logo?.url &&
+                <label htmlFor="profile-logo" className={classes.labelUpload}>
+                  <Button id="profile-logo"
+                    component="label" className={classes.uploadButton} >
+                    {t('company_settings.upload_logo')}
+                    <input
+                      hidden
+                      accept="image/png, image/jpeg, image/jpg, image/bitmap"
+                      type="file"
+                      onChange={handleImageChange}
+                    />
+                  </Button>
+                </label>}
+              {company?.logo?.url &&
+                <label htmlFor="profile-logo" className={classes.editButton}>
+                  <Button
+                    id="profile-logo"
+                    component="label"
+                    className={classes.editButton}
+                  >
+                    {t('company_settings.buttons.edit')}
+                    <input
+                      hidden
+                      accept="image/png, image/jpeg, image/jpg, image/bitmap"
+                      type="file"
+                      onChange={handleImageChange}
+                    />
+                  </Button>
+                </label>}
             </Box>
           </Card>
           {/* Profile card */}
@@ -675,9 +686,9 @@ const CompanySettings = props => {
                 ''
               )
             : (
-            <Button onClick={updateProfileLogo} autoFocus>
-              {t('company_settings.card.save')}
-            </Button>
+              <Button onClick={updateProfileLogo} autoFocus>
+                {t('company_settings.card.save')}
+              </Button>
               )}
         </DialogActions>
       </Dialog>

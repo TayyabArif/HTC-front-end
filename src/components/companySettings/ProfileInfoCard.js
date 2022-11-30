@@ -8,6 +8,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import GlobalInput from '../form/TextInput'
 import { profileInfoCardStyles } from '../../styles/classes/CompanySettingsClasses'
+import { conformToMask } from 'react-text-mask'
 
 const EditButton = props => {
   const classes = profileInfoCardStyles()
@@ -25,6 +26,19 @@ export const ProfileInfoCard = props => {
   const handleEditProfile = () => {
     props.setComponent('profile')
     props.setOpen(true)
+  }
+
+  const maskValue = (value) => {
+    if (value) {
+      const result = conformToMask(
+        value,
+        ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
+        { guide: false }
+      )
+      return result.conformedValue
+    } else {
+      return 'N/A'
+    }
   }
 
   return (
@@ -107,14 +121,14 @@ export const ProfileInfoCard = props => {
                     >
                         <GlobalInput
                             field="business_hours_phone"
-                            value={props?.profile?.business_hours?.phone ?? 'N/A'}
+                            value={maskValue(props?.profile?.business_hours?.phone)}
                             label={t('company_profile.labels.business_hours')}
                             disabled
                             className={classes.disabledText}
                         />
                         <GlobalInput
                             field="after_hours_phone"
-                            value={props?.profile?.after_hours?.phone ?? 'N/A'}
+                            value={maskValue(props?.profile?.after_hours?.phone)}
                             label={t('company_profile.labels.after_hours')}
                             disabled
                             className={classes.disabledText}

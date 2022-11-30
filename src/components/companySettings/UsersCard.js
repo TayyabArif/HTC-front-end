@@ -92,6 +92,19 @@ export const UsersCard = props => {
     setFilterUser(result)
   }
 
+  const adaptRoleName = (role) => {
+    if (role) {
+      const separated = role.split('_')
+      const finalRole = []
+      separated.forEach(word => {
+        finalRole.push(word.charAt(0).toUpperCase() + word.slice(1))
+      })
+      return finalRole.join(' ')
+    } else {
+      return ''
+    }
+  }
+
   return (
     <Card className={classes.card} data-testid={'users_card'}>
       <CardActions disableSpacing classes={{ root: classes.actions }}>
@@ -123,18 +136,18 @@ export const UsersCard = props => {
               <Box
                 display="flex"
                 flexDirection="column"
+                onClick={() => handleEditPanel(user)}
                 className={classes.lineItem}
               >
                 <Typography
                   classes={{ root: classes.userItem }}
-                  onClick={() => handleEditPanel(user)}
                 >
                   {user.firstName} {user.lastName}
                 </Typography>
                 <GlobalChip
                   chips={[
                     user.phone,
-                    user.role,
+                    adaptRoleName(user.role),
                     roleOptions && user.roles && user.roles !== 'no_value'
                       ? roleOptions[user.roles]
                       : t('company_settings.mobile_only')
