@@ -3,37 +3,13 @@ import React from 'react'
 import moment from 'moment'
 
 // mui components
-import { makeStyles } from '@mui/styles'
 import { FormLabel, Card, CardContent } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    maxWidth: 345,
-    padding: '9px',
-    boxShadow: '6px 9px 43px ' + theme.colors.workOrders.detailsCardBorderColor
-  },
-  field: {
-    marginLeft: '5px',
-    marginBottom: '5px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '900'
-  },
-  fieldData: {
-    marginLeft: '5px',
-    marginBottom: '30px',
-    color: theme.colors.text,
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '17px',
-    letterSpacing: '1px'
-  }
-}))
+import { woDetailsStyles } from '../../styles/classes/WorkOrdersClasses'
 
 export const WoDetails = props => {
   const { workOrder } = props
-  const classes = useStyles()
+  const classes = woDetailsStyles()
   const { t } = useTranslation()
 
   return (

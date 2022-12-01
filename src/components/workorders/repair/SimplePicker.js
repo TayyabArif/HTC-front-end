@@ -8,109 +8,10 @@ import {
   MenuItem,
   TextField
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    marginBottom: '28px'
-  },
-  photoField: {
-    marginLeft: '5px',
-    marginBottom: '2px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  textField: {
-    minHeight: '52px',
-    fontSize: '14px',
-    width: '309px',
-    backgroundColor: theme.colors.signInButton.background,
-    color: theme.colors.text
-  },
-  label: {
-    marginTop: 'unset',
-    fontSize: 10,
-    borderRadius: '8px',
-    color: theme.colors.workOrders.tab.duedate,
-    backgroundColor: theme.colors.signInButton.background
-  },
-  root: {
-    marginLeft: '5px',
-    '& .MuiFilledInput-input': {
-      border: `1px solid ${theme.colors.signInButton.background}`,
-      color: `${theme.colors.iconBlue} !important`,
-      backgroundColor: theme.colors.signInButton.background,
-      cursor: 'pointer',
-      paddingTop: 0,
-      paddingBottom: 0
-    },
-    '& .MuiFilledInput-root': {
-      backgroundColor: theme.colors.signInButton.background,
-      cursor: 'pointer',
-      borderRadius: '8px'
-    },
-    '& .MuiFilledInput-underline:before': {
-      border: 'transparent'
-    },
-    '& .MuiFilledInput-underline:after': {
-      border: 'transparent'
-    },
-    marginBottom: '12px'
-  },
-  selectedItem: {
-    '& .MuiFilledInput-input': {
-      color: `${theme.colors.basicDisabledButtonColor} !important`,
-      lineHeight: '20px'
-    }
-  },
-  input: {
-    marginTop: 'unset',
-    marginBottom: '12px'
-  },
-  icon: {
-    color: theme.colors.company.iconColor,
-    right: '12px',
-    position: 'absolute',
-    top: '20px'
-  },
-  menuItem: theme.filtersClasses.selectItem,
-  menu: {
-    '& .MuiPaper-root': {
-      borderRadius: '12px'
-    }
-  },
-  divider: {
-    backgroundColor: theme.colors.grey_2,
-    marginLeft: '3px',
-    marginRight: '3px'
-  },
-  selectedIcon: {
-    marginRight: '0px',
-    marginLeft: 'auto',
-    color: theme.colors.mainBlue
-  },
-  mandatory: {
-    color: theme.colors.errorColor
-  },
-  disabled: {
-    marginLeft: '5px',
-    marginTop: '5px',
-    color: theme.colors.workOrders.counts,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  fieldMessage: {
-    marginLeft: '5px',
-    marginTop: '5px',
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400'
-  }
-}))
+import { simplePickerStyles } from '../../../styles/classes/RepairClasses'
 
 export const SimplePicker = React.forwardRef(props => {
   const {
@@ -123,7 +24,7 @@ export const SimplePicker = React.forwardRef(props => {
     disabled,
     notAvailable
   } = props
-  const classes = useStyles({ disabled: props.disabled })
+  const classes = simplePickerStyles({ disabled: props.disabled })
   const [anchorEl, setAnchorEl] = useState(null)
   const inputRef = useRef()
   const { t } = useTranslation()

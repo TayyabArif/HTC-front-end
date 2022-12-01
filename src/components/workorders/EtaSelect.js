@@ -1,34 +1,14 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@mui/styles'
 import { FormLabel } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { DateTimeFilter } from './DateTimeFilter'
 import moment from 'moment'
 import { uploadETA } from '../../lib/Api'
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    marginBottom: '28px'
-  },
-  field: {
-    marginLeft: '5px',
-    marginBottom: '4px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '900'
-  },
-  fieldData: {
-    marginLeft: '5px',
-    marginBottom: '28px',
-    color: theme.colors.textGray,
-    fontSize: '14px',
-    fontWeight: '400'
-  }
-}))
+import { etaSelectStyles } from '../../styles/classes/WorkOrdersClasses'
 
 export const EtaSelect = props => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = etaSelectStyles()
   const { woId, data, disabled, type, onUpdate } = props
   const [eta, setEta] = useState(data?.time)
 

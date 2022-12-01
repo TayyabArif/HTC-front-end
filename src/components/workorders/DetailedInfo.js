@@ -1,6 +1,5 @@
 // main components
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import { ActivitiesCard } from './ActivitiesCard'
 import { PhotoReel } from './PhotoReel'
@@ -21,204 +20,13 @@ import {
 } from '@mui/material'
 import { statusColors } from '../../styles/mui_custom_theme'
 import { getWorkOrder, workOrdersPortal } from '../../lib/Api'
-import { navBarHeaderHeight } from '../../lib/Constants'
 import { WoDetails } from './WoDetails'
 import { AuditTrail } from './AuditTrail'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link, useHistory } from 'react-router-dom'
 import { getWOstatus } from '../../lib/Global'
-
-const useStyles = makeStyles(theme => ({
-  presentation: {
-    marginBottom: '0px',
-    marginTop: '19px',
-    overflowY: 'auto'
-  },
-  loading: {
-    justifyItems: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    height: '200px',
-    paddingTop: '100px',
-    fontSize: '16px'
-  },
-  drawerPaper: {
-    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
-    marginTop: navBarHeaderHeight,
-    width: '360px',
-    borderRadius: '8px',
-    overflow: 'auto',
-    overflowX: 'hidden',
-    zIndex: 1500,
-    boxSizing: 'content-box',
-    marginRight: '19px',
-    marginBottom: '20px',
-    display: 'flex'
-  },
-  midTab: {
-    minWidth: '50px',
-    width: 'auto',
-    minHeight: 25,
-    maxHeight: '25px',
-    height: '30px',
-    fontSize: '12px',
-    color: theme.colors.text,
-    textTransform: 'none',
-    backgroundColor: theme.colors.backdropColor,
-    borderLeft: `1px solid ${theme.colors.workOrders.downloadIcon}`,
-    borderRight: `1px solid ${theme.colors.workOrders.downloadIcon}`
-  },
-  tab: {
-    minWidth: '50px',
-    width: 'auto',
-    minHeight: 25,
-    maxHeight: '25px',
-    height: 'auto',
-    fontSize: '12px',
-    color: theme.colors.text,
-    textTransform: 'none',
-    backgroundColor: theme.colors.backdropColor
-  },
-  tabs: {
-    backgroundColor: 'white',
-    minHeight: 25,
-    maxHeight: '34px',
-    height: '20px',
-    margin: '0px 30px',
-    '& .Mui-selected': {
-      color: theme.palette.primary.light
-    },
-    zIndex: 1000
-  },
-  tabPanel: {
-    '& .MuiBox-root': {
-      padding: '0px'
-    },
-    padding: '0px 0px',
-    marginTop: '10px'
-  },
-  title: {
-    padding: '12px 0px',
-    marginLeft: 'auto',
-    marginRight: '15px',
-    color: theme.colors.backdropColor,
-    fontSize: '14px',
-    fontWeight: '500'
-  },
-  appBar: {
-    backgroundColor: theme.colors.backdropColor
-  },
-  description: {
-    padding: '1px 0px',
-    marginLeft: '23px',
-    color: theme.colors.workOrders.tab.description,
-    fontSize: '14px',
-    fontWeight: '400',
-    marginBottom: '2px'
-  },
-  drawerHeader: {
-    display: 'flex',
-    height: '60px',
-    minHeight: '60px',
-    alignItems: 'center',
-    margin: '0 20px'
-  },
-  open: {
-    fontSize: '16px',
-    fontWeight: '800',
-    color: theme.colors.workOrderColors.open,
-    display: 'flex',
-    flex: 1,
-    maxWidth: '100px'
-  },
-  in_progress: {
-    fontSize: '16px',
-    fontWeight: '800',
-    color: theme.colors.workOrderColors.in_progress,
-    display: 'flex',
-    flex: 1,
-    maxWidth: '100px'
-  },
-  completed: {
-    fontSize: '16px',
-    fontWeight: '800',
-    color: theme.colors.workOrderColors.completed,
-    display: 'flex',
-    flex: 1,
-    maxWidth: '100px'
-  },
-  cancelled: {
-    fontSize: '16px',
-    fontWeight: '800',
-    color: theme.colors.grey,
-    display: 'flex',
-    flex: 1,
-    maxWidth: '100px'
-  },
-  expired: {
-    fontSize: '16px',
-    fontWeight: '800',
-    color: theme.colors.workOrderColors.declined,
-    display: 'flex',
-    flex: 1,
-    maxWidth: '100px'
-  },
-  woNoStatus: {
-    fontSize: '16px',
-    fontWeight: '800',
-    color: theme.colors.text,
-    flex: 1,
-    maxWidth: '100px'
-  },
-  wonum: {
-    padding: '1px 0px',
-    marginLeft: '19px',
-    color: theme.colors.workOrders.tab.wonum,
-    fontSize: '32px',
-    fontWeight: '600',
-    marginBottom: '2px'
-  },
-  duedate: {
-    padding: '3px 0px',
-    marginLeft: '21px',
-    color: theme.colors.workOrders.tab.wonum,
-    fontSize: '12px',
-    fontWeight: '500'
-  },
-  icon: {
-    marginRight: '10px',
-    height: '28px',
-    width: '28px'
-  },
-  grid: {
-    display: 'flex',
-    marginTop: 'auto',
-    padding: '0px 0px !important',
-    margin: '0px 0px'
-  },
-  closeIcon: {
-    marginRight: '5px',
-    marginBottom: '10px'
-  },
-  invoiceLink: {
-    color: theme.colors.iconBlue,
-    marginLeft: '5px',
-    fontSize: '12px',
-    display: 'flex',
-    flex: 1
-  },
-  openInvoice: {
-    marginRight: '5px',
-    fontSize: '15px',
-    marginBottom: '8px'
-  },
-  invoiceIcon: {
-    fontSize: '15px',
-    marginBottom: '8px',
-    marginRight: '10px'
-  }
-}))
+import { detailedInfoStyles } from '../../styles/classes/WorkOrdersClasses'
 
 // Uncomment when needed
 const iconStyle = {
@@ -226,7 +34,7 @@ const iconStyle = {
 }
 
 function TabPanel (props) {
-  const classes = useStyles()
+  const classes = detailedInfoStyles()
   const { children, index, value } = props
 
   return (
@@ -265,7 +73,7 @@ export const DetailedInfo = props => {
   const [trips, setTrips] = useState([])
   const [photos, setPhotos] = useState([])
   const [photoIndex, setPhotoIndex] = useState(-1)
-  const classes = useStyles()
+  const classes = detailedInfoStyles()
   const { t } = useTranslation()
   const { workOrder, handleClosePanel, viewMode } = props
   const history = useHistory()

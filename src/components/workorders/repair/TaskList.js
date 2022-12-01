@@ -1,59 +1,13 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormLabel, Grid } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { Selector } from '../../workorders/repair/MultiSelector'
-
-const useStyles = makeStyles(theme => ({
-  repairItem: {
-    minHeight: '20px',
-    marginBottom: '20px',
-    marginLeft: '5px'
-  },
-  checkIcon: {
-    width: '20px',
-    color: theme.colors.workOrders.tab.duedate
-  },
-  dotIcon: {
-    fontSize: '7px',
-    width: '15px',
-    color: theme.colors.workOrders.tab.duedate
-  },
-  field: {
-    marginLeft: '0px',
-    marginBottom: '7px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  item: {
-    color: theme.colors.workOrders.counts,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  taskList: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  selectedTask: {
-    display: 'flex',
-    alignContent: 'center'
-  },
-  mandatory: {
-    color: theme.colors.errorColor
-  },
-  fieldMessage: {
-    marginBottom: '14px',
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400'
-  }
-}))
+import { taskListStyles } from '../../../styles/classes/RepairClasses'
 
 export const TaskList = props => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = taskListStyles()
   const {
     serviceName,
     services,

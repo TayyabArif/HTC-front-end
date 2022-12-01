@@ -6,95 +6,17 @@ import {
   InputAdornment,
   TextField
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { AddButton } from '../../AddButton'
 // import NumberFormat from 'react-number-format'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 import * as NumberFormat from 'react-number-format'
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    marginLeft: '5px'
-  },
-  fieldMessage: {
-    marginBottom: '14px',
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  notes: {
-    color: theme.colors.workOrders.counts,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  photoField: {
-    marginBottom: '2px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  field: {
-    marginBottom: '2px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  textField: {
-    ...theme.filtersClasses.mainInput2,
-    width: '309px',
-    height: 'auto',
-    border: 'none',
-    '& .MuiInputBase-input': {
-      fontSize: '14px',
-      lineHeight: '18px',
-      padding: '11px 12px 20px 19px'
-    },
-    '& .MuiInputBase-multiline': {
-      padding: 0
-    }
-  },
-  numberField: {
-    ...theme.filtersClasses.mainInput2,
-    height: 'auto',
-    border: 'none',
-    fontSize: '14px',
-    lineHeight: '18px',
-    padding: '17px 12px 17px 12px',
-    width: '285px',
-    borderRadius: '8px'
-  },
-  mandatory: {
-    color: theme.colors.errorColor
-  },
-  textAlign: {
-    '& .MuiInputBase-input': {
-      padding: '17px 12px 17px 19px'
-    }
-  },
-  icon: {
-    color: theme.colors.company.iconColor,
-    marginRight: '15px'
-  },
-  clearIcon: {
-    position: 'absolute',
-    top: '20px',
-    right: 0
-  },
-  clearIconNumber: {
-    position: 'absolute',
-    top: '25px',
-    right: 0
-  },
-  numberContainer: {
-    position: 'relative'
-  }
-}))
+import { notesComponentStyles } from '../../../styles/classes/RepairClasses'
 
 export const NotesComponent = props => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = notesComponentStyles()
   const {
     title,
     notes,

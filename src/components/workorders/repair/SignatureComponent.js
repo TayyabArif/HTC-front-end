@@ -1,91 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FormLabel, Grid, TextField } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { ImageSearch as ImageIcon } from '@mui/icons-material'
 import { PhotoPicker } from '../../PhotoPicker'
 import { AddButton } from '../../AddButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-
-const useStyles = makeStyles(theme => ({
-  photoField: {
-    marginLeft: '5px',
-    marginBottom: '2px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  signatureContainer: {
-    height: '99px',
-    width: '303px',
-    marginBottom: '6px',
-    borderRadius: '8px'
-  },
-  thumb: {
-    height: '100%',
-    objectFit: 'cover',
-    borderRadius: '8px'
-  },
-  empty: {
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400',
-    textAlign: 'center',
-    marginBottom: '10px'
-  },
-  fieldContainer: {
-    backgroundColor: theme.colors.grey_2,
-    borderRadius: '6px',
-    minwidth: '303px',
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: '5px',
-    height: '52px',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonLabel: {
-    fontSize: '14px',
-    color: theme.colors.iconBlue,
-    textTransform: 'none',
-    padding: '10px',
-    flex: 1
-  },
-  icon: {
-    alignSelf: 'center',
-    paddingRight: '5px',
-    color: theme.colors.grey
-  },
-  mandatory: {
-    color: theme.colors.errorColor
-  },
-  textField: {
-    ...theme.filtersClasses.mainInput2,
-    width: '313px',
-    height: 'auto',
-    border: 'none',
-    '& .MuiInputBase-input': {
-      fontSize: '14px',
-      lineHeight: '18px'
-    }
-  },
-  notes: {
-    color: theme.colors.workOrders.counts,
-    fontSize: '14px',
-    fontWeight: '400',
-    marginLeft: '5px'
-  },
-  fieldMessage: {
-    marginLeft: '5px',
-    marginTop: '5px',
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400',
-    textAlign: 'left',
-    marginBottom: '10px'
-  }
-}))
+import { signatureComponentStyles } from '../../../styles/classes/RepairClasses'
 
 export const SignatureComponent = props => {
   const {
@@ -98,7 +19,7 @@ export const SignatureComponent = props => {
     notAvailable
   } = props
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = signatureComponentStyles()
   const photoRef = useRef()
   const [name, setName] = useState('')
 

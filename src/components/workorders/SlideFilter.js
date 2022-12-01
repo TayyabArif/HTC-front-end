@@ -6,74 +6,17 @@ import {
   MenuItem,
   OutlinedInput
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-
-const useStyles = makeStyles(theme => ({
-  switch: {
-    marginRight: '0px',
-    marginLeft: 'auto',
-    color: theme.colors.mainBlue
-  },
-  thumb: {
-    width: '13px',
-    height: '13px',
-    marginTop: '3px',
-    marginLeft: '3px'
-  },
-  select: {
-    '&:focus': {
-      backgroundColor: theme.colors.transparent,
-      color: theme.colors.text
-    }
-  },
-  input: {
-    fontSize: '12px',
-    backgroundColor: theme.colors.transparent,
-    color: theme.colors.text,
-    borderRadius: '8px',
-    marginLeft: '0px'
-  },
-  notched: {
-    border: 'none'
-  },
-  label: {
-    fontSize: '12px',
-    fontWeight: '400',
-    // color: theme.colors.sites.completedWork,
-    maxWidth: '220px',
-    textAlign: 'center'
-  },
-  progress: {
-    width: '20px',
-    height: '20px',
-    display: 'flex'
-  },
-  mainInput1: {
-    ...theme.filtersClasses.mainInput1,
-    '& .MuiInputBase-input': {
-      cursor: 'pointer !important'
-    }
-  },
-  mainInput2: {
-    ...theme.filtersClasses.mainInput2,
-    '& .MuiInputBase-input': {
-      cursor: 'pointer !important'
-    }
-  },
-  searchInput1: theme.filtersClasses.searchInput1,
-  searchInput2: theme.filtersClasses.searchInput2,
-  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px' }
-}))
+import { slideFilterStyles } from '../../styles/classes/WorkOrdersClasses'
 
 export const SlideFilter = props => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [values, setValues] = useState(props.values[props.id] ?? '')
   const [label, setLabel] = useState('')
 
-  const classes = useStyles()
+  const classes = slideFilterStyles()
   const { t } = useTranslation()
   const inputRef = useRef()
 

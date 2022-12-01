@@ -3,9 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
-// mui components
-import { makeStyles } from '@mui/styles'
-
 import {
   Card, CardContent, CardActions, Collapse, IconButton,
   Box,
@@ -35,101 +32,7 @@ import {
 import { cloneDeep } from 'lodash'
 import { woFixedStatus } from '../../lib/Constants'
 import { getWOstatus } from '../../lib/Global'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    maxWidth: 345,
-    padding: '0px 0px',
-    boxShadow: '6px 9px 43px ' + theme.colors.workOrders.detailsCardBorderColor,
-    borderRadius: '8px',
-    marginBottom: '5px'
-  },
-  actions: {
-    cursor: 'pointer',
-    height: '68px',
-    padding: '0px 0px'
-  },
-  chipRoot: {
-    marginRight: 'auto',
-    fontSize: '12px',
-    alignSelf: 'center',
-    minWidth: 'fit-content'
-  },
-  chipLabel: {
-    padding: '0px 0px'
-  },
-  trip: {
-    padding: '1px 0px',
-    marginLeft: '20px',
-    marginRight: '10px',
-    color: theme.colors.text,
-    fontSize: '18px',
-    fontWeight: '700',
-    alignSelf: 'center'
-  },
-  field: {
-    marginLeft: '5px',
-    marginBottom: '4px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '900'
-  },
-  fieldData: {
-    marginLeft: '5px',
-    marginBottom: '28px',
-    color: theme.colors.workOrders.counts,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  fieldDisabledData: {
-    marginLeft: '5px',
-    marginBottom: '28px',
-    color: theme.colors.textGray,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  fieldMessage: {
-    marginLeft: '5px',
-    marginBottom: '28px',
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  empty: {
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400',
-    textAlign: 'center',
-    marginBottom: '10px'
-  },
-  tripGrid: {
-    display: 'flex',
-    flexDirection: 'row',
-    verticalAlign: 'middle',
-    marginTop: 'auto',
-    marginBottom: 'auto'
-  },
-  statusChip: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: 'auto'
-  },
-  error: {
-    color: theme.colors.errorColor,
-    fontSize: '12px',
-    fontWeight: '700',
-    marginBottom: '10px'
-  },
-  errorContainer: {
-    textAlign: 'center',
-    marginBottom: '20px',
-    marginTop: '70px'
-  },
-  errorBox: {
-    marginBottom: '20px'
-  }
-}))
+import { activitiesCardStyle } from '../../styles/classes/WorkOrdersClasses'
 
 export const ActivitiesCard = props => {
   const {
@@ -144,7 +47,7 @@ export const ActivitiesCard = props => {
     setMessage
   } = props
   const wHeight = getWindowHeight ? getWindowHeight() : null
-  const classes = useStyles()
+  const classes = activitiesCardStyle()
   const [expanded, setExpanded] = useState(false)
   const [pendingTasks, setPendingTasks] = useState(false)
   const [newRepair, setNewRepair] = useState({})

@@ -1,82 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { FormLabel, Grid, Menu, MenuItem } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { ImageSearch as ImageIcon } from '@mui/icons-material'
 import { PhotoPicker } from '../../PhotoPicker'
 import { AddButton } from '../../AddButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-
-const useStyles = makeStyles(theme => ({
-  photoField: {
-    marginLeft: '5px',
-    marginBottom: '8px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  thumbContainer: {
-    width: '99px',
-    height: '94px',
-    marginBottom: '6px',
-    borderRadius: '8px'
-  },
-  thumb: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    borderRadius: '8px'
-  },
-  empty: {
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400',
-    textAlign: 'center',
-    marginBottom: '10px',
-    marginLeft: '3px'
-  },
-  fieldContainer: {
-    backgroundColor: theme.colors.grey_2,
-    borderRadius: '6px',
-    minwidth: '303px',
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: '5px',
-    height: '52px',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonLabel: {
-    fontSize: '14px',
-    color: theme.colors.iconBlue,
-    textTransform: 'none',
-    padding: '10px',
-    flex: 1
-  },
-  button: {
-    '& .MuiButton-label': {
-      justifyContent: 'flex-start'
-    }
-  },
-  menuItem: theme.filtersClasses.menuItem,
-  icon: {
-    alignSelf: 'center',
-    paddingRight: '15px',
-    color: theme.colors.grey
-  },
-  required: {
-    fontSize: '12px',
-    color: 'red',
-    marginLeft: '2px'
-  },
-  mandatory: {
-    color: theme.colors.errorColor
-  },
-  container: {
-    marginLeft: '5px'
-  }
-}))
+import { photoComponentStyles } from '../../../styles/classes/RepairClasses'
 
 export const PhotoComponent = props => {
   const {
@@ -92,7 +22,7 @@ export const PhotoComponent = props => {
     notAvailable
   } = props
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = photoComponentStyles()
   const photoRef = useRef()
   const [anchorEl, setAnchorEl] = useState(null)
   const [title, setTitle] = useState('')

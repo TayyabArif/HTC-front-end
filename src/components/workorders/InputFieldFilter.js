@@ -6,18 +6,12 @@ import {
   OutlinedInput
 } from '@mui/material'
 
-import { makeStyles } from '@mui/styles'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faTimes } from '@fortawesome/free-solid-svg-icons'
-
-const useStyles = makeStyles(theme => ({
-  mainInput1: theme.filtersClasses.mainInput1,
-  mainInput2: theme.filtersClasses.mainInput2
-}))
+import { inputFieldFilterStyles } from '../../styles/classes/WorkOrdersClasses'
 
 export const InputFieldFilter = props => {
-  const classes = useStyles()
+  const classes = inputFieldFilterStyles()
   const [search, setSearch] = useState('')
 
   useEffect(() => {

@@ -2,73 +2,19 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormControl } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import moment from 'moment'
 import { DatePicker, Space, TimePicker } from 'antd'
 import 'antd/dist/antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-
-const useStyles = makeStyles(theme => ({
-  mainInput1: {
-    ...theme.filtersClasses.mainInput1,
-    width: '313px',
-    '& .ant-picker-input': {
-      boxShadow: 'none',
-      '& input': {
-        color: theme.colors.basicDisabledButtonColor,
-        cursor: 'pointer',
-        '&::placeholder': {
-          color: theme.colors.iconBlue,
-          opacity: 1
-        }
-      }
-    },
-    cursor: 'pointer',
-    boxShadow: 'none',
-    zIndex: 9
-  },
-  mainInput2: {
-    ...theme.filtersClasses.mainInput2,
-    width: '313px',
-    '& .ant-picker-input': {
-      boxShadow: 'none',
-      '& input': {
-        color: theme.colors.basicDisabledButtonColor,
-        cursor: 'pointer',
-        '&::placeholder': {
-          color: theme.colors.iconBlue,
-          opacity: 1
-        }
-      }
-    },
-    cursor: 'pointer',
-    boxShadow: 'none',
-    zIndex: 9
-  },
-  container: {
-    width: '313px'
-  },
-  hidden: {
-    border: 'none',
-    zIndex: 1,
-    marginTop: '-32px'
-  },
-  overlay: {
-    position: 'fixed',
-    height: '100%',
-    width: '100%',
-    top: 0,
-    left: 0
-  }
-}))
+import { dateTimeFilterStyles } from '../../styles/classes/WorkOrdersClasses'
 
 export const DateTimeFilter = props => {
   const [selectedDate, setSelectedDate] = useState(null)
   const [openTime, setOpenTime] = useState(false)
   const [calendarOpen, setCalendarOpen] = useState(false)
 
-  const classes = useStyles()
+  const classes = dateTimeFilterStyles()
   const { t } = useTranslation()
 
   useEffect(() => {

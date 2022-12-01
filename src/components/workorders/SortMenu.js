@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import { Menu, MenuItem } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { Sort as SortIcon } from '@mui/icons-material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSort } from '@fortawesome/free-solid-svg-icons'
+import { sortMenuStyles } from '../../styles/classes/WorkOrdersClasses'
 
-const useStyles = makeStyles(theme => ({
-  menuItem: theme.filtersClasses.menuItem
-}))
 const sortStyle = {
   width: '15px',
   height: '15px',
@@ -18,7 +15,7 @@ const sortStyle = {
 
 export const SortMenu = props => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = sortMenuStyles()
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleClick = event => {

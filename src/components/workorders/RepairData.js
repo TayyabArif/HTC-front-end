@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { isEmpty } from 'lodash'
 
 // mui components
-import { makeStyles } from '@mui/styles'
 import { DescriptionRounded } from '@mui/icons-material'
 import { Button, FormLabel, Grid, Divider, Box } from '@mui/material'
 import { useSelector } from 'react-redux'
@@ -14,81 +13,7 @@ import { PhotoComponent } from './repair/PhotoComponent'
 import { SimplePicker } from './repair/SimplePicker'
 import { SignatureComponent } from './repair/SignatureComponent'
 import { getPhotosFromRepair, getWOstatus } from '../../lib/Global'
-
-const useStyles = makeStyles(theme => ({
-  repairItem: {
-    marginBottom: '28px'
-  },
-  checkIcon: {
-    width: '20px',
-    color: theme.colors.workOrders.tab.duedate
-  },
-  dotIcon: {
-    fontSize: '7px',
-    width: '15px',
-    color: theme.colors.workOrders.tab.duedate
-  },
-  field: {
-    marginLeft: '5px',
-    marginBottom: '2px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  fieldMessage: {
-    marginLeft: '5px',
-    marginBottom: '16px',
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  item: {
-    color: theme.colors.workOrders.counts,
-    fontSize: '14px',
-    fontWeight: '400'
-  },
-  taskList: {
-    display: 'flex',
-    alignItems: 'center',
-    height: '20px'
-  },
-  photoField: {
-    marginLeft: '5px',
-    marginBottom: '2px',
-    color: theme.colors.text,
-    fontSize: '12px',
-    fontWeight: '700'
-  },
-  empty: {
-    color: theme.colors.workOrders.downloadIcon,
-    fontSize: '14px',
-    fontWeight: '400',
-    textAlign: 'center',
-    marginBottom: '10px'
-  },
-  thumbContainer: {
-    width: '99px',
-    height: '94px',
-    marginBottom: '6px',
-    borderRadius: '8px'
-  },
-  thumb: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    borderRadius: '8px'
-  },
-  serviceType: { display: 'flex', alignItems: 'center', marginBottom: '28px' },
-  divider: { flex: 1, marginRight: '20px', marginLeft: '20px' },
-  serviceTypeTitle: {
-    fontWeight: '700',
-    fontSize: '14px'
-  },
-  selectedTask: {
-    display: 'flex',
-    alignContent: 'center'
-  }
-}))
+import { repairDataStyles } from '../../styles/classes/WorkOrdersClasses'
 
 const cloneDeep = object => {
   return JSON.parse(JSON.stringify(object))
@@ -107,7 +32,7 @@ export const RepairData = props => {
     configRequired,
     externalUser
   } = props
-  const classes = useStyles()
+  const classes = repairDataStyles()
   const { t } = useTranslation()
   const userData = useSelector(state => state.auth?.user?.userInfo)
 

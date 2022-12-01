@@ -16,7 +16,6 @@ import {
   ThemeProvider,
   TextField
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -24,32 +23,9 @@ import {
   muiThemeDateFilter,
   muiThemeHeaderDate
 } from '../../styles/mui_custom_theme'
+import { dateFilterStyles } from '../../styles/classes/WorkOrdersClasses'
 
 const moment = require('moment')
-
-const useStyles = makeStyles(theme => ({
-  datePicker: {
-    '& .MuiPickersModal-dialog': {
-      backgroundColor: 'red !important'
-    }
-  },
-  mainInput1: {
-    ...theme.filtersClasses.mainInput1,
-    cursor: 'pointer',
-    caretColor: 'transparent',
-    '& .MuiInputBase-input': {
-      cursor: 'pointer !important'
-    }
-  },
-  mainInput2: {
-    ...theme.filtersClasses.mainInput2,
-    cursor: 'pointer',
-    caretColor: 'transparent',
-    '& .MuiInputBase-input': {
-      cursor: 'pointer !important'
-    }
-  }
-}))
 
 export const DateFilter = props => {
   const [selectedDate, setSelectedDate] = useState('')
@@ -63,7 +39,7 @@ export const DateFilter = props => {
   const [openCalendarTo, setCalendarTo] = useState(false)
 
   const rootRef = useRef()
-  const classes = useStyles()
+  const classes = dateFilterStyles()
   const { t } = useTranslation()
 
   const handleChange = date => {
