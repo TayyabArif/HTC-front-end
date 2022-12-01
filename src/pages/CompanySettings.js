@@ -438,7 +438,10 @@ const CompanySettings = props => {
 
   const updateProfileLogo = async () => {
     const data = { ...company }
-    data.logo.url = logoData
+    data.logo = {
+      ...(data.logo ?? {}),
+      url: logoData
+    }
     setUpdatedCompany(data)
     handleClose()
     await handleSave()
@@ -468,21 +471,23 @@ const CompanySettings = props => {
   }
 
   const profileValidation = data => {
-    if (data?.dispatch_email && !validateEmail(data?.dispatch_email)) {
+    if (!(data.country && data.country.length > 0)) {
+      return false
+    }
+    if (!data.name) {
+      return false
+    }
+    if (!data?.email || !validateEmail(data?.email)) {
       setDispatchError(true)
       return false
     }
-    if (data?.invoice_email && !validateEmail(data?.invoice_email)) {
+    if (!data?.invoice_email || !validateEmail(data?.invoice_email)) {
       setInvoiceError(true)
       return false
     }
     setDispatchError(false)
     setInvoiceError(false)
-    const mandatoryValidation = profileMandatoryValidation(
-      complianceFields?.information?.fields,
-      data
-    )
-    return mandatoryValidation && validHours
+    return true
   }
 
   const insuranceValidation = data => {

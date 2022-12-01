@@ -144,7 +144,10 @@ export const UpdateAccountInfo = props => {
             !updatedInfo.username ||
             (updatedInfo.password && !updatedInfo.passwordConfirm) ||
             (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-            (!updatedInfo.password && !updatedInfo.passwordConfirm)
+            (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
+            (updatedInfo.password !== updatedInfo.passwordConfirm) ||
+            (updatedInfo.password.length < 6) ||
+            (updatedInfo.passwordConfirm.length < 6)
     ) {
       save = false
     }
@@ -186,10 +189,7 @@ export const UpdateAccountInfo = props => {
       .string()
       .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6'))
-      .oneOf(
-        [yup.ref('password')],
-        t('account_settings.messages.errors.password_match')
-      )
+      .oneOf([yup.ref('password'), null], t('account_settings.messages.errors.password_match'))
   })
 
   /** End VALIDATIONS **/
