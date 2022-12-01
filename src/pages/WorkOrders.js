@@ -29,7 +29,8 @@ const initFilters = {
   asc_sort: '',
   desc_sort: '',
   invoices: '',
-  priority: ''
+  priority: '',
+  external_id: ''
 }
 
 const WorkOrders = (props) => {
@@ -75,6 +76,7 @@ const WorkOrders = (props) => {
     filters.wostat,
     filters.invoices,
     filters.priority,
+    filters.external_id,
     filters.asc_sort,
     filters.desc_sort,
     30,

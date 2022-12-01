@@ -9,7 +9,7 @@ import {
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 const useStyles = makeStyles(theme => ({
   switch: {
@@ -216,7 +216,7 @@ export const SlideFilter = props => {
                 values.split('|').length === props.options.length) ||
                 values.split('|').includes(obj.value)) && (
                 <FontAwesomeIcon
-                  icon={['far', 'check']}
+                  icon={faCheck}
                   className={classes.switch}
                 />
               )}

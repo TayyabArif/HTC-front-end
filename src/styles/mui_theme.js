@@ -325,7 +325,6 @@ const customTheme = createTheme({
     },
     menuItem: {
       fontSize: '12px',
-      paddingRight: '0px',
       width: '100%',
       display: 'flex',
       maxWidth: '352px'

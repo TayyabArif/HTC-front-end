@@ -19,6 +19,7 @@ import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import html2canvas from './html2canvas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft, faAngleRight, faRotateLeft } from '@fortawesome/free-solid-svg-icons'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -393,7 +394,7 @@ export const PhotoReel = props => {
                       className={classes.arrowIcon}
                       onClick={handleRotate}
                     >
-                      <FontAwesomeIcon icon={['far', 'angle-left']} />
+                      <FontAwesomeIcon icon={faAngleLeft} />
                     </IconButton>
                   </div>
                 )
@@ -414,7 +415,7 @@ export const PhotoReel = props => {
                       className={classes.arrowIcon}
                       onClick={handleRotate}
                     >
-                      <FontAwesomeIcon icon={['far', 'angle-right']} />
+                      <FontAwesomeIcon icon={faAngleRight} />
                     </IconButton>
                   </div>
                 )
@@ -435,7 +436,7 @@ export const PhotoReel = props => {
                         onClick={handleRotate}
                       >
                         <FontAwesomeIcon
-                          icon={['far', 'rotate-left']}
+                          icon={faRotateLeft}
                           size="xs"
                         />
                       </IconButton>

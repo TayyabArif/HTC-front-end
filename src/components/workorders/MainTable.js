@@ -77,6 +77,7 @@ function EnhancedTableHead (props) {
     filtersCatalog.services.map(item => {
       return { label: titleCase(item.name), value: item.name }
     })
+
   const woStatusOptions = filtersCatalog.workOrdersStatus.map(item => {
     return {
       label: titleCase(t(`work_orders.wo_states.${item}`)),
@@ -95,7 +96,7 @@ function EnhancedTableHead (props) {
   const filterComponents = [
     // { id: 'client_name', type: 'InputFieldFilter' },
     { id: 'site_name', type: 'InputFieldFilter' },
-    { id: 'priority', type: 'SlideFilter', options: [{ label: 'Emergency', value: 'Emergency' }] },
+    { id: 'priority', type: 'InputFieldFilter' },
     { id: 'trade', type: 'SlideFilter', options: tradesOptions },
     { id: 'service', type: 'SlideFilter', options: servicesOptions },
     { id: 'won', type: 'InputFieldFilter' },

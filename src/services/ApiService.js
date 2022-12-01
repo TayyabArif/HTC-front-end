@@ -266,6 +266,7 @@ export const workOrdersPortal = async (
   status,
   invoices,
   priority,
+  externalId,
   sort,
   perPage,
   page
@@ -289,6 +290,7 @@ export const workOrdersPortal = async (
       statusString,
       invoices,
       priority,
+      externalId,
       sort,
       perPage,
       page

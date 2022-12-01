@@ -10,6 +10,7 @@ import {
 import { makeStyles } from '@mui/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -177,7 +178,7 @@ export const Selector = React.forwardRef(props => {
                 {option.name}
                 {option.selected && (
                   <FontAwesomeIcon
-                    icon={['far', 'check']}
+                    icon={faCheck}
                     className={classes.selectedIcon}
                   />
                 )}

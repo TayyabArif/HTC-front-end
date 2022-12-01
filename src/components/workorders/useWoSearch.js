@@ -15,6 +15,7 @@ export const useWoSearch = (
   status,
   invoices,
   priority,
+  externalId,
   ascSort,
   descSort,
   perPage,
@@ -46,6 +47,7 @@ export const useWoSearch = (
     status,
     invoices,
     priority,
+    externalId,
     ascSort,
     descSort
   ])
@@ -82,6 +84,7 @@ export const useWoSearch = (
       status,
       invoices,
       priority,
+      externalId,
       sort,
       perPage,
       page
