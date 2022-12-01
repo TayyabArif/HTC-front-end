@@ -1,4 +1,5 @@
 import { render, screen, getByTestId } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import React from 'react'
 import { Provider } from 'react-redux'
@@ -71,14 +72,37 @@ describe('Company Settings', () => {
     const profileInfoCard = screen.getByTestId('profile_info_card')
     expect(profileInfoCard).toBeInTheDocument()
 
+    const editCompanyInfoButton = screen.getByTestId('edit_company_info_button')
+    expect(editCompanyInfoButton).toBeInTheDocument()
+
+    userEvent.click(editCompanyInfoButton)
+
+    const companyEditContainer = await screen.findByTestId('company_edit_container')
+    expect(companyEditContainer).toBeInTheDocument()
+
     const preferencesCard = screen.getByTestId('preferences_card')
     expect(preferencesCard).toBeInTheDocument()
 
     const supportCard = screen.getByTestId('support_card')
     expect(supportCard).toBeInTheDocument()
 
+    const knowledgeButton = screen.getByTestId('knowledge_button')
+    expect(knowledgeButton).toBeInTheDocument()
+
+    userEvent.click(knowledgeButton)
+
+    const privacyPolicyButton = screen.getByTestId('privacy_policy_button')
+    expect(privacyPolicyButton).toBeInTheDocument()
+
+    userEvent.click(privacyPolicyButton)
+
     const usersCard = screen.getByTestId('users_card')
     expect(usersCard).toBeInTheDocument()
+
+    const addUserButton = screen.getByTestId('add_user_button')
+    expect(addUserButton).toBeInTheDocument()
+
+    userEvent.click(addUserButton)
 
     const companySupportCard = screen.getByTestId('roles_card')
     expect(companySupportCard).toBeInTheDocument()

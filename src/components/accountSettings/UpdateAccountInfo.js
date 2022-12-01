@@ -350,7 +350,7 @@ export const UpdateAccountInfo = props => {
   /** End Submit Handle **/
 
   return (
-        <div>
+        <div data-testid='create_edit_user_drawer' >
             <Drawer
                 BackdropProps={{ invisible: true }}
                 anchor={'right'}

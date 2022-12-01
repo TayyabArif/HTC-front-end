@@ -13,7 +13,7 @@ import { conformToMask } from 'react-text-mask'
 const EditButton = props => {
   const classes = profileInfoCardStyles()
   return (
-        <Button className={classes.editButton} onClick={props.onClick}>
+        <Button data-testid='edit_company_info_button' className={classes.editButton} onClick={props.onClick}>
             {props.label}
         </Button>
   )

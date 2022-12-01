@@ -64,7 +64,7 @@ export const CompanyProfileComponent = props => {
   const handleFocus = event => event.target.select()
 
   return (
-    <Container classes={{ root: classes.infoContainer }}>
+    <Container data-testid='company_edit_container' classes={{ root: classes.infoContainer }}>
       <Grid container className={classes.itemContainer}>
         <Grid item xs={12}>
           <Typography classes={{ root: classes.title }}>

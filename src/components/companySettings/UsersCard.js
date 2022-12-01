@@ -74,7 +74,7 @@ export const UsersCard = props => {
   const EditButton = props => {
     const classes = usersCardStyles()
     return (
-      <Button className={classes.editButton} onClick={props.onClick}>
+      <Button data-testid={'add_user_button'} className={classes.editButton} onClick={props.onClick}>
         {props.label}
       </Button>
     )
@@ -119,7 +119,6 @@ export const UsersCard = props => {
         <EditButton
           label={t('company_settings.buttons.add')}
           onClick={handleNewPanel}
-          data-testid={'add_company_user_button'}
         />
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
