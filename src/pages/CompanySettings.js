@@ -438,7 +438,10 @@ const CompanySettings = props => {
 
   const updateProfileLogo = async () => {
     const data = { ...company }
-    data.logo.url = logoData
+    data.logo = {
+      ...(data.logo ?? {}),
+      url: logoData
+    }
     setUpdatedCompany(data)
     handleClose()
     await handleSave()
@@ -468,21 +471,23 @@ const CompanySettings = props => {
   }
 
   const profileValidation = data => {
-    if (data?.dispatch_email && !validateEmail(data?.dispatch_email)) {
+    if (!(data.country && data.country.length > 0)) {
+      return false
+    }
+    if (!data.name) {
+      return false
+    }
+    if (!data?.email || !validateEmail(data?.email)) {
       setDispatchError(true)
       return false
     }
-    if (data?.invoice_email && !validateEmail(data?.invoice_email)) {
+    if (!data?.invoice_email || !validateEmail(data?.invoice_email)) {
       setInvoiceError(true)
       return false
     }
     setDispatchError(false)
     setInvoiceError(false)
-    const mandatoryValidation = profileMandatoryValidation(
-      complianceFields?.information?.fields,
-      data
-    )
-    return mandatoryValidation && validHours
+    return true
   }
 
   const insuranceValidation = data => {
@@ -552,7 +557,7 @@ const CompanySettings = props => {
   }
 
   return (
-    <Container className={classes.container}>
+    <Container data-testid={'company_settings_page'} className={classes.container}>
       <Box
         className={classes.background}
         style={{ width: '30%' }}
@@ -565,7 +570,7 @@ const CompanySettings = props => {
       <Box display="flex" className={classes.cardsContainer}>
         <Box flex={1}>
           {/* Logo card */}
-          <Card className={classes.card}>
+          <Card data-testid='logo_card' className={classes.card}>
             <Box display="flex" flexDirection="row">
               <Avatar
                 alt="profile"
@@ -577,24 +582,35 @@ const CompanySettings = props => {
               >
                 {' '}
               </Avatar>
-              <Box className={classes.uploadButton} >
-                {t('company_settings.upload_logo')}
-              </Box>
-              <label htmlFor="profile-logo" className={classes.editButton}>
-                <Button
-                  id="profile-logo"
-                  component="label"
-                  className={classes.editButton}
-                >
-                  {t('company_settings.buttons.edit')}
-                  <input
-                    hidden
-                    accept="image/png, image/jpeg, image/jpg, image/bitmap"
-                    type="file"
-                    onChange={handleImageChange}
-                  />
-                </Button>
-              </label>
+              {!company?.logo?.url &&
+                <label htmlFor="profile-logo" className={classes.labelUpload}>
+                  <Button id="profile-logo"
+                    component="label" className={classes.uploadButton} >
+                    {t('company_settings.upload_logo')}
+                    <input
+                      hidden
+                      accept="image/png, image/jpeg, image/jpg, image/bitmap"
+                      type="file"
+                      onChange={handleImageChange}
+                    />
+                  </Button>
+                </label>}
+              {company?.logo?.url &&
+                <label htmlFor="profile-logo" className={classes.editButton}>
+                  <Button
+                    id="profile-logo"
+                    component="label"
+                    className={classes.editButton}
+                  >
+                    {t('company_settings.buttons.edit')}
+                    <input
+                      hidden
+                      accept="image/png, image/jpeg, image/jpg, image/bitmap"
+                      type="file"
+                      onChange={handleImageChange}
+                    />
+                  </Button>
+                </label>}
             </Box>
           </Card>
           {/* Profile card */}
@@ -675,9 +691,9 @@ const CompanySettings = props => {
                 ''
               )
             : (
-            <Button onClick={updateProfileLogo} autoFocus>
-              {t('company_settings.card.save')}
-            </Button>
+              <Button onClick={updateProfileLogo} autoFocus>
+                {t('company_settings.card.save')}
+              </Button>
               )}
         </DialogActions>
       </Dialog>

@@ -1,28 +1,21 @@
 import React from 'react'
-import BackgroundSlider from 'react-background-slider'
 
 /** Redux **/
 import { useSelector } from 'react-redux'
 
 /** Material UI **/
-import { makeStyles } from '@mui/styles'
-import { Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography } from '@mui/material'
+import { makeStyles, useTheme } from '@mui/styles'
+import { Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography, useMediaQuery } from '@mui/material'
 
 /** Components **/
-import { SignInHeader } from './SignInHeader'
-import snow from '../assets/images/carousel/snow-plow.jpg'
-import flowers from '../assets/images/carousel/flowers.jpg'
-import garden from '../assets/images/carousel/garden.jpg'
-import trees from '../assets/images/carousel/trees.jpg'
-import water from '../assets/images/carousel/water.jpg'
-import sidewalk from '../assets/images/carousel/sidewalk.jpg'
+
+/** Images **/
+import conectadPlatformLogo from '../assets/images/connectad_platform.svg'
+import conectadLogo from '../assets/images/connectad_logo.svg'
 
 const pjson = require('../../package.json')
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    height: '100vh'
-  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: theme.colors.backdropColor
@@ -30,12 +23,7 @@ const useStyles = makeStyles((theme) => ({
   leftImages: {
     height: '100%'
   },
-  imageContainer: {
-    overflow: 'hidden'
-  },
   body: {
-    height: 'calc(100% - 170px)',
-    overflowY: 'auto',
     backgroundColor: theme.colors.backdropColor,
     '&::-webkit-scrollbar': {
       display: 'none'
@@ -43,19 +31,25 @@ const useStyles = makeStyles((theme) => ({
     scrollbarWidth: 'none',
     '-ms-overflow-style': 'none'
   },
-  footer: {
-    height: '40px',
-    textAlign: 'center',
-    backgroundColor: theme.colors.dotsBack
-  },
-  footerText: {
+  versionText: {
     fontWeight: '400',
-    fontSize: '10px'
+    fontSize: '20px',
+    marginLeft: '30px'
+  },
+  contactText: {
+    fontWeight: '400',
+    fontSize: '14px'
+  },
+  footerContainer: {
+    bottom: 10,
+    position: 'absolute'
   }
 }))
 
 export const SignInContainer = (props) => {
   const loading = useSelector(state => state.loading.loading)
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
 
   return (
@@ -64,24 +58,32 @@ export const SignInContainer = (props) => {
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit"/>
       </Backdrop>
-      <Grid container className={classes.container}>
-        <Grid item md={6} className={classes.imageContainer}>
-          <Box className={classes.container} sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
-          <BackgroundSlider
-            images={[snow, flowers, sidewalk, water, trees, garden]}
-            duration={10} transition={2} />
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} className={classes.container}>
-          <SignInHeader/>
+      <Grid container>
+        {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} padding={isSmall ? 1.5 : 4}>
+          <img src={conectadPlatformLogo} alt="Connectad Platform"/>
+        </Grid>}
+        <Grid item xs={12}>
           <Box className={classes.body}>
             {props.children}
           </Box>
-          <Box className={classes.footer}>
-            <Typography component={'span'} align={'center'} className={classes.footerText}>
-              v{pjson.version}
-            </Typography>
-          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container className={classes.footerContainer}>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={8}>
+              <img src={conectadLogo} alt="Connectad Logo"/>
+            </Grid>
+            <Grid item md={1} alignSelf="flex-end">
+              <Typography variant={'p'} className={ classes.contactText }>
+                Contact us
+              </Typography>
+            </Grid>
+            <Grid item md={1} alignSelf="flex-end">
+              <Typography variant={'p'} align={'center'} className={classes.versionText}>
+                &nbsp;v{pjson.version}
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>

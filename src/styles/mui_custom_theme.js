@@ -7,7 +7,7 @@ export const muiThemeHeaderDate = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Rubik',
     fontSize: 12
   }
 })
@@ -32,7 +32,7 @@ export const muiThemeDateFilter = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Rubik',
     fontSize: 12
   },
   overrides: {
@@ -155,12 +155,14 @@ export const enableButtonStyle = {
   textTransform: 'none',
   fontSize: '14px',
   fontWeight: '700',
-  color: '#333333',
+  color: 'white',
   border: '0.5px solid #BCBCBC',
   borderRadius: '100px',
   padding: '3px 30px',
-  backgroundColor: 'transparent',
-  margin: '0px 5px'
+  backgroundColor: '#2F80ED',
+  margin: '0px 15px',
+  width: '120px',
+  height: '40px'
 }
 
 export const enableButtonMobile = {
@@ -178,12 +180,14 @@ export const disableButtonStyle = {
   textTransform: 'none',
   fontSize: '14px',
   fontWeight: '700',
-  color: '#C4C4C4',
+  color: 'white',
   border: '0.5px solid #BCBCBC',
   borderRadius: '100px',
   padding: '3px 30px',
-  backgroundColor: 'transparent !important',
-  margin: '0px 5px'
+  backgroundColor: '#BDBDBD',
+  margin: '0px 15px',
+  width: '120px',
+  height: '40px'
 }
 
 export const disableButtonMobile = {

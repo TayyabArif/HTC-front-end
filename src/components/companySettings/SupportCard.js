@@ -47,7 +47,7 @@ export const SupportCard = props => {
   }, [props.company])
 
   return (
-    <Card className={classes.card} data-testid={'company_access_card'}>
+    <Card className={classes.card} data-testid={'support_card'}>
       <CardActions disableSpacing classes={{ root: classes.actions }}>
         <Typography classes={{ root: classes.title }}>
           {t('company_settings.support_card.title')}
@@ -55,7 +55,7 @@ export const SupportCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box margin="0px 0px 25px 0px" padding={0} >
-          <Link classes={{ root: classes.link }} >
+          <Link data-testid='knowledge_button' classes={{ root: classes.link }} >
               {t('company_settings.support_card.knowledge')}
           </Link>
         </Box>
@@ -66,7 +66,7 @@ export const SupportCard = props => {
           {contacts.phone}
         </Typography>}
         <Box margin="0px 0px 25px 0px" padding={0} >
-          <Link onClick={() => window.open(process.env.REACT_APP_FTC_THERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+          <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_THERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
               {t('company_settings.support_card.privacy')}
           </Link>
         </Box>

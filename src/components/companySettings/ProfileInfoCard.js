@@ -8,11 +8,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import GlobalInput from '../form/TextInput'
 import { profileInfoCardStyles } from '../../styles/classes/CompanySettingsClasses'
+import { conformToMask } from 'react-text-mask'
 
 const EditButton = props => {
   const classes = profileInfoCardStyles()
   return (
-        <Button className={classes.editButton} onClick={props.onClick}>
+        <Button data-testid='edit_company_info_button' className={classes.editButton} onClick={props.onClick}>
             {props.label}
         </Button>
   )
@@ -27,8 +28,21 @@ export const ProfileInfoCard = props => {
     props.setOpen(true)
   }
 
+  const maskValue = (value) => {
+    if (value) {
+      const result = conformToMask(
+        value,
+        ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
+        { guide: false }
+      )
+      return result.conformedValue
+    } else {
+      return 'N/A'
+    }
+  }
+
   return (
-        <Card className={classes.card}>
+        <Card data-testid='profile_info_card' className={classes.card}>
             <Box display="flex" flexDirection="row">
                 <Typography classes={{ root: classes.cardTitle }}>
                     {t('company_settings.card.profile')}
@@ -107,14 +121,14 @@ export const ProfileInfoCard = props => {
                     >
                         <GlobalInput
                             field="business_hours_phone"
-                            value={props?.profile?.business_hours?.phone ?? 'N/A'}
+                            value={maskValue(props?.profile?.business_hours?.phone)}
                             label={t('company_profile.labels.business_hours')}
                             disabled
                             className={classes.disabledText}
                         />
                         <GlobalInput
                             field="after_hours_phone"
-                            value={props?.profile?.after_hours?.phone ?? 'N/A'}
+                            value={maskValue(props?.profile?.after_hours?.phone)}
                             label={t('company_profile.labels.after_hours')}
                             disabled
                             className={classes.disabledText}

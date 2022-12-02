@@ -6,7 +6,7 @@ import {
   TextField
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
 import { AutoCompleteAddress } from './AutoCompleteAddress'
 import clsx from 'clsx'
@@ -67,14 +67,15 @@ export const TextInput = React.forwardRef(
                       className={classes.icon}
                       size="small"
                     >
-                      <FontAwesomeIcon icon={['far', 'xmark']} size="xs" />
+                      <FontAwesomeIcon icon={faXmark} size="xs" />
                     </IconButton>
                   )}
                 </InputAdornment>
               )
             }}
             InputLabelProps={{
-              className: classes.label
+              className: classes.label,
+              shrink: true
             }}
             placeholder={
               placeholder ? t('account_settings.form.enter') + ' ' + label : ''
@@ -120,7 +121,7 @@ export const TextInput = React.forwardRef(
                       className={classes.icon}
                       size="small"
                     >
-                      <FontAwesomeIcon icon={['far', 'xmark']} size="xs" />
+                      <FontAwesomeIcon icon={faXmark} size="xs" />
                     </IconButton>
                   )}
                 </InputAdornment>

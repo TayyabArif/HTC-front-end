@@ -1,6 +1,8 @@
 import React from 'react'
 import { withStyles } from '@mui/styles'
-import { Fab, InputBase, Paper, Tab, Tabs, Button, OutlinedInput } from '@mui/material'
+import styled from '@emotion/styled'
+import Button from '@mui/material/Button'
+import { Fab, InputBase, Paper, Tab, Tabs } from '@mui/material'
 
 export const BasicButton = withStyles((theme) => ({
   root: {
@@ -86,6 +88,21 @@ export const HighlightButton = withStyles((theme) => ({
     }
   }
 }))(Button)
+
+export const RoundedButton = styled(Button)(({ theme }) => `
+  line-height: 21.33px;
+  font-weight: 700;
+  border-radius: 32px;
+  width: 140px;
+  color: ${theme.colors.textButton}
+  text-transform: none;
+  &.MuiButton-root {
+    text-transform: none;
+  }
+  :active {
+    color: ${theme.colors.highlightButtonText}
+  }
+`)
 
 export const MapButton = withStyles({
   root: {

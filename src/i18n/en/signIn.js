@@ -13,7 +13,7 @@ export const signIn = () => {
     main_message: 'Manage all your locations, run your own analytics, and view your services being performed in real-time.',
     contact_us: 'Contact us',
     messages: {
-      wrong_user_password: 'The credentials entered are not valid. Please try again.',
+      wrong_user_password: 'Incorrect user or password. Please try again.',
       terms_and_conditions: 'Using the ConnectAD Platform, you agree to the ',
       terms_and_conditions_link: 'terms and conditions.'
     },

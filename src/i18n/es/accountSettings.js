@@ -17,7 +17,16 @@ export const accountSettings = () => {
       password_confirm: 'Confirmar Contraseña',
       profile_pic: 'Foto de Perfil',
       user_title: 'Título',
-      access_type: 'Tipo de Acceso'
+      access_type: 'Tipo de Acceso',
+      access: 'Acceso',
+      placeholder_first: 'Ingrese nombre',
+      placeholder_last: 'Ingrese apellido',
+      placeholder_email: 'Ingrese dirección de email',
+      placeholder_phone: 'Ingrese teléfono',
+      placeholder_username: 'Crear nombre usuario',
+      placeholder_pass: 'Crear contraseña',
+      placeholder_repass: 'Reingresar contraseña',
+      placeholder_employee: 'Ingrese ID'
     },
     form: {
       save: 'Guardar',

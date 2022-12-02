@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react'
+import React, { useRef } from 'react'
 import {
   FormControl,
   IconButton,
@@ -6,30 +6,9 @@ import {
   TextField
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { useTranslation } from 'react-i18next'
-
-import { NumericFormat } from 'react-number-format'
+import { conformToMask } from 'react-text-mask'
 import { phoneInputStyles } from '../../styles/classes/AccountSettingsClasses'
-
-const NumberFormatCustom = forwardRef(function NumberFormatCustom (props, ref) {
-  const { onChange, ...other } = props
-  return (
-    <NumericFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={values => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value
-          }
-        })
-      }}
-      format="(###) ### ####"
-    />
-  )
-})
 
 // eslint-disable-next-line react/display-name
 export const PhoneInput = React.forwardRef(
@@ -57,13 +36,22 @@ export const PhoneInput = React.forwardRef(
       handleChange(event, id)
     }
 
+    const maskValue = (value) => {
+      const result = conformToMask(
+        value,
+        ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
+        { guide: false }
+      )
+      return result.conformedValue
+    }
+
     return (
       <FormControl style={{ marginLeft: '0px' }}>
         <TextField
           id={id}
           name={name}
           key={id}
-          value={value}
+          value={maskValue(value ?? '')}
           label={label}
           onChange={handleChange}
           size="small"
@@ -71,7 +59,6 @@ export const PhoneInput = React.forwardRef(
           margin="normal"
           inputRef={inputRef}
           InputProps={{
-            inputComponent: NumberFormatCustom,
             className: classes.textField,
             style: inputStyle,
             disableUnderline: true,
@@ -93,7 +80,8 @@ export const PhoneInput = React.forwardRef(
             )
           }}
           InputLabelProps={{
-            className: classes.label
+            className: classes.label,
+            shrink: true
           }}
           placeholder={
             placeholder ? t('account_settings.form.enter') + ' ' + label : ''
@@ -107,7 +95,7 @@ export const PhoneInput = React.forwardRef(
           onInput={handleChangeInt}
           {...rest}
         />
-      </FormControl>
+      </FormControl >
     )
   }
 )

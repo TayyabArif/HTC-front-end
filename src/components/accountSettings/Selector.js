@@ -7,6 +7,7 @@ import {
   TextField
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { selectorStyles } from '../../styles/classes/AccountSettingsClasses'
 
 export const Selector = React.forwardRef((props, ref) => {
@@ -50,7 +51,7 @@ export const Selector = React.forwardRef((props, ref) => {
           endAdornment: (
             <InputAdornment position="end">
               <FontAwesomeIcon
-                icon={['fas', 'caret-down']}
+                icon={faCaretDown}
                 className={classes.icon}
               />
             </InputAdornment>

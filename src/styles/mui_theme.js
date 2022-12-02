@@ -1,12 +1,13 @@
 import { createTheme } from '@mui/material/styles'
-import RubikRegular from '../assets/fonts/Rubik-VariableFont_wght.ttf'
+import RubikRegular from '../assets/fonts/Rubik-Regular.ttf'
+import RubikBold from '../assets/fonts/Rubik-Bold.ttf'
+import RubikLight from '../assets/fonts/Rubik-Light.ttf'
 
 const customTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
       sm: 600,
-      // TODO: original value md: 900
       md: 1150,
       lg: 1200,
       xl: 1536
@@ -61,6 +62,7 @@ const customTheme = createTheme({
   colors: {
     maskIcon: '#212121',
     inputBorder: '#d8d8d8',
+    textButton: '#828282',
     generalBackground: '#fafafa',
     text: '#333333',
     transparent: 'rgba(0,0,0,0.0)',
@@ -85,6 +87,12 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    company: {
+      title: '#333333',
+      inputBorder: '#0000003A',
+      roleButton: '#E0E0E018',
+      iconColor: '#B0B0B0'
+    },
     workOrders: {
       counts: '#6C7172',
       chipBack: '#F1F1F1',
@@ -156,11 +164,6 @@ const customTheme = createTheme({
       cardBorderColor: 'rgba(216, 216, 216, 0.25)',
       delete: '#FC5E5E',
       disabledButton: '#C4C4C4'
-    },
-    company: {
-      title: '#333333',
-      inputBorder: '#0000003A',
-      roleButton: '#E0E0E018'
     },
     workStatusBorder: 'rgba(71,160,244,0.1)',
     infoWindowBackground: '#FBFBFB',
@@ -260,6 +263,21 @@ const customTheme = createTheme({
           font-display: swap;
           font-weight: 400;
           src: local('Rubik'), local('Rubik'), url(${RubikRegular}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+        @font-face {
+          font-family: 'Rubik Bold';
+          font-style: bold;
+          font-display: swap;
+          font-weight: 700;
+          src: local('Rubik'), local('Rubik'), url(${RubikBold}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+        @font-face {
+          font-family: 'Rubik Light';
+          font-style: normal;
+          font-display: swap;
+          src: local('Rubik'), local('Rubik'), url(${RubikLight}) format('truetype');
           unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
         }
       `,

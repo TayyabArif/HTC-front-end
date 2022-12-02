@@ -6,8 +6,8 @@ import React, { useState, useEffect } from 'react'
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
 import { LockOutlined, PersonOutlineOutlined } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography, Container } from '@mui/material'
-
+import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import { SignInContainer } from '../../components/SignInContainer'
 /** Validations **/
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,7 +17,6 @@ import * as yup from 'yup'
 import googleIcon from '../../assets/icons/google.svg'
 import microsoftIcon from '../../assets/icons/microsoft.svg'
 import connectLogo from '../../assets/images/connect_logo.svg'
-import signinLogo from '../../assets/images/signin_logo.svg'
 
 /** Redux **/
 import { useDispatch } from 'react-redux'
@@ -27,8 +26,6 @@ import { store } from '../../store'
 
 /** Services **/
 import { login } from '../../services/AuthService'
-
-const pjson = require('../../../package.json')
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -49,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
   signMessage: {
     marginTop: '15px !important',
-    fontSize: '14px !important'
+    fontSize: '14px !important',
+    fontWieght: '300 !important'
   },
   connectIcon: {
     width: '627px',
@@ -131,7 +129,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px !important'
   },
   terms: {
-    fontWeight: '300 !important',
+    fontWeight: '400 !important',
     fontSize: '14px !important',
     [theme.breakpoints.down('md')]: {
       display: 'none'
@@ -175,11 +173,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '36px',
       fontSize: '14px',
       height: '36px',
-      width: '560px',
-      '&.Mui-focused fieldset': {
-        borderColor: theme.colors.inputBorder,
-        borderWidth: '1px'
-      }
+      width: '560px'
     },
     '& .MuiFormControl-root': {
       width: '530px'
@@ -220,11 +214,11 @@ const useStyles = makeStyles((theme) => ({
   contactUs: {
     fontSize: '14px !important',
     fontWeight: '400 !important',
-    marginTop: '5px !important'
+    marginTop: '6px !important'
   },
   version: {
     fontSize: '20px !important',
-    fontWeight: 'normal !important'
+    fontWeight: '300 !important'
   }
 }))
 
@@ -248,8 +242,8 @@ const SignIn = () => {
 
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
-    email: yup.string().required(t('general.messages.errors.required')),
-    password: yup.string().required(t('general.messages.errors.required'))
+    email: yup.string().required(t('general.messages.errors.sign_in')),
+    password: yup.string().required(t('general.messages.errors.sign_in'))
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -297,7 +291,7 @@ const SignIn = () => {
   }
 
   return (
-    <Container className={classes.mainContainer}>
+    <SignInContainer screen="sign_in">
       <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
         <Grid className={classes.mainItem} item xs={12}>
           <Grid container justifyContent='center'>
@@ -351,7 +345,6 @@ const SignIn = () => {
                 type='text'
                 autoFocus
                 error={!!errors.email}
-                helperText={errors.email && errors.email.message}
                 FormHelperTextProps={{
                   classes: {
                     root: classes.errorMessage,
@@ -385,7 +378,7 @@ const SignIn = () => {
                 id='password'
                 autoComplete='new-password'
                 error={!!errors.password}
-                helperText={errors.password && errors.password.message}
+                helperText={errors.password && errors.email && errors.email.message}
                 FormHelperTextProps={{
                   classes: {
                     root: classes.errorMessage,
@@ -447,21 +440,7 @@ const SignIn = () => {
           </form>
         </Grid>
       </Grid>
-      <Grid container>
-        <Grid item textAlign={'left'} marginLeft={'7%'} xs={2}>
-          <img alt={'Connect AD Platform'} className={classes.signinIcon} src={signinLogo} />
-        </Grid>
-        <Grid item xs={6} />
-        <Grid item textAlign={'right'} marginLeft="auto" marginTop="auto" display="flex" xs={2}>
-          <Typography align={'left'} className={classes.contactUs}>
-                {t('sign_in.contact_us')}&emsp;
-              </Typography>
-              <Typography align={'left'} className={classes.version}>
-                &emsp;V{pjson.version}
-              </Typography>
-        </Grid>
-      </Grid>
-    </Container>
+    </SignInContainer>
   )
 }
 

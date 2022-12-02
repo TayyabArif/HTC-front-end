@@ -51,7 +51,7 @@ export const updateAccountInfoStyles = makeStyles(theme => ({
     width: '313px'
   },
   drawerPaper: {
-    maxHeight: 'calc(100% - 72px)',
+    maxHeight: 'calc(100% - 62px)',
     marginTop: '60px',
     width: '360px',
     borderRadius: '8px',
@@ -60,7 +60,7 @@ export const updateAccountInfoStyles = makeStyles(theme => ({
     zIndex: 1500,
     boxSizing: 'content-box',
     marginRight: '19px',
-    marginBottom: '20px',
+    marginBottom: '0px',
     display: 'flex'
   },
   element: {
@@ -137,12 +137,14 @@ export const textInputStyles = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '15px'
+    margin: '8px 0px 0px 0px',
+    padding: '0px'
   }
 }))
 
 export const phoneInputStyles = makeStyles(theme => ({
   root: {
+    marginTop: '0px',
     '& .MuiFilledInput-input': {
       border: `1px solid ${theme.colors.signInButton.background}`,
       color: `${theme.colors.text} !important`,
@@ -211,8 +213,10 @@ export const selectorStyles = makeStyles(theme => ({
     backgroundColor: theme.colors.signInButton.background
   },
   root: {
+    borderRadius: '6px',
     '& .MuiFilledInput-input': {
       border: `1px solid ${theme.colors.signInButton.background}`,
+      borderRadius: '6px',
       color: `${theme.colors.text} !important`,
       backgroundColor: theme.colors.signInButton.background,
       cursor: 'pointer'

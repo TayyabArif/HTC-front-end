@@ -65,7 +65,7 @@ export const companySettings = () => {
       title: 'USERS',
       name: 'Name',
       first_and_last_name: 'First and Last Name',
-      role: 'Title',
+      role: 'Role',
       company_role: 'Company Role',
       access: 'Access Level',
       panel_new: 'New User',
