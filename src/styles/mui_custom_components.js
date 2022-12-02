@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@mui/styles'
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
-import { Fab, InputBase, Paper, Tab, Tabs } from '@mui/material'
+import { Fab, InputBase, Paper, Tab, Tabs, OutlinedInput } from '@mui/material'
 
 export const BasicButton = withStyles((theme) => ({
   root: {
