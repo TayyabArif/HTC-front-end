@@ -59,9 +59,9 @@ export const SignInContainer = (props) => {
         <CircularProgress color="inherit"/>
       </Backdrop>
       <Grid container>
-        <Grid item md={12} padding={isSmall ? 1.5 : 4}>
+        {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} padding={isSmall ? 1.5 : 4}>
           <img src={conectadPlatformLogo} alt="Connectad Platform"/>
-        </Grid>
+        </Grid>}
         <Grid item xs={12}>
           <Box className={classes.body}>
             {props.children}
