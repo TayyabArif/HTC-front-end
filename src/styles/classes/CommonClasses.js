@@ -18,7 +18,8 @@ export const mainContainerStyles = makeStyles(theme => ({
     margin: '0px',
     maxWidth: '100%',
     [theme.breakpoints.up('md')]: {
-      minWidth: '800px'
+      minWidth: '800px',
+      overflowY: 'auto'
     },
     [theme.breakpoints.down('md')]: {
       overflowY: 'auto',
@@ -26,9 +27,6 @@ export const mainContainerStyles = makeStyles(theme => ({
         display: 'none'
       },
       touchAction: 'pan-y'
-    },
-    [theme.breakpoints.up('md')]: {
-      overflowY: 'auto'
     }
   },
   backdrop: {
@@ -37,6 +35,9 @@ export const mainContainerStyles = makeStyles(theme => ({
   },
   navBarOffset: {
     height: navBarHeaderHeight
+  },
+  contentBox: {
+    height: 'fit-content'
   }
 }))
 

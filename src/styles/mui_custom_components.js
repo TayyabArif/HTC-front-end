@@ -191,7 +191,7 @@ export const BootstrapInput = withStyles((theme) => ({
     borderRadius: '10px !important',
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
-    border: `1px solid ${theme.colors.sites.filters.fieldsBorder}`,
+    border: `1px solid ${theme.colors.locations.filters.fieldsBorder}`,
     fontSize: '10px !important',
     height: '13px !important',
     padding: '5px 12px 16px !important',
@@ -239,17 +239,17 @@ export const StyledSiteViewTab = withStyles((theme) => ({
   root: {
     minWidth: '70px',
     textTransform: 'none',
-    color: theme.colors.sites.siteView.unselectedTabTextColor,
+    color: theme.colors.locations.siteView.unselectedTabTextColor,
     fontWeight: '700',
     fontSize: '12px',
     '&:focus': {
       opacity: 1
     },
-    backgroundColor: theme.colors.sites.siteView.unselectedTabColor
+    backgroundColor: theme.colors.locations.siteView.unselectedTabColor
   },
   selected: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.colors.sites.siteView.selectedTabTextColor
+    color: theme.colors.locations.siteView.selectedTabTextColor
   }
 }))((props) => <Tab disableRipple {...props} />)
 
