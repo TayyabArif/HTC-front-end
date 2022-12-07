@@ -41,12 +41,12 @@ export const workOrders = () => {
       priority: 'Prioridad',
       trade: 'Comercio',
       service: 'Servicio',
-      won: 'Orden de Trabajo #',
+      won: 'WO #',
       opendate: 'Fecha de Inicio',
       duedate: 'Fecha de Fin',
       wostat: 'Estado WO',
       invoices: 'Estado de Factura',
-      external_id: 'Tracking Id'
+      external_id: 'Id Externo'
     },
     advanced_fields: {
       state: 'Estado',
