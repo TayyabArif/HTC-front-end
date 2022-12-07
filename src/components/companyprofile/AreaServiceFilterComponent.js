@@ -243,7 +243,6 @@ export const AreaServiceFilterComponent = props => {
     }
 
     setCitiesValues(newList)
-    // TODO: deselect all zip codes in the city
   }
 
   const changeCountySelection = newList => {
@@ -258,7 +257,6 @@ export const AreaServiceFilterComponent = props => {
     }
 
     setCountyValues(newList)
-    // TODO: deselect all zip codes in the county
   }
 
   const changeZipSelection = newList => {
@@ -357,7 +355,6 @@ export const AreaServiceFilterComponent = props => {
           />
         )}
 
-        {/* TODO: split zip code array */}
         {filterSelected.has('zip') && (
           <Box className={[classes.multiselectContent, classes.multiselectZip]}>
             {zipCodesList?.length > 0
