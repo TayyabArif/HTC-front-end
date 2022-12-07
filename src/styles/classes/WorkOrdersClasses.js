@@ -216,7 +216,9 @@ export const mainTableStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    maxWidth: '1000px',
+    textAlign: 'center'
   },
   boxTitle: {
     paddingTop: '2px',

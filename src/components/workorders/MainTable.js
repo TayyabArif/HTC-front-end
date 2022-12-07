@@ -14,7 +14,7 @@ import { DateFilter } from './DateFilter'
 import { DetailedInfo } from './DetailedInfo'
 import { SlideFilter } from './SlideFilter'
 import { SortMenu } from './SortMenu'
-
+import { useSelector } from 'react-redux'
 // mui components
 import {
   Checkbox,
@@ -280,6 +280,8 @@ function EnhancedTable (props) {
     // { id: 'invoices', visible: true }
   ]
 
+  const companyName = useSelector(state => state.auth.user.userInfo.company_name)
+
   const observer = useRef()
   const lastTableElement = useCallback(
     node => {
@@ -377,21 +379,22 @@ function EnhancedTable (props) {
           {!validateFilters()
             ? (
             <>
-              <Box classes={{ root: classes.empty1 }}>
+              <Box className={ classes.empty1 }>
                 {t('work_orders.empty_message_title')}
               </Box>
-              <Box classes={{ root: classes.empty2 }}>
+              <Box className={ classes.empty2 }>
                 {t('work_orders.empty_message_filters')}
               </Box>
             </>
               )
             : (
             <>
-              <Box classes={{ root: classes.empty1 }}>
+              <Box className={ classes.empty1 }>
                 {t('work_orders.empty_message_title')}
               </Box>
-              <Box classes={{ root: classes.empty2 }}>
-                {t('work_orders.empty_message')}
+              <Box className={ classes.empty2 } >
+                {t('work_orders.empty_message').replace('{company_name}', companyName)}
+
               </Box>
             </>
               )}

@@ -151,9 +151,9 @@ export const workOrders = () => {
     audit: 'Auditoría',
     details: 'Detalles',
     due: 'Vencimiento',
-    empty_message_title: 'Whoops...',
+    empty_message_title: '',
     empty_message:
-      'No hay órdenes de trabajo en su cuenta. ¡Póngase en contacto con su empresa de gestión para obtener un nuevo trabajo!',
+      'Whoops... No hay órdenes de trabajo en su cuenta. ¡Póngase en contacto con su empresa de gestión para obtener un nuevo trabajo!',
     empty_message_filters:
       'La consulta no arrojó resultados. Revise sus criterios de búsqueda e intente de nuevo.',
     please: 'Por favor',

@@ -150,9 +150,9 @@ export const workOrders = () => {
     audit: 'Audit Trail',
     details: 'Details',
     due: 'Due',
-    empty_message_title: 'Whoops...',
+    empty_message_title: '',
     empty_message:
-      'There are no work orders in your account. Contact your Management company to get new work!',
+      'Whoops..  There are no work orders associated to your locations.  Work orders will automatically display once created for your locations.\n Please reach out to {company_name} for further support.',
     empty_message_filters:
       'Your search did not return any results. Check your search criteria and try again.',
     please: 'Please',
