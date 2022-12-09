@@ -158,7 +158,6 @@ const WorkOrders = (props) => {
       >
         <FormControl
           variant="outlined"
-          style={{ marginLeft: '24px' }}
           data-testid={'search_field'}
         >
           <CustomOutlinedInput

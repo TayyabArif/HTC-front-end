@@ -9,7 +9,8 @@ export const workOrderStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    paddingLeft: '16px'
   },
   SearchInput: {
     paddingRight: 0,
@@ -27,7 +28,7 @@ export const workOrderStyles = makeStyles((theme) => ({
       }
     },
     height: '32px',
-    width: '287px'
+    width: '330px'
   },
   datesInput: {
     height: '32px'
