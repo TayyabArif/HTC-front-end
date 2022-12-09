@@ -22,22 +22,6 @@ const api = create({
 })
 
 /**
- * Create an api of FTC API for iframe
- * This API is needed to make sure credentials are not mixed up if a user has an already existing session
- *
- * @type {ApisauceInstance}
- */
-const iframeApi = create({
-  baseURL: process.env.REACT_APP_FTC_API_SERVER_URL,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    sfsource: 'TRUE'
-  },
-  timeout: 30000
-})
-
-/**
  * Remove headers from API
  */
 export const removeAuthorizationHeader = () => {
@@ -92,15 +76,8 @@ const callAPI = async (
 ) => {
   const authStore = store.getState().auth
   let response
-
   if (authorized) {
     api.setHeader('Authorization', `Bearer ${authStore.token.access_token}`)
-    if (authStore?.user?.userInfo) {
-      api.setHeader(
-        'ORIGINATING-COMPANY-ID',
-        authStore.user.userInfo.originating_company
-      )
-    }
   }
 
   switch (type) {
@@ -147,40 +124,6 @@ const callAPI = async (
   return processApiResponse(response)
 }
 
-const callIframeAPI = async (type, route, params = {}) => {
-  let response
-  switch (type) {
-    case 'POST':
-      response = await iframeApi.post(route, params)
-      break
-    case 'PUT':
-      response = await iframeApi.put(route, params)
-      break
-    case 'DELETE':
-      response = await iframeApi.delete(route, params)
-      break
-    case 'GET':
-      response = await iframeApi.get(route, params)
-      break
-    case 'PATCH':
-      response = await iframeApi.patch(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
-  }
-
-  if (!response.ok) {
-    if (response.status === 401) {
-      console.log('Unable to refresh token')
-      return processApiResponse(response)
-    }
-  }
-}
-
 /**
  * Send reset password request
  *
@@ -209,7 +152,82 @@ export const getUserScopes = async (email = '') => {
  *
  * @returns {Promise<object>} The API response data
  */
-export const getUser = async (iframe = false) => {
-  if (iframe) return await callIframeAPI('GET', '/users/me')
+export const getUser = async () => {
   return await callAPI('GET', '/users/me')
+}
+
+/**
+ * Verify registration status
+ *
+ * @returns {Promise<boolean>} The API response data
+ */
+export const verifyRegistration = async (email) => {
+  return await callAPI('GET', `/api/users/verify-registration/${email}`, {}, 0)
+}
+
+/**
+ * Request access
+ *
+ * @param companyDomain
+ * @param firstName
+ * @param lastName
+ * @param email
+ * @returns {Promise<boolean>}
+ */
+export const requestAccess = async (companyDomain, firstName, lastName, email, companyName) => {
+  api.setHeader('Content-Type', 'application/json')
+  return await callAPI('POST', '/api/users/request-access',
+    {
+      company_domain: companyDomain,
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      company_name: companyName
+    }, 0)
+}
+
+/**
+ * Update Account Settings
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const updateAccountSettings = async params => {
+  const response = await callAPI('PUT', '/users/me', params, true)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
+ * Create user
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const createUser = async (params, step) => {
+  const response = await callAPI('POST', `/users?step=${step}`, params, false)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
+ * Update User
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const updateUser = async (id, params) => {
+  const response = await callAPI('PUT', `/users/${id}`, params, true)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
+ * GET Company Roles list
+ * @returns Company Roles list
+ */
+export const getCompanyRoles = async companyId => {
+  try {
+    const response = await callAPI('GET', `/roles/company/${companyId}`)
+    return response
+  } catch {
+    return false
+  }
 }

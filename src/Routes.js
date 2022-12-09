@@ -12,6 +12,9 @@ import ForgotPassword from './pages/signIn/ForgotPassword'
 /** Redux **/
 import { useSelector } from 'react-redux'
 
+/** Settings */
+import AccountSettings from './pages/AccountSettings'
+
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
   const user = useSelector(state => state.auth.user)
@@ -21,6 +24,9 @@ const Routes = () => {
           <BrowserRouter>
               <Switch>
                   <Route exact path="/">
+                  </Route>
+                  <Route exact path="/account-settings">
+                      <AccountSettings />
                   </Route>
               </Switch>
           </BrowserRouter>
@@ -43,7 +49,7 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/sign-in">
                     <SignIn/>
-                </Route>
+          </Route>
             </Switch>
         </BrowserRouter>)
 }
