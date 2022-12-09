@@ -84,7 +84,6 @@ const CompanySettings = props => {
       const response = await getCompanyProfile(userStore.userInfo.company_id)
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
-      // TODO concat all service areas
       if (response?.service_area) {
         response.service_area[0].zip = await getZipCodesFiltered(
           response?.service_area[0]
