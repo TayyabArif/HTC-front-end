@@ -66,7 +66,7 @@ export const SupportCard = props => {
           {contacts.phone}
         </Typography>}
         <Box margin="0px 0px 25px 0px" padding={0} >
-          <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_THERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+          <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
               {t('company_settings.support_card.privacy')}
           </Link>
         </Box>
