@@ -85,6 +85,62 @@ const customTheme = createTheme({
     alert: '#47a0f499',
     borderBrowser: '#C3C3C3',
     filtersBorder: '#0000003b',
+    complianceBlue: '#E2EBF3',
+    iconBlue: '#2F80ED',
+    workOrders: {
+      counts: '#6C7172',
+      chipBack: '#F1F1F1',
+      selectedRow: 'rgba(93, 181, 224, 0.1)',
+      dotsBack: '#E0E0E0',
+      columnTitle: '#6C7172',
+      emptyText: '#6C7172',
+      detailsTitle: '#6C7172',
+      emptyCardTitle: '#333333',
+      downloadIcon: '#C4C4C4',
+      detailsCardBorderColor: 'rgba(216, 216, 216, 0.25)',
+      tab: {
+        description: '#121212',
+        wonum: '#212121',
+        duedate: '#828282'
+      },
+      buttonPrimary: '#EEEEEE',
+      gradient: '#DCDCDC',
+      etaText: '#A0A0A0'
+    },
+    workOrderColors: {
+      open: '#2F80ED',
+      completed: '#4F4F4F',
+      in_progress: '#219653',
+      active: '#8BC400',
+      draft: '#828282',
+      submitted: '#4F4F4F',
+      declined: '#EB5757',
+      approved: '#27AE60',
+      no_work_order: '#CE004A',
+      not_available: '#BDBDBD'
+    },
+    profile: {
+      text_grey: '#212121',
+      avatar_bg: '#F9F9F9',
+      avatar_icon: '#4F4F4F',
+      border_input: '#ced4da',
+      border_focus: '#80bdff',
+      box_shadow: 'rgba(0,123,255,.25)',
+      borders: '#F2F2F2',
+      darkCard: '#E0E0E0',
+      disabled_bg: '#F5F5F5',
+      mapFill: '#AF1199',
+      mapStroke: '#FFFFFF'
+    },
+    filters: {
+      leftColumnBackground: '#FDFDFD',
+      tagsBorder: '#EBEBEB',
+      fieldsBorder: '#E0E0E0',
+      fieldsLabels: '#6C7172',
+      fieldsBackground: '#FFFFFF',
+      selectedChips: 'blue',
+      selectedExceptionsDividers: '#B9B9B9'
+    },
     signInButton: {
       background: '#F2F2F2',
       label: '#676767'
@@ -111,7 +167,8 @@ const customTheme = createTheme({
     company: {
       title: '#333333',
       inputBorder: '#0000003A',
-      roleButton: '#E0E0E018'
+      roleButton: '#E0E0E018',
+      iconColor: '#B0B0B0'
     },
     accountSettings: {
       bgBlue: '#6F7D94'

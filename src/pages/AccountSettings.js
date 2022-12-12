@@ -16,12 +16,12 @@ const AccountSettings = () => {
         <MainContainer>
             <Container className={classes.container} maxWidth={false} disableGutters>
                 <Box className={classes.titleBackground}></Box>
-                <Box display="flex" flexDirection="row">
+                <Box className={classes.frontBoxes} display="flex" flexDirection="row">
                     <Typography className={classes.title}>
                         {t('account_settings.title')}
                     </Typography>
                 </Box>
-                <Grid container>
+                <Grid className={classes.frontBoxes} container>
                     <Grid item sm={12} md={8} lg={6}>
                         <AccountInfoCard />
                     </Grid>

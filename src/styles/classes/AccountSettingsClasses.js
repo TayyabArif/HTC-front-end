@@ -6,7 +6,6 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
     padding: '0px 0px',
     margin: '0px 0px',
     maxWidth: '100%',
-    width: '100%',
     height: '400px'
   },
   title: {
@@ -27,8 +26,10 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
     backgroundColor: theme.colors.accountSettings.bgBlue,
     height: '400px',
     width: '100%',
-    maxWidth: '100%',
-    zIndex: -1
+    maxWidth: '100%'
+  },
+  frontBoxes: {
+    position: 'relative'
   }
 }))
 
@@ -87,12 +88,10 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
     overflowX: 'hidden',
     zIndex: 1500,
     boxSizing: 'content-box',
-    marginRight: '19px',
     marginBottom: '20px',
     display: 'flex'
   },
   footer: {
-    marginRight: 20,
     marginBottom: 20,
     height: '49px',
     width: '341px',
@@ -103,6 +102,18 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
   drawerTitle: { alignItems: 'center', paddingLeft: '20px' },
   drawerContent: {
     '&.MuiGrid-root': {
+    }
+  }
+}))
+
+export const textInputStyles = makeStyles(theme => ({
+  root: {
+    '& .MuiFilledInput-input': {
+      border: `1px solid ${theme.colors.signInButton.background}`,
+      color: `${theme.colors.text} !important`,
+      backgroundColor: theme.colors.signInButton.background,
+      width: '303px',
+      borderRadius: '6px'
     }
   }
 }))
@@ -320,6 +331,80 @@ export const TextInputClasses = makeStyles(theme => ({
   }
 }))
 
+export const phoneInputStyles = makeStyles(theme => ({
+  root: {
+    marginTop: '0px',
+    '& .MuiFilledInput-input': {
+      border: `1px solid ${theme.colors.signInButton.background}`,
+      color: `${theme.colors.text} !important`,
+      backgroundColor: theme.colors.signInButton.background,
+      width: '288px',
+      borderRadius: '6px'
+    },
+    '& .MuiFilledInput-root': {
+      backgroundColor: theme.colors.signInButton.background,
+      borderRadius: '6px'
+    },
+    '& .MuiIconButton-sizeSmall': {
+      marginLeft: '20px'
+    },
+    '& .MuiIconButton-sizeSmall:hover': {
+      backgroundColor: theme.colors.signInButton.background
+    },
+    '& .MuiFilledInput-adornedEnd': {
+      paddingRight: 0
+    },
+    '& .MuiFormLabel-root': {
+      top: '4px'
+    },
+    '& .Mui-focused': {
+      color: theme.colors.workOrders.tab.duedate
+    },
+    '& .MuiFormHelperText-root': {
+      fontSize: '10px'
+    }
+  },
+  input: {
+    marginTop: 'unset',
+    marginBottom: '12px'
+  },
+  label: {
+    marginTop: 'unset',
+    fontSize: 10,
+    borderRadius: '8px',
+    color: theme.colors.workOrders.tab.duedate
+  },
+  textField: {
+    height: '52px',
+    fontSize: 16,
+    maxWidth: '309px',
+    backgroundColor: theme.colors.signInButton.background
+  },
+  icon: {
+    color: theme.colors.company.iconColor,
+    marginRight: '15px'
+  }
+}))
+
+export const selectorStyles = makeStyles(theme => ({
+  textField: {
+    height: '52px',
+    fontSize: 16,
+    width: '309px',
+    '& svg': {
+      fontSize: '25px'
+    },
+    '&.MuiButtonBase-root': {
+      padding: '0px'
+    }
+  },
+  formControl: {
+    '& .MuiFormControl-root': {
+      margin: 0
+    }
+  }
+}))
+
 export const SelectorClasses = makeStyles(theme => ({
   textField: {
     height: '52px',
@@ -331,7 +416,7 @@ export const SelectorClasses = makeStyles(theme => ({
     marginTop: 'unset',
     fontSize: 10,
     borderRadius: '8px',
-    color: theme.colors.tab.duedate,
+    color: theme.colors.workOrders.tab.duedate,
     backgroundColor: theme.colors.signInButton.background
   },
   root: {
@@ -373,9 +458,7 @@ export const SelectorClasses = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    '&.MuiButtonBase-root': {
-      padding: '0px'
-    }
+    marginRight: '5px'
   },
   menuItem: theme.filtersClasses.menuItem,
   formControl: {

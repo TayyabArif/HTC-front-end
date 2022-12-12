@@ -157,6 +157,128 @@ export const getUser = async () => {
 }
 
 /**
+ * Validate access code
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const validateAccessCode = async id => {
+  return await callAPI('GET', '/users/validateaccesscode', { id }, false)
+}
+
+export const workOrdersPortal = async (
+  showAll = false,
+  query = '',
+  client_name = '',
+  address = '',
+  trades = '',
+  service = '',
+  wo_number = '',
+  open_date = '',
+  expiration_date = '',
+  status = '',
+  invoices = '',
+  sort = '',
+  limit = 25,
+  page = 1
+) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    return await callAPI(
+      'GET',
+      '/workorders',
+      new URLSearchParams({
+        showAll,
+        query,
+        client_name,
+        address,
+        trades,
+        service,
+        wo_number,
+        open_date,
+        expiration_date,
+        status,
+        invoices,
+        sort,
+        limit,
+        page,
+        group_portal: true
+      })
+    )
+  } catch (err) {
+    throw err
+  }
+}
+
+export const invoicesPortal = async (
+  showAll = false,
+  query = '',
+  won = '',
+  inStatus = '',
+  client = '',
+  location = '',
+  invoiceNumber = '',
+  amount = '',
+  createDate = '',
+  dueDate = '',
+  sort = '',
+  companyId = '',
+  limit = 25,
+  page = 1
+) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    return await callAPI(
+      'GET',
+      `/invoices/company/${companyId}`,
+      new URLSearchParams({
+        showAll,
+        query,
+        won,
+        inStatus,
+        client,
+        location,
+        invoiceNumber,
+        amount,
+        createDate,
+        dueDate,
+        sort,
+        limit,
+        page
+      })
+    )
+  } catch (err) {
+    throw err
+  }
+}
+
+export const submitInvoicePortal = async (
+  id = '',
+  submit = false,
+  body = {}
+) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    return await callAPI(
+      'PUT',
+      `/invoices/${id}/?` + new URLSearchParams({ submit }),
+      { ...body },
+      true
+    )
+  } catch (err) {
+    throw err
+  }
+}
+
+export const getInvoiceById = async (id = '') => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    return await callAPI('GET', `/invoices/${id}`, true)
+  } catch (error) {
+    throw error
+  }
+}
+
+/*
  * Verify registration status
  *
  * @returns {Promise<boolean>} The API response data
@@ -220,6 +342,156 @@ export const updateUser = async (id, params) => {
 }
 
 /**
+ * GET Trades list for current user
+ * @returns Trades list
+ */
+export const getWorkOrderTrades = async () => {
+  try {
+    const response = await callAPI('GET', '/trades/wotrades')
+    return response
+  } catch {
+    return false
+  }
+}
+
+/**
+ * GET Selected company
+ * @returns Company
+ */
+export const getCompany = async id => {
+  const response = await callAPI('GET', `/companies/${id}`)
+  return response
+}
+
+/**
+ * GET Company contact
+ * @returns Contact
+ */
+export const getContactOffline = async id => {
+  const response = await callAPI(
+    'GET',
+    `/company-contact-offline/${id}`,
+    {},
+    false
+  )
+  return response
+}
+
+/**
+ * GET Selected company Profile
+ * @returns CompanyProfile
+ */
+export const getCompanyProfile = async id => {
+  const response = await callAPI('GET', `/companyProfile/${id}`)
+  return response
+}
+
+/**
+ * GET file from S3 bucket
+ * @returns Buffer
+ */
+export const getCompanyFile = async key => {
+  const encodedURI = encodeURIComponent(key)
+  const response = await callAPI('GET', `/companyFileUploaded/${encodedURI}`)
+  return response
+}
+
+/**
+ * PUT Update selected company
+ * @returns Company
+ */
+export const updateCompany = async (id, params) => {
+  const response = await callAPI('PUT', `/companies/${id}`, params)
+  return response
+}
+
+/**
+ * PUT upload copany files
+ * @returns string
+ */
+export const uploadCompanyFile = async (id, params) => {
+  const response = await callAPI('PUT', `/companies/uploadFile/${id}`, params)
+  return response
+}
+
+/**
+ * Get client users
+ *
+ * @param companyId
+ * @returns {Promise<object[]>} The API response data
+ */
+export const getCompanyUsers = async (companyId = 0) => {
+  return await callAPI('GET', `users/companyusers/${companyId}`)
+}
+
+/**
+ * Get company roles
+ *
+ * @param companyId
+ * @returns {Promise<object[]>} The API response data
+ */
+export const getRoles = async (companyId = 0) => {
+  return await callAPI('GET', `roles/company/${companyId}`)
+}
+
+/**
+ * Create Role with access scopes
+ * @param name
+ * @param workorders
+ * @param sites
+ * @param companySettings
+ * @returns {Promise<object>} The API response data
+ */
+export const createRolWithScopes = async (
+  name,
+  workorders,
+  sites,
+  companySettings
+) => {
+  api.setHeader('Content-Type', 'application/json')
+  return await callAPI('POST', '/roles', {
+    name,
+    workorders,
+    sites,
+    companySettings
+  })
+}
+
+/**
+ * Update Role with access scopes
+ * @param id
+ * @param name
+ * @param workorders
+ * @param sites
+ * @param companySettings
+ * @returns {Promise<object>} The API response data
+ */
+export const updateRolWithScopes = async (
+  id,
+  name,
+  workorders,
+  sites,
+  companySettings
+) => {
+  api.setHeader('Content-Type', 'application/json')
+  return await callAPI('PUT', `/roles/${id}`, {
+    name,
+    workorders,
+    sites,
+    companySettings
+  })
+}
+
+/**
+ * Delete Role with Scopes
+ * @param id
+ * @returns {Promise<boolean>} The API response data
+ */
+export const deleteRolWithScopes = async id => {
+  return await callAPI('DELETE', `/roles/${id}`)
+}
+
+/**
  * GET Company Roles list
  * @returns Company Roles list
  */
@@ -230,4 +502,24 @@ export const getCompanyRoles = async companyId => {
   } catch {
     return false
   }
+}
+
+/**
+ * Change user password
+ * @param password
+ * @returns {Promise<object>} The API response data
+ */
+export const changeUserPassword = async password => {
+  api.setHeader('Content-Type', 'application/json')
+  return await callAPI('PUT', '/api/users/change-password', {
+    password
+  })
+}
+
+/*
+ * GET Selected WorkOrder
+ * @returns WorkOrder
+ */
+export const getWorkOrder = async id => {
+  return await callAPI('GET', `/workorders/${id}`)
 }

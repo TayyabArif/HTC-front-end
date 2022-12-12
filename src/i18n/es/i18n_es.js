@@ -9,6 +9,8 @@ import { contactUs } from './contactUs'
 import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
+import { companySettings } from './companySettings'
+import { companyProfile } from './companyProfile'
 import { accountSettings } from './accountSettings'
 
 export const i18nEs = () => {
@@ -24,6 +26,8 @@ export const i18nEs = () => {
     nav_bar: navBar(),
     dashboard: dashboard(),
     general: general(),
+    company_settings: companySettings(),
+    companyProfile: companyProfile(),
     account_settings: accountSettings()
   }
 }
