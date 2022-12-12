@@ -6,6 +6,66 @@ import { MapFiltersButton } from '../../../styles/mui_custom_components'
 import { ArrowDropDownTwoTone, ArrowRightTwoTone, Check as CheckIcon } from '@mui/icons-material'
 import { mapDateRangeOptions, mapStatusOptions } from '../../../lib/Constants'
 
+// hardcoded options
+const mapStateOptions = [
+  {
+    id: 'All States'
+  },
+  {
+    id: 'AL'
+  },
+  {
+    id: 'AK'
+  },
+  {
+    id: 'AR'
+  },
+  {
+    id: 'AZ'
+  },
+  {
+    id: 'CA'
+  },
+  {
+    id: 'CO'
+  },
+  {
+    id: 'CT'
+  },
+  {
+    id: 'DE'
+  }
+]
+const mapCityOptions = [
+  {
+    id: 'All Cities'
+  },
+  {
+    id: 'Abilene'
+  },
+  {
+    id: 'Addison'
+  },
+  {
+    id: 'Albuquerque'
+  },
+  {
+    id: 'Alexandria'
+  },
+  {
+    id: 'Allen'
+  },
+  {
+    id: 'Amarillo'
+  },
+  {
+    id: 'Ames'
+  },
+  {
+    id: 'Anchorage'
+  }
+]
+
 export const MapFilters = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
@@ -18,6 +78,9 @@ export const MapFilters = (props) => {
   const [anchorState, setAnchorState] = useState(null)
   const isMenuStateOpen = Boolean(anchorState)
   const [state, setState] = useState('All States')
+  const [anchorCity, setAnchorCity] = useState(null)
+  const isMenuCityOpen = Boolean(anchorCity)
+  const [city, setCity] = useState('All Cities')
 
   const handleDateOpen = (event) => {
     setAnchorDates(event.currentTarget)
@@ -50,6 +113,17 @@ export const MapFilters = (props) => {
   const handleChangeState = (value) => {
     setState(value)
     setAnchorState(null)
+  }
+
+  const handleCityOpen = (event) => {
+    setAnchorCity(event.currentTarget)
+  }
+  const handleCityClose = (event) => {
+    setAnchorCity(null)
+  }
+  const handleChangeCity = (value) => {
+    setCity(value)
+    setAnchorCity(null)
   }
 
   return (<Menu
@@ -142,14 +216,41 @@ export const MapFilters = (props) => {
                 }}
                 classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
             >
-                {mapStatusOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeState(option.id)} className={classes.menuItem}>
+                {mapStateOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeState(option.id)} className={classes.menuItem}>
                   <Typography className={classes.menuLabel}>
-                    {t(`locations.wo_status.${option.id}`)}
+                    {option.id}
                     </Typography>
                     {option.id === state && <CheckIcon className={classes.checkIcon}/>}
                   </MenuItem>)}
             </Menu>
         </Box>
         <Box padding={1} key="city" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.city')}</Typography></Box>
+        <Box padding={1} key="city_drop" className={classes.mainItem}>
+            <MapFiltersButton onClick={handleCityOpen}>
+                <Typography className={classes.dateLabel} >{city}</Typography>
+                {isMenuCityOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+            </MapFiltersButton>
+            <Menu
+                open={isMenuCityOpen}
+                onClose={handleCityClose}
+                anchorEl={anchorCity}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left'
+                }}
+                classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
+            >
+                {mapCityOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeCity(option.id)} className={classes.menuItem}>
+                  <Typography className={classes.menuLabel}>
+                    {option.id}
+                    </Typography>
+                    {option.id === city && <CheckIcon className={classes.checkIcon}/>}
+                  </MenuItem>)}
+            </Menu>
+        </Box>
     </Menu>)
 }
