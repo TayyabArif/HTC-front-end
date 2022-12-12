@@ -165,6 +165,8 @@ function EnhancedTableHead (props) {
                       headCell.id === 'wostat' ||
                       headCell.id === 'invoices' ||
                       headCell.id === 'won' ||
+                      headCell.id === 'trade' ||
+                      headCell.id === 'site_name' ||
                       headCell.id === 'client_name') && (
                       <SortMenu
                         id={headCell.id}
