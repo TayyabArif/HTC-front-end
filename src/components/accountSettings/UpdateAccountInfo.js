@@ -74,6 +74,7 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
+    employeeId: accountInfo.userInfo.employee_id,
     password: passwordPlaceHolder,
     passwordConfirm: passwordPlaceHolder
   }
@@ -115,6 +116,10 @@ export const UpdateAccountInfo = props => {
       .string()
       .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6')),
+    employeeId: yup
+      .string()
+      .required(t('account_settings.messages.errors.required'))
+      .min(6, t('general.messages.errors.length_6')),
     password: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -148,19 +153,19 @@ export const UpdateAccountInfo = props => {
     let save = true
     if (
       !updatedInfo.firstName ||
-        !updatedInfo.lastName ||
-        !updatedInfo.email ||
-        !updatedInfo.username ||
-        !updatedInfo.phone ||
-        (updatedInfo.password && !updatedInfo.passwordConfirm) ||
-        (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-        (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      !updatedInfo.lastName ||
+      !updatedInfo.email ||
+      !updatedInfo.username ||
+      !updatedInfo.phone ||
+      (updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+      (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
       errors?.phone?.message ||
       errors?.username?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message ||
-        (updatedInfo.password !== updatedInfo.passwordConfirm)
+      (updatedInfo.password !== updatedInfo.passwordConfirm)
     ) {
       save = false
     }
@@ -203,7 +208,8 @@ export const UpdateAccountInfo = props => {
         username: updatedInfo.username,
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
-        role: updatedInfo.role
+        role: updatedInfo.role,
+        employeeId: updatedInfo.employeeId
       }
 
       if (updatedInfo.password !== passwordPlaceHolder) {
@@ -224,6 +230,7 @@ export const UpdateAccountInfo = props => {
       newUserData.userInfo.roles = newData.roles
       newUserData.userInfo.role = newData.role
       newUserData.userInfo.password = newData.password
+      newUserData.userInfo.employee_id = newData.employeeId
 
       store.dispatch(authActions.setUser(newUserData))
       handleClosePanel(newUserData)
@@ -252,7 +259,8 @@ export const UpdateAccountInfo = props => {
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
-        updatedInfo.password
+        updatedInfo.password,
+        updatedInfo.employeeId
       )
       handleClose()
       updateUsers()
@@ -275,6 +283,7 @@ export const UpdateAccountInfo = props => {
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
+        employee_id: updatedInfo.employeeId,
         password:
           updatedInfo.password === passwordPlaceHolder
             ? undefined
@@ -330,79 +339,79 @@ export const UpdateAccountInfo = props => {
                 <Grid container mt={2}>
                   <Grid item xs={6}>
                     <TextInput
-                        value={updatedInfo.firstName}
-                        id="firstName"
-                        name="firstName"
-                        handleChange={handleChangeValues}
-                        label={t('account_settings.info_card.first_name')}
-                        error={!!errors.firstName}
-                        helperText={errors.firstName && errors.firstName.message}
-                        {...register('firstName')}
-                        inputStyle={{
-                          width: '100%',
-                          borderRightColor: 'red',
-                          borderRightWidth: '1px',
-                          borderRightStyle: 'solid',
-                          borderTopRightRadius: 0,
-                          borderBottomRightRadius: 0,
-                          borderColor: '#B8B8B8'
-                        }}
+                      value={updatedInfo.firstName}
+                      id="firstName"
+                      name="firstName"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.first_name')}
+                      error={!!errors.firstName}
+                      helperText={errors.firstName && errors.firstName.message}
+                      {...register('firstName')}
+                      inputStyle={{
+                        width: '100%',
+                        borderRightColor: 'red',
+                        borderRightWidth: '1px',
+                        borderRightStyle: 'solid',
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                        borderColor: '#B8B8B8'
+                      }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextInput
-                        value={updatedInfo.lastName}
-                        id="lastName"
-                        name="lastName"
-                        handleChange={handleChangeValues}
-                        label={t('account_settings.info_card.last_name')}
-                        error={!!errors.lastName}
-                        helperText={errors.lastName && errors.lastName.message}
-                        {...register('lastName')}
-                        inputStyle={{
-                          width: '100%',
-                          borderTopLeftRadius: 0,
-                          borderBottomLeftRadius: 0
-                        }}
+                      value={updatedInfo.lastName}
+                      id="lastName"
+                      name="lastName"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.last_name')}
+                      error={!!errors.lastName}
+                      helperText={errors.lastName && errors.lastName.message}
+                      {...register('lastName')}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
-                        value={updatedInfo.email}
-                        id="email"
-                        name="email"
-                        handleChange={handleChangeValues}
-                        label={t('account_settings.info_card.email')}
-                        error={!!errors.email}
-                        helperText={errors.email && errors.email.message}
-                        {...register('email')}
-                        endAdornment={true}
-                        inputStyle={{
-                          width: '100%',
-                          borderTopLeftRadius: 0,
-                          borderBottomLeftRadius: 0
-                        }}
+                      value={updatedInfo.email}
+                      id="email"
+                      name="email"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.email')}
+                      error={!!errors.email}
+                      helperText={errors.email && errors.email.message}
+                      {...register('email')}
+                      endAdornment={true}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <PhoneInput
-                        value={updatedInfo.phone}
-                        id="phone"
-                        name="phone"
-                        handleChange={handleChangeValues}
-                        label={t('account_settings.info_card.phone_number')}
-                        error={!!errors.phone}
-                        helperText={errors.phone && errors.phone.message}
-                        inputStyle={{
-                          width: '100%',
-                          borderTopLeftRadius: 0,
-                          borderBottomLeftRadius: 0
-                        }}
-                        {...register('phone')}
+                      value={updatedInfo.phone}
+                      id="phone"
+                      name="phone"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.phone_number')}
+                      error={!!errors.phone}
+                      helperText={errors.phone && errors.phone.message}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                      {...register('phone')}
                     />
                   </Grid>
                 </Grid>
@@ -410,158 +419,156 @@ export const UpdateAccountInfo = props => {
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <Selector
-                        id={'roles'}
-                        value={
-                          mobile
-                            ? t('company_settings.mobile_only')
-                            : roles
-                              ? roles[0].name
-                              : ''
-                        }
-                        label={t('account_settings.info_card.company_role')}
-                        handleChange={handleChangeValues}
-                        options={
-                          mobile
-                            ? [
-                                {
-                                  id: 'no_value',
-                                  name: t('company_settings.mobile_only')
-                                }
-                              ]
-                            : roles && roles.length > 0
-                              ? [...roles]
-                              : []
-                        }
-                        error={!!errors.roles}
-                        helperText={errors.roles && errors.roles.message}
-                        disabled={accountOwner}
-                        {...register('roles')}
+                      id={'roles'}
+                      value={
+                        mobile
+                          ? t('company_settings.mobile_only')
+                          : roles
+                            ? roles[0].name
+                            : ''
+                      }
+                      label={t('company_settings.users_card.role')}
+                      handleChange={handleChangeValues}
+                      options={
+                        mobile
+                          ? [
+                              {
+                                id: 'no_value',
+                                name: t('company_settings.mobile_only')
+                              }
+                            ]
+                          : roles && roles.length > 0
+                            ? [...roles]
+                            : []
+                      }
+                      error={!!errors.roles}
+                      helperText={errors.roles && errors.roles.message}
+                      disabled={accountOwner}
+                      {...register('roles')}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <Selector
-                        id={'role'}
-                        value={
-                            t('create_account.user_roles', {
-                              returnObjects: true
-                            })[updatedInfo.role] ?? ''
+                      id={'role'}
+                      value={
+                        t('request_access.user_roles', {
+                          returnObjects: true
+                        })[updatedInfo.role] ?? ''
+                      }
+                      label={t('company_settings.users_card.panel_role')}
+                      handleChange={handleChangeValues}
+                      options={Object.keys(
+                        t('request_access.user_roles', { returnObjects: true })
+                      ).map(key => {
+                        return {
+                          id: key,
+                          name: t('request_access.user_roles', {
+                            returnObjects: true
+                          })[key]
                         }
-                        label={t('company_settings.users_card.role')}
-                        handleChange={handleChangeValues}
-                        options={Object.keys(
-                          t('create_account.user_roles', { returnObjects: true })
-                        ).map(key => {
-                          return {
-                            id: key,
-                            name: t('create_account.user_roles', {
-                              returnObjects: true
-                            })[key]
-                          }
-                        })}
-                        error={!!errors.role}
-                        helperText={errors.role && errors.role.message}
-                        {...register('role')}
+                      })}
+                      error={!!errors.role}
+                      helperText={errors.role && errors.role.message}
+                      {...register('role')}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2} sx={styles.emailNotifications}>
                   <Grid item xs={12}>
                     <Selector
-                        id={'emailNotifications'}
-                        value={
-                            t('create_account.email_notifications', {
-                              returnObjects: true
-                            })[updatedInfo.emailNotifications] ?? ''
+                      id={'emailNotifications'}
+                      value={
+                        t('create_account.email_notifications', {
+                          returnObjects: true
+                        })[updatedInfo.emailNotifications] ?? ''
+                      }
+                      label={t('company_settings.users_card.notifications')}
+                      handleChange={handleChangeValues}
+                      options={Object.keys(
+                        t('create_account.email_notifications', { returnObjects: true })
+                      ).map(key => {
+                        return {
+                          id: key,
+                          name: t('create_account.email_notifications', {
+                            returnObjects: true
+                          })[key]
                         }
-                        label={t('company_settings.users_card.notifications')}
-                        handleChange={handleChangeValues}
-                        options={Object.keys(
-                          t('create_account.email_notifications', { returnObjects: true })
-                        ).map(key => {
-                          return {
-                            id: key,
-                            name: t('create_account.email_notifications', {
-                              returnObjects: true
-                            })[key]
-                          }
-                        })}
-                        {...register('emailNotifications')}
+                      })}
+                      {...register('emailNotifications')}
                     />
                   </Grid>
                 </Grid>
-                <Grid container mt={2} sx={styles.employeeId}>
+                <Grid container mt={2} >
                   <Grid item xs={12}>
                     <TextInput
-                        value={updatedInfo.employeeId}
-                        id="employeeId"
-                        name="employeeId"
-                        handleChange={handleChangeValues}
-                        label={t('account_settings.info_card.employee_id')}
-                        error={!!errors.employeeId}
-                        helperText={errors.employeeId && errors.employeeId.message}
-                        {...register('employeeId')}
-                        variant="filled"
-                        inputStyle={{
-                          width: '100%',
-                          borderTopRightRadius: 0,
-                          borderBottomRightRadius: 0
-                        }}
+                      value={updatedInfo.employeeId}
+                      id="employeeId"
+                      name="employeeId"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.employee_id')}
+                      placeholder={t('account_settings.info_card.placeholder_employee')}
+                      error={!!errors.employeeId}
+                      helperText={errors.employeeId && errors.employeeId.message}
+                      {...register('employeeId')}
+                      inputStyle={{
+                        width: '100%'
+                      }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
-                        value={updatedInfo.username}
-                        id="username"
-                        handleChange={handleChangeValues}
-                        label={
-                            t('account_settings.info_card.username') +
-                            ' ' +
-                            t('account_settings.form.username_chars')
-                        }
-                        error={!!errors.username}
-                        helperText={errors.username && errors.username.message}
-                        endAdornment={true}
-                        {...register('username')}
+                      value={updatedInfo.username}
+                      id="username"
+                      handleChange={handleChangeValues}
+                      label={
+                        t('account_settings.info_card.username') +
+                        ' ' +
+                        t('account_settings.form.username_chars')
+                      }
+                      error={!!errors.username}
+                      helperText={errors.username && errors.username.message}
+                      endAdornment={true}
+                      {...register('username')}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
-                        value={updatedInfo.password}
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder={'********'}
-                        handleChange={handleChangeValues}
-                        label={t('account_settings.info_card.password')}
-                        error={!!errors.password}
-                        helperText={errors.password && errors.password.message}
-                        endAdornment={true}
-                        {...register('password')}
+                      value={updatedInfo.password}
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder={'********'}
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.password')}
+                      error={!!errors.password}
+                      helperText={errors.password && errors.password.message}
+                      endAdornment={true}
+                      {...register('password')}
                     />
                   </Grid>
                 </Grid>
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
-                        value={updatedInfo.passwordConfirm}
-                        id="passwordConfirm"
-                        name="passwordConfirm"
-                        type="password"
-                        handleChange={handleChangeValues}
-                        placeholder={'********'}
-                        label={t('account_settings.info_card.password_confirm')}
-                        error={!!errors.passwordConfirm}
-                        endAdornment={true}
-                        helperText={
-                            errors.passwordConfirm && errors.passwordConfirm.message
-                        }
-                        {...register('passwordConfirm')}
+                      value={updatedInfo.passwordConfirm}
+                      id="passwordConfirm"
+                      name="passwordConfirm"
+                      type="password"
+                      handleChange={handleChangeValues}
+                      placeholder={'********'}
+                      label={t('account_settings.info_card.password_confirm')}
+                      error={!!errors.passwordConfirm}
+                      endAdornment={true}
+                      helperText={
+                        errors.passwordConfirm && errors.passwordConfirm.message
+                      }
+                      {...register('passwordConfirm')}
                     />
                   </Grid>
                 </Grid>

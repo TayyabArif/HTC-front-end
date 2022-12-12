@@ -4,9 +4,9 @@ export const accountSettings = () => {
     info_card: {
       title: 'Account Details',
       new_user_title: 'New User',
-      name: '',
-      first_name: 'First Name',
-      last_name: 'Last Name',
+      name: 'Name',
+      first_name: 'First name',
+      last_name: 'Last name',
       email: 'Email Address',
       username: 'Username',
       company_role: 'Role',
@@ -18,6 +18,15 @@ export const accountSettings = () => {
       profile_pic: 'Profile Pic',
       user_title: 'Title',
       access_type: 'Access Type',
+      access: 'Access',
+      placeholder_first: 'Enter first',
+      placeholder_last: 'Enter last',
+      placeholder_email: 'Enter email address',
+      placeholder_phone: 'Enter phone',
+      placeholder_username: 'Create username',
+      placeholder_pass: 'Create password',
+      placeholder_repass: 'Re-enter password',
+      placeholder_employee: 'Enter ID',
       edit_button: 'Edit'
     },
     form: {
@@ -25,7 +34,8 @@ export const accountSettings = () => {
       edit: 'Edit',
       add: 'Add profile photo',
       enter: 'Enter',
-      username_chars: '(at least 6 characters)'
+      username_chars: '(at least 6 characters)',
+      create: 'Create'
     },
     messages: {
       errors: {

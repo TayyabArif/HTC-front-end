@@ -1,15 +1,16 @@
 export const companySettings = () => {
   return {
-    title: 'COMPANY SETTINGS & PROFILE',
+    title: 'Company Settings',
     compliant: 'COMPLIANT',
     mobile_only: 'Mobile Only',
     missing: 'Missing',
+    upload_logo: 'Upload Company Logo',
     info_card: {
       title: 'COMPANY INFO',
       name: 'Company Legal Name',
       name_placeholder: 'Enter company name',
       legal_entity: 'Legal Entity (LLC, C-Corp, etc)',
-      address: 'Full Company Address',
+      address: 'Company Address',
       street: 'Street',
       city: 'City',
       zip_code: 'Zip/Postal Code',
@@ -64,7 +65,7 @@ export const companySettings = () => {
       title: 'USERS',
       name: 'Name',
       first_and_last_name: 'First and Last Name',
-      role: 'Title',
+      role: 'Role',
       company_role: 'Company Role',
       access: 'Access Level',
       panel_new: 'New User',
@@ -83,14 +84,6 @@ export const companySettings = () => {
       user_already_exists: 'User already exists',
       search: 'Search user',
       notifications: 'Notifications'
-    },
-    support_card: {
-      title: 'Support',
-      policy: 'Privacy Policy',
-      conditions: 'Terms and Conditions',
-      technical: 'Technical Support',
-      terms_of_use: 'Terms of Use',
-      version: 'Software Version'
     },
     reports_card: {
       title: 'Scheduled Reports',
@@ -170,6 +163,30 @@ export const companySettings = () => {
       update: 'Update logo',
       update_question: 'Are you sure you want to update the Company logo?',
       cancel: 'Cancel',
+      no_file: 'No document uploaded',
+      access: 'Access'
+    },
+    support_card: {
+      title: 'Technical Support',
+      policy: 'Privacy Policy',
+      conditions: 'Terms and Conditions',
+      terms_of_use: 'Terms of Use',
+      version: 'Software Version',
+      knowledge: 'Knowledge Base Support',
+      privacy: 'Privacy Policy & Terms of Conditions'
+    },
+    preferences_card: {
+      title: 'Preferences',
+      work_types: 'Work Types',
+      description: 'Control which work types are visible.',
+      clear: 'Clear',
+      apply: 'Apply',
+      types: {
+        maintenance: 'Maintenance',
+        enhancement: 'Enhancement',
+        seasonal: 'Seasonal',
+        complaint: 'Complaint'
+      },
       no_file: 'No document uploaded'
     }
   }

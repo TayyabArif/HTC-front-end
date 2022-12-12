@@ -6,8 +6,8 @@ import React, { useState, useEffect } from 'react'
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
 import { LockOutlined, PersonOutlineOutlined } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography, Container } from '@mui/material'
-
+import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import { SignInContainer } from '../../components/SignInContainer'
 /** Validations **/
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,7 +17,6 @@ import * as yup from 'yup'
 import googleIcon from '../../assets/icons/google.svg'
 import microsoftIcon from '../../assets/icons/microsoft.svg'
 import connectLogo from '../../assets/images/connect_logo.svg'
-import signinLogo from '../../assets/images/signin_logo.svg'
 
 /** Redux **/
 import { useDispatch } from 'react-redux'
@@ -27,8 +26,6 @@ import { store } from '../../store'
 
 /** Services **/
 import { login } from '../../services/AuthService'
-
-const pjson = require('../../../package.json')
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -294,7 +291,7 @@ const SignIn = () => {
   }
 
   return (
-    <Container className={classes.mainContainer}>
+    <SignInContainer screen="sign_in">
       <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
         <Grid className={classes.mainItem} item xs={12}>
           <Grid container justifyContent='center'>
@@ -443,21 +440,7 @@ const SignIn = () => {
           </form>
         </Grid>
       </Grid>
-      <Grid container>
-        <Grid item textAlign={'left'} marginLeft={'7%'} xs={2}>
-          <img alt={'Connect AD Platform'} className={classes.signinIcon} src={signinLogo} />
-        </Grid>
-        <Grid item xs={6} />
-        <Grid item textAlign={'right'} marginLeft="auto" marginTop="auto" display="flex" xs={2}>
-          <Typography align={'left'} className={classes.contactUs}>
-                {t('sign_in.contact_us')}&emsp;
-              </Typography>
-              <Typography align={'left'} className={classes.version}>
-                &emsp;v{pjson.version}
-              </Typography>
-        </Grid>
-      </Grid>
-    </Container>
+    </SignInContainer>
   )
 }
 

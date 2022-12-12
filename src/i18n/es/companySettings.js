@@ -1,9 +1,10 @@
 export const companySettings = () => {
   return {
-    title: 'CONFIGURACIÓN Y PERFIL DE LA EMPRESA',
+    title: 'Configuración de la Empresa',
     compliant: 'COMPLETO',
     mobile_only: 'Solo Mobil',
     missing: 'Faltante',
+    upload_logo: 'Cargar Logo de Empresa',
     info_card: {
       title: 'INFORMACIÓN DE LA EMPRESA',
       name: 'Nombre legal de la Empresa',
@@ -82,14 +83,6 @@ export const companySettings = () => {
       pending: 'pendiente',
       user_already_exists: 'Usuario ya existente',
       search: 'Buscar usuario'
-    },
-    support_card: {
-      title: 'Soporte',
-      policy: 'Política de Privacidad',
-      conditions: 'Términos y Condiciones',
-      technical: 'Soporte Técnico',
-      terms_of_use: 'Condiciones de Uso',
-      version: 'Versión del Software'
     },
     reports_card: {
       title: 'Reportes Programados',
@@ -170,6 +163,30 @@ export const companySettings = () => {
       update_question:
         'Está seguro que desea actualizar el logo de la compañía?',
       cancel: 'Cancelar',
+      no_file: 'Ningún documento cargado',
+      access: 'Acceso'
+    },
+    support_card: {
+      title: 'Soporte Técnico',
+      policy: 'Políticas de Privacidad',
+      conditions: 'Términos y Condiciones',
+      terms_of_use: 'Términos de Uso',
+      version: 'Versión de Softeware',
+      knowledge: 'Soporte Base Conocimientos',
+      privacy: 'Política de Privacida, Términos y Condiciones'
+    },
+    preferences_card: {
+      title: 'Preferencias',
+      work_types: 'Tipos de Trabajos',
+      description: 'Controla qué tipos de trabajo son visibles.',
+      clear: 'Limpiar',
+      apply: 'Aplicar',
+      types: {
+        maintenance: 'Mantenimiento',
+        enhancement: 'Mejora',
+        seasonal: 'Temporada',
+        complaint: 'Reclamo'
+      },
       no_file: 'Ningún documento cargado'
     }
   }

@@ -8,47 +8,42 @@ import {
   Container,
   CssBaseline
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 
-/** Redux **/
+/** Components **/
+import { NavBar } from './NavBar'
 import { useSelector } from 'react-redux'
+import { useWindowSize } from '@react-hook/window-size'
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    height: '100vh',
-    backgroundColor: theme.colors.mainContainerBackground,
-    paddingLeft: '0px',
-    paddingRight: '0px',
-    overflowY: 'auto'
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: theme.colors.backdropColor
-  }
-}))
+/** Utils */
+import { mobileBreakpoint } from '../lib/Constants'
+
+/** Styles */
+import { mainContainerStyles } from '../styles/classes/CommonClasses'
 
 export const MainContainer = props => {
-  const classes = useStyles()
+  const [wWidth] = useWindowSize()
+  const isMobile = wWidth <= mobileBreakpoint
+  const classes = mainContainerStyles()
   const loading = useSelector(state => state.loading.loading)
 
   return (
-        <div>
-            <CssBaseline />
-            <Container
-                className={classes.container}
-                maxWidth={false}
-                style={{
-                  backgroundColor: props.backgroundColor
-                    ? props.backgroundColor
-                    : 'inherit'
-                }}
-            >
-                <Backdrop className={classes.backdrop} open={loading}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-                <Box className={classes.navBarOffset}></Box>
-                <Box>{props.children}</Box>
-            </Container>
-        </div>
+    <div>
+      <CssBaseline />
+      <Container
+        className={classes.scrollContainer}
+        style={{
+          minWidth: isMobile ? 'unset' : wWidth > 800 ? '800px' : '1440px'
+        }}
+      >
+        <Container className={classes.container}>
+          <Backdrop className={classes.backdrop} open={loading}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+          <NavBar />
+          <Box className={classes.navBarOffset}></Box>
+          <Box>{props.children}</Box>
+        </Container>
+      </Container>
+    </div>
   )
 }
