@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 /** Material UI **/
 import { makeStyles } from '@mui/styles'
@@ -18,12 +18,13 @@ import { SignInContainer } from '../../components/SignInContainer'
 import { useTranslation } from 'react-i18next'
 import { PersonOutline as PersonOutlineIcon } from '@mui/icons-material'
 import { RoundedButton } from '../../styles/mui_custom_components'
-import { validateEmail } from '../../lib/Global'
 import { loadingActions } from '../../store/loading'
-import { requestResetPassword } from '../../services/AuthService'
-import ReactGA from 'react-ga4'
-import { authActions } from '../../store/signIn'
 
+/** Services **/
+import { createUser } from '../../services/ApiService'
+import { useLocation } from 'react-router-dom'
+
+/** Styles **/
 const useStyles = makeStyles((theme) => ({
   mainItem: {
     maxWidth: '30em',
@@ -118,56 +119,101 @@ const CreateAccount = () => {
   const classes = useStyles()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [errorApi, setErrorApi] = useState('')
-  const [firstName, setFirstName] = useState('')
+  const [enableSave, setEnableSave] = useState()
 
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [accessCode, setAccessCode] = useState('')
+
+  const { search } = useLocation()
+  const query = new URLSearchParams(search)
+
+  // sx styles
   const labelStyle = {
     '& label': {
-      top: '-8px'
+      top: '-20px'
     },
     '& legend': {
       display: 'none'
+    },
+    '& .MuiInputLabel-root.Mui-required': {
+      display: 'flex',
+      flexDirection: 'row-reverse'
     }
   }
 
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
-    first_name: yup.string().required(t('general.messages.errors.required')),
-    last_name: yup.string().required(t('general.messages.errors.required')),
-    password: yup.string().required(t('general.messages.errors.required'))
+    first_name: yup
+      .string()
+      .required(t('general.messages.errors.required')),
+    last_name: yup
+      .string()
+      .required(t('general.messages.errors.required')),
+    password: yup
+      .string()
+      .required(t('general.messages.errors.required'))
+      .min(6, t('general.messages.errors.length_6'))
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'all',
     resolver: yupResolver(validationSchema)
   })
+
+  useEffect(() => {
+    let save = true
+    if (
+      !firstName ||
+      !lastName ||
+      !password ||
+      errors?.password?.message
+    ) {
+      save = false
+    }
+    setEnableSave(save)
+  }, [firstName, lastName, password, errors])
+
+  useEffect(() => {
+    setEmail(query.get('originEmail'))
+    setAccessCode(query.get('affiliateId'))
+  }, [])
 
   const onSubmit = async (data) => {
     dispatch(loadingActions.show())
     try {
-      const response = await requestResetPassword(firstName)
-      if (response && response.status) {
-        dispatch(loadingActions.hide())
-      } else {
-        ReactGA.event({
-          category: 'request',
-          action: 'create_account_request'
-        })
-        dispatch(authActions.setChangedEmail(firstName))
-        dispatch(loadingActions.hide())
-        history.replace('/forgot-password/sent')
-      }
+      await createUser(
+        accessCode,
+        firstName,
+        lastName,
+        email,
+        'manager',
+        email,
+        password
+      )
     } catch (error) {
-      dispatch(loadingActions.hide())
-      if (error.code === 404) {
-        setErrorApi(t('forgot_password.email_not_found'))
+      switch (error.type) {
+        case 'email':
+          setEmailError(error.message)
+          break
       }
-      console.error(error)
+      // setCreationError(error.message)
     }
   }
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value)
-    setErrorApi('')
+  }
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value)
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
   return (
@@ -199,20 +245,20 @@ const CreateAccount = () => {
                                         <Grid container>
                                           <Grid item xs={11}>
                                             <TextField
-                                              label="First Name"
+                                              value={firstName}
+                                              label={t('create_account.label.firstName')}
                                               className={classes.customField}
                                               variant="outlined"
                                               margin="normal"
                                               required
                                               fullWidth
                                               id="firstName"
-                                              placeholder={t('create_account.firstName')}
+                                              placeholder={t('create_account.placeholder.firstName')}
                                               name="first_name"
                                               autoComplete="off"
-                                              autoFocus
                                               sx={labelStyle}
-                                              error={(!!errors.first_name) || (!!errorApi)}
-                                              helperText={(errors.first_name && errors.first_name.message) || errorApi}
+                                              error={!!errors.first_name}
+                                              helperText={errors.first_name && errors.first_name.message}
                                               {...register('first_name')}
                                               InputProps={{
                                                 startAdornment: (
@@ -233,18 +279,20 @@ const CreateAccount = () => {
                                         <Grid container>
                                           <Grid item xs={11}>
                                             <TextField
+                                              value={lastName}
+                                              label={t('create_account.label.lastName')}
+                                              sx={labelStyle}
                                               className={classes.customField}
                                               variant="outlined"
                                               margin="normal"
                                               required
                                               fullWidth
                                               id="lastName"
-                                              placeholder={t('create_account.lastName')}
+                                              placeholder={t('create_account.placeholder.lastName')}
                                               name="last_name"
                                               autoComplete="off"
-                                              autoFocus
-                                              error={(!!errors.last_name) || (!!errorApi)}
-                                              helperText={(errors.last_name && errors.last_name.message) || errorApi}
+                                              error={!!errors.last_name}
+                                              helperText={errors.last_name && errors.last_name.message}
                                               {...register('last_name')}
                                               InputProps={{
                                                 startAdornment: (
@@ -256,29 +304,32 @@ const CreateAccount = () => {
                                                   notchedOutline: classes.fieldsOutlined
                                                 }
                                               }}
-                                              onInput={handleFirstNameChange}
+                                              onInput={handleLastNameChange}
                                             />
                                           </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid container justifyContent="space-between">
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} mt={2}>
                                         <Grid container>
                                           <Grid item xs={12}>
                                             <TextField
+                                              value={password}
+                                              label={t('create_account.label.password')}
+                                              sx={labelStyle}
                                               className={classes.customField}
                                               variant="outlined"
                                               margin="normal"
                                               required
                                               fullWidth
                                               id="password"
-                                              placeholder={t('create_account.password')}
+                                              type="password"
+                                              placeholder={t('create_account.placeholder.password')}
                                               name="password"
                                               autoComplete="off"
-                                              autoFocus
-                                              error={(!!errors.password) || (!!errorApi)}
-                                              helperText={(errors.password && errors.password.message) || errorApi}
+                                              error={!!errors.password}
+                                              helperText={errors.password && errors.password.message}
                                               {...register('password')}
                                               InputProps={{
                                                 startAdornment: (
@@ -290,12 +341,17 @@ const CreateAccount = () => {
                                                   notchedOutline: classes.fieldsOutlined
                                                 }
                                               }}
-                                              onInput={handleFirstNameChange}
+                                              onInput={handlePasswordChange}
                                             />
                                           </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
+                              {emailError && <Grid container>
+                                <Grid item>
+                                  {emailError}
+                                </Grid>
+                              </Grid>}
                                 <Grid container justifyContent="right">
                                     <Grid item xs={12} sm={12} md={2} mt={4}>
                                         <Grid container direction="column">
@@ -303,7 +359,7 @@ const CreateAccount = () => {
                                                 <Box className={classes.sendButtonBox}>
                                                     <RoundedButton
                                                         data-testid={'submit_button'}
-                                                        disabled={!validateEmail(firstName)}
+                                                        disabled={!enableSave}
                                                         className={classes.sendButton}
                                                         type="submit"
                                                         variant="contained"

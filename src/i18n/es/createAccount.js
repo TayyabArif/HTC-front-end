@@ -3,8 +3,15 @@ export const createAccount = () => {
     title: 'Crear Cuenta',
     subtitle: 'Please populate the fields below to finish creating your account.',
     send: 'Create',
-    firstName: 'Ingrese Nombre',
-    lastName: 'Ingrese Apellido',
-    password: 'Ingrese Nueva Contraseña'
+    placeholder: {
+      firstName: 'Ingrese Nombre',
+      lastName: 'Ingrese Apellido',
+      password: 'Ingrese Nueva Contraseña'
+    },
+    label: {
+      firstName: 'Nombre',
+      lastName: 'Apellido',
+      password: 'Contraseña'
+    }
   }
 }

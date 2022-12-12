@@ -11,7 +11,8 @@ export const general = () => {
         password_does_not_match: 'The password does not match',
         no_sites_found: 'No results found.  Please check your search criteria.',
         size: 'File size can not exceed 25 MB',
-        sign_in: 'Both fields are required to login.'
+        sign_in: 'Both fields are required to login.',
+        length_6: 'Field must be at least 6 characters long'
       },
       select_all: 'Select All',
       select: 'Select',

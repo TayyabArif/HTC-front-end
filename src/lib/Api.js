@@ -213,3 +213,14 @@ export const getUser = async (iframe = false) => {
   if (iframe) return await callIframeAPI('GET', '/users/me')
   return await callAPI('GET', '/users/me')
 }
+
+/**
+ * Create user
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const createUser = async (params, step) => {
+  const response = await callAPI('POST', `/users?step=${step}`, params, false)
+  if (!response || response.status === 204) return true
+  return response
+}
