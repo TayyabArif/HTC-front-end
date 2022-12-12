@@ -521,39 +521,3 @@ export const changeUserPassword = async password => {
     throw err
   }
 }
-
-export const createLog = async (
-  logType,
-  woId,
-  userData,
-  logData,
-  iframe = false
-) => {
-  const timeZone = ''
-  const woLog = {}
-  woLog.latitude = '0'
-  woLog.longitude = '0'
-  woLog.type = logType
-  woLog.offline = false
-  if (logType === 'checkOut') {
-    woLog.work_order_id = woId
-    woLog.status = 'complete'
-    woLog.id = logData.id
-    woLog.user_time_zone = logData.timeZone
-    woLog.date_created = logData.date_created
-    woLog.wo_log_id = logData.id
-    const response = await Api.uploadWoLog(woLog, iframe)
-    return response
-  } else {
-    woLog.work_order_id = woId
-    woLog.user_time_zone = timeZone
-    woLog.technicians_number = 0
-    woLog.date_created = Math.round(Date.now() / 1000)
-    woLog.user_id = userData.id
-    woLog.technician_name = userData.firstName + userData.lastName
-    woLog.status = 'complete'
-
-    const response = await Api.uploadWoLog(woLog, iframe)
-    return response
-  }
-}

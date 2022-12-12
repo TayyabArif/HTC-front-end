@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import {
   FormControl,
   IconButton,
@@ -8,8 +8,28 @@ import {
 
 import { useTranslation } from 'react-i18next'
 
+import { PatternFormat as NumberFormat } from 'react-number-format'
 import { HighlightOff } from '@mui/icons-material'
 import { PhoneInputClasses } from '../../styles/classes/AccountSettingsClasses'
+
+const NumberFormatCustom = forwardRef(function NumberFormatCustom (props, ref) {
+  const { onChange, ...other } = props
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={values => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.formattedValue
+          }
+        })
+      }}
+      format="(###) ### ####"
+    />
+  )
+})
 
 // eslint-disable-next-line react/display-name
 export const PhoneInput = React.forwardRef(
@@ -46,8 +66,11 @@ export const PhoneInput = React.forwardRef(
           margin="normal"
           inputRef={inputRef}
           InputProps={{
+            inputComponent: NumberFormatCustom,
+            onKeyUp: handleChange,
             className: classes.textField,
             style: inputStyle,
+            disableUnderline: true,
             endAdornment: (
               <InputAdornment position="end">
                 {value && (

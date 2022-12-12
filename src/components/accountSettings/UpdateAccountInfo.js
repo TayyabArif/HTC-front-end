@@ -1,5 +1,5 @@
 // main components
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TextInput } from './TextInput'
@@ -9,19 +9,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { updateAccountSettings } from '../../services/ApiService'
 
-<<<<<<< HEAD
-import imageToBase64 from 'image-to-base64/browser'
-import avatarImage from '../../assets/images/account_avatar.jpeg'
-
 // mui components
 import {
-  Avatar,
-  FormGroup,
-  Link,
-=======
-// mui components
-import {
->>>>>>> develop
   Drawer,
   FormLabel,
   Box,
@@ -91,49 +80,6 @@ export const UpdateAccountInfo = props => {
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
-  /* Image Handling */
-  let firstRender = true
-  useEffect(() => {
-    loadImage()
-  }, [])
-
-  const loadImage = async () => {
-    try {
-      if (firstRender) {
-        let newBase64
-        imageToBase64(accountInfo.userInfo.photo_url ?? avatarImage)
-          .then(response => {
-            newBase64 = `data:image/jpeg;base64,${response}`
-            setPhotoBase64(newBase64)
-          })
-          .catch(error => {
-            console.error(error)
-          })
-        firstRender = false
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const changeFileHandler = event => {
-    const file = event.target.files[0]
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = function () {
-      setPhotoBase64(reader.result)
-      setUpdatedInfo({ ...updatedInfo, photo_url: reader.result })
-    }
-    reader.onerror = function (error) {
-      console.error('Error: ', error)
-    }
-  }
-
-  const handleImagePicker = event => {
-    photoPicker.current.click()
-  }
-
-  /* End Image Handling */
   useEffect(() => {
     if (editDrawer) {
       try {
@@ -182,7 +128,10 @@ export const UpdateAccountInfo = props => {
       .string()
       .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6'))
-      .oneOf([yup.ref('password'), null], t('account_settings.messages.errors.password_match'))
+      .oneOf(
+        [yup.ref('password')],
+        t('account_settings.messages.errors.password_match')
+      )
   })
 
   /** End VALIDATIONS **/
@@ -204,19 +153,19 @@ export const UpdateAccountInfo = props => {
     let save = true
     if (
       !updatedInfo.firstName ||
-        !updatedInfo.lastName ||
-        !updatedInfo.email ||
-        !updatedInfo.username ||
-        !updatedInfo.phone ||
-        (updatedInfo.password && !updatedInfo.passwordConfirm) ||
-        (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-        (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      !updatedInfo.lastName ||
+      !updatedInfo.email ||
+      !updatedInfo.username ||
+      !updatedInfo.phone ||
+      (updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+      (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
       errors?.phone?.message ||
       errors?.username?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message ||
-        (updatedInfo.password !== updatedInfo.passwordConfirm)
+      (updatedInfo.password !== updatedInfo.passwordConfirm)
     ) {
       save = false
     }
@@ -335,9 +284,10 @@ export const UpdateAccountInfo = props => {
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
         employee_id: updatedInfo.employeeId,
-        password: updatedInfo.password === passwordPlaceHolder
-          ? undefined
-          : updatedInfo.password
+        password:
+          updatedInfo.password === passwordPlaceHolder
+            ? undefined
+            : updatedInfo.password
       })
       handleClose()
       updateUsers()
@@ -358,284 +308,299 @@ export const UpdateAccountInfo = props => {
 
   const onError = (errors, e) => console.error(errors, e)
 
-  const handleStyles = () => {
-    if (enableSave) {
-      return enableButtonStyle
-    } else {
-      return disableButtonStyle
-    }
-  }
-
   /** End Submit Handle **/
 
   return (
-        <div data-testid='create_edit_user_drawer' >
-            <Drawer
-                BackdropProps={{ invisible: true }}
-                anchor={'right'}
-                open={open}
-                onClose={handleClose}
-                classes={{ paper: classes.drawerPaper }}
-                disableAutoFocus
-            >
-                <form
-                    noValidate
-                    onSubmit={handleSubmit(onSubmit, onError)}
-                    onReset={reset}
+    <div>
+      <Drawer
+        BackdropProps={{ invisible: true }}
+        anchor={'right'}
+        open={open}
+        onClose={handleClose}
+        classes={{ paper: classes.drawerPaper }}
+        disableAutoFocus
+      >
+        <form
+          noValidate
+          onSubmit={handleSubmit(onSubmit, onError)}
+          onReset={reset}
+        >
+          <div className={classes.drawerContainer}>
+            <div className={classes.drawerTitle}>
+              <FormLabel component="legend" className={classes.title}>
+                {event === 'new'
+                  ? t('account_settings.info_card.new_user_title')
+                  : t('account_settings.info_card.title')}
+              </FormLabel>
+            </div>
+
+            <Grid container p={3} pt={0}>
+              <Grid item xs={12}>
+                <Grid container mt={2}>
+                  <Grid item xs={6}>
+                    <TextInput
+                      value={updatedInfo.firstName}
+                      id="firstName"
+                      name="firstName"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.first_name')}
+                      error={!!errors.firstName}
+                      helperText={errors.firstName && errors.firstName.message}
+                      {...register('firstName')}
+                      inputStyle={{
+                        width: '100%',
+                        borderRightColor: 'red',
+                        borderRightWidth: '1px',
+                        borderRightStyle: 'solid',
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                        borderColor: '#B8B8B8'
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextInput
+                      value={updatedInfo.lastName}
+                      id="lastName"
+                      name="lastName"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.last_name')}
+                      error={!!errors.lastName}
+                      helperText={errors.lastName && errors.lastName.message}
+                      {...register('lastName')}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.email}
+                      id="email"
+                      name="email"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.email')}
+                      error={!!errors.email}
+                      helperText={errors.email && errors.email.message}
+                      {...register('email')}
+                      endAdornment={true}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <PhoneInput
+                      value={updatedInfo.phone}
+                      id="phone"
+                      name="phone"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.phone_number')}
+                      error={!!errors.phone}
+                      helperText={errors.phone && errors.phone.message}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                      {...register('phone')}
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <Selector
+                      id={'roles'}
+                      value={
+                        mobile
+                          ? t('company_settings.mobile_only')
+                          : roles
+                            ? roles[0].name
+                            : ''
+                      }
+                      label={t('company_settings.users_card.role')}
+                      handleChange={handleChangeValues}
+                      options={
+                        mobile
+                          ? [
+                              {
+                                id: 'no_value',
+                                name: t('company_settings.mobile_only')
+                              }
+                            ]
+                          : roles && roles.length > 0
+                            ? [...roles]
+                            : []
+                      }
+                      error={!!errors.roles}
+                      helperText={errors.roles && errors.roles.message}
+                      disabled={accountOwner}
+                      {...register('roles')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <Selector
+                      id={'role'}
+                      value={
+                        t('request_access.user_roles', {
+                          returnObjects: true
+                        })[updatedInfo.role] ?? ''
+                      }
+                      label={t('company_settings.users_card.panel_role')}
+                      handleChange={handleChangeValues}
+                      options={Object.keys(
+                        t('request_access.user_roles', { returnObjects: true })
+                      ).map(key => {
+                        return {
+                          id: key,
+                          name: t('request_access.user_roles', {
+                            returnObjects: true
+                          })[key]
+                        }
+                      })}
+                      error={!!errors.role}
+                      helperText={errors.role && errors.role.message}
+                      {...register('role')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2} sx={styles.emailNotifications}>
+                  <Grid item xs={12}>
+                    <Selector
+                      id={'emailNotifications'}
+                      value={
+                        t('create_account.email_notifications', {
+                          returnObjects: true
+                        })[updatedInfo.emailNotifications] ?? ''
+                      }
+                      label={t('company_settings.users_card.notifications')}
+                      handleChange={handleChangeValues}
+                      options={Object.keys(
+                        t('create_account.email_notifications', { returnObjects: true })
+                      ).map(key => {
+                        return {
+                          id: key,
+                          name: t('create_account.email_notifications', {
+                            returnObjects: true
+                          })[key]
+                        }
+                      })}
+                      {...register('emailNotifications')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2} >
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.employeeId}
+                      id="employeeId"
+                      name="employeeId"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.employee_id')}
+                      placeholder={t('account_settings.info_card.placeholder_employee')}
+                      error={!!errors.employeeId}
+                      helperText={errors.employeeId && errors.employeeId.message}
+                      {...register('employeeId')}
+                      inputStyle={{
+                        width: '100%'
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.username}
+                      id="username"
+                      handleChange={handleChangeValues}
+                      label={
+                        t('account_settings.info_card.username') +
+                        ' ' +
+                        t('account_settings.form.username_chars')
+                      }
+                      error={!!errors.username}
+                      helperText={errors.username && errors.username.message}
+                      endAdornment={true}
+                      {...register('username')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.password}
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder={'********'}
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.password')}
+                      error={!!errors.password}
+                      helperText={errors.password && errors.password.message}
+                      endAdornment={true}
+                      {...register('password')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2}>
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.passwordConfirm}
+                      id="passwordConfirm"
+                      name="passwordConfirm"
+                      type="password"
+                      handleChange={handleChangeValues}
+                      placeholder={'********'}
+                      label={t('account_settings.info_card.password_confirm')}
+                      error={!!errors.passwordConfirm}
+                      endAdornment={true}
+                      helperText={
+                        errors.passwordConfirm && errors.passwordConfirm.message
+                      }
+                      {...register('passwordConfirm')}
+                    />
+                  </Grid>
+                </Grid>
+                <Box pt={1} hidden={!errorMessage}>
+                  <Typography align={'left'} className={classes.errorMessage}>
+                    {props.errorMessage
+                      ? t('account_settings.form.' + props.errorMessage)
+                      : errorMessage}
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+
+            <div className={classes.footer}>
+              <ThemeProvider theme={buttonSettingsDisabled}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  type="submit"
+                  disabled={!enableSave}
+                  style={!enableSave ? disableButtonStyle : enableButtonStyle}
                 >
-                    <div className={classes.drawerContainer}>
-                        <div className={classes.drawerTitle}>
-                            <FormLabel component="legend" classes={{ root: classes.title }}>
-                                {event === 'new'
-                                  ? t('account_settings.info_card.new_user_title')
-                                  : t('account_settings.info_card.title')}
-                            </FormLabel>
-                        </div>
-
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} className={classes.drawerContent}>
-                                <FormGroup classes={{ root: classes.imageGroup }}>
-                                    <Avatar
-                                        alt="profile"
-                                        src={photoBase64}
-                                        ref={photo}
-                                        classes={{ root: classes.avatar }}
-                                    />
-
-                                    <Link
-                                        size="small"
-                                        onClick={handleImagePicker}
-                                        color="primary"
-                                        classes={{ root: classes.photoPickerButton }}
-                                        type="button"
-                                    >
-                                        {t(
-                                          updatedInfo.photo_url
-                                            ? 'account_settings.form.edit'
-                                            : 'account_settings.form.add'
-                                        )}
-                                    </Link>
-                                    <input
-                                        ref={photoPicker}
-                                        style={{ display: 'none' }}
-                                        type="file"
-                                        name="file"
-                                        onChange={changeFileHandler}
-                                    />
-                                </FormGroup>
-
-                                <div style={{ marginTop: 12 }}></div>
-                                <div
-                                    style={{
-                                      display: 'flex',
-                                      flexDirection: 'row',
-                                      maxWidth: '309px',
-                                      overflow: 'hidden'
-                                    }}
-                                >
-                                    <TextInput
-                                        value={updatedInfo.firstName}
-                                        id="firstName"
-                                        name="firstName"
-                                        handleChange={handleChangeValues}
-                                        label={t('account_settings.info_card.first_name')}
-                                        placeholder={t('account_settings.info_card.placeholder_first')}
-                                        error={!!errors.firstName}
-                                        helperText={errors.firstName && errors.firstName.message}
-                                        {...register('firstName')}
-                                        inputStyle={{
-                                          width: '100%',
-                                          borderRightColor: 'red',
-                                          borderRightWidth: '1px',
-                                          borderRightStyle: 'solid',
-                                          borderTopRightRadius: 0,
-                                          borderBottomRightRadius: 0,
-                                          borderColor: '#B8B8B8'
-                                        }}
-                                    />
-
-                                    <TextInput
-                                        value={updatedInfo.lastName}
-                                        id="lastName"
-                                        name="lastName"
-                                        handleChange={handleChangeValues}
-                                        label={t('account_settings.info_card.last_name')}
-                                        placeholder={t('account_settings.info_card.placeholder_last')}
-                                        error={!!errors.lastName}
-                                        helperText={errors.lastName && errors.lastName.message}
-                                        {...register('lastName')}
-                                        inputStyle={{
-                                          width: '100%',
-                                          borderTopLeftRadius: 0,
-                                          borderBottomLeftRadius: 0
-                                        }}
-                                    />
-                                </div>
-
-                                <TextInput
-                                    value={updatedInfo.email}
-                                    id="email"
-                                    name="email"
-                                    handleChange={handleChangeValues}
-                                    label={t('account_settings.info_card.email')}
-                                    placeholder={t('account_settings.info_card.placeholder_email')}
-                                    error={!!errors.email}
-                                    helperText={errors.email && errors.email.message}
-                                    {...register('email')}
-                                />
-
-                                <PhoneInput
-                                    value={updatedInfo.phone}
-                                    id="phone"
-                                    name="phone"
-                                    handleChange={handleChangeValues}
-                                    label={t('account_settings.info_card.phone_number')}
-                                    placeholder={t('account_settings.info_card.placeholder_phone')}
-                                    error={!!errors.phone}
-                                    helperText={errors.phone && errors.phone.message}
-                                    {...register('phone')}
-                                />
-
-                                <Selector
-                                    id={'roles'}
-                                    value={
-                                        mobile
-                                          ? t('company_settings.mobile_only')
-                                          : roles
-                                            ? roles[0].name
-                                            : ''
-                                    }
-                                    label={t('account_settings.info_card.access')}
-                                    handleChange={handleChangeValues}
-                                    options={
-                                        mobile
-                                          ? [
-                                              {
-                                                id: 'no_value',
-                                                name: t('company_settings.mobile_only')
-                                              }
-                                            ]
-                                          : roles && roles.length > 0
-                                            ? [...roles]
-                                            : []
-                                    }
-                                    error={!!errors.roles}
-                                    helperText={errors.roles && errors.roles.message}
-                                    disabled={accountOwner}
-                                    {...register('roles')}
-                                />
-
-                                <Selector
-                                    id={'role'}
-                                    value={
-                                        t('request_access.user_roles', {
-                                          returnObjects: true
-                                        })[updatedInfo.role] ?? ''
-                                    }
-                                    label={t('company_settings.users_card.role')}
-                                    handleChange={handleChangeValues}
-                                    options={Object.keys(
-                                      t('request_access.user_roles', { returnObjects: true })
-                                    ).map(key => {
-                                      return {
-                                        id: key,
-                                        name: t('request_access.user_roles', {
-                                          returnObjects: true
-                                        })[key]
-                                      }
-                                    })}
-                                    error={!!errors.role}
-                                    helperText={errors.role && errors.role.message}
-                                    {...register('role')}
-                                />
-
-                                <TextInput
-                                    value={updatedInfo.employeeId}
-                                    id="employeeId"
-                                    name="employeeId"
-                                    handleChange={handleChangeValues}
-                                    label={t('account_settings.info_card.employee_id')}
-                                    placeholder={t('account_settings.info_card.placeholder_employee')}
-                                    error={!!errors.employeeId}
-                                    helperText={errors.employeeId && errors.employeeId.message}
-                                    {...register('employeeId')}
-                                    inputStyle={{
-                                      width: '100%'
-                                    }}
-                                />
-
-                                <TextInput
-                                    value={updatedInfo.username}
-                                    id="username"
-                                    handleChange={handleChangeValues}
-                                    label={
-                                        t('account_settings.info_card.username') +
-                                        ' ' +
-                                        t('account_settings.form.username_chars')
-                                    }
-                                    placeholder={t('account_settings.info_card.placeholder_username')}
-                                    error={!!errors.username}
-                                    helperText={errors.username && errors.username.message}
-                                    {...register('username')}
-                                />
-
-                                <TextInput
-                                    value={updatedInfo.password}
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    placeholder={t('account_settings.info_card.placeholder_pass')}
-                                    handleChange={handleChangeValues}
-                                    label={t('account_settings.info_card.password')}
-                                    error={!!errors.password}
-                                    helperText={errors.password && errors.password.message}
-                                    {...register('password')}
-                                />
-
-                                <TextInput
-                                    value={updatedInfo.passwordConfirm}
-                                    id="passwordConfirm"
-                                    name="passwordConfirm"
-                                    type="password"
-                                    handleChange={handleChangeValues}
-                                    placeholder={t('account_settings.info_card.placeholder_repass')}
-                                    label={t('account_settings.info_card.password_confirm')}
-                                    error={!!errors.passwordConfirm}
-                                    helperText={
-                                        errors.passwordConfirm && errors.passwordConfirm.message
-                                    }
-                                    {...register('passwordConfirm')}
-                                />
-
-                                <Box pt={1} hidden={!errorMessage}>
-                                    <Typography align={'left'} className={classes.errorMessage}>
-                                        {props.errorMessage
-                                          ? t('account_settings.form.' + props.errorMessage)
-                                          : errorMessage}
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                        </Grid>
-
-                        <div className={classes.footer}>
-                            <ThemeProvider theme={buttonSettingsDisabled}>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    color="primary"
-                                    type="submit"
-                                    disabled={!enableSave}
-                                    style={handleStyles()}
-                                >
-                                    {event === 'new'
-                                      ? t('account_settings.form.create')
-                                      : t('account_settings.form.save')}
-                                </Button>
-                            </ThemeProvider>
-                        </div>
-                    </div>
-                </form>
-            </Drawer>
-        </div>
+                  {event === 'new'
+                    ? t('company_settings.bes_notifications_panel.create')
+                    : t('account_settings.form.save')}
+                </Button>
+              </ThemeProvider>
+            </div>
+          </div>
+        </form>
+      </Drawer>
+    </div>
   )
 }

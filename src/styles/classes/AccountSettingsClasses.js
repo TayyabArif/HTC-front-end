@@ -1,28 +1,11 @@
 import { makeStyles } from '@mui/styles'
 import { navBarHeaderHeight } from '../../lib/Constants'
 
-export const updateAccountInfoStyles = makeStyles(theme => ({
-  presentation: {
-    padding: '0px 5px',
-    paddingBottom: '40px',
-    marginTop: '19px',
-    overflowY: 'auto'
-  },
-  title: {
-    color: 'black',
-    fontSize: '20px',
-    fontWeight: '700',
-    font: 'Rubik',
-    margin: '32px 0px'
-  }
-}))
-
 export const AccountSettingsPageClasses = makeStyles(theme => ({
   container: {
     padding: '0px 0px',
     margin: '0px 0px',
     maxWidth: '100%',
-    width: '100%',
     height: '400px'
   },
   title: {
@@ -43,8 +26,10 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
     backgroundColor: theme.colors.accountSettings.bgBlue,
     height: '400px',
     width: '100%',
-    maxWidth: '100%',
-    zIndex: -1
+    maxWidth: '100%'
+  },
+  frontBoxes: {
+    position: 'relative'
   }
 }))
 
@@ -103,15 +88,10 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
     overflowX: 'hidden',
     zIndex: 1500,
     boxSizing: 'content-box',
-    marginRight: '19px',
-    marginBottom: '0px',
+    marginBottom: '20px',
     display: 'flex'
   },
-  element: {
-    marginTop: '20px'
-  },
   footer: {
-    marginRight: 20,
     marginBottom: 20,
     height: '49px',
     width: '341px',
@@ -121,7 +101,8 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
   drawerContainer: { height: '100%', position: 'relative' },
   drawerTitle: { alignItems: 'center', paddingLeft: '20px' },
   drawerContent: {
-    marginLeft: '20px'
+    '&.MuiGrid-root': {
+    }
   }
 }))
 
@@ -132,9 +113,7 @@ export const textInputStyles = makeStyles(theme => ({
       color: `${theme.colors.text} !important`,
       backgroundColor: theme.colors.signInButton.background,
       width: '303px',
-      borderRadius: '6px',
-    '&.MuiGrid-root': {
-      }
+      borderRadius: '6px'
     }
   }
 }))
@@ -323,12 +302,10 @@ export const TextInputClasses = makeStyles(theme => ({
     marginTop: 'unset',
     fontSize: 10,
     borderRadius: '8px',
-    color: theme.colors.workOrders.tab.duedate
+    color: theme.colors.tab.duedate
   },
   textField: {
     height: '52px',
-    fontSize: 16,
-    maxwidth: '303px',
     backgroundColor: theme.colors.signInButton.background
   },
   textFieldAnimation: {
@@ -340,8 +317,17 @@ export const TextInputClasses = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    margin: '8px 0px 0px 0px',
-    padding: '0px'
+    '& svg': {
+      fontSize: '25px'
+    },
+    '&.MuiButtonBase-root': {
+      padding: '0px'
+    }
+  },
+  formControl: {
+    '& .MuiFormControl-root': {
+      margin: 0
+    }
   }
 }))
 

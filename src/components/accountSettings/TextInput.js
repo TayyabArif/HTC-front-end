@@ -5,12 +5,10 @@ import {
   InputAdornment,
   TextField
 } from '@mui/material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { HighlightOff } from '@mui/icons-material/'
+
 import { useTranslation } from 'react-i18next'
-import { AutoCompleteAddress } from './AutoCompleteAddress'
-import clsx from 'clsx'
-import { textInputStyles } from '../../styles/classes/AccountSettingsClasses'
+import { TextInputClasses } from '../../styles/classes/AccountSettingsClasses'
 
 // eslint-disable-next-line react/display-name
 export const TextInput = React.forwardRef(
@@ -26,11 +24,12 @@ export const TextInput = React.forwardRef(
       type,
       label,
       inputStyle,
+      endAdornment,
       ...rest
     },
     ref
   ) => {
-    const classes = textInputStyles()
+    const classes = TextInputClasses()
     const inputRef = useRef()
     const { t } = useTranslation()
 
@@ -39,111 +38,54 @@ export const TextInput = React.forwardRef(
     }
 
     return (
-      <FormControl style={{ width: '309px' }}>
-        {id !== 'address' && (
+      <FormControl fullWidth className={classes.formControl}>
           <TextField
-            id={id}
-            name={name}
-            key={id}
-            value={value}
-            label={label}
-            onChange={handleChange}
-            size="small"
-            variant="filled"
-            margin="normal"
-            inputRef={inputRef}
-            InputProps={{
-              className: classes.textField,
-              style: inputStyle,
-              disableUnderline: true,
-              endAdornment: (
-                <InputAdornment position="end">
-                  {value && (
-                    <IconButton
-                      aria-label="Clear contents"
-                      onClick={() => {
-                        handleChange({ target: { name: name, value: '' } }, id)
-                      }}
-                      className={classes.icon}
-                      size="small"
-                    >
-                      <FontAwesomeIcon icon={faXmark} size="xs" />
-                    </IconButton>
-                  )}
-                </InputAdornment>
-              )
-            }}
-            InputLabelProps={{
-              className: classes.label,
-              shrink: true
-            }}
-            placeholder={
-              placeholder ? t('account_settings.form.enter') + ' ' + label : ''
-            }
-            classes={{ root: classes.root }}
-            autoComplete="off"
-            error={error}
-            helperText={helperText}
-            ref={ref}
-            type={type ?? 'text'}
-            onInput={handleChangeInt}
-            {...rest}
+              id={id}
+              name={name}
+              key={id}
+              value={value}
+              label={label}
+              onKeyUp={handleChange}
+              size="small"
+              variant="filled"
+              margin="normal"
+              inputRef={inputRef}
+              InputProps={{
+                className: classes.textField,
+                style: inputStyle,
+                disableUnderline: true,
+                endAdornment: endAdornment && (
+                      <InputAdornment position="end">
+                          {value && (
+                              <IconButton
+                                  aria-label="Clear contents"
+                                  onClick={() => {
+                                    handleChange({ target: { name: name, value: '' } }, id)
+                                  }}
+                                  className={classes.icon}
+                                  size="small"
+                              >
+                                  <HighlightOff p={0}/>
+                              </IconButton>
+                          )}
+                      </InputAdornment>
+                )
+              }}
+              InputLabelProps={{
+                className: classes.label
+              }}
+              placeholder={
+                  placeholder ? t('account_settings.form.enter') + ' ' + label : ''
+              }
+              classes={{ root: classes.root }}
+              autoComplete="off"
+              error={error}
+              helperText={helperText}
+              ref={ref}
+              type={type ?? 'text'}
+              onInput={handleChangeInt}
+              {...rest}
           />
-        )}
-        {id === 'address' && (
-          <TextField
-            id={id}
-            name={name}
-            key={id}
-            value={value}
-            onChange={handleChange}
-            label={label}
-            size="small"
-            variant="filled"
-            margin="normal"
-            fullWidth
-            inputRef={inputRef}
-            InputProps={{
-              className: clsx(
-                classes.textField,
-                value.length <= 0 ? classes.textFieldAnimation : ''
-              ),
-              style: inputStyle,
-              disableUnderline: true,
-              endAdornment: (
-                <InputAdornment position="end">
-                  {value && (
-                    <IconButton
-                      aria-label="Clear contents"
-                      onClick={() => {
-                        handleChange({ target: { name: name, value: '' } }, id)
-                      }}
-                      className={classes.icon}
-                      size="small"
-                    >
-                      <FontAwesomeIcon icon={faXmark} size="xs" />
-                    </IconButton>
-                  )}
-                </InputAdornment>
-              ),
-              inputComponent: AutoCompleteAddress
-            }}
-            InputLabelProps={{
-              className: classes.label
-            }}
-            placeholder={
-              placeholder ? t('account_settings.form.enter') + ' ' + label : ''
-            }
-            classes={{ root: classes.root }}
-            autoComplete="off"
-            error={error}
-            helperText={helperText}
-            ref={ref}
-            type={type ?? 'text'}
-            onInput={handleChangeInt}
-            {...rest}
-          />
-        )}
       </FormControl>
     )
   }
