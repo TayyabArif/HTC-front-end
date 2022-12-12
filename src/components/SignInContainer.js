@@ -74,7 +74,7 @@ export const SignInContainer = (props) => {
               <img src={conectadLogo} alt="Connectad Logo"/>
             </Grid>
             <Grid item md={1} alignSelf="flex-end">
-              <Typography variant={'p'} className={ classes.contactText }>
+              <Typography variant={'p'} className={ classes.contactText } hidden>
                 Contact us
               </Typography>
             </Grid>

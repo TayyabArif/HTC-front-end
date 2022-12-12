@@ -96,6 +96,17 @@ export const createUser = async (
   store.dispatch(loadingActions.hide())
 }
 
+export const updateAccountSettings = async params => {
+  store.dispatch(loadingActions.show())
+  try {
+    await Api.updateAccountSettings(params)
+  } catch (error) {
+    store.dispatch(loadingActions.hide())
+    throw error.message
+  }
+  store.dispatch(loadingActions.hide())
+}
+
 export const createClientUser = async (
   accessCode,
   firstName,
@@ -221,17 +232,6 @@ export const uploadCompanyFile = async (id, params) => {
     store.dispatch(loadingActions.hide())
     throw error.message
   }
-}
-
-export const updateAccountSettings = async params => {
-  store.dispatch(loadingActions.show())
-  try {
-    await Api.updateAccountSettings(params)
-  } catch (error) {
-    store.dispatch(loadingActions.hide())
-    throw error.message
-  }
-  store.dispatch(loadingActions.hide())
 }
 
 export const updateClientUser = async (id, params) => {

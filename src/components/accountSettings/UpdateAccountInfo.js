@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { updateAccountSettings } from '../../services/ApiService'
 
+<<<<<<< HEAD
 import imageToBase64 from 'image-to-base64/browser'
 import avatarImage from '../../assets/images/account_avatar.jpeg'
 
@@ -17,6 +18,10 @@ import {
   Avatar,
   FormGroup,
   Link,
+=======
+// mui components
+import {
+>>>>>>> develop
   Drawer,
   FormLabel,
   Box,
@@ -30,15 +35,17 @@ import { store } from '../../store'
 import { authActions } from '../../store/signIn'
 import * as ApiServices from '../../services/ApiService'
 import { PhoneInput } from './PhoneInput'
+import { isEqual } from 'lodash'
+
+/**
+ * Styles
+ **/
 import {
   buttonSettingsDisabled,
   disableButtonStyle,
   enableButtonStyle
 } from '../../styles/mui_custom_theme'
-import { isEqual } from 'lodash'
-
-// styles
-import { updateAccountInfoStyles } from '../../styles/classes/AccountSettingsClasses'
+import { UpdateAccountInfoClasses } from '../../styles/classes/AccountSettingsClasses'
 
 export const UpdateAccountInfo = props => {
   const {
@@ -52,14 +59,21 @@ export const UpdateAccountInfo = props => {
     accountOwner,
     mobile
   } = props
-  const photoPicker = useRef()
-  const photo = useRef()
-  const classes = updateAccountInfoStyles()
+  const classes = UpdateAccountInfoClasses()
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
-  const [photoBase64, setPhotoBase64] = useState()
   const [enableSave, setEnableSave] = useState()
+
+  // inline styles
+  const styles = {
+    emailNotifications: {
+      display: 'none'
+    },
+    employeeId: {
+      display: 'none'
+    }
+  }
 
   const passwordPlaceHolder = '********'
   const startingInfo = {
@@ -135,27 +149,6 @@ export const UpdateAccountInfo = props => {
     handleClosePanel(accountInfo)
   }
 
-  useEffect(() => {
-    let save = true
-    if (
-      !updatedInfo.firstName ||
-            !updatedInfo.lastName ||
-            !updatedInfo.email ||
-            !updatedInfo.username ||
-            (updatedInfo.password && !updatedInfo.passwordConfirm) ||
-            (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-            (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
-            (updatedInfo.password !== updatedInfo.passwordConfirm) ||
-            (updatedInfo.password.length < 6) ||
-            (updatedInfo.passwordConfirm.length < 6)
-    ) {
-      save = false
-    }
-
-    if (isEqual(updatedInfo, startingInfo)) save = false
-    setEnableSave(save)
-  }, [updatedInfo])
-
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
     firstName: yup
@@ -172,7 +165,7 @@ export const UpdateAccountInfo = props => {
       .string()
       .trim()
       .required(t('account_settings.messages.errors.required'))
-      .min(10, t('general.messages.errors.phone')),
+      .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
     username: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -206,6 +199,32 @@ export const UpdateAccountInfo = props => {
     mode: 'all',
     resolver: yupResolver(validationSchema)
   })
+
+  useEffect(() => {
+    let save = true
+    if (
+      !updatedInfo.firstName ||
+        !updatedInfo.lastName ||
+        !updatedInfo.email ||
+        !updatedInfo.username ||
+        !updatedInfo.phone ||
+        (updatedInfo.password && !updatedInfo.passwordConfirm) ||
+        (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+        (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      errors?.email?.message ||
+      errors?.phone?.message ||
+      errors?.username?.message ||
+      errors?.password?.message ||
+      errors?.passwordConfirm?.message ||
+        (updatedInfo.password !== updatedInfo.passwordConfirm)
+    ) {
+      save = false
+    }
+
+    if (isEqual(updatedInfo, startingInfo)) save = false
+
+    setEnableSave(save)
+  }, [updatedInfo, errors])
 
   const onSubmit = data => {
     handleChangeUser()
@@ -327,9 +346,9 @@ export const UpdateAccountInfo = props => {
       if (e.details && e.details?.details?.length > 0) {
         const error = e.details.details[0]
         const name =
-                    error.path.substr(1, error.path.length - 1) === 'role'
-                      ? 'title'
-                      : error.path.substr(1, error.path.length - 1)
+          error.path.substr(1, error.path.length - 1) === 'role'
+            ? 'title'
+            : error.path.substr(1, error.path.length - 1)
         setErrorMessage(name + ' ' + error.message)
       } else if (e.message) {
         setErrorMessage(t('company_profile.error.general_error'))

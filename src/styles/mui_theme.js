@@ -87,12 +87,6 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
-    company: {
-      title: '#333333',
-      inputBorder: '#0000003A',
-      roleButton: '#E0E0E018',
-      iconColor: '#B0B0B0'
-    },
     workOrders: {
       counts: '#6C7172',
       chipBack: '#F1F1F1',
@@ -154,8 +148,12 @@ const customTheme = createTheme({
     dividers: '#EAEBEB',
     tradesBackground: '#F8F8F8',
     mainContainerBackground: '#F8F8F8',
+    tab: {
+      description: '#121212',
+      duedate: '#828282'
+    },
     settings: {
-      fieldName: '#212121',
+      fieldName: '#828282',
       fieldInfo: '#6C7172',
       decline: '#FA5454',
       button_info: '#BCBCBC',
@@ -163,7 +161,17 @@ const customTheme = createTheme({
       border: '#E5E5E5',
       cardBorderColor: 'rgba(216, 216, 216, 0.25)',
       delete: '#FC5E5E',
-      disabledButton: '#C4C4C4'
+      disabledButton: '#C4C4C4',
+      editButton: '#2F80ED'
+    },
+    company: {
+      title: '#333333',
+      inputBorder: '#0000003A',
+      roleButton: '#E0E0E018',
+      iconColor: '#B0B0B0'
+    },
+    accountSettings: {
+      bgBlue: '#6F7D94'
     },
     workStatusBorder: 'rgba(71,160,244,0.1)',
     infoWindowBackground: '#FBFBFB',
@@ -344,11 +352,13 @@ const customTheme = createTheme({
       border: '0px'
     },
     menuItem: {
-      fontSize: '12px',
-      paddingRight: '0px',
-      width: '100%',
-      display: 'flex',
-      maxWidth: '352px'
+      '&.MuiMenuItem-root': {
+        fontSize: '14px',
+        width: '100%',
+        display: 'flex',
+        maxWidth: '352px',
+        flex: 1
+      }
     }
   },
   dashboard: {

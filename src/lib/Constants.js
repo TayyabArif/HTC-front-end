@@ -21,7 +21,6 @@ export const invoiceStatusOptionsWOList = [
   'draft',
   'not_available'
 ]
-export const navBarHeaderHeight = '60px'
 export const NO_RECORD_ITEM = 'no service required'
 export const invoiceApproved = 'approved'
 export const invoiceSubmitted = 'submitted'
@@ -53,3 +52,5 @@ export const phoneRegex = /^((\([0-9]{3}\)[ -]?))*?[0-9]{3}[ -]?[0-9]{4}$/
 export const mobileBreakpoint = 1150
 export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
+
+export const navBarHeaderHeight = '60px'
