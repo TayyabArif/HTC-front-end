@@ -12,7 +12,8 @@ export const general = () => {
         no_sites_found: 'No results found.  Please check your search criteria.',
         size: 'File size can not exceed 25 MB',
         sign_in: 'Both fields are required to login.',
-        length_6: 'Field must be at least 6 characters long'
+        length_6: 'Field must be at least 6 characters long',
+        phone: 'Invalid phone number'
       },
       select_all: 'Select All',
       select: 'Select',
