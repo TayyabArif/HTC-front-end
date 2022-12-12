@@ -66,7 +66,8 @@ export const locationsStyles = makeStyles((theme) => ({
     '& input::placeholder': {
       fontSize: 16,
       fontWeight: '400',
-      color: theme.colors.textGray
+      color: theme.colors.textGray,
+      borderRadius: '8px'
     },
     '& input': {
       fontSize: 16,
@@ -75,7 +76,10 @@ export const locationsStyles = makeStyles((theme) => ({
   },
   searchBoxInput: {
     marginLeft: '-20px',
-    width: 'auto'
+    width: 'auto',
+    border: '1px solid #F2F2F2',
+    borderRadius: '8px',
+    backgroundColor: 'white'
   },
   clearAdornment: {
     fontSize: 16,
@@ -370,6 +374,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '15px',
     left: '15px',
+    marginTop: '60px',
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
@@ -391,8 +396,8 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
     fontSize: '12px'
   },
   menuTitle: {
-    fontSize: '12px',
-    fontWeight: 'bold'
+    fontSize: '14px',
+    fontWeight: '500'
   }
 }))
 
@@ -401,8 +406,7 @@ export const mapCountersStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '15px',
     height: 'fit-content',
-    width: '100%',
-    marginLeft: '45px'
+    width: '100%'
   },
   font12: {
     fontSize: 12,
@@ -428,7 +432,7 @@ export const mapCountersStyles = makeStyles((theme) => ({
   inProgressWork: {
     position: 'relative',
     top: 4,
-    color: theme.colors.locations.workOrderColors.in_progress,
+    color: theme.colors.locations.inProgressWork,
     width: '17px',
     height: '17px',
     marginLeft: '10px'
@@ -444,7 +448,7 @@ export const mapCountersStyles = makeStyles((theme) => ({
   completedWork: {
     position: 'relative',
     top: 4,
-    color: theme.colors.locations.workOrderColors.completed,
+    color: theme.colors.workOrderColors.completed,
     width: '17px',
     height: '17px',
     marginLeft: '10px'
@@ -504,5 +508,124 @@ export const mapCountersStyles = makeStyles((theme) => ({
   containerDiv: {
     display: 'flex',
     width: '100%'
+  }
+}))
+
+export const searchResultsStyles = makeStyles((theme) => ({
+  font12: {
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  noMasquerade: {
+    display: 'flex'
+  },
+  mobileList: {
+    overflowY: 'auto',
+    minHeight: '140px',
+    margin: '10px',
+    height: 'calc(100vh - 250px)',
+    [theme.breakpoints.up('md')]: {
+      padding: '0px 12px',
+      margin: 0
+    },
+    '&::-webkit-scrollbar': {
+      display: 'none'
+    }
+  }
+}))
+
+export const locationCardStyles = makeStyles((theme) => ({
+  font16: {
+    fontSize: 16,
+    fontWeight: '500'
+  },
+  font12: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: theme.colors.locations.locationAddress
+  },
+  activeWorkCircle: (props) => ({
+    position: 'relative',
+    top: 4,
+    color: props.activeWorkCircleColor,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  }),
+  completedWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.locations.workOrderColors.completed,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  locationTile: {
+    cursor: 'pointer',
+    height: '100%',
+    marginBottom: '5px'
+  }
+}))
+
+export const mapFiltersStyles = makeStyles((theme) => ({
+  mainDropdown: {
+    marginLeft: 15
+  },
+  radio: {
+    padding: '0px',
+    '& svg': {
+      width: '20px',
+      height: '20px'
+    }
+  },
+  mainItem: {
+    fontSize: '12px',
+    '&:focus': {
+      backgroundColor: 'unset'
+    }
+  },
+  menuItem: {
+    fontSize: '12px',
+    borderBottom: '1px solid #F2F2F2',
+    width: '176px',
+    height: '40px',
+    '&:focus': {
+      backgroundColor: 'unset'
+    }
+  },
+  menuTitle: {
+    fontSize: '14px',
+    fontWeight: '500',
+    '&:focus': {
+      backgroundColor: 'unset'
+    }
+  },
+  menuLabel: {
+    fontSize: '12px',
+    fontWeight: '400'
+  },
+  dateLabel: {
+    color: theme.colors.gray,
+    fontSize: 12,
+    fontWeight: '400'
+  },
+  arrowIcon: {
+    marginLeft: 'auto'
+  },
+  dropdowns: {
+    marginLeft: 15
+  },
+  muiPaper: {
+    borderRadius: '12px'
+  },
+  checkIcon: {
+    marginLeft: 'auto',
+    color: '#4696EC',
+    width: '18px',
+    height: '18px'
   }
 }))

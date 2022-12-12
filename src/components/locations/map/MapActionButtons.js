@@ -4,7 +4,7 @@ import ReactGA from 'react-ga4'
 
 /** Material UI **/
 import { Box, Grid, Menu, MenuItem, Radio, Typography } from '@mui/material'
-import { CloudOutlined, LayersOutlined, Search } from '@mui/icons-material'
+import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined } from '@mui/icons-material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
 /** Components **/
@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 
 // Styles
 import { mapActionButtonsStyles } from '../../../styles/classes/LocationsClasses'
+import { MapFilters } from './MapFilters'
 
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
@@ -20,6 +21,8 @@ export const MapActionButtons = (props) => {
   const isMenuMapOptionsOpen = Boolean(anchorMOEl)
   const [anchorWEl, setAnchorWEl] = useState(null)
   const isMenuWeatherOpen = Boolean(anchorWEl)
+  const [anchorFilters, setAnchorFilters] = useState(null)
+  const isMenuFiltersOpen = Boolean(anchorFilters)
   const { t } = useTranslation()
   const mapInstance = props.map
 
@@ -28,6 +31,13 @@ export const MapActionButtons = (props) => {
   }
   const handleMenuMapOptionsClose = () => {
     setAnchorMOEl(null)
+  }
+
+  const handleFiltersOpen = (event) => {
+    setAnchorFilters(event.currentTarget)
+  }
+  const handleFiltersClose = (event) => {
+    setAnchorFilters(null)
   }
 
   const handleClickMapOption = (e) => {
@@ -50,6 +60,7 @@ export const MapActionButtons = (props) => {
 
   const handleWeatherMenuOpen = (event) => {
     setAnchorWEl(event.currentTarget)
+    setAnchorWEl(null)
   }
 
   const handleMenuWeatherClose = () => {
@@ -530,14 +541,24 @@ export const MapActionButtons = (props) => {
 
   return (
     <Box className={classes.mapButtonsBox}>
-      <Box pb={2}>
+      {props.hideLeftSection && <Box pb={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
-          <Search color={props.hideLeftSection ? 'inherit' : 'primary'}/>
+          <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'}/>
         </MapButton>
+      </Box>}
+      <Box pb={2}>
+        <MapButton onClick={handleFiltersOpen}>
+          <FilterAltOutlined color={'inherit'}/>
+        </MapButton>
+        <MapFilters
+          isMenuFiltersOpen={isMenuFiltersOpen}
+          handleFiltersClose={handleFiltersClose}
+          anchorFilters={anchorFilters}
+        />
       </Box>
       <Box pb={2}>
         <MapButton onClick={handleWeatherMenuOpen}>
-          <CloudOutlined/>
+          <ThunderstormOutlined/>
         </MapButton>
 
         <Menu
@@ -552,7 +573,6 @@ export const MapActionButtons = (props) => {
             vertical: 'top',
             horizontal: 'left'
           }}
-          getContentAnchorEl={null}
           className={classes.dropdowns}
         >
           <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('sites.map.action_buttons.weather')}</Typography></MenuItem>
@@ -616,17 +636,16 @@ export const MapActionButtons = (props) => {
             vertical: 'top',
             horizontal: 'left'
           }}
-          getContentAnchorEl={null}
           className={classes.dropdowns}
         >
-          <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('sites.map.action_buttons.map_options')}</Typography></MenuItem>
+          <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('locations.map.map_options')}</Typography></MenuItem>
           <MenuItem data-map-type={'light'} onClick={handleClickMapOption} className={classes.menuItem}>
             <Grid container>
               <Grid align={'left'} item xs={4}>
                 <Radio checked={props.mapType === 'light'} className={classes.radio} size='small' color='primary'/>
               </Grid>
               <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.light')}</Typography>
+                <Typography className={classes.menuItem}>{t('locations.map.light')}</Typography>
               </Grid>
             </Grid>
           </MenuItem>
@@ -636,7 +655,7 @@ export const MapActionButtons = (props) => {
                 <Radio checked={props.mapType === 'roadmap'} className={classes.radio} size='small' color='primary'/>
               </Grid>
               <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.gray_scale')}</Typography>
+                <Typography className={classes.menuItem}>{t('locations.map.gray_scale')}</Typography>
               </Grid>
             </Grid>
           </MenuItem>
@@ -646,7 +665,7 @@ export const MapActionButtons = (props) => {
                 <Radio checked={props.mapType === 'satellite'} className={classes.radio} size='small' color='primary'/>
               </Grid>
               <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.satellite')}</Typography>
+                <Typography className={classes.menuItem}>{t('locations.map.satellite')}</Typography>
               </Grid>
             </Grid>
           </MenuItem>

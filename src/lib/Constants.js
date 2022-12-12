@@ -53,3 +53,48 @@ export const phoneRegex = /^((\([0-9]{3}\)[ -]?))*?[0-9]{3}[ -]?[0-9]{4}$/
 export const mobileBreakpoint = 1150
 export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
+
+export const mapDateRangeOptions = [
+  {
+    id: 'today'
+  },
+  {
+    id: 'last_3_days'
+  },
+  {
+    id: 'last_5_days'
+  },
+  {
+    id: 'last_7_days'
+  },
+  {
+    id: 'last_30_days'
+  },
+  {
+    id: 'custom'
+  }
+]
+
+export const mapStatusOptions = [
+  {
+    id: 'all'
+  },
+  {
+    id: 'open'
+  },
+  {
+    id: 'in_progress'
+  },
+  {
+    id: 'dispatched'
+  },
+  {
+    id: 'returning'
+  },
+  {
+    id: 'completed'
+  },
+  {
+    id: 'canceled'
+  }
+]

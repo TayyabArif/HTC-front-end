@@ -237,6 +237,7 @@ const customTheme = createTheme({
     columnTitle: '#6C7172',
     disabledField: '#E0E0E0',
     map: {
+      backgroundFilters: '#F6F6F6',
       playerSliderRail: '#E0E0E0',
       playerSliderThumb: '#333333',
       playerSliderMark: '#6C7172',

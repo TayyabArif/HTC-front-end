@@ -7,6 +7,7 @@ import { FiberManualRecord } from '@mui/icons-material'
 
 /** Components **/
 import { MapCounter } from '../../../styles/mui_custom_components'
+
 /** Redux **/
 import { useSelector } from 'react-redux'
 
@@ -28,7 +29,7 @@ export const MapCounters = (props) => {
             <Grid item classes={{ root: classes.gridItem }}>
               <MapCounter>
                 <Typography component={'span'} className={classes.font12}>
-                  {t('sites.total_sites')}
+                  {t('locations.all_locations')}
                 </Typography>
                 <Typography className={classes.font12}>
                   {props.searchResults.meta.total_result ?? 0}
@@ -39,7 +40,7 @@ export const MapCounters = (props) => {
             <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
               <MapCounter>
                 <Typography component={'span'} className={classes.font12}>
-                  {t('sites.active_sites')}
+                  {t('locations.open')}
                   <FiberManualRecord className={classes.activeWork}/>
                 </Typography>
                 <Typography className={classes.font12}>
@@ -51,8 +52,8 @@ export const MapCounters = (props) => {
             <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
               <MapCounter>
                 <Typography component={'span'} className={classes.font12}>
-                  {t('sites.no_activity')}
-                  <FiberManualRecord className={classes.noActivity}/>
+                  {t('locations.in_progress')}
+                  <FiberManualRecord className={classes.inProgressWork}/>
                 </Typography>
                 <Typography className={classes.font12}>
                   {props.searchResults.meta.no_activity_sites ?? 0}
@@ -63,7 +64,7 @@ export const MapCounters = (props) => {
             <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
               <MapCounter>
                 <Typography component={'span'} className={classes.font12}>
-                  {t('sites.completed_wo')}
+                  {t('locations.completed')}
                   <FiberManualRecord className={classes.completedWork}/>
                 </Typography>
                 <Typography className={classes.font12}>
@@ -72,13 +73,14 @@ export const MapCounters = (props) => {
               </MapCounter>
             </Grid>
 
-            <Grid item hidden={locationsStore.advancedFiltersSelected} classes={{ root: classes.gridItem }}>
+            <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
               <MapCounter>
                 <Typography component={'span'} className={classes.font12}>
-                  {t('sites.report_date')}
+                  {t('locations.no_activity')}
+                  <FiberManualRecord className={classes.noActivity}/>
                 </Typography>
                 <Typography className={classes.font12}>
-                  {t('sites.filters.date.' + props.date)}
+                  {props.searchResults.meta.completed_work_orders ?? 0}
                 </Typography>
               </MapCounter>
             </Grid>
