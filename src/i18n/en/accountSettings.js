@@ -26,7 +26,8 @@ export const accountSettings = () => {
       placeholder_username: 'Create username',
       placeholder_pass: 'Create password',
       placeholder_repass: 'Re-enter password',
-      placeholder_employee: 'Enter ID'
+      placeholder_employee: 'Enter ID',
+      edit_button: 'Edit'
     },
     form: {
       save: 'Save',

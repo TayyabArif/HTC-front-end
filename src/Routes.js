@@ -18,6 +18,8 @@ import Dashboard from './pages/Dashboard'
 import WorkOrders from './pages/WorkOrders'
 import Locations from './pages/Locations'
 import CompanySettings from './pages/CompanySettings'
+/** Settings */
+import AccountSettings from './pages/AccountSettings'
 
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
@@ -45,6 +47,9 @@ const Routes = () => {
             </Route>
             <Route exact path="/company-settings">
               <CompanySettings />
+            </Route>
+            <Route exact path="/account-settings">
+              <AccountSettings />
             </Route>
             <Route path="*">
               <Redirect to="/" />

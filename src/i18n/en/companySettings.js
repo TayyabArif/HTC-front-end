@@ -82,7 +82,64 @@ export const companySettings = () => {
       user_company_role_placeholder: 'User Company Role',
       pending: 'pending',
       user_already_exists: 'User already exists',
-      search: 'Search user'
+      search: 'Search user',
+      notifications: 'Notifications'
+    },
+    reports_card: {
+      title: 'Scheduled Reports',
+      name: 'Report name',
+      frequency: 'Frequency',
+      sites: 'Site(s)',
+      status: 'Status',
+      creator: 'Creator',
+      panel_title: 'Report',
+      panel_name: 'Report Name',
+      panel_name_placeholder: 'Enter name',
+      panel_mail_to: 'Recipients (To)',
+      panel_mail_placeholder: 'Enter email address and press enter',
+      panel_mail_cc: 'Recipients (cc)',
+      panel_client_name: 'Client Name',
+      panel_client_name_placeholder: 'Search Client Name',
+      send_on: 'Send Email On (day/time)',
+      data_range: 'Date range of data in report',
+      trades: 'Trade(s)',
+      wo_status: 'Work Order Status',
+      email_ends: 'Email Ends',
+      active_report: 'Active',
+      inactive_report: 'Inactive',
+      view_more: 'View More'
+    },
+    bes_reports_card: {
+      name: 'Name',
+      reports: 'Scheduled Reports'
+    },
+    bes_notifications_card: {
+      title: 'Notifications',
+      name: 'Name',
+      action: 'Action',
+      client: 'Client',
+      creator: 'Creator',
+      view_more: 'View More'
+    },
+    bes_notifications_panel: {
+      title: 'Notification',
+      name: 'Notification Name',
+      name_placeholder: 'Enter name',
+      mail_to: 'Recipients (To)',
+      mail_placeholder: 'Enter email address and press enter',
+      mail_cc: 'Recipients (cc)',
+      client_name: 'Client Name',
+      client_name_placeholder: 'Search Client Name',
+      send_notifications_when: 'Send Email Notification When',
+      delete: 'Delete',
+      save: 'Save',
+      create: 'Create',
+      options: {
+        client_log_in: 'Client Log In',
+        client_runs_report: 'Client Runs Report',
+        client_creates_user: 'Client Creates User',
+        client_submits_service_request: 'Client Submits Service Request'
+      }
     },
     buttons: {
       edit: 'Edit',
@@ -129,7 +186,8 @@ export const companySettings = () => {
         enhancement: 'Enhancement',
         seasonal: 'Seasonal',
         complaint: 'Complaint'
-      }
+      },
+      no_file: 'No document uploaded'
     }
   }
 }

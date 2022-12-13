@@ -84,6 +84,62 @@ export const companySettings = () => {
       user_already_exists: 'Usuario ya existente',
       search: 'Buscar usuario'
     },
+    reports_card: {
+      title: 'Reportes Programados',
+      name: 'Nombre del reporte',
+      frequency: 'Frecuencia',
+      sites: 'Sitio(s)',
+      status: 'Estado',
+      creator: 'Creador',
+      panel_title: 'Reporte',
+      panel_name: 'Nombre de Reporte',
+      panel_name_placeholder: 'Ingrese nombre',
+      panel_mail_to: 'Destinatarios',
+      panel_mail_placeholder: 'Ingrese dirección(es) y presione Enter',
+      panel_mail_cc: 'Destinatarios (cc)',
+      panel_client_name: 'Nombre del Cliente',
+      panel_client_name_placeholder: 'Busque el Nombre del Cliente',
+      send_on: 'Enviar en (día/hora)',
+      data_range: 'Rango de consulta',
+      trades: 'Comercio(s)',
+      wo_status: 'Estado Orden de Trabajo',
+      email_ends: 'Envío Termina',
+      active_report: 'Activo',
+      inactive_report: 'No Activo',
+      view_more: 'Ver Más'
+    },
+    bes_reports_card: {
+      name: 'Nombre',
+      reports: 'Reportes Programados'
+    },
+    bes_notifications_card: {
+      title: 'Notificaciones',
+      name: 'Nombre',
+      action: 'Acción',
+      client: 'Cliente',
+      creator: 'Creador',
+      view_more: 'Ver Más'
+    },
+    bes_notifications_panel: {
+      title: 'Notificación',
+      name: 'Notificación Name',
+      name_placeholder: 'Ingrese nombre',
+      mail_to: 'Destinatarios',
+      mail_placeholder: 'Ingrese dirección(es) y presione Enter',
+      mail_cc: 'Destinatarios (cc)',
+      client_name: 'Nombre del Cliente',
+      client_name_placeholder: 'Busque el Nombre del Cliente',
+      send_notifications_when: 'Envíe Notificaciones por Email Cuando',
+      delete: 'Eliminar',
+      save: 'Guardar',
+      create: 'Crear',
+      options: {
+        client_log_in: 'Cliente Inicia Sesión',
+        client_runs_report: 'Cliente Ejecuta Reporte',
+        client_creates_user: 'Cliente Crea Usuario',
+        client_submits_service_request: 'Cliente Envía Pedido de Servicio'
+      }
+    },
     buttons: {
       edit: 'Editar',
       show_more: 'Mostrar más',
@@ -130,7 +186,8 @@ export const companySettings = () => {
         enhancement: 'Mejora',
         seasonal: 'Temporada',
         complaint: 'Reclamo'
-      }
+      },
+      no_file: 'Ningún documento cargado'
     }
   }
 }

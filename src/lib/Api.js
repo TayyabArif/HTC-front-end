@@ -22,22 +22,6 @@ const api = create({
 })
 
 /**
- * Create an api of FTC API for iframe
- * This API is needed to make sure credentials are not mixed up if a user has an already existing session
- *
- * @type {ApisauceInstance}
- */
-const iframeApi = create({
-  baseURL: process.env.REACT_APP_FTC_API_SERVER_URL,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    sfsource: 'TRUE'
-  },
-  timeout: 30000
-})
-
-/**
  * Remove headers from API
  */
 export const removeAuthorizationHeader = () => {
@@ -92,15 +76,8 @@ const callAPI = async (
 ) => {
   const authStore = store.getState().auth
   let response
-
   if (authorized) {
     api.setHeader('Authorization', `Bearer ${authStore.token.access_token}`)
-    if (authStore?.user?.userInfo) {
-      api.setHeader(
-        'ORIGINATING-COMPANY-ID',
-        authStore.user.userInfo.originating_company
-      )
-    }
   }
 
   switch (type) {
@@ -147,40 +124,6 @@ const callAPI = async (
   return processApiResponse(response)
 }
 
-const callIframeAPI = async (type, route, params = {}) => {
-  let response
-  switch (type) {
-    case 'POST':
-      response = await iframeApi.post(route, params)
-      break
-    case 'PUT':
-      response = await iframeApi.put(route, params)
-      break
-    case 'DELETE':
-      response = await iframeApi.delete(route, params)
-      break
-    case 'GET':
-      response = await iframeApi.get(route, params)
-      break
-    case 'PATCH':
-      response = await iframeApi.patch(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
-  }
-
-  if (!response.ok) {
-    if (response.status === 401) {
-      console.log('Unable to refresh token')
-      return processApiResponse(response)
-    }
-  }
-}
-
 /**
  * Send reset password request
  *
@@ -209,8 +152,7 @@ export const getUserScopes = async (email = '') => {
  *
  * @returns {Promise<object>} The API response data
  */
-export const getUser = async (iframe = false) => {
-  if (iframe) return await callIframeAPI('GET', '/users/me')
+export const getUser = async () => {
   return await callAPI('GET', '/users/me')
 }
 
@@ -221,17 +163,6 @@ export const getUser = async (iframe = false) => {
  */
 export const validateAccessCode = async id => {
   return await callAPI('GET', '/users/validateaccesscode', { id }, false)
-}
-
-/**
- * Create user
- *
- * @returns {Promise<object>} The API response data
- */
-export const createUser = async (params, step) => {
-  const response = await callAPI('POST', `/users?step=${step}`, params, false)
-  if (!response || response.status === 204) return true
-  return response
 }
 
 export const workOrdersPortal = async (
@@ -351,6 +282,36 @@ export const getInvoiceById = async (id = '') => {
   }
 }
 
+/*
+ * Verify registration status
+ *
+ * @returns {Promise<boolean>} The API response data
+ */
+export const verifyRegistration = async (email) => {
+  return await callAPI('GET', `/api/users/verify-registration/${email}`, {}, 0)
+}
+
+/**
+ * Request access
+ *
+ * @param companyDomain
+ * @param firstName
+ * @param lastName
+ * @param email
+ * @returns {Promise<boolean>}
+ */
+export const requestAccess = async (companyDomain, firstName, lastName, email, companyName) => {
+  api.setHeader('Content-Type', 'application/json')
+  return await callAPI('POST', '/api/users/request-access',
+    {
+      company_domain: companyDomain,
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      company_name: companyName
+    }, 0)
+}
+
 /**
  * Update Account Settings
  *
@@ -358,6 +319,17 @@ export const getInvoiceById = async (id = '') => {
  */
 export const updateAccountSettings = async params => {
   const response = await callAPI('PUT', '/users/me', params, true)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
+ * Create user
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const createUser = async (params, step) => {
+  const response = await callAPI('POST', `/users?step=${step}`, params, false)
   if (!response || response.status === 204) return true
   return response
 }
@@ -529,7 +501,7 @@ export const deleteRolWithScopes = async id => {
  */
 export const getCompanyRoles = async companyId => {
   try {
-    const response = await callAPI('GET', '/roles/company/' + companyId)
+    const response = await callAPI('GET', `/roles/company/${companyId}`)
     return response
   } catch {
     return false
@@ -548,138 +520,10 @@ export const changeUserPassword = async password => {
   })
 }
 
-/**
- * Upload ETA
- * @param id id of the WO,
- * @param time eta time
- * @returns {boolean} true if the call was successful, false if it isn't
- */
-export const uploadETA = async (id, time, iframe = false) => {
-  const selectedAPI = iframe ? callIframeAPI : callAPI
-  try {
-    return await selectedAPI('POST', '/workorders/eta', {
-      woId: id,
-      eta: {
-        time: time,
-        confirmation: true,
-        reason: null
-      }
-    })
-  } catch {
-    return false
-  }
-}
-
-// Uncomment for contact us functionality
-/**
- * Post contactUs email
- *
- * @returns {Promise<object>} The API response data
- */
-// export const sendContactUsEmail = async (email, name, company, message) => {
-//   return await callAPI(
-//     'POST',
-//     '/users/contactusemail',
-//     {
-//       email,
-//       name,
-//       company,
-//       message
-//     },
-//     false
-//   )
-// }
-
-/**
- * Check in/out from a WO
- * @param {object} woLog
- * @returns Created or updated log
- */
-export const uploadWoLog = async (woLog, iframe = false) => {
-  const selectedAPI = iframe ? callIframeAPI : callAPI
-  let response = null
-  if (woLog.type === 'checkIn') {
-    response = await selectedAPI('POST', 'workorderlogs', {
-      work_order_id: woLog.work_order_id,
-      latitude: woLog.latitude,
-      longitude: woLog.longitude,
-      type: woLog.type,
-      user_time_zone: woLog.user_time_zone,
-      technicians_number: woLog.technicians_number,
-      date_created: woLog.date_created,
-      wo_log_id: woLog.wo_log_id,
-      offline: false
-    })
-  } else {
-    response = await selectedAPI('POST', 'workorderlogs', {
-      work_order_id: woLog.work_order_id,
-      latitude: woLog.latitude,
-      longitude: woLog.longitude,
-      type: woLog.type,
-      wo_log_id: woLog.wo_log_id,
-      return_visit: woLog.return_visit,
-      user_time_zone: woLog.user_time_zone,
-      date_created: woLog.date_created,
-      status: woLog.status,
-      offline: false,
-      cancel_trip: woLog.cancel_trip
-    })
-  }
-  return response
-}
-
-export const uploadRepair = async (repair, iframe = false) => {
-  const selectedAPI = iframe ? callIframeAPI : callAPI
-  // Ensure the id for the repair is always set
-  if (!repair.id && repair._id) repair.id = repair._id
-  let response
-  if (!repair.id) {
-    // SAVE
-    response = await selectedAPI('POST', 'repairs', {
-      date_created: repair.date_created,
-      work_order_id: repair.work_order_id,
-      user_id: repair.user_id,
-      status: repair.status,
-      type: repair.type,
-      data: repair.data,
-      sync_error: repair.sync_error,
-      schema_version: 'v2'
-    })
-  } else {
-    // UPDATE
-    response = await selectedAPI('PUT', `repairs/${repair.id}`, {
-      work_order_id: repair.work_order_id,
-      user_id: repair.user_id,
-      status: repair.status,
-      data: repair.data,
-      sync_error: repair.sync_error
-    })
-  }
-  return response
-}
-
 /*
  * GET Selected WorkOrder
  * @returns WorkOrder
  */
 export const getWorkOrder = async id => {
   return await callAPI('GET', `/workorders/${id}`)
-}
-
-/**
- * Download WO by id
- * @param {string} id
- * @returns WorkOrder
- */
-export const getWoByIdWithAuth = async (iframe, id) => {
-  const selectedAPI = iframe ? callIframeAPI : callAPI
-  return await selectedAPI('GET', `workorders/data/${id}`)
-}
-
-export const setIframeAccessToken = accessToken => {
-  iframeApi.setHeader('Authorization', `Bearer ${accessToken}`)
-}
-
-export const setIframeOriginatingCompany = originatingCompany => {
-  iframeApi.setHeader('ORIGINATING-COMPANY-ID', originatingCompany)
 }

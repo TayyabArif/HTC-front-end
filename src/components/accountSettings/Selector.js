@@ -6,12 +6,11 @@ import {
   MenuItem,
   TextField
 } from '@mui/material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { selectorStyles } from '../../styles/classes/AccountSettingsClasses'
+import { ArrowDropDown } from '@mui/icons-material'
+import { SelectorClasses } from '../../styles/classes/AccountSettingsClasses'
 
 export const Selector = React.forwardRef((props, ref) => {
-  const classes = selectorStyles({ disabled: props.disabled })
+  const classes = SelectorClasses({ disabled: props.disabled })
   const [anchorEl, setAnchorEl] = useState(null)
   const inputRef = useRef()
 
@@ -27,8 +26,9 @@ export const Selector = React.forwardRef((props, ref) => {
   return (
     <FormControl
       variant="filled"
-      className={classes.formControl}
       disabled={props.disabled}
+      fullWidth
+      className={classes.formControl}
     >
       <TextField
         id={props.id}
@@ -44,14 +44,14 @@ export const Selector = React.forwardRef((props, ref) => {
         onClose={handleClose}
         autoComplete="off"
         disabled={props.disabled}
-        classes={{ root: classes.root }}
+        className={ classes.root }
         InputLabelProps={{ className: classes.label }}
         InputProps={{
           className: classes.textField,
+          disableUnderline: true,
           endAdornment: (
             <InputAdornment position="end">
-              <FontAwesomeIcon
-                icon={faCaretDown}
+              <ArrowDropDown
                 className={classes.icon}
               />
             </InputAdornment>
@@ -71,7 +71,7 @@ export const Selector = React.forwardRef((props, ref) => {
             <MenuItem
               key={option.id}
               value={option.id}
-              classes={{ root: classes.menuItem }}
+              className={classes.menuItem}
               onClick={() => {
                 props.handleChange({
                   target: { name: props.id, value: option.id }

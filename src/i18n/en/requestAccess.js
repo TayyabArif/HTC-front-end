@@ -27,6 +27,18 @@ export const requestAccess = () => {
       president: 'President',
       technician: 'Technician'
     },
+    admin_roles: {
+      accounting: 'Accounting/AR',
+      account_manager: 'Account Manager',
+      administrator: 'Administrator',
+      dispatcher: 'Dispatcher',
+      operations_manager: 'Operations Manager',
+      owner: 'Owner',
+      president: 'President'
+    },
+    email_notifications: {
+      all_notifications: 'All Email Notifications'
+    },
     messages: {
       errors: {
         invalid_domain_structure: 'Please enter a valid domain name',
