@@ -533,10 +533,6 @@ export const MapActionButtons = (props) => {
   const handleClickWeather = (e) => {
     setAnchorWEl(null)
     props.setWeather(e.currentTarget.dataset.weather)
-    ReactGA.event({
-      category: 'change',
-      action: `change_weather_type_to_${e.currentTarget.dataset.weather}`
-    })
   }
 
   return (
