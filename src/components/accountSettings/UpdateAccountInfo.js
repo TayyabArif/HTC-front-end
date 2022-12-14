@@ -209,7 +209,7 @@ export const UpdateAccountInfo = props => {
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
-        employeeId: updatedInfo.employeeId
+        employee_id: updatedInfo.employeeId
       }
 
       if (updatedInfo.password !== passwordPlaceHolder) {
@@ -230,7 +230,7 @@ export const UpdateAccountInfo = props => {
       newUserData.userInfo.roles = newData.roles
       newUserData.userInfo.role = newData.role
       newUserData.userInfo.password = newData.password
-      newUserData.userInfo.employee_id = newData.employeeId
+      newUserData.userInfo.employee_id = newData.employee_id
 
       store.dispatch(authActions.setUser(newUserData))
       handleClosePanel(newUserData)
@@ -262,8 +262,8 @@ export const UpdateAccountInfo = props => {
         updatedInfo.password,
         updatedInfo.employeeId
       )
-      handleClose()
       updateUsers()
+      handleClose()
     } catch (e) {
       console.error(e)
       setErrorMessage(e)
@@ -289,8 +289,8 @@ export const UpdateAccountInfo = props => {
             ? undefined
             : updatedInfo.password
       })
-      handleClose()
       updateUsers()
+      handleClose()
     } catch (e) {
       console.error(e)
       if (e.details && e.details?.details?.length > 0) {
@@ -330,7 +330,9 @@ export const UpdateAccountInfo = props => {
               <FormLabel component="legend" className={classes.title}>
                 {event === 'new'
                   ? t('account_settings.info_card.new_user_title')
-                  : t('account_settings.info_card.title')}
+                  : event === 'edit'
+                    ? t('account_settings.info_card.edit_user_title')
+                    : t('account_settings.info_card.title')}
               </FormLabel>
             </div>
 
@@ -344,6 +346,7 @@ export const UpdateAccountInfo = props => {
                       name="firstName"
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.first_name')}
+                      placeholder={t('account_settings.info_card.placeholder_first')}
                       error={!!errors.firstName}
                       helperText={errors.firstName && errors.firstName.message}
                       {...register('firstName')}
@@ -356,6 +359,7 @@ export const UpdateAccountInfo = props => {
                         borderBottomRightRadius: 0,
                         borderColor: '#B8B8B8'
                       }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -365,6 +369,7 @@ export const UpdateAccountInfo = props => {
                       name="lastName"
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.last_name')}
+                      placeholder={t('account_settings.info_card.placeholder_last')}
                       error={!!errors.lastName}
                       helperText={errors.lastName && errors.lastName.message}
                       {...register('lastName')}
@@ -373,6 +378,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                 </Grid>
@@ -384,6 +390,7 @@ export const UpdateAccountInfo = props => {
                       name="email"
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.email')}
+                      placeholder={t('account_settings.info_card.placeholder_email')}
                       error={!!errors.email}
                       helperText={errors.email && errors.email.message}
                       {...register('email')}
@@ -393,6 +400,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                 </Grid>
@@ -404,6 +412,7 @@ export const UpdateAccountInfo = props => {
                       name="phone"
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.phone_number')}
+                      placeholder={t('account_settings.info_card.placeholder_phone')}
                       error={!!errors.phone}
                       helperText={errors.phone && errors.phone.message}
                       inputStyle={{
@@ -411,6 +420,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
+                      InputLabelProps={{ shrink: true }}
                       {...register('phone')}
                     />
                   </Grid>
@@ -458,6 +468,7 @@ export const UpdateAccountInfo = props => {
                         })[updatedInfo.role] ?? ''
                       }
                       label={t('company_settings.users_card.panel_role')}
+                      placeholder={t('account_settings.info_card.placeholder_select')}
                       handleChange={handleChangeValues}
                       options={Object.keys(
                         t('request_access.user_roles', { returnObjects: true })
@@ -515,6 +526,7 @@ export const UpdateAccountInfo = props => {
                       inputStyle={{
                         width: '100%'
                       }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                 </Grid>
@@ -529,9 +541,11 @@ export const UpdateAccountInfo = props => {
                         ' ' +
                         t('account_settings.form.username_chars')
                       }
+                      placeholder={t('account_settings.info_card.placeholder_username')}
                       error={!!errors.username}
                       helperText={errors.username && errors.username.message}
                       endAdornment={true}
+                      InputLabelProps={{ shrink: true }}
                       {...register('username')}
                     />
                   </Grid>

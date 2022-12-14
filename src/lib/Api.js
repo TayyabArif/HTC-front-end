@@ -78,6 +78,12 @@ const callAPI = async (
   let response
   if (authorized) {
     api.setHeader('Authorization', `Bearer ${authStore.token.access_token}`)
+    if (authStore?.user?.userInfo) {
+      api.setHeader(
+        'ORIGINATING-COMPANY-ID',
+        authStore.user.userInfo.originating_company
+      )
+    }
   }
 
   switch (type) {

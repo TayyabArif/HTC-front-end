@@ -180,9 +180,9 @@ const CompanySettings = props => {
   const getZipCodesFiltered = async serviceArea => {
   }
 
-  const handleSave = async () => {
+  const handleSave = async (data) => {
     try {
-      const newProfile = { ...updatedCompany }
+      const newProfile = { ...data }
       delete newProfile.company
       delete newProfile.id
       delete newProfile.external_token
@@ -437,13 +437,10 @@ const CompanySettings = props => {
 
   const updateProfileLogo = async () => {
     const data = { ...company }
-    data.logo = {
-      ...(data.logo ?? {}),
-      url: logoData
-    }
+    data.logo = { ...data.logo, url: logoData }
     setUpdatedCompany(data)
     handleClose()
-    await handleSave()
+    await handleSave(data)
     setAfterHoursPhone(data?.after_hours?.phone)
     setCompany(data)
   }
@@ -649,7 +646,7 @@ const CompanySettings = props => {
         <DialogActions>
           <Button
             variant="contained"
-            onClick={handleSave}
+            onClick={() => handleSave(updatedCompany)}
             className={classes.saveButton}
             disabled={equalObjects(company, updatedCompany) || buttonDisabled}
           >

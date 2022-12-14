@@ -4,6 +4,7 @@ export const accountSettings = () => {
     info_card: {
       title: 'Account Details',
       new_user_title: 'New User',
+      edit_user_title: 'Edit User',
       name: 'Name',
       first_name: 'First name',
       last_name: 'Last name',
@@ -27,6 +28,7 @@ export const accountSettings = () => {
       placeholder_pass: 'Create password',
       placeholder_repass: 'Re-enter password',
       placeholder_employee: 'Enter ID',
+      placeholder_select: 'Select',
       edit_button: 'Edit'
     },
     form: {
