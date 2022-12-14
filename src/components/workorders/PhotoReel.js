@@ -160,7 +160,7 @@ export const PhotoReel = props => {
       >
         <DialogTitle
           id="alert-dialog"
-          disableTypography={true}
+          disabletypography="true"
           classes={{ root: classes.dialogTitle }}
           ref={dialogTitleComponent}
         >

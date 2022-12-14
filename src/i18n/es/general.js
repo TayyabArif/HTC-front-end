@@ -4,7 +4,10 @@ export const general = () => {
       cancel: 'Cancelar',
       apply: 'Aplicar',
       search: 'Buscar',
-      select: 'Selecciona'
+      select: 'Selecciona',
+      wo: 'WO',
+      not_available: 'No disponible',
+      loading: 'Cargando'
     },
     messages: {
       errors: {

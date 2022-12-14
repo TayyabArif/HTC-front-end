@@ -4,7 +4,10 @@ export const general = () => {
       cancel: 'Cancel',
       apply: 'Apply',
       search: 'Search',
-      select: 'Select'
+      select: 'Select',
+      wo: 'WO',
+      not_available: 'Not available',
+      loading: 'Loading'
     },
     messages: {
       errors: {
