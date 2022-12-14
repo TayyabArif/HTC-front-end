@@ -78,9 +78,6 @@ const Routes = () => {
           <Route path="/forgot-password/code">
             <ForgotPasswordCode />
           </Route>
-          <Route path="*">
-            <Redirect to="/sign-in" />
-          </Route>
           <Route exact path="/sign-in">
             <SignIn/>
           </Route>

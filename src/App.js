@@ -1,7 +1,6 @@
 import React from 'react'
 import Routes from './Routes'
 import customTheme from './styles/mui_theme'
-import { StyledEngineProvider } from '@mui/material/styles'
 import { ThemeProvider } from '@mui/material'
 import './assets/fonts/Rubik-Regular.ttf'
 import './assets/fonts/Rubik-Bold.ttf'
@@ -15,11 +14,9 @@ function App () {
   }
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={customTheme}>
-        <Routes />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <ThemeProvider theme={customTheme}>
+      <Routes />
+    </ThemeProvider>
   )
 }
 
