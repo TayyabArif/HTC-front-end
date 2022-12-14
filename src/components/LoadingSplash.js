@@ -6,7 +6,8 @@ import { FadeLoader } from 'react-spinners'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    minHeight: '100vh'
+    minHeight: '100vh',
+    overflow: 'hidden'
   }
 }))
 

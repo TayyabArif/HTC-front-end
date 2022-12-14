@@ -73,12 +73,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '0px',
     fontSize: '20px',
     fontWeight: '400',
-    '& .MuiOutlinedInput-root': {
+    '& fieldset': {
       borderRadius: '40px',
-      '&.Mui-focused fieldset': {
-        borderColor: theme.colors.inputBorder,
-        borderWidth: '1px'
-      }
+      border: `1px solid ${theme.colors.inputBorder}`,
+      borderWidth: '1px'
     }
   },
   resetButton: {

@@ -26,6 +26,7 @@ import { store } from '../../store'
 
 /** Services **/
 import { login } from '../../services/AuthService'
+import { LoadingSplash } from '../../components/LoadingSplash'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -231,6 +232,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   const [showErrors, setShowErrors] = useState(false)
   const [rememberMe, setRemember] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const authStore = store.getState().auth
@@ -252,7 +254,7 @@ const SignIn = () => {
 
   const onSubmit = async () => {
     try {
-      dispatch(loadingActions.show())
+      setLoading(true)
       await login(email, password)
       if (rememberMe) {
         dispatch(authActions.setRemember(email))
@@ -267,7 +269,7 @@ const SignIn = () => {
       if (error.code === 401 || error.code === 404 || error.code === 500) {
         setShowErrors(true)
       }
-      dispatch(loadingActions.hide())
+      setLoading(false)
     }
   }
 
@@ -290,8 +292,9 @@ const SignIn = () => {
     setRemember(!rememberMe)
   }
 
-  return (
-    <SignInContainer screen="sign_in">
+  return loading
+    ? <LoadingSplash />
+    : <SignInContainer screen="sign_in">
       <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
         <Grid className={classes.mainItem} item xs={12}>
           <Grid container justifyContent='center'>
@@ -421,13 +424,13 @@ const SignIn = () => {
 
             <Box textAlign='center' pt={2}>
               <Typography component={'span'} align={'center'} className={classes.terms}>
-                {t('sign_in.messages.terms_and_conditions')} <Link to={'FIX ME'} onClick={() => window.open(process.env.REACT_APP_CONDITIONS_URL, '_blank')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
+                {t('sign_in.messages.terms_and_conditions')} <Link onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
               </Typography>
             </Box>
 
             <Grid className={classes.buttons} container justifyContent='center' >
               <Grid item xs={7} >
-                <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
+                <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler}>
                   {t('sign_in.request_access')}
                 </BasicButton>
               </Grid>
@@ -441,7 +444,6 @@ const SignIn = () => {
         </Grid>
       </Grid>
     </SignInContainer>
-  )
 }
 
 export default SignIn

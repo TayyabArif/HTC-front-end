@@ -6,6 +6,7 @@ import { Fab, InputBase, Paper, Tab, Tabs } from '@mui/material'
 
 export const BasicButton = withStyles((theme) => ({
   root: {
+    display: 'none',
     background: `${theme.colors.basicButtonBackground} !important`,
     color: `${theme.palette.primary.main} !important`,
     textTransform: 'unset !important',
