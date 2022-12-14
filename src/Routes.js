@@ -80,12 +80,13 @@ const Routes = () => {
           </Route>
           <Route path="*">
             <Redirect to="/sign-in" />
-                <Route exact path="/sign-in">
-                    <SignIn/>
-                </Route>
-                <Route exact path="/create-account">
-                    <CreateAccount />
-                </Route>
+          </Route>
+          <Route exact path="/sign-in">
+            <SignIn/>
+          </Route>
+          <Route exact path="/create-account">
+            <CreateAccount />
+          </Route>
           </Switch>
       </BrowserRouter>)
   }
