@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 /** Material UI **/
-import { makeStyles } from '@mui/styles'
 import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
-
-/** Redux **/
-import { useDispatch } from 'react-redux'
 
 /** Validations **/
 import * as yup from 'yup'
@@ -18,107 +14,18 @@ import { SignInContainer } from '../../components/SignInContainer'
 import { useTranslation } from 'react-i18next'
 import { PersonOutline as PersonOutlineIcon } from '@mui/icons-material'
 import { RoundedButton } from '../../styles/mui_custom_components'
-import { loadingActions } from '../../store/loading'
+import { LoadingSplash } from '../../components/LoadingSplash'
 
 /** Services **/
 import { createUser } from '../../services/ApiService'
 import { useLocation } from 'react-router-dom'
 
 /** Styles **/
-const useStyles = makeStyles((theme) => ({
-  mainItem: {
-    maxWidth: '30em',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: '1em'
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingTop: '4em'
-    }
-  },
-  gridContainer: {
-    transform: 'scale(0.80)'
-  },
-  subtitle: {
-    fontWeight: '400',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '16px',
-      display: 'block',
-      lineHeight: '21px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
-    }
-  },
-  title: {
-    '&.MuiTypography-root': {
-      fontWeight: '700',
-      fontFamily: 'Rubik Bold',
-      lineHeight: 1.5,
-      [theme.breakpoints.down('md')]: {
-        fontSize: '24px'
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '30px'
-      }
-    }
-  },
-  customField: {
-    marginTop: '0px',
-    fontSize: '20px',
-    fontWeight: '400',
-    '& .MuiOutlinedInput-root': {
-      borderRadius: '40px',
-      '&.Mui-focused fieldset': {
-        borderColor: theme.colors.inputBorder,
-        borderWidth: '1px'
-      }
-    }
-  },
-  linkBox: {
-    width: 'max-content',
-    display: 'flex'
-  },
-  sendButton: {
-    height: '61px',
-    [theme.breakpoints.down('md')]: {
-      width: '100%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '5em'
-    }
-  },
-  sendButtonBox: {
-    [theme.breakpoints.down('md')]: {
-      marginLeft: 0,
-      marginTop: '0px',
-      width: '100%'
-    },
-    [theme.breakpoints.up('md')]: {
-      marginLeft: '-10px'
-    }
-  },
-  fieldsOutlined: {
-    [theme.breakpoints.down('md')]: {
-      borderRadius: '4px'
-    },
-    [theme.breakpoints.up('md')]: {
-      borderRadius: '4px 0px 0px 4px',
-      borderRight: 'none'
-    },
-    fontSize: '24px'
-  },
-  link: {
-    color: theme.palette.primary.text,
-    textDecoration: 'none',
-    margin: 'auto',
-    fontSize: '16px'
-  }
-}))
+import { createAccountStyles } from '../../styles/classes/CreateAccountClasses'
 
 const CreateAccount = () => {
-  const classes = useStyles()
+  const classes = createAccountStyles()
   const { t } = useTranslation()
-  const dispatch = useDispatch()
   const [enableSave, setEnableSave] = useState()
 
   const [firstName, setFirstName] = useState('')
@@ -127,6 +34,7 @@ const CreateAccount = () => {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [accessCode, setAccessCode] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -183,7 +91,7 @@ const CreateAccount = () => {
   }, [])
 
   const onSubmit = async (data) => {
-    dispatch(loadingActions.show())
+    setLoading(true)
     try {
       await createUser(
         accessCode,
@@ -200,7 +108,7 @@ const CreateAccount = () => {
           setEmailError(error.message)
           break
       }
-      // setCreationError(error.message)
+      setLoading(false)
     }
   }
 
@@ -216,169 +124,172 @@ const CreateAccount = () => {
     setPassword(event.target.value)
   }
 
-  return (
-      <SignInContainer>
-        <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            className={classes.gridContainer}>
-            <Grid className={classes.mainItem} item xs={12}>
-                <Grid container justifyContent="center" alignItems="center">
-                    <Grid item xs={12} textAlign="center">
-                        <Typography className={classes.title} >
-                            {t('create_account.title').toUpperCase()}
-                        </Typography>
+  return loading
+    ? <LoadingSplash />
+    : <SignInContainer>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      className={classes.gridContainer}>
+      <Grid className={classes.mainItem} item xs={12}>
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item xs={12} textAlign="center">
+            <Typography className={classes.title} >
+              {t('create_account.title').toUpperCase()}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} mt={3}>
+            <Typography align='center' className={classes.subtitle} >
+              {t('create_account.subtitle')}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Box mt={4}>
+              <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                <Grid container justifyContent="space-between">
+                  <Grid item xs={12} sm={6}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <TextField
+                          value={firstName}
+                          label={t('create_account.label.firstName')}
+                          className={classes.customField}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="firstName"
+                          type="text"
+                          placeholder={t('create_account.placeholder.firstName')}
+                          name="first_name"
+                          autoComplete="off"
+                          sx={labelStyle}
+                          error={!!errors.first_name}
+                          helperText={errors.first_name && errors.first_name.message}
+                          {...register('first_name')}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <PersonOutlineIcon/>
+                              </InputAdornment>
+                            ),
+                            classes: {
+                              notchedOutline: classes.fieldsOutlined
+                            }
+                          }}
+                          onInput={handleFirstNameChange}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} mt={3}>
-                        <Typography align='center' className={classes.subtitle} >
-                            {t('create_account.subtitle')}
-                        </Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Grid container>
+                      <Grid item xs={1}></Grid>
+                      <Grid item xs={11}>
+                        <TextField
+                          value={lastName}
+                          label={t('create_account.label.lastName')}
+                          sx={labelStyle}
+                          className={classes.customField}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="lastName"
+                          type="text"
+                          placeholder={t('create_account.placeholder.lastName')}
+                          name="last_name"
+                          autoComplete="off"
+                          error={!!errors.last_name}
+                          helperText={errors.last_name && errors.last_name.message}
+                          {...register('last_name')}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <PersonOutlineIcon/>
+                              </InputAdornment>
+                            ),
+                            classes: {
+                              notchedOutline: classes.fieldsOutlined
+                            }
+                          }}
+                          onInput={handleLastNameChange}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} md={8}>
-                        <Box mt={4}>
-                            <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                                <Grid container justifyContent="space-between">
-                                    <Grid item xs={12} sm={6}>
-                                        <Grid container>
-                                          <Grid item xs={11}>
-                                            <TextField
-                                              value={firstName}
-                                              label={t('create_account.label.firstName')}
-                                              className={classes.customField}
-                                              variant="outlined"
-                                              margin="normal"
-                                              required
-                                              fullWidth
-                                              id="firstName"
-                                              placeholder={t('create_account.placeholder.firstName')}
-                                              name="first_name"
-                                              autoComplete="off"
-                                              sx={labelStyle}
-                                              error={!!errors.first_name}
-                                              helperText={errors.first_name && errors.first_name.message}
-                                              {...register('first_name')}
-                                              InputProps={{
-                                                startAdornment: (
-                                                  <InputAdornment position="start">
-                                                    <PersonOutlineIcon/>
-                                                  </InputAdornment>
-                                                ),
-                                                classes: {
-                                                  notchedOutline: classes.fieldsOutlined
-                                                }
-                                              }}
-                                              onInput={handleFirstNameChange}
-                                            />
-                                          </Grid>
-                                        </Grid>
-                                    </Grid>
-                                  <Grid item xs={12} sm={6}>
-                                        <Grid container>
-                                          <Grid item xs={11}>
-                                            <TextField
-                                              value={lastName}
-                                              label={t('create_account.label.lastName')}
-                                              sx={labelStyle}
-                                              className={classes.customField}
-                                              variant="outlined"
-                                              margin="normal"
-                                              required
-                                              fullWidth
-                                              id="lastName"
-                                              placeholder={t('create_account.placeholder.lastName')}
-                                              name="last_name"
-                                              autoComplete="off"
-                                              error={!!errors.last_name}
-                                              helperText={errors.last_name && errors.last_name.message}
-                                              {...register('last_name')}
-                                              InputProps={{
-                                                startAdornment: (
-                                                  <InputAdornment position="start">
-                                                    <PersonOutlineIcon/>
-                                                  </InputAdornment>
-                                                ),
-                                                classes: {
-                                                  notchedOutline: classes.fieldsOutlined
-                                                }
-                                              }}
-                                              onInput={handleLastNameChange}
-                                            />
-                                          </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid container justifyContent="space-between">
-                                    <Grid item xs={12} mt={2}>
-                                        <Grid container>
-                                          <Grid item xs={12}>
-                                            <TextField
-                                              value={password}
-                                              label={t('create_account.label.password')}
-                                              sx={labelStyle}
-                                              className={classes.customField}
-                                              variant="outlined"
-                                              margin="normal"
-                                              required
-                                              fullWidth
-                                              id="password"
-                                              type="password"
-                                              placeholder={t('create_account.placeholder.password')}
-                                              name="password"
-                                              autoComplete="off"
-                                              error={!!errors.password}
-                                              helperText={errors.password && errors.password.message}
-                                              {...register('password')}
-                                              InputProps={{
-                                                startAdornment: (
-                                                  <InputAdornment position="start">
-                                                    <PersonOutlineIcon/>
-                                                  </InputAdornment>
-                                                ),
-                                                classes: {
-                                                  notchedOutline: classes.fieldsOutlined
-                                                }
-                                              }}
-                                              onInput={handlePasswordChange}
-                                            />
-                                          </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                              {emailError && <Grid container>
-                                <Grid item>
-                                  {emailError}
-                                </Grid>
-                              </Grid>}
-                                <Grid container justifyContent="right">
-                                    <Grid item xs={12} sm={12} md={2} mt={4}>
-                                        <Grid container direction="column">
-                                            <Grid align={'center'} item>
-                                                <Box className={classes.sendButtonBox}>
-                                                    <RoundedButton
-                                                        data-testid={'submit_button'}
-                                                        disabled={!enableSave}
-                                                        className={classes.sendButton}
-                                                        type="submit"
-                                                        variant="contained"
-                                                    >
-                                                        {t('create_account.send')}
-                                                    </RoundedButton>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </form>
-                        </Box>
-                    </Grid>
+                  </Grid>
                 </Grid>
-            </Grid>
+                <Grid container justifyContent="space-between">
+                  <Grid item xs={12} mt={2}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <TextField
+                          value={password}
+                          label={t('create_account.label.password')}
+                          sx={labelStyle}
+                          className={classes.customField}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="password"
+                          type="password"
+                          placeholder={t('create_account.placeholder.password')}
+                          name="password"
+                          autoComplete="new-password"
+                          error={!!errors.password}
+                          helperText={errors.password && errors.password.message}
+                          {...register('password')}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <PersonOutlineIcon/>
+                              </InputAdornment>
+                            ),
+                            classes: {
+                              notchedOutline: classes.fieldsOutlined
+                            }
+                          }}
+                          onInput={handlePasswordChange}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                {emailError && <Grid container>
+                  <Grid item>
+                    <p className={classes.emailErrors}>*{emailError}</p>
+                  </Grid>
+                </Grid>}
+                <Grid container justifyContent="right">
+                  <Grid item xs={12} sm={12} md={2} mt={4}>
+                    <Grid container direction="column">
+                      <Grid align="right" item>
+                        <Box className={classes.sendButtonBox}>
+                          <RoundedButton
+                            data-testid={'submit_button'}
+                            disabled={!enableSave}
+                            className={classes.sendButton}
+                            type="submit"
+                            variant="contained"
+                          >
+                            {t('create_account.send')}
+                          </RoundedButton>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </form>
+            </Box>
+          </Grid>
         </Grid>
-      </SignInContainer>
-  )
+      </Grid>
+    </Grid>
+  </SignInContainer>
 }
 
 export default CreateAccount
