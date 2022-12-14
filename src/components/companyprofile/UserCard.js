@@ -194,7 +194,7 @@ export const UserCard = props => {
         disableAutoFocus={false}
       >
         <DialogTitle
-          disableTypography={true}
+          disabletypography="true"
           classes={{ root: classes.dialogTitle }}
         >
           {t('general.messages.errors.user_creation_title')}
