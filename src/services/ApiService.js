@@ -25,6 +25,7 @@ export const createClientUser = async (
   roles,
   role,
   password,
+  employeeId,
   avoidEmail = false
 ) => {
   store.dispatch(loadingActions.show())
@@ -40,7 +41,8 @@ export const createClientUser = async (
         phone,
         photo_url: photoUrl,
         username,
-        password
+        password,
+        employee_id: employeeId
       },
       '1st'
     )
@@ -51,7 +53,7 @@ export const createClientUser = async (
         throw error.details?.details[0].message
       }
       throw `${error.details?.details[0].path.substring(1)} ${
-          error.details?.details[0].message
+        error.details?.details[0].message
       }`
     }
     throw error.message
@@ -68,7 +70,8 @@ export const createClientUser = async (
         phone,
         photo_url: photoUrl,
         username,
-        password
+        password,
+        employee_id: employeeId
       },
       '2nd'
     )
@@ -76,7 +79,7 @@ export const createClientUser = async (
     store.dispatch(loadingActions.hide())
     if (error.details?.details && error.details?.details) {
       throw `${error.details?.details[0].path.substring(1)} ${
-          error.details?.details[0].message
+        error.details?.details[0].message
       }`
     }
     throw error.message
@@ -95,7 +98,8 @@ export const createClientUser = async (
         photo_url: photoUrl,
         username,
         password,
-        avoidEmail
+        employee_id: employeeId,
+        avoid_email: avoidEmail
       },
       'final'
     )
@@ -103,7 +107,7 @@ export const createClientUser = async (
     store.dispatch(loadingActions.hide())
     if (error.details?.details && error.details?.details) {
       throw `${error.details?.details[0].path.substring(1)} ${
-          error.details?.details[0].message
+        error.details?.details[0].message
       }`
     }
     throw error.message
@@ -111,6 +115,30 @@ export const createClientUser = async (
 
   store.dispatch(loadingActions.hide())
   return newUser
+}
+
+export const updateCompany = async (id, params) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.updateCompany(id, params)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (error) {
+    store.dispatch(loadingActions.hide())
+    throw error.message
+  }
+}
+
+export const uploadCompanyFile = async (id, params) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.uploadCompanyFile(id, params)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (error) {
+    store.dispatch(loadingActions.hide())
+    throw error.message
+  }
 }
 
 export const updateClientUser = async (id, params) => {
@@ -226,4 +254,269 @@ export const createUser = async (
   // Login Process
   await login(email, password, '/')
   store.dispatch(loadingActions.hide())
+}
+
+export const workOrdersPortal = async (
+  showAll,
+  search,
+  clientName,
+  siteName,
+  trades,
+  service,
+  woNumber,
+  openDate,
+  dueDate,
+  status,
+  invoices,
+  sort,
+  perPage,
+  page
+) => {
+  const tradeString = trades.split('|').join(',')
+  const statusString = status
+    ? status.split('|').join(',')
+    : 'open,in_progress,completed,cancelled,expired'
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const response = await Api.workOrdersPortal(
+      showAll,
+      search,
+      clientName,
+      siteName,
+      tradeString,
+      service,
+      woNumber,
+      openDate,
+      dueDate,
+      statusString,
+      invoices,
+      sort,
+      perPage,
+      page
+    )
+    if (response) {
+      return { status: true, content: response }
+    } else {
+      return { status: false, content: null }
+    }
+  } catch (err) {
+    throw err
+  }
+}
+
+export const invoicesPortal = async (
+  showAll,
+  search,
+  won,
+  inStatus,
+  client,
+  location,
+  invoiceNumber,
+  amount,
+  createDate,
+  dueDate,
+  sort,
+  companyId,
+  perPage,
+  page
+) => {
+  try {
+    const response = await Api.invoicesPortal(
+      showAll,
+      search,
+      won,
+      inStatus,
+      client,
+      location,
+      invoiceNumber,
+      amount,
+      createDate,
+      dueDate,
+      sort,
+      companyId,
+      perPage,
+      page
+    )
+    if (response) {
+      return { status: true, content: response }
+    } else {
+      return { status: false, content: null }
+    }
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const submitInvoice = async (id, body, submitted) => {
+  try {
+    const response = await Api.submitInvoicePortal(id, submitted, body)
+    if (response) {
+      return { status: true, content: response }
+    } else {
+      return { status: false, content: null }
+    }
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getInvoice = async id => {
+  try {
+    const response = await Api.getInvoiceById(id)
+    if (response) {
+      return { status: true, content: response }
+    } else {
+      return { status: false, content: null }
+    }
+  } catch (error) {
+    store.dispatch(loadingActions.hide())
+    throw error
+  }
+}
+
+export const getSitesAdvancedFiltersInfo = async () => {
+  store.dispatch(loadingActions.show())
+  try {
+    const advancedFilters = await Api.getWorkOrderTrades()
+    advancedFilters.services = [].concat.apply(
+      [],
+      advancedFilters.trades.map(item => item.trade_services)
+    )
+    store.dispatch(loadingActions.hide())
+    return advancedFilters
+  } catch (e) {
+    store.dispatch(loadingActions.hide())
+    throw e
+  }
+}
+
+export const getCompany = async id => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getCompany(id)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+export const getContactOffline = async id => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getContactOffline(id)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getCompanyProfile = async id => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getCompanyProfile(id)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getCompanyFile = async s3Key => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getCompanyFile(s3Key)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getCompanyUsers = async companyId => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getCompanyUsers(companyId)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const createRolWithScopes = async (
+  name,
+  workorders,
+  sites,
+  companySettings
+) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.createRolWithScopes(
+      name,
+      workorders === 'yes',
+      sites === 'yes',
+      companySettings === 'yes'
+    )
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const updateRolWithScopes = async (
+  id,
+  name,
+  workorders,
+  sites,
+  companySettings
+) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.updateRolWithScopes(
+      id,
+      name,
+      workorders === 'yes',
+      sites === 'yes',
+      companySettings === 'yes'
+    )
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const deleteRolWithScopes = async id => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.deleteRolWithScopes(id)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const changeUserPassword = async password => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.changeUserPassword(password)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
 }

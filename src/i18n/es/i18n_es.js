@@ -9,6 +9,7 @@ import { contactUs } from './contactUs'
 import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
+import { companySettings } from './companySettings'
 import { accountSettings } from './accountSettings'
 import { createAccount } from './createAccount'
 
@@ -25,6 +26,8 @@ export const i18nEs = () => {
     nav_bar: navBar(),
     dashboard: dashboard(),
     general: general(),
+    company_settings: companySettings(),
+    companyProfile: companyProfile(),
     account_settings: accountSettings(),
     create_account: createAccount()
   }
