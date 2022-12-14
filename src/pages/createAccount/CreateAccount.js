@@ -147,14 +147,13 @@ const CreateAccount = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Box mt={4}>
+            <Box mt={6}>
               <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Grid container justifyContent="space-between">
                   <Grid item xs={12} sm={6}>
                     <Grid container>
                       <Grid item xs={12}>
                         <TextField
-                          value={firstName}
                           label={t('create_account.label.firstName')}
                           className={classes.customField}
                           variant="outlined"
@@ -169,6 +168,7 @@ const CreateAccount = () => {
                           sx={labelStyle}
                           error={!!errors.first_name}
                           helperText={errors.first_name && errors.first_name.message}
+                          onKeyUp={handleFirstNameChange}
                           {...register('first_name')}
                           InputProps={{
                             startAdornment: (
@@ -180,7 +180,6 @@ const CreateAccount = () => {
                               notchedOutline: classes.fieldsOutlined
                             }
                           }}
-                          onInput={handleFirstNameChange}
                         />
                       </Grid>
                     </Grid>
@@ -190,7 +189,6 @@ const CreateAccount = () => {
                       <Grid item xs={1}></Grid>
                       <Grid item xs={11}>
                         <TextField
-                          value={lastName}
                           label={t('create_account.label.lastName')}
                           sx={labelStyle}
                           className={classes.customField}
@@ -200,6 +198,7 @@ const CreateAccount = () => {
                           fullWidth
                           id="lastName"
                           type="text"
+                          onKeyUp={handleLastNameChange}
                           placeholder={t('create_account.placeholder.lastName')}
                           name="last_name"
                           autoComplete="off"
@@ -216,18 +215,16 @@ const CreateAccount = () => {
                               notchedOutline: classes.fieldsOutlined
                             }
                           }}
-                          onInput={handleLastNameChange}
                         />
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid container justifyContent="space-between">
-                  <Grid item xs={12} mt={2}>
+                  <Grid item xs={12} mt={4}>
                     <Grid container>
                       <Grid item xs={12}>
                         <TextField
-                          value={password}
                           label={t('create_account.label.password')}
                           sx={labelStyle}
                           className={classes.customField}
@@ -253,7 +250,7 @@ const CreateAccount = () => {
                               notchedOutline: classes.fieldsOutlined
                             }
                           }}
-                          onInput={handlePasswordChange}
+                          onKeyUp={handlePasswordChange}
                         />
                       </Grid>
                     </Grid>
