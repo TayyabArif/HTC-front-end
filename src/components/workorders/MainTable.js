@@ -106,7 +106,6 @@ function EnhancedTableHead (props) {
     { id: 'wostat', type: 'SlideFilter', options: woStatusOptions }
     // { id: 'invoices', type: 'SlideFilter', options: inStatusOptions }
   ]
-  console.log(tradesOptions)
   let count = 0
   const checked = rowCount > 0 && numSelected === rowCount
   if (checked) {

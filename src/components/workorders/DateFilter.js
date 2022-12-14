@@ -46,16 +46,16 @@ export const DateFilter = props => {
     let formattedDate = ''
     if (props.range) {
       formattedDate =
-        moment(selectedDateFrom).format('yyyy/MM/DD') +
+        moment(new Date(selectedDateFrom)).format('YYYY/MM/DD') +
         ' - ' +
-        moment(date).format('yyyy/MM/DD')
+        moment(new Date(date)).format('YYYY/MM/DD')
       setSelectedDate(formattedDate)
       props.setValues(prevState => ({
         ...prevState,
-        [props.id]: moment(date).format('YYYY-MM-DD HH:mm:ss Z').toLowerCase()
+        [props.id]: moment(new Date(date)).format('YYYY-MM-DD HH:mm:ss Z').toLowerCase()
       }))
     } else {
-      formattedDate = moment(date).format('MM/DD/yyyy')
+      formattedDate = moment(new Date(date)).format('MM/DD/yyyy')
       setSelectedDate(formattedDate)
     }
     props.setValues(prevState => ({
