@@ -12,6 +12,7 @@ import { dashboard } from './dashboard'
 import { companySettings } from './companySettings'
 import { accountSettings } from './accountSettings'
 import { createAccount } from './createAccount'
+import { companyProfile } from './companyProfile'
 
 export const i18nEs = () => {
   return {
