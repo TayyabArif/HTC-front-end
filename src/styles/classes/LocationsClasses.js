@@ -393,11 +393,27 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
     }
   },
   menuItem: {
-    fontSize: '12px'
+    fontSize: '12px',
+    borderBottom: '1px solid #F2F2F2',
+    width: '176px',
+    height: '40px',
+    '&:focus': {
+      backgroundColor: 'unset'
+    }
   },
   menuTitle: {
     fontSize: '14px',
     fontWeight: '500'
+  },
+  checkIcon: {
+    marginLeft: 'auto',
+    color: '#4696EC',
+    width: '18px',
+    height: '18px'
+  },
+  menuLabel: {
+    fontSize: '12px',
+    fontWeight: '400'
   }
 }))
 
@@ -508,6 +524,16 @@ export const mapCountersStyles = makeStyles((theme) => ({
   containerDiv: {
     display: 'flex',
     width: '100%'
+  },
+  gridCounter: {
+    width: 'min-content'
+  },
+  rangeLabel: {
+    marginTop: '3px',
+    fontSize: '9px',
+    fontStyle: 'italic',
+    fontWeight: '400',
+    color: '#4F4F4F'
   }
 }))
 
@@ -627,5 +653,133 @@ export const mapFiltersStyles = makeStyles((theme) => ({
     color: '#4696EC',
     width: '18px',
     height: '18px'
+  }
+}))
+
+export const weatherLegendsStyles = makeStyles((theme) => ({
+  mapButtonsCounters: {
+    position: 'relative',
+    top: '15px',
+    left: '70px',
+    height: 'fit-content'
+  },
+  font12: {
+    fontSize: 12,
+    fontWeight: 500
+  },
+  font8: {
+    fontSize: 8,
+    fontWeight: 500
+  },
+  legendsContainer: {
+    width: '440px',
+    position: 'absolute',
+    bottom: '24px',
+    left: '15px',
+    overflow: 'hidden',
+    transformOrigin: 'left bottom 0px'
+  },
+  legendsContainerMinimized: {
+    position: 'absolute',
+    bottom: '24px',
+    left: '15px',
+    overflow: 'hidden'
+  },
+  mapWeatherLegendsBoxMinimized: {
+    width: '135px',
+    position: 'absolute',
+    bottom: '0px',
+    left: '0px'
+  },
+  legendHide: {
+    color: theme.colors.text,
+    fontSize: 22
+  },
+  legendHideContainer: {
+    padding: '0px'
+  },
+  legendIndividualColorBox: {
+    width: '100%',
+    height: 7
+  },
+  legendIndividualLabelBox: {
+    width: '100%',
+    fontSize: 8,
+    color: theme.colors.map.legendsLabels,
+    textAlign: 'center'
+  },
+  gridContainer: {
+    width: '100%'
+  }
+}))
+
+export const weatherPlayerStyles = makeStyles((theme) => ({
+  font12: {
+    fontSize: 12,
+    fontWeight: 500
+  },
+  playerContainer: {
+    height: '142px',
+    width: '350px',
+    position: 'absolute',
+    bottom: '20px',
+    right: '15px',
+    overflow: 'hidden'
+  },
+  playerContainerMinimized: {
+    height: 'auto',
+    width: '350px',
+    position: 'absolute',
+    bottom: '20px',
+    right: '15px',
+    overflow: 'hidden'
+  },
+  mapWeatherPlayerBoxMinimized: {
+    width: '350px',
+    position: 'absolute',
+    bottom: '0px',
+    right: '0px'
+  },
+  playerButtonsContainer: {
+    padding: '0px',
+    paddingTop: 5
+  },
+  playerButtons: {
+    fontSize: 17
+  },
+  playerSliderRoot: {
+    color: theme.colors.map.playerSliderThumb
+  },
+  playerSliderRail: {
+    color: theme.colors.map.playerSliderRail,
+    opacity: 1,
+    height: 7,
+    marginLeft: -5,
+    width: '103%',
+    borderRadius: 7
+  },
+  playerSliderTrack: {
+    backgroundColor: theme.colors.map.playerSliderRail
+  },
+  playerSliderMark: {
+    backgroundColor: theme.colors.map.playerSliderMark,
+    height: 8,
+    width: 1,
+    marginTop: 10
+  },
+  playerSliderThumb: {
+    color: theme.colors.map.playerSliderThumb,
+    marginTop: -3
+  },
+  playerSliderLabels: {
+    marginTop: 10,
+    fontSize: 10
+  },
+  playerHide: {
+    color: theme.colors.text,
+    fontSize: 22
+  },
+  playerHideContainer: {
+    padding: '0px'
   }
 }))

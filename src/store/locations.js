@@ -25,7 +25,8 @@ const initialState = {
   advancedSearchAppliedFlag: false,
   resetChipFilters: false,
   workOrderTab: 'work_orders',
-  siteViewLastState: null
+  siteViewLastState: null,
+  sitesDateRange: 'today'
 }
 
 const slice = createSlice({
@@ -95,6 +96,9 @@ const slice = createSlice({
     },
     setLastState (state, action) {
       state.siteViewLastState = action.payload
+    },
+    setSitesDateRange (state, action) {
+      state.sitesDateRange = action.payload
     }
   }
 })

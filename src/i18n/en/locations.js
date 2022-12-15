@@ -18,7 +18,36 @@ export const locations = () => {
       date_range: 'Work Order Date Range',
       status: 'Work Order Status',
       state: 'State(s)',
-      city: 'City(s)'
+      city: 'City(s)',
+      action_buttons: {
+        weather: 'Weather',
+        radar: 'Radar',
+        temperature: 'Temperature',
+        off: 'Off',
+        map_options: 'Map Options',
+        light: 'Light',
+        gray_scale: 'Gray',
+        satellite: 'Satellite'
+      },
+      weather_player: {
+        time: 'Time',
+        now: 'Now',
+        radar_menu: 'Radar menu',
+        weather_menu: 'Weather menu'
+      },
+      weather_labels: {
+        possible: 'Possible',
+        likely: 'Likely',
+        ice: 'Ice',
+        mix: 'Mix',
+        rain: 'Rain',
+        snow: 'Snow',
+        blowing: 'Blowing',
+        fog: 'Fog',
+        other: 'Other',
+        severe: 'Severe',
+        reflectivity: 'Reflectivity'
+      }
     },
     date_ranges: {
       today: 'Today',

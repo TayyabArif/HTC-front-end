@@ -127,9 +127,10 @@ export const MapCounter = withStyles({
     minWidth: 'fit-content',
     width: 'fit-content',
     height: '49px',
-    paddingLeft: '15px',
-    paddingRight: '15px',
-    borderRadius: 8
+    paddingLeft: '12px',
+    paddingRight: '5px',
+    borderRadius: 8,
+    paddingBottom: '5px'
   }
 })(Paper)
 

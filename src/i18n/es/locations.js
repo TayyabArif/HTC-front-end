@@ -18,7 +18,36 @@ export const locations = () => {
       date_range: 'Rango Fechas Órdenes de Trabajo',
       status: 'Estado Órdenes de Trabajo',
       state: 'Estado(s)',
-      city: 'Ciudad(s)'
+      city: 'Ciudad(s)',
+      action_buttons: {
+        weather: 'Clima',
+        radar: 'Radar',
+        temperature: 'Temperatura',
+        off: 'Apagar',
+        map_options: 'Opciones de Mapa',
+        light: 'Claro',
+        gray_scale: 'Gris',
+        satellite: 'Satélite'
+      },
+      weather_player: {
+        time: 'Hora',
+        now: 'Ahora',
+        radar_menu: 'Menú de radar',
+        weather_menu: 'Menú de clima'
+      },
+      weather_labels: {
+        possible: 'Posible',
+        likely: 'Probable',
+        ice: 'Hielo',
+        mix: 'Mixto',
+        rain: 'Lluvia',
+        snow: 'Nieve',
+        blowing: 'Viento',
+        fog: 'Niebla',
+        other: 'Otro',
+        severe: 'Grave',
+        reflectivity: 'Reflectividad'
+      }
     },
     date_ranges: {
       today: 'Hoy',

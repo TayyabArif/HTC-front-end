@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { MapFiltersButton } from '../../../styles/mui_custom_components'
 import { ArrowDropDownTwoTone, ArrowRightTwoTone, Check as CheckIcon } from '@mui/icons-material'
 import { mapDateRangeOptions, mapStatusOptions } from '../../../lib/Constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { locationsActions } from '../../../store/locations'
 
 // hardcoded options
 const mapStateOptions = [
@@ -69,9 +71,10 @@ const mapCityOptions = [
 export const MapFilters = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const locationsStore = useSelector(state => state.locations)
   const [anchorDates, setAnchorDates] = useState(null)
   const isMenuDatesOpen = Boolean(anchorDates)
-  const [dateRange, setDateRange] = useState('today')
   const [anchorStatus, setAnchorStatus] = useState(null)
   const isMenuStatusOpen = Boolean(anchorStatus)
   const [status, setStatus] = useState('all')
@@ -89,7 +92,7 @@ export const MapFilters = (props) => {
     setAnchorDates(null)
   }
   const handleChangeDate = (value) => {
-    setDateRange(value)
+    dispatch(locationsActions.setSitesDateRange(value))
     setAnchorDates(null)
   }
 
@@ -143,7 +146,7 @@ export const MapFilters = (props) => {
         <Box padding={1} key="date_range" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.date_range')}</Typography></Box>
         <Box padding={1} key="date_range_drop" className={classes.mainItem}>
             <MapFiltersButton onClick={handleDateOpen}>
-                <Typography className={classes.dateLabel} >{t(`locations.date_ranges.${dateRange}`)}</Typography>
+                <Typography className={classes.dateLabel} >{t(`locations.date_ranges.${locationsStore.sitesDateRange}`)}</Typography>
                 {isMenuDatesOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
             </MapFiltersButton>
             <Menu
@@ -164,7 +167,7 @@ export const MapFilters = (props) => {
                     <Typography className={classes.menuLabel}>
                         {t(`locations.date_ranges.${option.id}`)}
                     </Typography>
-                    {option.id === dateRange && <CheckIcon className={classes.checkIcon}/>}
+                    {option.id === locationsStore.sitesDateRange && <CheckIcon className={classes.checkIcon}/>}
                 </MenuItem>)}
             </Menu>
         </Box>

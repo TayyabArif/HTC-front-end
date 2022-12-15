@@ -3,8 +3,8 @@ import { degrees2meters } from '../../../lib/Global'
 import ReactGA from 'react-ga4'
 
 /** Material UI **/
-import { Box, Grid, Menu, MenuItem, Radio, Typography } from '@mui/material'
-import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined } from '@mui/icons-material'
+import { Box, Menu, MenuItem, Typography } from '@mui/material'
+import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined, Check as CheckIcon } from '@mui/icons-material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
 /** Components **/
@@ -60,7 +60,6 @@ export const MapActionButtons = (props) => {
 
   const handleWeatherMenuOpen = (event) => {
     setAnchorWEl(event.currentTarget)
-    setAnchorWEl(null)
   }
 
   const handleMenuWeatherClose = () => {
@@ -539,22 +538,24 @@ export const MapActionButtons = (props) => {
     <Box className={classes.mapButtonsBox}>
       {props.hideLeftSection && <Box pb={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
-          <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'}/>
+          <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'} />
         </MapButton>
       </Box>}
       <Box pb={2}>
         <MapButton onClick={handleFiltersOpen}>
-          <FilterAltOutlined color={'inherit'}/>
+          <FilterAltOutlined color={'inherit'} />
         </MapButton>
         <MapFilters
           isMenuFiltersOpen={isMenuFiltersOpen}
           handleFiltersClose={handleFiltersClose}
           anchorFilters={anchorFilters}
+          dateRange={props.dateRange}
+          setDateRange={props.setDateRange}
         />
       </Box>
       <Box pb={2}>
         <MapButton onClick={handleWeatherMenuOpen}>
-          <ThunderstormOutlined/>
+          <ThunderstormOutlined />
         </MapButton>
 
         <Menu
@@ -571,53 +572,37 @@ export const MapActionButtons = (props) => {
           }}
           className={classes.dropdowns}
         >
-          <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('sites.map.action_buttons.weather')}</Typography></MenuItem>
-          <MenuItem data-weather={'radar'} onClick={handleClickWeather} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.weather === 'radar'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.radar')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('locations.map.action_buttons.weather')}</Typography></MenuItem>
+          <MenuItem key={'radar'} data-weather={'radar'} onClick={handleClickWeather} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.action_buttons.radar')}
+            </Typography>
+            {props.weather === 'radar' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
-          <MenuItem data-weather={'weather'} onClick={handleClickWeather} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.weather === 'weather'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.weather')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem key={'weather'} data-weather={'weather'} onClick={handleClickWeather} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.action_buttons.weather')}
+            </Typography>
+            {props.weather === 'weather' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
-          <MenuItem data-weather={'temperature'} onClick={handleClickWeather} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.weather === 'temperature'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.temperature')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem key={'temperature'} data-weather={'temperature'} onClick={handleClickWeather} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.action_buttons.temperature')}
+            </Typography>
+            {props.weather === 'temperature' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
-          <MenuItem data-weather={'off'} onClick={handleClickWeather} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.weather === 'off'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('sites.map.action_buttons.off')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem key={'off'} data-weather={'off'} onClick={handleClickWeather} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.action_buttons.off')}
+            </Typography>
+            {props.weather === 'off' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
         </Menu>
       </Box>
 
       <Box pb={2}>
         <MapButton onClick={handleMapOptionsMenuOpen}>
-          <LayersOutlined/>
+          <LayersOutlined />
         </MapButton>
 
         <Menu
@@ -635,35 +620,23 @@ export const MapActionButtons = (props) => {
           className={classes.dropdowns}
         >
           <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('locations.map.map_options')}</Typography></MenuItem>
-          <MenuItem data-map-type={'light'} onClick={handleClickMapOption} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.mapType === 'light'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('locations.map.light')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem key={'light'} data-map-type={'light'} onClick={handleClickMapOption} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.light')}
+            </Typography>
+            {props.mapType === 'light' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
-          <MenuItem data-map-type={'roadmap'} onClick={handleClickMapOption} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.mapType === 'roadmap'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('locations.map.gray_scale')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem key={'roadmap'} data-map-type={'roadmap'} onClick={handleClickMapOption} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.gray_scale')}
+            </Typography>
+            {props.mapType === 'roadmap' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
-          <MenuItem data-map-type={'satellite'} onClick={handleClickMapOption} className={classes.menuItem}>
-            <Grid container>
-              <Grid align={'left'} item xs={4}>
-                <Radio checked={props.mapType === 'satellite'} className={classes.radio} size='small' color='primary'/>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography className={classes.menuItem}>{t('locations.map.satellite')}</Typography>
-              </Grid>
-            </Grid>
+          <MenuItem key={'satellite'} data-map-type={'satellite'} onClick={handleClickMapOption} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t('locations.map.satellite')}
+            </Typography>
+            {props.mapType === 'satellite' && <CheckIcon className={classes.checkIcon} />}
           </MenuItem>
         </Menu>
       </Box>

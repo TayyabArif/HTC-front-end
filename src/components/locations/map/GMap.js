@@ -12,6 +12,8 @@ import { mapStylesGray, iconSearch } from '../../../styles/mui_custom_theme'
 /** Components **/
 import { MapActionButtons } from './MapActionButtons'
 import workIcon from '../../../assets/icons/work_icon.svg'
+import { WeatherLegends } from './WeatherLegends'
+import { WeatherPlayer } from './WeatherPlayer'
 
 /* COMMENTED FOR FUTURE USE */
 import { MapCounters } from './MapCounters'
@@ -47,7 +49,9 @@ export const GMap = (props) => {
   const [weather, setWeather] = useState('off')
   const [mapStylesState, setMapStylesState] = useState(mapStylesGray)
   const [enableCluster, setEnableCluster] = useState(true)
+  const [queryTime, setQueryTime] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [play, setPlay] = useState(false)
 
   const wWidth = useWindowWidth()
 
@@ -260,8 +264,10 @@ export const GMap = (props) => {
               map={map}
               forceReloadOverlay={props.forceReloadOverlay}
               setLoading={setLoading}
+              queryTime={queryTime}
+              play={play}
             />
-            { wWidth > mobileBreakpoint
+            {wWidth > mobileBreakpoint
               ? <Grid marginLeft={-1} container>
                 <Grid align={'left'} item xs={12} sm={4} md={6} lg={8} xl={9} >
                   <MapCounters searchResults={props.searchResults} date={props.date} />
@@ -297,13 +303,13 @@ export const GMap = (props) => {
                     startAdornment={<SearchOutlined style={iconSearch} />}
                     endAdornment={locationsStore.showSiteViewPanel
                       ? <InputAdornment
-                      position='end'
-                      onClick={handleClearSearchBox}
-                    >
-                      <Clear className={classes.clearAdornment}/>
-                    </InputAdornment>
+                        position='end'
+                        onClick={handleClearSearchBox}
+                      >
+                        <Clear className={classes.clearAdornment} />
+                      </InputAdornment>
                       : null}
-                      // inline style to solve map classes overlapping
+                    // inline style to solve map classes overlapping
                     style={{
                       fontSize: 14,
                       fontWeight: '400',
@@ -385,6 +391,18 @@ export const GMap = (props) => {
                   if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
                     if (locationsStore.selectedSite.id === site.id) {
                       return <OnlyMarker
+                        key={index}
+                        index={site.id}
+                        position={site.coordinates}
+                        clusterer={clusterer}
+                        site={site}
+                        enableCluster={enableCluster}
+                      />
+                    } else {
+                      return null
+                    }
+                  } else {
+                    return <OnlyMarker
                       key={index}
                       index={site.id}
                       position={site.coordinates}
@@ -392,18 +410,6 @@ export const GMap = (props) => {
                       site={site}
                       enableCluster={enableCluster}
                     />
-                    } else {
-                      return null
-                    }
-                  } else {
-                    return <OnlyMarker
-                    key={index}
-                    index={site.id}
-                    position={site.coordinates}
-                    clusterer={clusterer}
-                    site={site}
-                    enableCluster={enableCluster}
-                  />
                   }
                 })
               }
@@ -432,6 +438,9 @@ export const GMap = (props) => {
               dateEnd={props.dateEnd}
               selectedDate={props.selectedDate}
             />)}
+          <WeatherLegends hidden={weather === 'off'} weather={weather} />
+          <WeatherPlayer hidden={weather === 'off' || weather === 'temperature'} weather={weather} queryTime={queryTime} setQueryTime={setQueryTime}
+            setForceReloadOverlay={props.setForceReloadOverlay} play={play} setPlay={setPlay} />
         </GoogleMap>
       </LoadScript>)
     }

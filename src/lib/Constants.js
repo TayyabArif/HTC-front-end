@@ -98,3 +98,22 @@ export const mapStatusOptions = [
     id: 'canceled'
   }
 ]
+
+export const AFStateOptions = [
+  {
+    label: '2x',
+    value: 2
+  },
+  {
+    label: '5x',
+    value: 5
+  },
+  {
+    label: '10x',
+    value: 10
+  },
+  {
+    label: '20x',
+    value: 24
+  }
+]

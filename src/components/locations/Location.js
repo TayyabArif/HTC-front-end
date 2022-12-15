@@ -1,15 +1,12 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import ReactGA from 'react-ga4'
 
 /** Material UI **/
 import { Box, Grid, Paper, Typography, useTheme } from '@mui/material'
 import { FiberManualRecord } from '@mui/icons-material'
-import { locationsActions } from '../../store/locations'
-import { filtersActions } from '../../store/filters'
 
 /** Redux **/
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // Styles
 import { locationCardStyles } from '../../styles/classes/LocationsClasses'
@@ -17,7 +14,6 @@ import { locationCardStyles } from '../../styles/classes/LocationsClasses'
 export const Location = (props) => {
   const theme = useTheme()
   const { t } = useTranslation()
-  const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
 
   const styleProps = {
@@ -31,11 +27,8 @@ export const Location = (props) => {
   const classes = locationCardStyles(styleProps)
 
   const handleClickLocation = () => {
-    ReactGA.event({
-      category: 'show',
-      action: 'show_site_view'
-    })
-    dispatch(locationsActions.showMapSiteView({
+    // TODO: open site level view
+    /* dispatch(locationsActions.showMapSiteView({
       coordinates: props.info.coordinates,
       zoom: 19,
       hideMarkers: true,
@@ -43,7 +36,7 @@ export const Location = (props) => {
     }))
     dispatch(filtersActions.handleMobileDrawer(false))
     dispatch(locationsActions.setSelectedSite(props.info))
-    dispatch(locationsActions.setActiveInfoWindow(props.info.id))
+    dispatch(locationsActions.setActiveInfoWindow(props.info.id)) */
   }
 
   const renderLocation = useMemo(() => {
