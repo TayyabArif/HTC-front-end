@@ -1,7 +1,7 @@
 export const createAccount = () => {
   return {
     title: 'Crear Cuenta',
-    subtitle: 'Por favor rellena los campos para terminar de crear tu cuenta.',
+    subtitle: 'Por favor llena los campos para terminar de crear tu cuenta.',
     send: 'Create',
     placeholder: {
       firstName: 'Ingrese Nombre',
