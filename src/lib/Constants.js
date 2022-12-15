@@ -21,7 +21,6 @@ export const invoiceStatusOptionsWOList = [
   'draft',
   'not_available'
 ]
-export const navBarHeaderHeight = '60px'
 export const NO_RECORD_ITEM = 'no service required'
 export const invoiceApproved = 'approved'
 export const invoiceSubmitted = 'submitted'
@@ -117,3 +116,5 @@ export const AFStateOptions = [
     value: 24
   }
 ]
+
+export const navBarHeaderHeight = '60px'

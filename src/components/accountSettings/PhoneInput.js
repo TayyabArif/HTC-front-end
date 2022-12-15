@@ -1,14 +1,35 @@
-import React, { useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import {
   FormControl,
   IconButton,
   InputAdornment,
   TextField
 } from '@mui/material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useTranslation } from 'react-i18next'
-import { conformToMask } from 'react-text-mask'
-import { phoneInputStyles } from '../../styles/classes/AccountSettingsClasses'
+
+import { PatternFormat as NumberFormat } from 'react-number-format'
+import { HighlightOff } from '@mui/icons-material'
+import { PhoneInputClasses } from '../../styles/classes/AccountSettingsClasses'
+
+const NumberFormatCustom = forwardRef(function NumberFormatCustom (props, ref) {
+  const { onChange, ...other } = props
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={values => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.formattedValue
+          }
+        })
+      }}
+      format="(###) ### ####"
+    />
+  )
+})
 
 // eslint-disable-next-line react/display-name
 export const PhoneInput = React.forwardRef(
@@ -28,37 +49,25 @@ export const PhoneInput = React.forwardRef(
     },
     ref
   ) => {
-    const classes = phoneInputStyles()
+    const classes = PhoneInputClasses()
     const inputRef = useRef()
     const { t } = useTranslation()
 
-    const handleChangeInt = event => {
-      handleChange(event, id)
-    }
-
-    const maskValue = (value) => {
-      const result = conformToMask(
-        value,
-        ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
-        { guide: false }
-      )
-      return result.conformedValue
-    }
-
     return (
-      <FormControl style={{ marginLeft: '0px' }}>
+      <FormControl fullWidth className={classes.formControl}>
         <TextField
           id={id}
           name={name}
           key={id}
-          value={maskValue(value ?? '')}
+          value={value}
           label={label}
-          onChange={handleChange}
           size="small"
           variant="filled"
           margin="normal"
           inputRef={inputRef}
           InputProps={{
+            inputComponent: NumberFormatCustom,
+            onKeyUp: handleChange,
             className: classes.textField,
             style: inputStyle,
             disableUnderline: true,
@@ -73,29 +82,27 @@ export const PhoneInput = React.forwardRef(
                     className={classes.icon}
                     size="small"
                   >
-                    <FontAwesomeIcon icon={['far', 'xmark']} size="xs" />
+                    <HighlightOff />
                   </IconButton>
                 )}
               </InputAdornment>
             )
           }}
           InputLabelProps={{
-            className: classes.label,
-            shrink: true
+            className: classes.label
           }}
           placeholder={
             placeholder ? t('account_settings.form.enter') + ' ' + label : ''
           }
-          classes={{ root: classes.root }}
+          className={classes.root}
           autoComplete="off"
           error={error}
           helperText={helperText}
           ref={ref}
           type={type ?? 'text'}
-          onInput={handleChangeInt}
           {...rest}
         />
-      </FormControl >
+      </FormControl>
     )
   }
 )

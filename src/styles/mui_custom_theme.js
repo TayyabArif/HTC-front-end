@@ -185,7 +185,7 @@ export const disableButtonStyle = {
   borderRadius: '100px',
   padding: '3px 30px',
   backgroundColor: '#BDBDBD',
-  margin: '0px 15px',
+  margin: '0px 0px 0px 15px',
   width: '120px',
   height: '40px'
 }

@@ -38,7 +38,8 @@ const processApiResponse = response => {
     throw {
       name: title,
       message,
-      code: response.status
+      code: response.status,
+      data: response.data ?? ''
     }
   }
 
