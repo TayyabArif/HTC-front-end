@@ -157,6 +157,17 @@ export const getUser = async () => {
 }
 
 /**
+ * Create user
+ *
+ * @returns {Promise<object>} The API response data
+ */
+export const createUser = async (params, step) => {
+  const response = await callAPI('POST', `/users?step=${step}`, params, false)
+  if (!response || response.status === 204) return true
+  return response
+}
+
+/**
  * Validate access code
  *
  * @returns {Promise<object>} The API response data
@@ -315,17 +326,6 @@ export const requestAccess = async (companyDomain, firstName, lastName, email, c
  */
 export const updateAccountSettings = async params => {
   const response = await callAPI('PUT', '/users/me', params, true)
-  if (!response || response.status === 204) return true
-  return response
-}
-
-/**
- * Create user
- *
- * @returns {Promise<object>} The API response data
- */
-export const createUser = async (params, step) => {
-  const response = await callAPI('POST', `/users?step=${step}`, params, false)
   if (!response || response.status === 204) return true
   return response
 }
