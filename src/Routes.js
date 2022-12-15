@@ -4,6 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 /** Components **/
 import ForgotPasswordEmailSent from './pages/signIn/ForgotPasswordEmailSent'
 import ForgotPasswordCode from './pages/signIn/ForgotPasswordCode'
+import CreateAccount from './pages/createAccount/CreateAccount'
 
 /** Sign in **/
 import SignIn from './pages/signIn/SignIn'
@@ -77,10 +78,13 @@ const Routes = () => {
           <Route path="/forgot-password/code">
             <ForgotPasswordCode />
           </Route>
-          <Route path="*">
-            <Redirect to="/sign-in" />
+          <Route exact path="/sign-in">
+            <SignIn/>
           </Route>
-        </Switch>
+          <Route exact path="/create-account">
+            <CreateAccount />
+          </Route>
+          </Switch>
       </BrowserRouter>)
   }
 }
