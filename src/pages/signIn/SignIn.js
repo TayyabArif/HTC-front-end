@@ -35,15 +35,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '1980px !important'
   },
   mainItem: {
-    maxWidth: '30em',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: 0,
-      marginTop: '-50px'
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingTop: '140px',
-      marginTop: '0px'
-    }
+    maxWidth: '30em'
   },
   signMessage: {
     marginTop: '15px !important',
@@ -51,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     fontWieght: '300 !important'
   },
   connectIcon: {
-    width: '627px',
+    width: '100%',
     margin: '0px auto',
     position: 'relative'
   },
@@ -249,6 +241,7 @@ const SignIn = () => {
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'all',
     resolver: yupResolver(validationSchema)
   })
 
@@ -296,9 +289,11 @@ const SignIn = () => {
     ? <LoadingSplash />
     : <SignInContainer screen="sign_in">
       <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
-        <Grid className={classes.mainItem} item xs={12}>
+        <Grid className={classes.mainItem} item xs={12} mt={{ xs: 9, md: 18 }}>
           <Grid container justifyContent='center'>
-            <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo} />
+            <Grid item xs={11}>
+              <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo}/>
+            </Grid>
           </Grid>
           <Grid container justifyContent='center'>
             <Typography align={'center'} classes={{ root: classes.signMessage }}>
