@@ -133,5 +133,20 @@ export const navBarStyles = makeStyles(theme => ({
     height: navBarHeaderHeight,
     display: 'flex',
     flexDirection: 'row'
+  },
+  boxLogo: {
+    display: 'flex'
+  },
+  logoLink: {
+    margin: 'auto 0px'
+  },
+  logo: {
+    width: '170px'
+  },
+  companyName: {
+    fontSize: '24px',
+    fontWeight: '600',
+    color: theme.colors.text,
+    margin: 'auto 15px auto 0px'
   }
 }))

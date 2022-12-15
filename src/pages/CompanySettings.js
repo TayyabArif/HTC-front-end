@@ -141,6 +141,8 @@ const CompanySettings = props => {
 
   const updateUsers = async () => {
     try {
+      setMobileUsers([])
+      setFtcUsers([])
       const response = await getCompanyUsers(userStore.userInfo.company_id)
       const mobile = response.filter(
         user => !user.roles || user.roles === 'no_value'
