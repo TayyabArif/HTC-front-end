@@ -175,6 +175,7 @@ export const workOrders = () => {
     newest: 'Newest',
     service_appointment: 'Service Appointment',
     field_service: 'Field Services',
+    field_service_before_clockout_message: 'Proof of field services are displayed after our field crews clock out.',
     audit_trail: {
       created: 'Service Appt {v1} created',
       checkIn: 'Clocked In, FTC',

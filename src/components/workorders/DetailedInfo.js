@@ -104,6 +104,8 @@ export const DetailedInfo = props => {
           '',
           'open,in_progress,completed,cancelled,expired',
           '',
+          '',
+          '',
           'trip_d',
           30,
           1

@@ -3,11 +3,19 @@ export const general = () => {
     labels: {
       cancel: 'Cancel',
       apply: 'Apply',
-      search: 'Search',
+      first_name: 'First Name',
+      last_name: 'Last Name',
+      email: 'Email',
+      submit: 'Submit',
       select: 'Select',
-      wo: 'WO',
+      search: 'Search',
+      back: 'Back',
+      save: 'Save',
+      loading: 'Loading',
+      add: 'Add',
+      photo: 'Photo',
       not_available: 'Not available',
-      loading: 'Loading'
+      wo: 'WO'
     },
     messages: {
       errors: {

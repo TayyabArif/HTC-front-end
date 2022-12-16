@@ -2,15 +2,21 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
+import workingIcon from '../../assets/icons/working.svg'
 
 import {
-  Card, CardContent, CardActions, Collapse, IconButton,
+  Card,
+  CardContent,
+  CardActions,
+  Collapse,
+  IconButton,
   Box,
   FormLabel,
   Grid,
   Grow,
   ThemeProvider,
-  Button
+  Button,
+  Divider
 } from '@mui/material'
 import {
   ExpandMore as ExpandMoreIcon,
@@ -32,7 +38,10 @@ import {
 import { cloneDeep } from 'lodash'
 import { woFixedStatus } from '../../lib/Constants'
 import { getWOstatus } from '../../lib/Global'
-import { activitiesCardStyle } from '../../styles/classes/WorkOrdersClasses'
+import {
+  activitiesCardStyle,
+  repairDataStyles
+} from '../../styles/classes/WorkOrdersClasses'
 
 export const ActivitiesCard = props => {
   const {
@@ -48,6 +57,7 @@ export const ActivitiesCard = props => {
   } = props
   const wHeight = getWindowHeight ? getWindowHeight() : null
   const classes = activitiesCardStyle()
+  const repairClasses = repairDataStyles()
   const [expanded, setExpanded] = useState(false)
   const [pendingTasks, setPendingTasks] = useState(false)
   const [newRepair, setNewRepair] = useState({})
@@ -551,7 +561,8 @@ export const ActivitiesCard = props => {
                   return null
                 })}
             </div>
-            {data?.service &&
+            {data.status === 'completed' &&
+              data?.service &&
               data.service.map(service => (
                 <RepairData
                   disabled={
@@ -579,54 +590,86 @@ export const ActivitiesCard = props => {
                 />
               ))}
             {data?.logs?.length === 0 && noCheckInComp()}
-            {(!data?.service || data?.service.length === 0) && (
-              <RepairData
-                disabled={
-                  woFixedStatus.includes(data.status) ||
-                  getWOstatus(data) === 'expired'
-                }
-                configRequired={configRequired}
-                key={0}
-                woData={data}
-                repairData={newRepair}
-                configs={configs}
-                woServices={data.services ?? []}
-                setPhotos={setPhotos}
-                setPhotoIndex={setPhotoIndex}
-                serviceTypeOptions={
-                  type === 'iframe'
-                    ? externalUser.service_types
-                    : serviceTypeOptions
-                }
-                onUpdate={setNewRepair}
-                externalUser={externalUser}
-              />
+            {data.status === 'completed' &&
+              (!data?.service || data?.service.length === 0) && (
+                <RepairData
+                  disabled={
+                    woFixedStatus.includes(data.status) ||
+                    getWOstatus(data) === 'expired'
+                  }
+                  configRequired={configRequired}
+                  key={0}
+                  woData={data}
+                  repairData={newRepair}
+                  configs={configs}
+                  woServices={data.services ?? []}
+                  setPhotos={setPhotos}
+                  setPhotoIndex={setPhotoIndex}
+                  serviceTypeOptions={
+                    type === 'iframe'
+                      ? externalUser.service_types
+                      : serviceTypeOptions
+                  }
+                  onUpdate={setNewRepair}
+                  externalUser={externalUser}
+                />
             )}
-            {!(
-              woFixedStatus.includes(data.status) ||
-              getWOstatus(data) === 'expired'
-            ) && (
-              <Grid item xs={12} className={classes.errorContainer}>
-                {pendingTasks > 0 && (
-                  <Grid item xs={12} className={classes.errorBox}>
-                    <FormLabel className={classes.error}>
-                      {t('work_orders.trips.fields_required')}
-                    </FormLabel>
+            {data.status === 'completed' &&
+              !(
+                woFixedStatus.includes(data.status) ||
+                getWOstatus(data) === 'expired'
+              ) && (
+                <Grid item xs={12} className={classes.errorContainer}>
+                  {pendingTasks > 0 && (
+                    <Grid item xs={12} className={classes.errorBox}>
+                      <FormLabel className={classes.error}>
+                        {t('work_orders.trips.fields_required')}
+                      </FormLabel>
+                    </Grid>
+                  )}
+                  <ThemeProvider theme={buttonSettingsDisabled}>
+                    <Button
+                      size="medium"
+                      disabled={pendingTasks > 0}
+                      style={
+                        pendingTasks > 0
+                          ? disableButtonStyle
+                          : enableButtonStyle
+                      }
+                      onClick={handleSubmit}
+                    >
+                      {t('general.labels.submit')}
+                    </Button>
+                  </ThemeProvider>
+                </Grid>
+            )}
+            {data.status !== 'completed' && (
+              <div>
+                <Box className={repairClasses.serviceType}>
+                  <Divider className={repairClasses.divider} />
+                  <FormLabel className={repairClasses.serviceTypeTitle}>
+                    {t('work_orders.field_service')}
+                  </FormLabel>
+                  <Divider className={repairClasses.divider} />
+                </Box>
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={0}
+                  className={classes.container}
+                >
+                  <Grid item xs={12} textAlign="center" alignSelf="center">
+                    <img src={workingIcon} alt="Connectad Platform" />
                   </Grid>
-                )}
-                <ThemeProvider theme={buttonSettingsDisabled}>
-                  <Button
-                    size="medium"
-                    disabled={pendingTasks > 0}
-                    style={
-                      pendingTasks > 0 ? disableButtonStyle : enableButtonStyle
-                    }
-                    onClick={handleSubmit}
-                  >
-                    {t('general.labels.submit')}
-                  </Button>
-                </ThemeProvider>
-              </Grid>
+                  <Grid item xs={12} textAlign="center" alignSelf="center">
+                    <div className={repairClasses.disabledText}>
+                      {t('work_orders.field_service_before_clockout_message')}
+                    </div>
+                  </Grid>
+                </Grid>
+              </div>
             )}
           </CardContent>
         }

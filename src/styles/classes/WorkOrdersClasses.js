@@ -1052,6 +1052,11 @@ export const repairDataStyles = makeStyles(theme => ({
     width: '15px',
     color: theme.colors.workOrders.tab.duedate
   },
+  disabledText: {
+    color: theme.colors.grey,
+    padding: '0.5em 1em',
+    fontSize: '13px'
+  },
   field: {
     marginLeft: '5px',
     marginBottom: '2px',
