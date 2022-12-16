@@ -64,15 +64,13 @@ export const DateFilter = props => {
     }))
   }
 
-  const handleClean = () => {
+  const handleClean = (event) => {
+    event.stopPropagation()
     setSelectedDate('')
     props.setValues(prevState => ({
       ...prevState,
       [props.id]: ''
     }))
-    setTimeout(() => {
-      setCalendar(false)
-    }, 5)
   }
 
   useEffect(() => {
