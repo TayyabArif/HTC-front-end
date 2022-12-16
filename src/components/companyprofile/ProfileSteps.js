@@ -2,7 +2,7 @@ import { React } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // mui components
-import { Container, Box } from '@material-ui/core'
+import { Container, Box } from '@mui/material'
 import { profileStepsStyles } from '../../styles/classes/CompanySettingsClasses'
 
 function completeIcon (classes) {

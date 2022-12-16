@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MenuItem, OutlinedInput, Select } from '@material-ui/core'
+import { MenuItem, OutlinedInput, Select } from '@mui/material'
 import { customSelectStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const CustomSelect = props => {
