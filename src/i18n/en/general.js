@@ -2,7 +2,20 @@ export const general = () => {
   return {
     labels: {
       cancel: 'Cancel',
-      apply: 'Apply'
+      apply: 'Apply',
+      first_name: 'First Name',
+      last_name: 'Last Name',
+      email: 'Email',
+      submit: 'Submit',
+      select: 'Select',
+      search: 'Search',
+      back: 'Back',
+      save: 'Save',
+      loading: 'Loading',
+      add: 'Add',
+      photo: 'Photo',
+      not_available: 'Not available',
+      wo: 'WO'
     },
     messages: {
       errors: {

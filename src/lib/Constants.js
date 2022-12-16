@@ -5,6 +5,15 @@ export const woStatusOptions = [
   'cancelled',
   'expired'
 ]
+
+export const woPriorityOptions = [
+  'open',
+  'in_progress',
+  'completed',
+  'cancelled',
+  'expired'
+]
+
 export const woFixedStatus = ['completed', 'cancelled']
 export const inStatusOptions = [
   'open',
