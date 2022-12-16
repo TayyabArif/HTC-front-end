@@ -17,7 +17,13 @@ export const companySettingsStyles = makeStyles(theme => ({
   },
   cardsContainer: {
     gap: '50px',
-    margin: '0px 47px'
+    margin: '0px 47px',
+    [theme.breakpoints.down('md')]: {
+      display: 'block'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    }
   },
   card: {
     borderRadius: '8px',
