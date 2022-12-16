@@ -24,7 +24,6 @@ export const InputFieldFilter = props => {
   }, [props.isOpen, props.values[props.id]])
 
   const handleChange = event => {
-    console.log(event.target.value, props.id)
     setSearch(event.target.value)
   }
 

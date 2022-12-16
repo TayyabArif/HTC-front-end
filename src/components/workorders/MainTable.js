@@ -84,14 +84,6 @@ function EnhancedTableHead (props) {
       value: item
     }
   })
-  /* const inStatusOptions =
-    filtersCatalog.invoices &&
-    filtersCatalog.invoices.map(item => {
-      return {
-        label: titleCase(t(`invoices.in_states.${item}`)),
-        value: item
-      }
-    }) */
 
   const filterComponents = [
     // { id: 'client_name', type: 'InputFieldFilter' },
@@ -310,12 +302,6 @@ function EnhancedTable (props) {
   }, [])
 
   const loadFiltersCatalogs = async () => {
-    console.log({
-      workOrdersStatus: woStatusOptions,
-      invoices: invoiceStatusOptionsWOList,
-      trades: filters.trades,
-      services: filters.services
-    })
     try {
       const filters = await getSitesAdvancedFiltersInfo()
       setFiltersCatalog({
