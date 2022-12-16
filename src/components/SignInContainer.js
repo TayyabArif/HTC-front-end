@@ -43,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
   footerContainer: {
     bottom: 30,
     position: 'relative',
-    [theme.breakpoints.up('xl')]: {
-      position: 'absolute'
-    },
     '& img': {
       width: '100%'
     }
