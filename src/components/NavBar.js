@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 
@@ -39,10 +39,6 @@ export const NavBar = () => {
   const [value, setValue] = useState('/work-orders')
   const [anchorEl, setAnchorEl] = useState()
   const isMenuOpen = Boolean(anchorEl)
-
-  useEffect(() => {
-    console.log('!!!', userStore)
-  }, [])
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget)

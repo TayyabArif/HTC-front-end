@@ -112,10 +112,6 @@ export const UpdateAccountInfo = props => {
       .trim()
       .required(t('account_settings.messages.errors.required'))
       .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
-    username: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.length_6')),
     employeeId: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -155,14 +151,12 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.username ||
       !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
       errors?.phone?.message ||
-      errors?.username?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message ||
       (updatedInfo.password !== updatedInfo.passwordConfirm)
@@ -255,7 +249,7 @@ export const UpdateAccountInfo = props => {
         updatedInfo.lastName,
         updatedInfo.email,
         updatedInfo.phone,
-        updatedInfo.username,
+        updatedInfo.email,
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
@@ -430,13 +424,9 @@ export const UpdateAccountInfo = props => {
                   <Grid item xs={12}>
                     <Selector
                       id={'roles'}
-                      value={
-                        mobile
-                          ? t('company_settings.mobile_only')
-                          : roles
-                            ? roles[0].name
-                            : ''
-                      }
+                      value={roles && updatedInfo.roles && roles.find(role => role.id === updatedInfo.roles)
+                        ? roles.find(role => role.id === updatedInfo.roles).name
+                        : ''}
                       label={t('company_settings.users_card.role')}
                       handleChange={handleChangeValues}
                       options={
@@ -530,7 +520,7 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container mt={2}>
+                {/* <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
                       value={updatedInfo.username}
@@ -549,7 +539,7 @@ export const UpdateAccountInfo = props => {
                       {...register('username')}
                     />
                   </Grid>
-                </Grid>
+                </Grid> */}
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
