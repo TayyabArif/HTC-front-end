@@ -75,17 +75,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '20px'
     }
   },
-  divider: {
-    marginLeft: '0',
-    marginTop: '26px',
-    marginBottom: '16px',
-    [theme.breakpoints.down('md')]: {
-      display: 'flex'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
-  },
   buttons: {
     width: '560px !important',
     margin: '0px auto',
@@ -326,9 +315,6 @@ const SignIn = () => {
               </Grid>
             </Grid>
           </Box>
-
-          <Divider className={classes.divider} variant='inset' />
-
           <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
