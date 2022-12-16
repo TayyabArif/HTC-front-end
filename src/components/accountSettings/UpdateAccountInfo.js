@@ -520,26 +520,6 @@ export const UpdateAccountInfo = props => {
                     />
                   </Grid>
                 </Grid>
-                {/* <Grid container mt={2}>
-                  <Grid item xs={12}>
-                    <TextInput
-                      value={updatedInfo.username}
-                      id="username"
-                      handleChange={handleChangeValues}
-                      label={
-                        t('account_settings.info_card.username') +
-                        ' ' +
-                        t('account_settings.form.username_chars')
-                      }
-                      placeholder={t('account_settings.info_card.placeholder_username')}
-                      error={!!errors.username}
-                      helperText={errors.username && errors.username.message}
-                      endAdornment={true}
-                      InputLabelProps={{ shrink: true }}
-                      {...register('username')}
-                    />
-                  </Grid>
-                </Grid> */}
                 <Grid container mt={2}>
                   <Grid item xs={12}>
                     <TextInput
