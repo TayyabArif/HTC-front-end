@@ -15,11 +15,11 @@ function App () {
   }
 
   return (
-    <StyledEngineProvider injectFirst>
+  <StyledEngineProvider injectFirst>
       <ThemeProvider theme={customTheme}>
         <Routes />
       </ThemeProvider>
-    </StyledEngineProvider>
+  </StyledEngineProvider>
   )
 }
 

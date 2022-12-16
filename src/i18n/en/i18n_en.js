@@ -12,6 +12,7 @@ import { dashboard } from './dashboard'
 import { companySettings } from './companySettings'
 import { companyProfile } from './companyProfile'
 import { accountSettings } from './accountSettings'
+import { createAccount } from './createAccount'
 
 export const i18nEn = () => {
   return {
@@ -27,6 +28,7 @@ export const i18nEn = () => {
     dashboard: dashboard(),
     general: general(),
     company_settings: companySettings(),
+    create_account: createAccount(),
     company_profile: companyProfile(),
     account_settings: accountSettings()
   }

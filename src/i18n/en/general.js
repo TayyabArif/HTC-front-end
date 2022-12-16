@@ -6,13 +6,13 @@ export const general = () => {
     },
     messages: {
       errors: {
-        required: 'This field is required',
-        email: 'It must be a valid email',
-        password_does_not_match: 'The password does not match',
+        required: 'This field is required.',
+        email: 'It must be a valid email.',
+        password_does_not_match: 'The password does not match.',
         no_sites_found: 'No results found.  Please check your search criteria.',
-        size: 'File size can not exceed 25 MB',
+        size: 'File size can not exceed 25 MB.',
         length_6: 'Field must be at least 6 characters long',
-        phone: 'Invalid phone number',
+        phone: 'Invalid phone number.',
         sign_in: 'Both fields are required to login.'
       },
       select_all: 'Select All',
