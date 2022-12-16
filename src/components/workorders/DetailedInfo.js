@@ -24,7 +24,6 @@ import { WoDetails } from './WoDetails'
 import { AuditTrail } from './AuditTrail'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { Link, useHistory } from 'react-router-dom'
 import { getWOstatus } from '../../lib/Global'
 import { detailedInfoStyles } from '../../styles/classes/WorkOrdersClasses'
 
@@ -76,7 +75,6 @@ export const DetailedInfo = props => {
   const classes = detailedInfoStyles()
   const { t } = useTranslation()
   const { workOrder, handleClosePanel, viewMode } = props
-  const history = useHistory()
 
   useEffect(() => {
     showWO()
@@ -231,13 +229,6 @@ export const DetailedInfo = props => {
     </div>
   )
 
-  const handleClick = () => {
-    history.push({
-      pathname: 'createInvoice',
-      search: '?id=' + workOrder.invoice.id
-    })
-  }
-
   return (
     <div>
       {workOrder && (
@@ -289,17 +280,6 @@ export const DetailedInfo = props => {
                 className={classes.invoiceIcon}
                 icon={['far', 'arrow-right-from-line']}
               />
-              {/* Uncomment when needed */}
-              <Link
-                className={classes.invoiceLink}
-                onClick={() => handleClick()}
-              >
-                <FontAwesomeIcon
-                  className={classes.openInvoice}
-                  icon={['far', 'file-invoice-dollar']}
-                />
-                {t('work_orders.open_invoice')}
-              </Link>
             </>
           )}
         </div>

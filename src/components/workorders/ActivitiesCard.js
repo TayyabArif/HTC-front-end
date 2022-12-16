@@ -492,6 +492,7 @@ export const ActivitiesCard = props => {
               {t('work_orders.trips.mobile') + ' '}
               <FontAwesomeIcon icon={['far', 'mobile-screen-button']} />
             </FormLabel>
+            {data.status !== 'open' && (
             <EtaSelect
               data={data?.est_service_start}
               disabled={getWOstatus(data) !== 'open'}
@@ -500,7 +501,7 @@ export const ActivitiesCard = props => {
               onUpdate={eta =>
                 updateWoData({ ...data, est_service_start: eta })
               }
-            />
+            />)}
 
             <div>
               {/* Check In */}
