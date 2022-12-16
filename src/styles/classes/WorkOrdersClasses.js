@@ -500,7 +500,7 @@ export const auditTrailStyles = makeStyles(theme => ({
     '& .MuiStepConnector-line': {
       position: 'absolute',
       left: '72px',
-      top: '22px',
+      top: '30px',
       height: '37px',
       borderColor: theme.colors.disabledField
     },
