@@ -93,7 +93,7 @@ export const RoundedButton = styled(Button)(({ theme }) => `
   line-height: 21.33px;
   font-weight: 700;
   border-radius: 32px;
-  width: 140px;
+  width: 140px !important;
   color: ${theme.colors.textButton}
   text-transform: none;
   &.MuiButton-root {
