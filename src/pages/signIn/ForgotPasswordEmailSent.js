@@ -71,7 +71,7 @@ const ForgotPasswordEmailSent = () => {
           <Grid container>
             <Grid item md={1} display={{ xs: 'none', lg: 'block' }}></Grid>
             <Grid item xs={12} md={11}>
-              <Box pt={1} className={classes.linkBox}>
+              <Box pt={1} mb={20} className={classes.linkBox}>
                 <ChevronLeftIcon />
                 <Link data-testid={'back_log_in'} className={classes.link} to="/sign-in" variant="body2">
                   {t('forgot_password.back_to_log_in')}

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footerContainer: {
     bottom: 30,
-    position: 'absolute',
+    position: 'relative',
     '& img': {
       width: '100%'
     }
@@ -73,7 +73,7 @@ export const SignInContainer = (props) => {
         <Grid item xs={12}>
           <Grid container className={classes.footerContainer}>
             <Grid item sm={0} md={1} lg={0.5} xl={1}></Grid>
-            <Grid item xs={12} sm={2} md={2} lg={2}>
+            <Grid item xs={8} sm={2} md={2} lg={2}>
               <img src={conectadLogo} alt="Connectad Logo"/>
             </Grid>
             <Grid item sm={4} md={4} lg={4} alignSelf="flex-end" textAlign="right">
