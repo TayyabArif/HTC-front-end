@@ -55,7 +55,7 @@ export const SupportCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box margin="0px 0px 25px 0px" padding={0} >
-          <Link data-testid='knowledge_button' classes={{ root: classes.link }} >
+          <Link data-testid='knowledge_button' onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
               {t('company_settings.support_card.knowledge')}
           </Link>
         </Box>
