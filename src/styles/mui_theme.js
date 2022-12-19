@@ -87,6 +87,33 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    invoiceColors: {
+      open: 'rgba(77, 166, 233, 0.85)',
+      open_solid: 'rgba(77, 166, 233)',
+      declined: 'rgba(235, 87, 87, 0.85)',
+      declined_solid: 'rgba(235, 87, 87)',
+      sent: '#333333',
+      approved: 'rgba(143, 200, 61, 0.85)',
+      approved_solid: 'rgba(143, 200, 61)',
+      draft: 'rgba(86, 86, 86, 0.85)',
+      draft_solid: 'rgba(86, 86, 86)',
+      no_status: '#333333',
+      not_submitted: 'rgba(175, 175, 175, 0.85)',
+      not_submitted_solid: 'rgba(175, 175, 175)',
+      summary_bg: '#F5F5F5',
+      borders: '#F8F8F8',
+      dark_grey: '#4F4F4F',
+      table_text: '#828282',
+      disabled_grey: '#BDBDBD',
+      blue_button: '#2F80ED',
+      red_error: '#EB5757',
+      approved_green: '#219653',
+      header_grey: '#CED4DA',
+      labels_grey: '#6C7172',
+      shadow: '#D8D8D840',
+      invoice_created: '#2D9CDB',
+      invoice_approved: '#8BC400'
+    },
     workOrders: {
       counts: '#6C7172',
       chipBack: '#F1F1F1',
@@ -319,8 +346,7 @@ const customTheme = createTheme({
       marginLeft: '0px',
       height: '32px',
       border: '1px solid #0000003b',
-      display: 'flex',
-      padding: '10px 0px 10px 10px'
+      display: 'flex'
     },
     mainInput2: {
       fontSize: '12px',
@@ -330,8 +356,7 @@ const customTheme = createTheme({
       marginLeft: '0px',
       height: '36px',
       border: '1px solid #0000003b',
-      display: 'flex',
-      padding: '10px 0px 10px 10px'
+      display: 'flex'
     },
     searchInput1: {
       fontSize: '12px',

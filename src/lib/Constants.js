@@ -5,6 +5,15 @@ export const woStatusOptions = [
   'cancelled',
   'expired'
 ]
+
+export const woPriorityOptions = [
+  'open',
+  'in_progress',
+  'completed',
+  'cancelled',
+  'expired'
+]
+
 export const woFixedStatus = ['completed', 'cancelled']
 export const inStatusOptions = [
   'open',
@@ -53,4 +62,4 @@ export const mobileBreakpoint = 1150
 export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
 
-export const navBarHeaderHeight = '60px'
+export const navBarHeaderHeight = '100px'

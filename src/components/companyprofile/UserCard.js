@@ -9,7 +9,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent
-} from '@material-ui/core'
+} from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import GlobalSelect from '../form/Select'
 import GlobalInput from '../form/TextInput'
@@ -194,7 +194,7 @@ export const UserCard = props => {
         disableAutoFocus={false}
       >
         <DialogTitle
-          disableTypography={true}
+          disabletypography="true"
           classes={{ root: classes.dialogTitle }}
         >
           {t('general.messages.errors.user_creation_title')}
