@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 /** Redux **/
 import { authActions } from '../store/signIn'
@@ -32,6 +32,7 @@ export const NavBar = () => {
   const classes = navBarStyles()
   const userStore = useSelector(state => state.auth.user)
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const { t } = useTranslation()
   const history = useHistory()
@@ -39,6 +40,17 @@ export const NavBar = () => {
   const [value, setValue] = useState('/work-orders')
   const [anchorEl, setAnchorEl] = useState()
   const isMenuOpen = Boolean(anchorEl)
+
+  useEffect(() => {
+    // set navbar value
+    if (location.pathname === '/sign-in') {
+      setValue('/work-orders')
+    } else if (location.pathname === '/createInvoice') {
+      setValue('/invoices')
+    } else {
+      setValue(location.pathname)
+    }
+  }, [location.pathname])
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget)
@@ -49,7 +61,6 @@ export const NavBar = () => {
   }
 
   const handleChangeNavBar = (event, newValue) => {
-    setValue(newValue)
     history.push(newValue)
   }
 
@@ -87,6 +98,7 @@ export const NavBar = () => {
                 iconPosition="end"
               />
               <StyledNavTab
+                style={{ display: 'none' }}
                 value={'/locations'}
                 label={t('nav_bar.locations')}
               />
