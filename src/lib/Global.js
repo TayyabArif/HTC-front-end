@@ -1,6 +1,7 @@
 import decode from 'jwt-decode'
 import _ from 'lodash'
-import { companyProfileFiles } from './Constants'
+import { woFixedStatus, companyProfileFiles } from './Constants'
+import moment from 'moment'
 
 export const decodeToken = token => {
   try {
@@ -129,4 +130,45 @@ export const profileMandatoryValidation = (fields, data) => {
       ? false
       : !mandatoryValidation?.includes(false)
   return response
+}
+
+/**
+ * Return status of the WO taking into account if the WO expired
+ * @param {WorkOrder} wo
+ * @returns status
+ */
+export const getWOstatus = wo => {
+  if (woFixedStatus.includes(wo.status)) return wo.status
+  if (
+    moment(wo.expiration_date).isBefore(moment().subtract(3, 'days').unix())
+  ) {
+    return 'expired'
+  }
+  return wo.status
+}
+
+/**
+ * Format the photos from the repair and return it to be used as an array
+ */
+export const getPhotosFromRepair = (repair, photosFromRepair) => {
+  let tmpPhotoStore = []
+  if (photosFromRepair) {
+    const objectKeys = Object.keys(photosFromRepair)
+    for (let i = 0; i < objectKeys.length; i++) {
+      try {
+        if (photosFromRepair[`photo_${i}`]) {
+          tmpPhotoStore.push({
+            uri: photosFromRepair[`photo_${i}`],
+            title: photosFromRepair[`photo_${i}_title`],
+            description: photosFromRepair[`photo_${i}_description`],
+            attributes: photosFromRepair[`photo_${i}_attr`],
+            repair_id: repair.id
+          })
+        }
+      } catch (error) {
+        tmpPhotoStore = []
+      }
+    }
+  }
+  return tmpPhotoStore
 }
