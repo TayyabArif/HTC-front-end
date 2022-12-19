@@ -43,9 +43,10 @@ export const Selector = React.forwardRef((props, ref) => {
         onClick={handleOpen}
         onClose={handleClose}
         autoComplete="off"
+        placeholder={props.placeholder ?? ''}
         disabled={props.disabled}
         className={ classes.root }
-        InputLabelProps={{ className: classes.label }}
+        InputLabelProps={{ className: classes.label, shrink: true }}
         InputProps={{
           className: classes.textField,
           disableUnderline: true,

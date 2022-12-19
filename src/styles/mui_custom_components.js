@@ -162,6 +162,11 @@ export const StyledNavTabs = withStyles((theme) => ({
       backgroundColor: theme.palette.primary.dark
     },
     transition: 'none'
+  },
+  root: {
+    height: '40px',
+    minHeight: 'unset !important',
+    margin: 'auto 0px'
   }
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span/> }}/>)
 
@@ -178,7 +183,8 @@ export const StyledNavTab = withStyles((theme) => ({
     transition: 'none'
   },
   selected: {
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
+    fontWeight: '500'
   }
 }))((props) => <Tab disableRipple {...props} />)
 

@@ -127,21 +127,6 @@ export const SlideFilter = props => {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
-          {/* TODO Search Feature */}
-          {/* <FormControl variant="outlined" >
-              <OutlinedInput
-                id="search-outlined"
-                key="search-outlined"
-                value={props.search}
-                placeholder={'Search'}
-                onChange={handleChangeSearchInput}
-                autoComplete='off'
-                classes={{ root: props.type === 1 ? classes.searchInput1 : classes.searchInput2, notchedOutline: classes.notched }}
-                onKeyDown={(event) => event.stopPropagation()}
-                onClick={(event) => event.stopPropagation()}
-                startAdornment={<SearchOutlined style={iconSearch} />}
-              />
-            </FormControl> */}
           {[
             ...(props.hasAll ? [{ label: 'All', value: 'all' }] : []),
             ...props.options
@@ -151,7 +136,6 @@ export const SlideFilter = props => {
               key={props.id + ind}
               value={obj.value}
               classes={{ root: classes.menuItem }}
-              style={{ width: inputRef.current.clientWidth }}
               onClick={event => handleChangeSwitch(obj.value, event)}
             >
               {obj.label}
