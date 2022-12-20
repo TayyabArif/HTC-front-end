@@ -18,10 +18,10 @@ export const companySettingsStyles = makeStyles(theme => ({
   cardsContainer: {
     gap: '50px',
     margin: '0px 47px',
-    [theme.breakpoints.down('md')]: {
-      display: 'block'
+    [theme.breakpoints.down('lg')]: {
+      display: 'inline'
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'flex'
     }
   },
@@ -870,7 +870,13 @@ export const profileInfoCardStyles = makeStyles(theme => ({
     marginTop: '2em'
   },
   boxContainer: {
-    gap: '1em'
+    gap: '1em',
+    [theme.breakpoints.down('md')]: {
+      display: 'inline'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    }
   },
   marginContainer: {
     marginTop: '32px',

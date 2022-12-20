@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import GlobalInput from '../form/TextInput'
 import { profileInfoCardStyles } from '../../styles/classes/CompanySettingsClasses'
 import { conformToMask } from 'react-text-mask'
+import { useWindowSize } from '@react-hook/window-size'
 
 const EditButton = props => {
   const classes = profileInfoCardStyles()
@@ -21,6 +22,7 @@ const EditButton = props => {
 
 export const ProfileInfoCard = props => {
   const classes = profileInfoCardStyles()
+  const [wWidth] = useWindowSize()
   const { t } = useTranslation()
 
   const handleEditProfile = () => {
@@ -54,7 +56,6 @@ export const ProfileInfoCard = props => {
             </Box>
             <Box className={classes.marginContainer}>
                 <Box
-                    display="flex"
                     flexDirection="row"
                     className={classes.boxContainer}
                 >
@@ -101,7 +102,7 @@ export const ProfileInfoCard = props => {
                                   ? props?.profile?.country
                                   : 'N/A'
                             }
-                            label={t('company_profile.labels.country')}
+                            label={wWidth > 1340 || wWidth < 1200 ? t('company_profile.labels.country') : t('company_profile.labels.country').slice(0, -7) + '.'}
                             disabled
                             className={classes.disabledText}
                         />
@@ -122,14 +123,14 @@ export const ProfileInfoCard = props => {
                         <GlobalInput
                             field="business_hours_phone"
                             value={maskValue(props?.profile?.business_hours?.phone)}
-                            label={t('company_profile.labels.business_hours')}
+                            label={wWidth > 1340 || wWidth < 1200 ? t('company_profile.labels.business_hours') : t('company_profile.labels.business_hours_ab')}
                             disabled
                             className={classes.disabledText}
                         />
                         <GlobalInput
                             field="after_hours_phone"
                             value={maskValue(props?.profile?.after_hours?.phone)}
-                            label={t('company_profile.labels.after_hours')}
+                            label={wWidth > 1340 || wWidth < 1200 ? t('company_profile.labels.after_hours') : t('company_profile.labels.after_hours_ab')}
                             disabled
                             className={classes.disabledText}
                         />
