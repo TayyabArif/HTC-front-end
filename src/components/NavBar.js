@@ -98,7 +98,6 @@ export const NavBar = () => {
                 iconPosition="end"
               />
               <StyledNavTab
-                style={{ display: 'none' }}
                 value={'/locations'}
                 label={t('nav_bar.locations')}
               />

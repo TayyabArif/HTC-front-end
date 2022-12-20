@@ -269,7 +269,7 @@ export const GMap = (props) => {
             />
             {wWidth > mobileBreakpoint
               ? <Grid marginLeft={-1} container>
-                <Grid align={'left'} item xs={12} sm={4} md={6} lg={8} xl={9} >
+                <Grid align={'left'} item xs={12} >
                   <MapCounters searchResults={props.searchResults} date={props.date} />
                 </Grid>
               </Grid>
