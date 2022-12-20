@@ -270,7 +270,7 @@ export const GMap = (props) => {
             {wWidth > mobileBreakpoint
               ? <Grid marginLeft={-1} container>
                 <Grid align={'left'} item xs={12} >
-                  <MapCounters searchResults={props.searchResults} date={props.date} />
+                  <MapCounters searchResults={props.searchResults} date={props.date} hideLeftSection={props.hideLeftSection} />
                 </Grid>
               </Grid>
               : <Box hidden={window.location.pathname.includes('/work-orders') || window.location.pathname.includes('/proposals')} style={{ width: '100%' }} >

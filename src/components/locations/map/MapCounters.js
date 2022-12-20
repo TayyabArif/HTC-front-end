@@ -24,7 +24,7 @@ export const MapCounters = (props) => {
       return <div></div>
     }
 
-    return (<div className={classes.containerDiv}>
+    return (<div className={props.hideLeftSection ? classes.hiddenContainerDiv : classes.containerDiv}>
       <Grid container display={'flex'} className={classes.mapButtonsCounters}>
         <Grid item classes={{ root: classes.gridItem }}>
           <MapCounter>

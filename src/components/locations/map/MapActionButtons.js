@@ -535,7 +535,7 @@ export const MapActionButtons = (props) => {
   }
 
   return (
-    <Box className={classes.mapButtonsBox}>
+    <Box className={props.hideLeftSection ? classes.hiddenButtonsBox : classes.mapButtonsBox}>
       {props.hideLeftSection && <Box pb={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
           <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'} />

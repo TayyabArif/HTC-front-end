@@ -382,6 +382,19 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
       display: 'inline'
     }
   },
+  hiddenButtonsBox: {
+    width: '20px',
+    position: 'relative',
+    top: '0px',
+    left: '15px',
+    marginTop: '15px',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'inline'
+    }
+  },
   dropdowns: {
     marginLeft: 15
   },
@@ -525,6 +538,11 @@ export const mapCountersStyles = makeStyles((theme) => ({
     display: 'flex',
     width: '100%'
   },
+  hiddenContainerDiv: {
+    marginLeft: '60px',
+    display: 'flex',
+    width: '100%'
+  },
   gridCounter: {
     width: 'min-content'
   },
@@ -599,7 +617,8 @@ export const locationCardStyles = makeStyles((theme) => ({
 
 export const mapFiltersStyles = makeStyles((theme) => ({
   mainDropdown: {
-    marginLeft: 15
+    marginLeft: 8,
+    padding: '15px'
   },
   radio: {
     padding: '0px',
@@ -646,7 +665,8 @@ export const mapFiltersStyles = makeStyles((theme) => ({
     marginLeft: 15
   },
   muiPaper: {
-    borderRadius: '12px'
+    borderRadius: '12px',
+    marginLeft: '15px'
   },
   checkIcon: {
     marginLeft: 'auto',
