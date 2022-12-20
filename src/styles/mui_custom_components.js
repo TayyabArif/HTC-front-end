@@ -2,10 +2,11 @@ import React from 'react'
 import { withStyles } from '@mui/styles'
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
-import { Fab, InputBase, Paper, Tab, Tabs } from '@mui/material'
+import { Fab, InputBase, Paper, Tab, Tabs, OutlinedInput } from '@mui/material'
 
 export const BasicButton = withStyles((theme) => ({
   root: {
+    display: 'none',
     background: `${theme.colors.basicButtonBackground} !important`,
     color: `${theme.palette.primary.main} !important`,
     textTransform: 'unset !important',
@@ -93,7 +94,7 @@ export const RoundedButton = styled(Button)(({ theme }) => `
   line-height: 21.33px;
   font-weight: 700;
   border-radius: 32px;
-  width: 140px;
+  width: 140px !important;
   color: ${theme.colors.textButton}
   text-transform: none;
   &.MuiButton-root {
@@ -162,6 +163,11 @@ export const StyledNavTabs = withStyles((theme) => ({
       backgroundColor: theme.palette.primary.dark
     },
     transition: 'none'
+  },
+  root: {
+    height: '40px',
+    minHeight: 'unset !important',
+    margin: 'auto 0px'
   }
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span/> }}/>)
 
@@ -178,7 +184,8 @@ export const StyledNavTab = withStyles((theme) => ({
     transition: 'none'
   },
   selected: {
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
+    fontWeight: '500'
   }
 }))((props) => <Tab disableRipple {...props} />)
 
@@ -289,3 +296,17 @@ export const MapFiltersButton = withStyles((theme) => ({
     }
   }
 }))(Button)
+
+export const CustomOutlinedInput = withStyles(theme => ({
+  root: {
+    height: '40px',
+    '& .MuiInputBase-root': {
+      '& input': {
+        fontSize: '16px'
+      }
+    },
+    '& .MuiInputBase-input': {
+      fontSize: '20px'
+    }
+  }
+}))(OutlinedInput)

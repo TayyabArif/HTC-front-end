@@ -10,9 +10,11 @@ import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
 import { companySettings } from './companySettings'
-import { companyProfile } from './companyProfile'
 import { accountSettings } from './accountSettings'
 import { locations } from './locations'
+import { workOrders } from './workOrders'
+import { createAccount } from './createAccount'
+import { companyProfile } from './companyProfile'
 
 export const i18nEs = () => {
   return {
@@ -30,6 +32,8 @@ export const i18nEs = () => {
     company_settings: companySettings(),
     companyProfile: companyProfile(),
     account_settings: accountSettings(),
-    locations: locations()
+    locations: locations(),
+    work_orders: workOrders(),
+    create_account: createAccount()
   }
 }

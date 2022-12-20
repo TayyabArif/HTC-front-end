@@ -41,8 +41,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px'
   },
   footerContainer: {
-    bottom: 10,
-    position: 'absolute'
+    bottom: 30,
+    position: 'relative',
+    '& img': {
+      width: '100%'
+    }
   }
 }))
 
@@ -69,16 +72,16 @@ export const SignInContainer = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Grid container className={classes.footerContainer}>
-            <Grid item xs={12} md={2}></Grid>
-            <Grid item xs={12} md={8}>
+            <Grid item sm={0} md={1} lg={0.5} xl={1}></Grid>
+            <Grid item xs={8} sm={2} md={2} lg={2}>
               <img src={conectadLogo} alt="Connectad Logo"/>
             </Grid>
-            <Grid item md={1} alignSelf="flex-end">
+            <Grid item sm={4} md={4} lg={4} alignSelf="flex-end" textAlign="right">
               <Typography variant={'p'} className={ classes.contactText } hidden>
                 Contact us
               </Typography>
             </Grid>
-            <Grid item md={1} alignSelf="flex-end">
+            <Grid item sm={4} md={4} lg={4} alignSelf="flex-end" textAlign="right">
               <Typography variant={'p'} align={'center'} className={classes.versionText}>
                 &nbsp;v{pjson.version}
               </Typography>

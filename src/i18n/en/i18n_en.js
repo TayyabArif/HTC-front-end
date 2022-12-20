@@ -13,6 +13,8 @@ import { companySettings } from './companySettings'
 import { companyProfile } from './companyProfile'
 import { accountSettings } from './accountSettings'
 import { locations } from './locations'
+import { workOrders } from './workOrders'
+import { createAccount } from './createAccount'
 
 export const i18nEn = () => {
   return {
@@ -28,8 +30,10 @@ export const i18nEn = () => {
     dashboard: dashboard(),
     general: general(),
     company_settings: companySettings(),
+    create_account: createAccount(),
     company_profile: companyProfile(),
     account_settings: accountSettings(),
-    locations: locations()
+    locations: locations(),
+    work_orders: workOrders()
   }
 }

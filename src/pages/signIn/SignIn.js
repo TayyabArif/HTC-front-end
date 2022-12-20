@@ -26,6 +26,7 @@ import { store } from '../../store'
 
 /** Services **/
 import { login } from '../../services/AuthService'
+import { LoadingSplash } from '../../components/LoadingSplash'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -34,15 +35,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '1980px !important'
   },
   mainItem: {
-    maxWidth: '30em',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: 0,
-      marginTop: '-50px'
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingTop: '140px',
-      marginTop: '0px'
-    }
+    maxWidth: '30em'
   },
   signMessage: {
     marginTop: '15px !important',
@@ -50,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     fontWieght: '300 !important'
   },
   connectIcon: {
-    width: '627px',
+    width: '100%',
     margin: '0px auto',
     position: 'relative'
   },
@@ -80,17 +73,6 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('md')]: {
       fontSize: '20px'
-    }
-  },
-  divider: {
-    marginLeft: '0',
-    marginTop: '26px',
-    marginBottom: '16px',
-    [theme.breakpoints.down('md')]: {
-      display: 'flex'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
     }
   },
   buttons: {
@@ -231,6 +213,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   const [showErrors, setShowErrors] = useState(false)
   const [rememberMe, setRemember] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const authStore = store.getState().auth
@@ -247,12 +230,13 @@ const SignIn = () => {
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'all',
     resolver: yupResolver(validationSchema)
   })
 
   const onSubmit = async () => {
     try {
-      dispatch(loadingActions.show())
+      setLoading(true)
       await login(email, password)
       if (rememberMe) {
         dispatch(authActions.setRemember(email))
@@ -267,7 +251,7 @@ const SignIn = () => {
       if (error.code === 401 || error.code === 404 || error.code === 500) {
         setShowErrors(true)
       }
-      dispatch(loadingActions.hide())
+      setLoading(false)
     }
   }
 
@@ -290,12 +274,15 @@ const SignIn = () => {
     setRemember(!rememberMe)
   }
 
-  return (
-    <SignInContainer screen="sign_in">
+  return loading
+    ? <LoadingSplash />
+    : <SignInContainer screen="sign_in">
       <Grid data-testid={'sign_in_page'} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
-        <Grid className={classes.mainItem} item xs={12}>
+        <Grid className={classes.mainItem} item xs={12} mt={{ xs: 9, md: 18 }}>
           <Grid container justifyContent='center'>
-            <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo} />
+            <Grid item xs={11}>
+              <img alt={'Connect AD Platform'} className={classes.connectIcon} src={connectLogo}/>
+            </Grid>
           </Grid>
           <Grid container justifyContent='center'>
             <Typography align={'center'} classes={{ root: classes.signMessage }}>
@@ -328,9 +315,6 @@ const SignIn = () => {
               </Grid>
             </Grid>
           </Box>
-
-          <Divider className={classes.divider} variant='inset' />
-
           <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
@@ -421,13 +405,13 @@ const SignIn = () => {
 
             <Box textAlign='center' pt={2}>
               <Typography component={'span'} align={'center'} className={classes.terms}>
-                {t('sign_in.messages.terms_and_conditions')} <Link to={'FIX ME'} onClick={() => window.open(process.env.REACT_APP_CONDITIONS_URL, '_blank')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
+                {t('sign_in.messages.terms_and_conditions')} <Link onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
               </Typography>
             </Box>
 
             <Grid className={classes.buttons} container justifyContent='center' >
               <Grid item xs={7} >
-                <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler} >
+                <BasicButton fullWidth data-testid='request_access_button' type='button' variant='contained' onClick={requestAccessClickHandler}>
                   {t('sign_in.request_access')}
                 </BasicButton>
               </Grid>
@@ -441,7 +425,6 @@ const SignIn = () => {
         </Grid>
       </Grid>
     </SignInContainer>
-  )
 }
 
 export default SignIn

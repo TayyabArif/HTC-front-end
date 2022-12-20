@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 /** Material UI **/
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

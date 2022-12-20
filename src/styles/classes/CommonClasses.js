@@ -2,6 +2,21 @@
 import { makeStyles } from '@mui/styles'
 import { navBarHeaderHeight } from '../../lib/Constants'
 
+export const addButtonStyles = makeStyles(theme => ({
+  icon: {
+    color: theme.colors.iconBlue,
+    marginRight: '5px'
+  },
+  button: {
+    textTransform: 'none',
+    '& .MuiFormLabel-root': {
+      color: theme.colors.iconBlue,
+      fontSize: '14px'
+    },
+    paddingLeft: '0px'
+  }
+}))
+
 export const mainContainerStyles = makeStyles(theme => ({
   scrollContainer: {
     margin: '0px !important',
@@ -134,5 +149,20 @@ export const navBarStyles = makeStyles(theme => ({
     height: navBarHeaderHeight,
     display: 'flex',
     flexDirection: 'row'
+  },
+  boxLogo: {
+    display: 'flex'
+  },
+  logoLink: {
+    margin: 'auto 0px'
+  },
+  logo: {
+    width: '170px'
+  },
+  companyName: {
+    fontSize: '24px',
+    fontWeight: '600',
+    color: theme.colors.text,
+    margin: 'auto 15px auto 0px'
   }
 }))
