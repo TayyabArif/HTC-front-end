@@ -87,6 +87,7 @@ export const createAccountStyles = makeStyles((theme) => ({
     fontSize: '16px'
   },
   emailErrors: {
+    marginTop: 0,
     color: theme.colors.errorText
   }
 }))
