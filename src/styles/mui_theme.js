@@ -87,6 +87,7 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    mainBlue: '#0072CE',
     invoiceColors: {
       open: 'rgba(77, 166, 233, 0.85)',
       open_solid: 'rgba(77, 166, 233)',

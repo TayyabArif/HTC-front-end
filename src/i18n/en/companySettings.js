@@ -3,6 +3,7 @@ export const companySettings = () => {
     title: 'Company Settings',
     compliant: 'COMPLIANT',
     mobile_only: 'Mobile Only',
+    view_only: 'View Only',
     missing: 'Missing',
     upload_logo: 'Upload Company Logo',
     info_card: {

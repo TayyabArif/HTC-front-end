@@ -153,7 +153,7 @@ export const RolesCard = props => {
           ))}
           <Box display="flex" flexDirection="row" alignItems="baseline">
             <Typography classes={{ root: classes.roleItem }}>
-              {t('company_settings.mobile_only')}
+              {t('company_settings.view_only')}
             </Typography>
             <GlobalChip
               chips={permissionsMobile}

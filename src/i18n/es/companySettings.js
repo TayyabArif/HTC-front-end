@@ -3,6 +3,7 @@ export const companySettings = () => {
     title: 'Configuración de la Empresa',
     compliant: 'COMPLETO',
     mobile_only: 'Solo Mobil',
+    view_only: 'Solo Vista',
     missing: 'Faltante',
     upload_logo: 'Cargar Logo de Empresa',
     info_card: {

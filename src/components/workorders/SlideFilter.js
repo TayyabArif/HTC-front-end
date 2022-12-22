@@ -113,6 +113,7 @@ export const SlideFilter = props => {
         onClick={handleOpen}
         className={props.type === 1 ? classes.mainInput1 : classes.mainInput2}
         autoComplete="off"
+        readOnly
         endAdornment={<FontAwesomeIcon icon={faAngleDown} />}
         ref={inputRef}
       />
