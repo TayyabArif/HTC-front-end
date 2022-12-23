@@ -113,7 +113,8 @@ export const RolesCard = props => {
   const permissions = [
     t('company_settings.roles_card.workorders'),
     t('company_settings.roles_card.invoices'),
-    t('company_settings.roles_card.company_settings')
+    t('company_settings.roles_card.company_settings'),
+    t('company_settings.roles_card.proposals')
   ]
   const permissionsMobile = [t('company_settings.roles_card.no_portal_access')]
 
@@ -136,21 +137,31 @@ export const RolesCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box display="flex" flexDirection="column">
-          {roles?.map(role => (
-            <div key={role.name} className={classes.itemDivider}>
-              <Box display="flex" flexDirection="row" alignItems="baseline">
-                <Typography classes={{ root: classes.roleItem }}>
-                  {role.name}
-                </Typography>
-                <GlobalChip
-                  chips={permissions}
-                  selected={new Set()}
-                  setSelected={() => {}}
-                  skipTranslate={true}
-                />
-              </Box>
-            </div>
-          ))}
+          {roles?.map(role => {
+            const disabled = []
+            for (const permission in role.permissions) {
+              if (!role.permissions[permission].read) {
+                disabled.push(t('company_settings.roles_card.' + permission))
+              }
+            }
+            console.log(disabled)
+            return (
+              <div key={role.name} className={classes.itemDivider}>
+                <Box display="flex" flexDirection="row" alignItems="baseline">
+                  <Typography classes={{ root: classes.roleItem }}>
+                    {role.name}
+                  </Typography>
+                  <GlobalChip
+                    chips={permissions}
+                    disabled={disabled}
+                    selected={new Set()}
+                    setSelected={() => {}}
+                    skipTranslate={true}
+                  />
+                </Box>
+              </div>
+            )
+          })}
           <Box display="flex" flexDirection="row" alignItems="baseline">
             <Typography classes={{ root: classes.roleItem }}>
               {t('company_settings.view_only')}

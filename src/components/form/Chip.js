@@ -49,11 +49,19 @@ export default function GlobalChip (props) {
         </Box>
       )}
       <Box role="group" className={classes.chipContainer}>
-        {chips?.map(c => (
-          <Chip
+        {chips?.map(c => {
+          let disabled = false
+          if (props.disabled?.length > 0) {
+            disabled = props.disabled.indexOf(c)
+          }
+          if (c === 'Proposals') { // TODO delete this condition if the proposals are added to permissions
+            disabled = true
+          }
+          return <Chip
             key={c}
             onClick={event => handleSelectionChanged(c, event)}
             variant="outlined"
+            disabled={disabled}
             label={
               props.skipTranslate
                 ? c
@@ -63,7 +71,7 @@ export default function GlobalChip (props) {
               props.selected?.has(c) ? classes.chipSelected : classes.chip
             }
           ></Chip>
-        ))}
+        })}
       </Box>
     </Box>
   )
