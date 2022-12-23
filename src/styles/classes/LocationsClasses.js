@@ -196,6 +196,9 @@ export const mapStyles = makeStyles((theme) => ({
     },
     '& .gm-style .gm-style-iw-t::after': {
       display: 'none !important'
+    },
+    '& .gm-style .gm-style-iw-tc': {
+      transform: 'translateX(-120px)'
     }
   },
   searchBar: {
@@ -271,7 +274,7 @@ export const infoMarkerStyles = makeStyles((theme) => ({
       fontSize: 10
     },
     fontWeight: '700',
-    color: theme.colors.sites.markers.locationAddress
+    color: theme.colors.locations.markers.locationAddress
   },
   font12: {
     fontSize: 12,
@@ -294,7 +297,7 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     width: 'auto',
     minHeight: 70,
     cursor: 'pointer',
-    padding: '10px 10px'
+    padding: '10px 0px 22px 10px'
   },
   workStatus: {
     top: '0px !important',
@@ -330,13 +333,13 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     padding: '0px 0px'
   },
   arrowStyle: {
-    width: 22,
-    height: 22,
+    width: 32,
+    height: 32,
     display: 'flex',
-    marginRight: '5px',
-    marginLeft: 'auto'
+    color: '#828282',
+    marginTop: '60%'
   },
-  arrowGrid: {
+  arrowBox: {
     [theme.breakpoints.down('md')]: {
       padding: '10px 0px'
     },

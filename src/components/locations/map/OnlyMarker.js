@@ -19,7 +19,6 @@ import mNoService from '../../../assets/images/clusters/no_service.png'
 /** Redux **/
 import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
-import { filtersActions } from '../../../store/filters'
 
 export const OnlyMarker = (props) => {
   const dispatch = useDispatch()
@@ -29,7 +28,6 @@ export const OnlyMarker = (props) => {
   const site = props.site
 
   const handleClickLocation = (index, location) => {
-    dispatch(filtersActions.handleMobileDrawer(false))
     dispatch(locationsActions.setSelectedSite(location))
     dispatch(locationsActions.setActiveInfoWindow(index))
   }
