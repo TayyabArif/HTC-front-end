@@ -12,7 +12,7 @@ import { locationsActions } from '../../store/locations'
 // Styles
 import { locationCardStyles } from '../../styles/classes/LocationsClasses'
 
-export const Location = (props) => {
+export const WorkOrderCard = (props) => {
   const theme = useTheme()
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -41,7 +41,10 @@ export const Location = (props) => {
 
   const renderLocation = useMemo(() => {
     return (
-      <Box className={'sitesCard'} pb={0.5} style={props.style}>
+      <Box className={'sitesCard'} pb={0.5} style={props.style} display="flex">
+        <div>
+            <Typography className={classes.serviceName}></Typography>
+        </div>
         <Paper className={classes.locationTile} elevation={1}
              onClick={handleClickLocation}
           >

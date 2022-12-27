@@ -10,6 +10,9 @@ export const locations = () => {
     in_progress: 'En Progreso',
     completed: 'Completadas',
     no_activity: 'Sin Actividad',
+    work_orders: {
+      search_placeholder: 'Buscar Órdenes de Trabajo'
+    },
     map: {
       map_options: 'Opciones del Mapa',
       light: 'Claro',

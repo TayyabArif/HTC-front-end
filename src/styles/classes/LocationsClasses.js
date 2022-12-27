@@ -41,7 +41,7 @@ export const locationsStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       display: 'none'
     },
-    height: 'calc(100vh - 60px)',
+    height: 'calc(100vh - 100px)',
     overflowY: 'overlay',
     backgroundColor: theme.colors.locations.filters.leftColumnBackground,
     padding: '0px'
@@ -106,7 +106,7 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
-    marginTop: '60px',
+    marginTop: '100px',
     width: '360px',
     border: 'none'
   },
@@ -337,7 +337,8 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     height: 32,
     display: 'flex',
     color: '#828282',
-    marginTop: '60%'
+    marginTop: '60%',
+    cursor: 'pointer'
   },
   arrowBox: {
     [theme.breakpoints.down('md')]: {

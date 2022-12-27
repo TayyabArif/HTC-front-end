@@ -10,6 +10,9 @@ export const locations = () => {
     in_progress: 'In Progress',
     completed: 'Completed',
     no_activity: 'No Activity',
+    work_orders: {
+      search_placeholder: 'Search Work Orders'
+    },
     map: {
       map_options: 'Map Options',
       light: 'Light',

@@ -52,7 +52,6 @@ const slice = createSlice({
       state.map.zoom = action.payload.zoom
     },
     showSiteViewPanel (state) {
-      state.showSearch = false
       state.showSiteViewPanel = true
     },
     setSelectedSite (state, action) {
