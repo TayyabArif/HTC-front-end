@@ -101,7 +101,7 @@ function EnhancedTableHead (props) {
   let count = 0
   const checked = rowCount > 0 && numSelected === rowCount
   if (checked) {
-    count = rowCount
+    count = props.chips.totalCount
   } else {
     count = numSelected
   }
