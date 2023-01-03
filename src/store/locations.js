@@ -98,6 +98,9 @@ const slice = createSlice({
     },
     setSitesDateRange (state, action) {
       state.sitesDateRange = action.payload
+    },
+    hideSiteViewPanel (state) {
+      state.showSiteViewPanel = false
     }
   }
 })

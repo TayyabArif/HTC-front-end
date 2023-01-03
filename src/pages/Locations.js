@@ -4,11 +4,12 @@ import moment from 'moment'
 
 /** Material UI **/
 import { Box, Drawer, Grid, IconButton, InputAdornment, TextField, Container, Tabs, Tab, AppBar } from '@mui/material'
-import { Menu, Clear, SortRounded, FilterAltOutlined } from '@mui/icons-material'
+import { Menu, Clear, SortRounded, FilterAltOutlined, ArrowBackIos } from '@mui/icons-material'
 import { styled, useTheme } from '@mui/material/styles'
 
 /** Redux **/
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { locationsActions } from '../store/locations'
 
 /** Components **/
 import { GMap } from '../components/locations/map/GMap'
@@ -1035,6 +1036,7 @@ function TabPanel (props) {
 const Locations = () => {
   const { t } = useTranslation()
   const classes = locationsStyles()
+  const dispatch = useDispatch()
   const [hideLeftSection, setHideLeftSection] = useState(false)
   const [date, setDate] = useState('today')
   const [dateStart, setDateStart] = useState(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss Z'))
@@ -1164,12 +1166,30 @@ const Locations = () => {
     setTabValue(newValue)
   }
 
+  const backSiteView = () => {
+    dispatch(locationsActions.showMapSiteView({
+      coordinates: {
+        lat: 40.175472,
+        lng: -101.466083
+      },
+      zoom: 5,
+      hideMarkers: false,
+      selectedMarkerIndex: null
+    }))
+    dispatch(locationsActions.setSelectedSite(null))
+    dispatch(locationsActions.setActiveInfoWindow(null))
+    dispatch(locationsActions.hideSiteViewPanel())
+  }
+
   const drawerBoxComponent = () => {
     return <Box data-testid={'search_section'} >
       <Box className={classes.leftColumnSites} >
         <Grid container alignItems='center' className={classes.gridFilters}>
           <Grid item xs={11}>
-            <Box pr={1}>
+            <Box display="flex" pr={1}>
+              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
+                <ArrowBackIos className={classes.backIcon} />
+              </IconButton>}
               <TextField
                 className={classes.searchBox}
                 inputRef={searchField}
@@ -1180,7 +1200,7 @@ const Locations = () => {
                 required
                 fullWidth
                 id='search'
-                placeholder={locationsStore.showSiteViewPanel ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
+                placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
                 onChange={(e) => console.log(e.target.value)}
@@ -1212,12 +1232,12 @@ const Locations = () => {
             </Box>
           </Grid>
         </Grid>
-        <Box display="flex" hidden={!locationsStore.showSiteViewPanel} >
+        <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'flex' : 'none'} >
           {tabs()}
         </Box>
 
         {/* RESULTS */}
-        <Box hidden={locationsStore.showSiteViewPanel} container >
+        <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
             <SearchResults sites={sitesResponse?.sites ?? []} activeTab={locationsStore.activeTab} />
           </Grid>

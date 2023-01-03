@@ -25,62 +25,76 @@ import { /* calendarTitleStyle, */ muiThemeDateFilter, muiThemeHeaderDate, enabl
 const moment = require('moment')
 
 // hardcoded options
-const mapStateOptions = [
+const mapTradeOptions = [
   {
-    id: 'All States'
+    id: 'All Trades'
   },
   {
-    id: 'AL'
+    id: 'Hvac'
   },
   {
-    id: 'AK'
+    id: 'Land'
   },
   {
-    id: 'AR'
+    id: 'Special'
   },
   {
-    id: 'AZ'
+    id: 'Snow'
   },
   {
-    id: 'CA'
+    id: 'Irrigation'
   },
   {
-    id: 'CO'
+    id: 'Sweep'
   },
   {
-    id: 'CT'
+    id: 'Pre-season Inspection'
   },
   {
-    id: 'DE'
+    id: 'Atmosphere Inspection'
   }
 ]
-const mapCityOptions = [
+const mapTypeOptions = [
   {
-    id: 'All Cities'
+    id: 'All Types'
   },
   {
-    id: 'Abilene'
+    id: 'Maintenance'
   },
   {
-    id: 'Addison'
+    id: 'Enhancement'
   },
   {
-    id: 'Albuquerque'
+    id: 'Seasonal'
   },
   {
-    id: 'Alexandria'
+    id: 'Complaint'
+  }
+]
+const mapServiceOptions = [
+  {
+    id: 'All Services'
   },
   {
-    id: 'Allen'
+    id: 'Snow Removal'
   },
   {
-    id: 'Amarillo'
+    id: 'Pruning'
   },
   {
-    id: 'Ames'
+    id: 'Winterization'
   },
   {
-    id: 'Anchorage'
+    id: 'Penguin Boarding'
+  },
+  {
+    id: 'Landscape Maintenance'
+  },
+  {
+    id: 'Wet Check'
+  },
+  {
+    id: 'Plumbing'
   }
 ]
 
@@ -103,7 +117,7 @@ export const SiteFiltersMenu = (props) => {
   const isMenuTypeOpen = Boolean(anchorType)
   const [type, setType] = useState('All Types')
   const [anchorService, setAnchorService] = useState(null)
-  const isMenuServiceOpen = Boolean(anchorType)
+  const isMenuServiceOpen = Boolean(anchorService)
   const [service, setService] = useState('All Services')
 
   // calendar
@@ -159,7 +173,7 @@ export const SiteFiltersMenu = (props) => {
     setAnchorService(event.currentTarget)
   }
   const handleServiceClose = (event) => {
-    setAnchorType(null)
+    setAnchorService(null)
   }
   const handleChangeService = (value) => {
     setService(value)
@@ -350,7 +364,7 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapStateOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeTrade(option.id)} className={classes.menuItem}>
+        {mapTradeOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeTrade(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
             {option.id}
           </Typography>
@@ -378,7 +392,7 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapCityOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeType(option.id)} className={classes.menuItem}>
+        {mapTypeOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeType(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
             {option.id}
           </Typography>
@@ -406,7 +420,7 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapCityOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeService(option.id)} className={classes.menuItem}>
+        {mapServiceOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeService(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
             {option.id}
           </Typography>

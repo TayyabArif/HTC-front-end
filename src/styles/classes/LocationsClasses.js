@@ -223,6 +223,15 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 0,
     width: '100%',
     cursor: 'pointer'
+  },
+  backIcon: {
+    width: '20px',
+    height: '20px'
+  },
+  backButton: {
+    marginTop: '23px',
+    width: '25px',
+    height: '25px'
   }
 }))
 
