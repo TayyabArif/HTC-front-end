@@ -1120,6 +1120,11 @@ export const repairDataStyles = makeStyles(theme => ({
 }))
 
 export const slideFilterStyles = makeStyles(theme => ({
+  mainMenu: {
+    '& .MuiPaper-root': {
+      maxHeight: '350px'
+    }
+  },
   switch: {
     marginRight: '0px',
     marginLeft: 'auto',

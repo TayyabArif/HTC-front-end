@@ -127,6 +127,7 @@ export const SlideFilter = props => {
           getContentAnchorEl={null}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          className={classes.mainMenu}
         >
           {[
             ...(props.hasAll ? [{ label: 'All', value: 'all' }] : []),
