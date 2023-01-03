@@ -178,7 +178,8 @@ const customTheme = createTheme({
     mainContainerBackground: '#F8F8F8',
     tab: {
       description: '#121212',
-      duedate: '#828282'
+      duedate: '#828282',
+      selected: '#2F80ED'
     },
     settings: {
       fieldName: '#828282',

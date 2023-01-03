@@ -159,7 +159,7 @@ export const StyledNavTabs = withStyles((theme) => ({
     '& > span': {
       maxWidth: 78,
       width: '100%',
-      backgroundColor: theme.palette.primary.dark
+      backgroundColor: theme.colors.tab.selected
     },
     transition: 'none'
   },
@@ -183,7 +183,7 @@ export const StyledNavTab = withStyles((theme) => ({
     transition: 'none'
   },
   selected: {
-    color: theme.palette.primary.dark,
+    color: `${theme.colors.tab.selected} !important`,
     fontWeight: '500'
   }
 }))((props) => <Tab disableRipple {...props} />)

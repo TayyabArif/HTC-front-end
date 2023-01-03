@@ -163,5 +163,8 @@ export const navBarStyles = makeStyles(theme => ({
     fontWeight: '600',
     color: theme.colors.text,
     margin: 'auto 15px auto 0px'
+  },
+  tabs: {
+    marginTop: '23px'
   }
 }))

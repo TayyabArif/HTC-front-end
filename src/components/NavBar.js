@@ -85,12 +85,12 @@ export const NavBar = () => {
             }}
             display={'inline-flex'}
           >
-            <Box className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
+            <Box className={classes.boxLogo} pt={2} pr={2} display={'inline-flex'}>
               <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
                 <img className={classes.logo} src={AcmeIcon} />
               </Link>
             </Box>
-            <StyledNavTabs value={value} onChange={handleChangeNavBar}>
+            <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>
               <StyledNavTab style={{ display: 'none' }} value={''} />
               <StyledNavTab
                 value={'/work-orders'}
