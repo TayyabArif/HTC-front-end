@@ -331,7 +331,7 @@ export const MapFilters = (props) => {
     <Box padding={1} key="status" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.status')}</Typography></Box>
     <Box padding={1} key="status_drop" className={classes.mainItem}>
       <MapFiltersButton onClick={handleStatusOpen}>
-        <Typography className={classes.dateLabel} >{t(`locations.wo_status.${status}`)}</Typography>
+        <Typography className={classes.dateLabel} >{t(`work_orders.wo_states.${status}`)}</Typography>
         {isMenuStatusOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -350,7 +350,7 @@ export const MapFilters = (props) => {
       >
         {mapStatusOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeStatus(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
-            {t(`locations.wo_status.${option.id}`)}
+            {t(`work_orders.wo_states.${option.id}`)}
           </Typography>
           {option.id === status && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}

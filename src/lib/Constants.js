@@ -127,3 +127,33 @@ export const AFStateOptions = [
 ]
 
 export const navBarHeaderHeight = '100px'
+
+export const woSortOptions = [
+  {
+    id: 'work_order_new'
+  },
+  {
+    id: 'work_order_old'
+  },
+  {
+    id: 'status_a'
+  },
+  {
+    id: 'status_z'
+  },
+  {
+    id: 'priority_a'
+  },
+  {
+    id: 'priority_z'
+  },
+  {
+    id: 'tracking_a'
+  },
+  {
+    id: 'tracking_z'
+  },
+  {
+    id: 'none'
+  }
+]

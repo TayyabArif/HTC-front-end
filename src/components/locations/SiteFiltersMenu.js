@@ -1,0 +1,427 @@
+import React, { useState, useRef } from 'react'
+
+// Components
+import { Menu, MenuItem, Typography, Box, Button, ThemeProvider } from '@mui/material'
+import {
+  LocalizationProvider,
+  DatePicker
+} from '@mui/x-date-pickers'
+import { useTranslation } from 'react-i18next'
+import { MapFiltersButton } from '../../styles/mui_custom_components'
+import { ArrowDropDownTwoTone, ArrowRightTwoTone, Check as CheckIcon } from '@mui/icons-material'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
+// Constants
+import { mapStatusOptions } from '../../lib/Constants'
+
+// Redux
+// import { useDispatch, useSelector } from 'react-redux'
+// import { locationsActions } from '../../store/locations'
+
+// Styles
+import { mapFiltersStyles } from '../../styles/classes/LocationsClasses'
+import { /* calendarTitleStyle, */ muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle } from '../../styles/mui_custom_theme'
+
+const moment = require('moment')
+
+// hardcoded options
+const mapStateOptions = [
+  {
+    id: 'All States'
+  },
+  {
+    id: 'AL'
+  },
+  {
+    id: 'AK'
+  },
+  {
+    id: 'AR'
+  },
+  {
+    id: 'AZ'
+  },
+  {
+    id: 'CA'
+  },
+  {
+    id: 'CO'
+  },
+  {
+    id: 'CT'
+  },
+  {
+    id: 'DE'
+  }
+]
+const mapCityOptions = [
+  {
+    id: 'All Cities'
+  },
+  {
+    id: 'Abilene'
+  },
+  {
+    id: 'Addison'
+  },
+  {
+    id: 'Albuquerque'
+  },
+  {
+    id: 'Alexandria'
+  },
+  {
+    id: 'Allen'
+  },
+  {
+    id: 'Amarillo'
+  },
+  {
+    id: 'Ames'
+  },
+  {
+    id: 'Anchorage'
+  }
+]
+
+export const SiteFiltersMenu = (props) => {
+  const classes = mapFiltersStyles()
+  const { t } = useTranslation()
+  // const dispatch = useDispatch()
+  // const locationsStore = useSelector(state => state.locations)
+  const [anchorStart, setAnchorStart] = useState(null)
+  const isMenuStartOpen = Boolean(anchorStart)
+  const [anchorEnd, setAnchorEnd] = useState(null)
+  const isMenuEndOpen = Boolean(anchorEnd)
+  const [anchorStatus, setAnchorStatus] = useState(null)
+  const isMenuStatusOpen = Boolean(anchorStatus)
+  const [status, setStatus] = useState('all')
+  const [anchorTrade, setAnchorTrade] = useState(null)
+  const isMenuTradeOpen = Boolean(anchorTrade)
+  const [trade, setTrade] = useState('All Trades')
+  const [anchorType, setAnchorType] = useState(null)
+  const isMenuTypeOpen = Boolean(anchorType)
+  const [type, setType] = useState('All Types')
+  const [anchorService, setAnchorService] = useState(null)
+  const isMenuServiceOpen = Boolean(anchorType)
+  const [service, setService] = useState('All Services')
+
+  // calendar
+  const [startLabel, setStartLabel] = useState('')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endLabel, setEndLabel] = useState('')
+  const [endDate, setEndDate] = useState(new Date())
+  const rootRefStart = useRef()
+  const rootRefEnd = useRef()
+
+  const handleStartOpen = (event) => {
+    setAnchorStart(event.currentTarget)
+  }
+
+  const handleEndOpen = (event) => {
+    setAnchorEnd(event.currentTarget)
+  }
+
+  const handleStatusOpen = (event) => {
+    setAnchorStatus(event.currentTarget)
+  }
+  const handleStatusClose = (event) => {
+    setAnchorStatus(null)
+  }
+  const handleChangeStatus = (value) => {
+    setStatus(value)
+    setAnchorStatus(null)
+  }
+
+  const handleTradeOpen = (event) => {
+    setAnchorTrade(event.currentTarget)
+  }
+  const handleTradeClose = (event) => {
+    setAnchorTrade(null)
+  }
+  const handleChangeTrade = (value) => {
+    setTrade(value)
+    setAnchorTrade(null)
+  }
+
+  const handleTypeOpen = (event) => {
+    setAnchorType(event.currentTarget)
+  }
+  const handleTypeClose = (event) => {
+    setAnchorType(null)
+  }
+  const handleChangeType = (value) => {
+    setType(value)
+    setAnchorType(null)
+  }
+
+  const handleServiceOpen = (event) => {
+    setAnchorService(event.currentTarget)
+  }
+  const handleServiceClose = (event) => {
+    setAnchorType(null)
+  }
+  const handleChangeService = (value) => {
+    setService(value)
+    setAnchorService(null)
+  }
+
+  const handleChange = (date, type) => {
+    let formattedDate = ''
+    formattedDate = moment(new Date(date)).format('YYYY/MM/DD')
+    if (type === 'start') {
+      setStartLabel(formattedDate)
+    } else {
+      setEndLabel(formattedDate)
+    }
+  }
+
+  return (<Menu
+    open={props.isFiltersMenuOpen}
+    onClose={props.handleFiltersClose}
+    anchorEl={props.anchorFilters}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right'
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'left'
+    }}
+    classes={{ paper: classes.mainDropdown }}
+  >
+    <Box padding={1} key="date_start" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.start_date')}</Typography></Box>
+    <Box padding={1} key="date_start_drop" className={classes.mainItem}>
+      <MapFiltersButton ref={rootRefStart} onClick={handleStartOpen}>
+        <Typography className={classes.dateLabel} >{startLabel !== '' ? startLabel : t('locations.work_orders.sort_options.none')}</Typography>
+        {isMenuStartOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+      </MapFiltersButton>
+      <ThemeProvider theme={muiThemeDateFilter}>
+          <LocalizationProvider
+            key="date-picker-dialog-from"
+            dateAdapter={AdapterDayjs}
+          >
+            <ThemeProvider
+              key="date-picker-dialog-from"
+              theme={muiThemeHeaderDate}
+            >
+              <DatePicker
+                renderInput={() => { }}
+                disableToolbar={false}
+                InputProps={{ className: classes.picker }}
+                format="MM/dd/yyyy"
+                margin="normal"
+                variant="inline"
+                id="date-picker-dialog-from"
+                key="date-picker-dialog-from"
+                value={startDate}
+                onChange={date => {
+                  setStartDate(date)
+                }}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date'
+                }}
+                PopperProps={{
+                  anchorEl: () => rootRefStart.current,
+                  placement: 'right-start'
+                }}
+                PaperProps={{
+                  style: {
+                    backgroundColor: 'white',
+                    borderRadius: '8px',
+                    marginLeft: '25px'
+                  }
+                }}
+                TextFieldComponent={() => null}
+                open={isMenuStartOpen}
+                onClose={() => {
+                  setAnchorStart(null)
+                }}
+                onAccept={(date) => {
+                  handleChange(date, 'start')
+                  setAnchorStart(null)
+                }}
+              />
+            </ThemeProvider>
+          </LocalizationProvider>
+        </ThemeProvider>
+    </Box>
+    <Box padding={1} key="date_end" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
+    <Box padding={1} key="date_end_drop" className={classes.mainItem}>
+      <MapFiltersButton ref={rootRefEnd} onClick={handleEndOpen}>
+        <Typography className={classes.dateLabel} >{endLabel !== '' ? endLabel : t('locations.work_orders.sort_options.none')}</Typography>
+        {isMenuEndOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+      </MapFiltersButton>
+      <ThemeProvider theme={muiThemeDateFilter}>
+          <LocalizationProvider
+            key="date-picker-dialog-from"
+            dateAdapter={AdapterDayjs}
+          >
+            <ThemeProvider
+              key="date-picker-dialog-from"
+              theme={muiThemeHeaderDate}
+            >
+              <DatePicker
+                renderInput={() => { }}
+                disableToolbar={false}
+                InputProps={{ className: classes.picker }}
+                format="MM/dd/yyyy"
+                margin="normal"
+                variant="inline"
+                id="date-picker-dialog-from"
+                key="date-picker-dialog-from"
+                value={endDate}
+                onChange={date => {
+                  setEndDate(date)
+                }}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date'
+                }}
+                PopperProps={{
+                  anchorEl: () => rootRefEnd.current,
+                  placement: 'right-start'
+                }}
+                PaperProps={{
+                  style: {
+                    backgroundColor: 'white',
+                    borderRadius: '8px',
+                    marginLeft: '25px'
+                  }
+                }}
+                TextFieldComponent={() => null}
+                open={isMenuEndOpen}
+                onClose={() => {
+                  setAnchorEnd(null)
+                }}
+                onAccept={(date) => {
+                  handleChange(date, 'end')
+                  setAnchorStart(null)
+                }}
+              />
+            </ThemeProvider>
+          </LocalizationProvider>
+        </ThemeProvider>
+    </Box>
+    <Box padding={1} key="status" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
+    <Box padding={1} key="status_drop" className={classes.mainItem}>
+      <MapFiltersButton onClick={handleStatusOpen}>
+        <Typography className={classes.dateLabel} >{t(`work_orders.wo_states.${status}`)}</Typography>
+        {isMenuStatusOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+      </MapFiltersButton>
+      <Menu
+        open={isMenuStatusOpen}
+        onClose={handleStatusClose}
+        anchorEl={anchorStatus}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
+      >
+        {mapStatusOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeStatus(option.id)} className={classes.menuItem}>
+          <Typography className={classes.menuLabel}>
+            {t(`work_orders.wo_states.${option.id}`)}
+          </Typography>
+          {option.id === status && <CheckIcon className={classes.checkIcon} />}
+        </MenuItem>)}
+      </Menu>
+    </Box>
+    <Box padding={1} key="trade" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.trade')}</Typography></Box>
+    <Box padding={1} key="trade_drop" className={classes.mainItem}>
+      <MapFiltersButton onClick={handleTradeOpen}>
+        <Typography className={classes.dateLabel} >{trade}</Typography>
+        {isMenuTradeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+      </MapFiltersButton>
+      <Menu
+        open={isMenuTradeOpen}
+        onClose={handleTradeClose}
+        anchorEl={anchorTrade}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
+      >
+        {mapStateOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeTrade(option.id)} className={classes.menuItem}>
+          <Typography className={classes.menuLabel}>
+            {option.id}
+          </Typography>
+          {option.id === trade && <CheckIcon className={classes.checkIcon} />}
+        </MenuItem>)}
+      </Menu>
+    </Box>
+    <Box padding={1} key="type" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.type')}</Typography></Box>
+    <Box padding={1} key="type_drop" className={classes.mainItem}>
+      <MapFiltersButton onClick={handleTypeOpen}>
+        <Typography className={classes.dateLabel} >{type}</Typography>
+        {isMenuTypeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+      </MapFiltersButton>
+      <Menu
+        open={isMenuTypeOpen}
+        onClose={handleTypeClose}
+        anchorEl={anchorType}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
+      >
+        {mapCityOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeType(option.id)} className={classes.menuItem}>
+          <Typography className={classes.menuLabel}>
+            {option.id}
+          </Typography>
+          {option.id === type && <CheckIcon className={classes.checkIcon} />}
+        </MenuItem>)}
+      </Menu>
+    </Box>
+    <Box padding={1} key="service" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.service')}</Typography></Box>
+    <Box padding={1} key="service_drop" className={classes.mainItem}>
+      <MapFiltersButton onClick={handleServiceOpen}>
+        <Typography className={classes.dateLabel} >{service}</Typography>
+        {isMenuServiceOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+      </MapFiltersButton>
+      <Menu
+        open={isMenuServiceOpen}
+        onClose={handleServiceClose}
+        anchorEl={anchorService}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
+      >
+        {mapCityOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeService(option.id)} className={classes.menuItem}>
+          <Typography className={classes.menuLabel}>
+            {option.id}
+          </Typography>
+          {option.id === service && <CheckIcon className={classes.checkIcon} />}
+        </MenuItem>)}
+      </Menu>
+    </Box>
+    <Button
+      variant="outlined"
+      size="small"
+      color="primary"
+      style={{ ...enableButtonStyle, margin: '10px 0px 0px 38%' }}
+      onClick={props.handleFiltersClose}
+    >
+      {t('account_settings.form.save')}
+    </Button>
+  </Menu>)
+}

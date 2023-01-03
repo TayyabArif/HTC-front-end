@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /** Components **/
-import { LocationCard } from './LocationCard.js'
+import { WorkOrderCard } from './WorkOrderCard.js'
 
 /** Material UI **/
 import { Box, Typography } from '@mui/material'
@@ -20,8 +20,8 @@ import { mobileBreakpoint } from '../../lib/Constants'
 // Styles
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
 
-export const SearchResults = (props) => {
-  const { sites } = props
+export const WorkOrdersList = (props) => {
+  const { workOrders } = props
   const classes = searchResultsStyles()
   const wWidth = useWindowWidth()
   const { t } = useTranslation()
@@ -33,13 +33,13 @@ export const SearchResults = (props) => {
     setKeyAutoSizer(value => value + 1)
   }, [locationsStore.activeTab])
 
-  const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
-    const row = sites[index]
-    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} style={style}/>
+  const woRowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
+    const row = workOrders[index]
+    return <WorkOrderCard activeTab={props.activeTab} key={row.id} info={row} style={style}/>
   }
 
   const getRowHeight = ({ index }) => {
-    const site = sites[index] ?? {}
+    const site = workOrders[index] ?? {}
     const contentRowLength = site.address?.length +
         site.city?.length +
         site.state?.length +
@@ -51,25 +51,24 @@ export const SearchResults = (props) => {
       case 'all_sites':
         return contentRowLength > 55 ? 95 : 78
       default:
-        return 110
+        return 120
     }
   }
 
-  if (sites) {
-    if (sites.length > 0) {
-      return <AutoSizer key={keyAutoSizer}>
+  if (workOrders.length > 0) {
+    return <AutoSizer key={keyAutoSizer}>
         {({ width }) => (
             <List
                 width={width}
-                height={wWidth > mobileBreakpoint ? wHeight - 160 : wHeight - 205}
-                rowCount={sites.length}
+                height={wWidth > mobileBreakpoint ? wHeight - 205 : wHeight - 180}
+                rowCount={workOrders.length}
                 rowHeight={getRowHeight}
-                rowRenderer={rowRenderer}
+                rowRenderer={woRowRenderer}
             />
         )}
       </AutoSizer>
-    } else {
-      return (
+  } else {
+    return (
         <Box pt={5}>
           <Typography className={classes.font12} align='center'>
             {t('locations.no_results')}
@@ -78,9 +77,6 @@ export const SearchResults = (props) => {
             {t('locations.update_search')}
           </Typography>
         </Box>
-      )
-    }
-  } else {
-    return (<div></div>)
+    )
   }
 }

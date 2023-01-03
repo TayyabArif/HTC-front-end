@@ -268,7 +268,7 @@ export const GMap = (props) => {
               play={play}
             />
             {wWidth > mobileBreakpoint
-              ? <Grid marginLeft={-1} container>
+              ? <Grid marginLeft={-5.5} container>
                 <Grid align={'left'} item xs={12} >
                   <MapCounters searchResults={props.searchResults} date={props.date} hideLeftSection={props.hideLeftSection} />
                 </Grid>

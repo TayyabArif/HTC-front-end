@@ -23,17 +23,19 @@ export const workOrders = () => {
       last_six_months: 'Last Six Months'
     },
     wo_states: {
+      all: 'All Status',
       open: 'Open',
       active: 'In Progress',
       returning: 'Returning',
       complete: 'Completed',
       completed: 'Completed',
-      cancelled: 'Cancelled',
+      canceled: 'Canceled',
       expired: 'Expired',
       no_status: 'No Status',
       incomplete: 'Incomplete',
       in_progress: 'In Progress',
-      no_work_order: 'No Work Order'
+      no_work_order: 'No Work Order',
+      dispatched: 'Dispatched'
     },
     column_names: {
       client_name: 'Client Name',

@@ -3,9 +3,9 @@ import React, { useRef, useState, useEffect } from 'react'
 import moment from 'moment'
 
 /** Material UI **/
-import { Box, Drawer, Grid, IconButton, InputAdornment, TextField, Container } from '@mui/material'
-import { Menu, Clear } from '@mui/icons-material'
-import { styled } from '@mui/material/styles'
+import { Box, Drawer, Grid, IconButton, InputAdornment, TextField, Container, Tabs, Tab, AppBar } from '@mui/material'
+import { Menu, Clear, SortRounded, FilterAltOutlined } from '@mui/icons-material'
+import { styled, useTheme } from '@mui/material/styles'
 
 /** Redux **/
 import { useSelector } from 'react-redux'
@@ -13,8 +13,9 @@ import { useSelector } from 'react-redux'
 /** Components **/
 import { GMap } from '../components/locations/map/GMap'
 import { SearchResults } from '../components/locations/SearchResults'
-// TODO: SiteView component
-// import { SiteView } from '../components/locations/siteView/SiteView'
+import { WorkOrdersList } from '../components/locations/WorkOrdersList'
+import { SiteSortMenu } from '../components/locations/SiteSortMenu'
+import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
 
 /** Services **/
 import { userHasAuthorization } from '../services/AuthService'
@@ -585,13 +586,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'open',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '34235',
+      priority: 'High'
     },
     {
       id: 1390386,
@@ -600,13 +603,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'open',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '21312',
+      priority: 'Low'
     },
     {
       id: 1383885,
@@ -615,13 +620,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'open',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '87567',
+      priority: 'High'
     },
     {
       id: 1374619,
@@ -630,13 +637,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'open',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '56457',
+      priority: 'High'
     },
     {
       id: 1362376,
@@ -645,13 +654,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '4365',
+      priority: 'Low'
     },
     {
       id: 1351803,
@@ -660,13 +671,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '675634',
+      priority: 'High'
     },
     {
       id: 1342612,
@@ -675,13 +688,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '343345',
+      priority: 'Low'
     },
     {
       id: 1339606,
@@ -690,13 +705,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '34534',
+      priority: 'Low'
     },
     {
       id: 1313443,
@@ -705,13 +722,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'dispatched',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '1234',
+      priority: 'High'
     },
     {
       id: 1328422,
@@ -720,13 +739,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'dispatched',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '465456',
+      priority: 'High'
     },
     {
       id: 1307446,
@@ -735,13 +756,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '947375',
+      priority: 'Low'
     },
     {
       id: 1296617,
@@ -750,13 +773,15 @@ const workOrdersData = {
       service_name: null,
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '46346',
+      priority: 'Low'
     },
     {
       id: 1289921,
@@ -765,13 +790,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '35346',
+      priority: 'Low'
     },
     {
       id: 1289796,
@@ -780,13 +807,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '235346',
+      priority: 'Low'
     },
     {
       id: 1284368,
@@ -795,13 +824,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '453464',
+      priority: 'Low'
     },
     {
       id: 1265316,
@@ -810,13 +841,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'open',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '35467457',
+      priority: 'High'
     },
     {
       id: 1269713,
@@ -825,13 +858,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'incomplete',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '46454',
+      priority: 'High'
     },
     {
       id: 1247730,
@@ -840,13 +875,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'open',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '987959',
+      priority: 'Low'
     },
     {
       id: 1239442,
@@ -855,13 +892,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'dispatched',
-      service_appt_end_date: null,
-      service_appt_eta: null,
+      start_date: '02/22/22 5:00 PM',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '66754',
+      priority: 'Low'
     },
     {
       id: 1225902,
@@ -870,13 +909,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: '2022-09-10T12:56:39.000Z',
-      service_appt_eta: null,
+      start_date: '2022-09-10T12:56:39.000Z',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '767567',
+      priority: 'High'
     },
     {
       id: 1216174,
@@ -885,13 +926,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: '2022-09-03T17:26:55.000Z',
-      service_appt_eta: null,
+      start_date: '2022-09-03T17:26:55.000Z',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '45353',
+      priority: 'Low'
     },
     {
       id: 1207229,
@@ -900,13 +943,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: '2022-08-27T13:41:24.000Z',
-      service_appt_eta: null,
+      start_date: '2022-08-27T13:41:24.000Z',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '45645',
+      priority: 'High'
     },
     {
       id: 1154710,
@@ -915,13 +960,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: '2022-08-20T11:38:07.000Z',
-      service_appt_eta: null,
+      start_date: '2022-08-20T11:38:07.000Z',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '234235',
+      priority: 'High'
     },
     {
       id: 416631,
@@ -930,13 +977,15 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: '2022-08-13T15:09:50.000Z',
-      service_appt_eta: null,
+      start_date: '2022-08-13T15:09:50.000Z',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '567457',
+      priority: 'High'
     },
     {
       id: 404607,
@@ -945,15 +994,42 @@ const workOrdersData = {
       service_name: 'Landscape Maintenance',
       call_type: 'Maintenance',
       status: 'completed',
-      service_appt_end_date: '2022-08-06T14:11:33.000Z',
-      service_appt_eta: null,
+      start_date: '2022-08-06T14:11:33.000Z',
+      end_date: '02/22/22 6:00 PM',
       site_name: 'Starbucks 8425',
       city: 'Jacksonville',
       state: 'Florida',
       pon: null,
-      address: '9661 San Jose Blvd'
+      address: '9661 San Jose Blvd',
+      tracking: '46457',
+      priority: 'Low'
     }
   ]
+}
+
+function a11yProps (index) {
+  return {
+    id: `scrollable-auto-tab-${index}`,
+    'aria-controls': `scrollable-auto-tabpanel-${index}`
+  }
+}
+
+function TabPanel (props) {
+  const { children, index, value } = props
+
+  return (
+    <div
+      role="tabpanel"
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+    >
+      {value === index && (
+        <Box p={3} style={{ padding: '0px 0px', marginTop: '10px' }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  )
 }
 
 const Locations = () => {
@@ -970,6 +1046,14 @@ const Locations = () => {
   const actualWidth = useWindowWidth()
   const [actualWoTab, setActualWoTab] = useState('work_orders')
   const [forceReloadOverlay, setForceReloadOverlay] = useState(null)
+  const [tabValue, setTabValue] = useState('/work-orders')
+  const [anchorSort, setAnchorSort] = useState(null)
+  const isSortMenuOpen = Boolean(anchorSort)
+  const [anchorFilters, setAnchorFilters] = useState(null)
+  const isFiltersMenuOpen = Boolean(anchorFilters)
+  const [sort, setSort] = useState({})
+  const [filters, setFilters] = useState({})
+  const theme = useTheme()
 
   useEffect(() => {
     setSitesResponse(locationsData)
@@ -1004,6 +1088,80 @@ const Locations = () => {
 
   const handleClearSearchBox = async (event) => {
     searchField.current.value = ''
+  }
+
+  const handleFiltersOpen = (event) => {
+    setAnchorFilters(event.currentTarget)
+  }
+  const handleFiltersClose = (event) => {
+    setAnchorFilters(null)
+  }
+
+  const handleSortOpen = (event) => {
+    setAnchorSort(event.currentTarget)
+  }
+  const handleSortClose = (event) => {
+    setAnchorSort(null)
+  }
+
+  const tabs = () => (
+    <Container
+      data-testid={'wo_info_component'}
+      role="presentation"
+      className={classes.tabContainer}
+    >
+      <AppBar position="static" elevation={0} classes={{ root: classes.appBar }} >
+        <Tabs value={tabValue} onChange={handleChangeTab} aria-label="simple tabs example" variant="fullWidth"
+          classes={{ root: classes.tabs }}
+          TabIndicatorProps={{
+            style: {
+              background: theme.colors.iconBlue,
+              height: '3px',
+              borderRadius: '4px',
+              width: 'calc(100% / 3 - 100% / 6)',
+              marginLeft: 'calc(100% / 19)'
+            }
+          }}
+          style={{ zIndex: 1000 }} >
+          <Tab classes={{ root: classes.tab }} value="/work-orders" label={t('locations.work_orders.work_orders')} {...a11yProps('work-orders')} />
+          <Tab classes={{ root: classes.midTab }} value="/proposals" label={t('locations.work_orders.proposals')} {...a11yProps('proposals')} />
+          <Tab classes={{ root: classes.tab }} value="/invoices" label={t('locations.work_orders.invoices')} {...a11yProps('invoices')} />
+          <IconButton className={classes.iconButton}>
+            <SortRounded onClick={handleSortOpen} classes={{ root: isSortMenuOpen ? classes.sortIconSelected : classes.sortIcon }} />
+          </IconButton>
+          <SiteSortMenu
+            isSortMenuOpen={isSortMenuOpen}
+            handleSortClose={handleSortClose}
+            anchorSort={anchorSort}
+            sort={sort}
+            setSort={setSort}
+          />
+          <IconButton className={classes.iconButton}>
+            <FilterAltOutlined onClick={handleFiltersOpen} classes={{ root: isFiltersMenuOpen ? classes.filterIconSelected : classes.filterIcon }} />
+          </IconButton>
+          <SiteFiltersMenu
+            isFiltersMenuOpen={isFiltersMenuOpen}
+            handleFiltersClose={handleFiltersClose}
+            anchorFilters={anchorFilters}
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </Tabs>
+      </AppBar>
+      <TabPanel classes={{ root: classes.tabPanel }} index="/work-orders" value={tabValue}>
+        <WorkOrdersList workOrders={workOrdersData?.work_orders ?? []} />
+      </TabPanel>
+      <TabPanel classes={{ root: classes.tabPanel }} index="/proposals" value={tabValue}>
+        { }
+      </TabPanel>
+      <TabPanel classes={{ root: classes.tabPanel }} index="/invoices" value={tabValue}>
+        { }
+      </TabPanel>
+    </Container>
+  )
+
+  const handleChangeTab = (event, newValue) => {
+    setTabValue(newValue)
   }
 
   const drawerBoxComponent = () => {
@@ -1049,18 +1207,21 @@ const Locations = () => {
                   setHideLeftSection(true)
                 }}
                 className={classes.arrowButton}>
-                <Menu className={classes.menuIcon}/>
+                <Menu className={classes.menuIcon} />
               </IconButton>
             </Box>
           </Grid>
         </Grid>
+        <Box display="flex" hidden={!locationsStore.showSiteViewPanel} >
+          {tabs()}
+        </Box>
 
         {/* RESULTS */}
-        <Grid container >
-          <Grid item xs={12}>
-            <SearchResults sites={sitesResponse?.sites ?? []} activeTab={locationsStore.activeTab} workOrders={workOrdersData?.work_orders ?? []} />
+        <Box hidden={locationsStore.showSiteViewPanel} container >
+          <Grid item >
+            <SearchResults sites={sitesResponse?.sites ?? []} activeTab={locationsStore.activeTab} />
           </Grid>
-        </Grid>
+        </Box>
       </Box>
 
     </Box>
@@ -1068,16 +1229,16 @@ const Locations = () => {
 
   return (
     <Container className={classes.mainContainer}>
-     <Drawer
-          id="left-drawer"
-          key="left-drawer"
-          anchor={'left'}
-          open={!hideLeftSection}
-          classes={{ paper: classes.drawerPaper }}
-          variant="persistent"
-        >
-          {drawerBoxComponent()}
-        </Drawer>
+      <Drawer
+        id="left-drawer"
+        key="left-drawer"
+        anchor={'left'}
+        open={!hideLeftSection}
+        classes={{ paper: classes.drawerPaper }}
+        variant="persistent"
+      >
+        {drawerBoxComponent()}
+      </Drawer>
       <Main open={!hideLeftSection} width={actualWidth} data-testid={'sites_page'}>
         <Box data-testid={'google_maps'} bgcolor={'grey'} className={classes.gmapBox}>
           <GMap

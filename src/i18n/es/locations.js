@@ -11,7 +11,31 @@ export const locations = () => {
     completed: 'Completadas',
     no_activity: 'Sin Actividad',
     work_orders: {
-      search_placeholder: 'Buscar Órdenes de Trabajo'
+      search_placeholder: 'Buscar Órdenes de Trabajo',
+      tracking: 'Seguimiento cliente',
+      start_date: 'Empieza',
+      end_date: 'Termina',
+      service_details: 'Detalles de servicio',
+      priority: 'Prioridad',
+      work_orders: 'Órdenes de Trabajo',
+      proposals: 'Propuestas',
+      invoices: 'Facturas',
+      sort_by: 'Ordenar por',
+      status: 'Estado',
+      trade: 'Comercio',
+      type: 'Tipo',
+      service: 'Servicio',
+      sort_options: {
+        work_order_new: 'Orden de Trabajo (Recientes)',
+        work_order_old: 'Orden de Trabajo (Antiguas)',
+        status_a: 'Estado (A-Z)',
+        status_z: 'Estado (Z-A)',
+        priority_a: 'Prioridad (A-Z)',
+        priority_z: 'Prioridad (Z-A)',
+        tracking_a: 'Seguimiento (A-Z)',
+        tracking_z: 'Seguimiento (Z-A)',
+        none: 'Ninguno'
+      }
     },
     map: {
       map_options: 'Opciones del Mapa',
@@ -60,14 +84,13 @@ export const locations = () => {
       last_30_days: '30 Últimos Días',
       custom: 'Seleccionar Rango'
     },
-    wo_status: {
-      all: 'Todos los Estados',
-      open: 'Abierto',
-      in_progress: 'En Progreso',
-      returning: 'Retornado',
-      completed: 'Completado',
-      canceled: 'Cancelado',
-      dispatched: 'Despachado'
+    info_card: {
+      located: 'Localizado en',
+      address: 'Dirección',
+      hours: 'Horario',
+      departments: 'Departamentos',
+      phone: 'Teléfono',
+      order: 'Órden'
     }
   }
 }

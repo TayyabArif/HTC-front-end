@@ -11,7 +11,31 @@ export const locations = () => {
     completed: 'Completed',
     no_activity: 'No Activity',
     work_orders: {
-      search_placeholder: 'Search Work Orders'
+      search_placeholder: 'Search Work Orders',
+      tracking: 'Client Tracking',
+      start_date: 'Start',
+      end_date: 'End',
+      service_details: 'Service Details',
+      priority: 'Priority',
+      work_orders: 'Work Orders',
+      proposals: 'Proposals',
+      invoices: 'Invoices',
+      sort_by: 'Sort By',
+      status: 'Status',
+      trade: 'Trade',
+      type: 'Type',
+      service: 'Service',
+      sort_options: {
+        work_order_new: 'Work Order (Newest)',
+        work_order_old: 'Work Order (Oldest)',
+        status_a: 'Status (A-Z)',
+        status_z: 'Status (Z-A)',
+        priority_a: 'Priority (A-Z)',
+        priority_z: 'Priority (Z-A)',
+        tracking_a: 'Tracking (A-Z)',
+        tracking_z: 'Tracking (Z-A)',
+        none: 'None'
+      }
     },
     map: {
       map_options: 'Map Options',
@@ -60,14 +84,13 @@ export const locations = () => {
       last_30_days: 'Last 30 Days',
       custom: 'Custom Date'
     },
-    wo_status: {
-      all: 'All Status',
-      open: 'Open',
-      in_progress: 'In Progress',
-      returning: 'Returning',
-      completed: 'Completed',
-      canceled: 'Canceled',
-      dispatched: 'Dispatched'
+    info_card: {
+      located: 'Located in',
+      address: 'Address',
+      hours: 'Hours',
+      departments: 'Departments',
+      phone: 'Phone',
+      order: 'Order'
     }
   }
 }

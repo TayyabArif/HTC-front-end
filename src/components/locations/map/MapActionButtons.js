@@ -4,12 +4,16 @@ import ReactGA from 'react-ga4'
 
 /** Material UI **/
 import { Box, Menu, MenuItem, Typography } from '@mui/material'
-import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined, Check as CheckIcon } from '@mui/icons-material'
+import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
 /** Components **/
 import { MapButton } from '../../../styles/mui_custom_components'
 import { useTranslation } from 'react-i18next'
+import { LocationInfoCard } from './LocationInfoCard'
+
+/** Redux **/
+import { useSelector } from 'react-redux'
 
 // Styles
 import { mapActionButtonsStyles } from '../../../styles/classes/LocationsClasses'
@@ -17,6 +21,7 @@ import { MapFilters } from './MapFilters'
 
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
+  const locationsStore = useSelector((state) => state.locations)
   const [anchorMOEl, setAnchorMOEl] = useState(null)
   const isMenuMapOptionsOpen = Boolean(anchorMOEl)
   const [anchorWEl, setAnchorWEl] = useState(null)
@@ -534,14 +539,14 @@ export const MapActionButtons = (props) => {
     props.setWeather(e.currentTarget.dataset.weather)
   }
 
-  return (
-    <Box className={props.hideLeftSection ? classes.hiddenButtonsBox : classes.mapButtonsBox}>
-      {props.hideLeftSection && <Box pb={2}>
+  return (<div>
+    <Box className={props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.hiddenButtonsBoxSiteLevel : props.hideLeftSection && !locationsStore.showSiteViewPanel ? classes.hiddenButtonsBox : !props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.mapButtonsBoxSiteLevel : classes.mapButtonsBox}>
+      {props.hideLeftSection && <Box pb={2} pr={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
           <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'} />
         </MapButton>
       </Box>}
-      <Box pb={2}>
+      <Box hidden={locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleFiltersOpen}>
           <FilterAltOutlined color={'inherit'} />
         </MapButton>
@@ -553,11 +558,10 @@ export const MapActionButtons = (props) => {
           setDateRange={props.setDateRange}
         />
       </Box>
-      <Box pb={2}>
+      <Box pb={2} pr={2}>
         <MapButton onClick={handleWeatherMenuOpen}>
           <ThunderstormOutlined />
         </MapButton>
-
         <Menu
           open={isMenuWeatherOpen}
           onClose={handleMenuWeatherClose}
@@ -600,7 +604,7 @@ export const MapActionButtons = (props) => {
         </Menu>
       </Box>
 
-      <Box pb={2}>
+      <Box pb={2} pr={2}>
         <MapButton onClick={handleMapOptionsMenuOpen}>
           <LayersOutlined />
         </MapButton>
@@ -640,6 +644,13 @@ export const MapActionButtons = (props) => {
           </MenuItem>
         </Menu>
       </Box>
+      <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
+        <MapButton onClick={() => null}>
+          <LocationSearchingOutlined color={'inherit'} />
+        </MapButton>
+      </Box>
     </Box>
+    <LocationInfoCard />
+  </div>
   )
 }
