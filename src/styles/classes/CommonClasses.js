@@ -165,6 +165,6 @@ export const navBarStyles = makeStyles(theme => ({
     margin: 'auto 15px auto 0px'
   },
   tabs: {
-    marginTop: '23px'
+    marginTop: '27px'
   }
 }))
