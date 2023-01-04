@@ -1122,7 +1122,7 @@ export const repairDataStyles = makeStyles(theme => ({
 export const slideFilterStyles = makeStyles(theme => ({
   mainMenu: {
     '& .MuiPaper-root': {
-      maxHeight: '350px'
+      height: '350px'
     }
   },
   switch: {
@@ -1178,7 +1178,7 @@ export const slideFilterStyles = makeStyles(theme => ({
   },
   searchInput1: theme.filtersClasses.searchInput1,
   searchInput2: theme.filtersClasses.searchInput2,
-  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px' }
+  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px', whiteSpace: 'initial', wordBreak: 'break-word' }
 }))
 
 export const sortMenuStyles = makeStyles(theme => ({

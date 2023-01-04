@@ -174,7 +174,7 @@ export const StyledNavTab = withStyles((theme) => ({
   root: {
     minWidth: '70px',
     textTransform: 'none',
-    color: theme.colors.text,
+    color: props => theme.colors[props.color],
     fontWeight: '400',
     fontSize: '16px',
     '&:focus': {

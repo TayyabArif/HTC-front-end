@@ -109,12 +109,11 @@ export const RolesCard = props => {
       setOpenPanel(false)
     }
   }
-
-  const permissions = [
-    t('company_settings.roles_card.workorders'),
-    t('company_settings.roles_card.invoices'),
-    t('company_settings.roles_card.company_settings'),
-    t('company_settings.roles_card.proposals')
+  const permissionsList = [
+    'workorders',
+    'invoices',
+    'company_settings',
+    'proposals'
   ]
   const permissionsMobile = [t('company_settings.roles_card.no_portal_access')]
 
@@ -138,13 +137,12 @@ export const RolesCard = props => {
       <CardContent classes={{ root: classes.content }}>
         <Box display="flex" flexDirection="column">
           {roles?.map(role => {
-            const disabled = []
-            for (const permission in role.permissions) {
-              if (!role.permissions[permission].read) {
-                disabled.push(t('company_settings.roles_card.' + permission))
+            const permissions = []
+            permissionsList.forEach((item) => {
+              if (role.permissions[item] && !permissions.find(element => element === t('company_settings.roles_card.' + item))) {
+                permissions.push(t('company_settings.roles_card.' + item))
               }
-            }
-            console.log(disabled)
+            })
             return (
               <div key={role.name} className={classes.itemDivider}>
                 <Box display="flex" flexDirection="row" alignItems="baseline">
@@ -153,7 +151,6 @@ export const RolesCard = props => {
                   </Typography>
                   <GlobalChip
                     chips={permissions}
-                    disabled={disabled}
                     selected={new Set()}
                     setSelected={() => {}}
                     skipTranslate={true}
