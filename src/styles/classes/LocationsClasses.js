@@ -106,7 +106,7 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
-    marginTop: '60px',
+    marginTop: '100px',
     width: '360px',
     border: 'none'
   },
@@ -152,7 +152,7 @@ export const locationsStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   gmapBox: {
-    height: 'calc(100vh - 60px)'
+    height: 'calc(100vh - 100px)'
   },
   siteTab: {
     fontSize: '12px',
@@ -427,6 +427,15 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   menuLabel: {
     fontSize: '12px',
     fontWeight: '400'
+  },
+  badge: {
+    '& .MuiBadge-badge': {
+      color: theme.colors.invoiceColors.red_error,
+      width: '11px',
+      height: '11px',
+      right: '-4px',
+      top: '-4px'
+    }
   }
 }))
 
@@ -618,7 +627,9 @@ export const locationCardStyles = makeStyles((theme) => ({
 export const mapFiltersStyles = makeStyles((theme) => ({
   mainDropdown: {
     marginLeft: 8,
-    padding: '15px'
+    padding: '15px',
+    borderRadius: '8px',
+    minWidth: '280px'
   },
   radio: {
     padding: '0px',

@@ -346,7 +346,7 @@ export const GMap = (props) => {
             }
 
           </Box>
-          {enableCluster && !requestLoading && props.searchResults.sites?.length
+          {!requestLoading && props.searchResults.sites?.length
             ? <MarkerClusterer
               styles={[
                 {
@@ -396,7 +396,7 @@ export const GMap = (props) => {
                         position={site.coordinates}
                         clusterer={clusterer}
                         site={site}
-                        enableCluster={enableCluster}
+                        enableCluster={true}
                       />
                     } else {
                       return null
@@ -408,7 +408,7 @@ export const GMap = (props) => {
                       position={site.coordinates}
                       clusterer={clusterer}
                       site={site}
-                      enableCluster={enableCluster}
+                      enableCluster={true}
                     />
                   }
                 })

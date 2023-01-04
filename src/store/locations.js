@@ -15,6 +15,12 @@ const initialState = {
     hideMarkers: false,
     selectedMarkerIndex: null
   },
+  locationFilters: {
+    dateRange: 'today',
+    status: 'all',
+    state: 'All States',
+    city: 'All Cities'
+  },
   selectedSite: null,
   workOrders: null,
   workOrdersMeta: null,
@@ -25,8 +31,7 @@ const initialState = {
   advancedSearchAppliedFlag: false,
   resetChipFilters: false,
   workOrderTab: 'work_orders',
-  siteViewLastState: null,
-  sitesDateRange: 'today'
+  siteViewLastState: null
 }
 
 const slice = createSlice({
@@ -97,8 +102,8 @@ const slice = createSlice({
     setLastState (state, action) {
       state.siteViewLastState = action.payload
     },
-    setSitesDateRange (state, action) {
-      state.sitesDateRange = action.payload
+    setLocationFilters (state, action) {
+      state.locationFilters = action.payload
     }
   }
 })

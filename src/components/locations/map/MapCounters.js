@@ -41,7 +41,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.sitesDateRange}`)}
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
               </Grid>
             </Grid>
@@ -64,7 +64,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.sitesDateRange}`)}
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
               </Grid>
             </Grid>
@@ -87,7 +87,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.sitesDateRange}`)}
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
               </Grid>
             </Grid>
@@ -110,7 +110,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.sitesDateRange}`)}
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
               </Grid>
             </Grid>
@@ -133,7 +133,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.sitesDateRange}`)}
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
               </Grid>
             </Grid>
