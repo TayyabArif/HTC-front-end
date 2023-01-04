@@ -153,7 +153,7 @@ export const navBarStyles = makeStyles(theme => ({
     display: 'flex'
   },
   logoLink: {
-    margin: 'auto 0px'
+    margin: '27px auto'
   },
   logo: {
     width: '170px'
@@ -165,6 +165,6 @@ export const navBarStyles = makeStyles(theme => ({
     margin: 'auto 15px auto 0px'
   },
   tabs: {
-    marginTop: '27px'
+    marginTop: '32px'
   }
 }))
