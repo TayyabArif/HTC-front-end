@@ -428,14 +428,16 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Button
-      variant="outlined"
-      size="small"
-      color="primary"
-      style={{ ...enableButtonStyle, margin: '10px 0px 0px 38%' }}
-      onClick={props.handleFiltersClose}
-    >
-      {t('account_settings.form.save')}
-    </Button>
+    <Box width="100%" display="flex">
+      <Button
+        variant="outlined"
+        size="small"
+        color="primary"
+        style={{ ...enableButtonStyle, margin: '10px 8px 0px auto' }}
+        onClick={props.handleFiltersClose}
+      >
+        {t('account_settings.form.save')}
+      </Button>
+    </Box>
   </Menu>)
 }
