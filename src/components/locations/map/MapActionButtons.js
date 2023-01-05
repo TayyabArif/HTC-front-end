@@ -3,8 +3,8 @@ import { degrees2meters } from '../../../lib/Global'
 import ReactGA from 'react-ga4'
 
 /** Material UI **/
-import { Box, Menu, MenuItem, Typography } from '@mui/material'
 import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
+import { Box, Menu, MenuItem, Typography, Badge } from '@mui/material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
 /** Components **/
@@ -30,6 +30,7 @@ export const MapActionButtons = (props) => {
   const isMenuFiltersOpen = Boolean(anchorFilters)
   const { t } = useTranslation()
   const mapInstance = props.map
+  const [invisibleBadge, setInvisible] = useState(true)
 
   const handleMapOptionsMenuOpen = (event) => {
     setAnchorMOEl(event.currentTarget)
@@ -548,14 +549,16 @@ export const MapActionButtons = (props) => {
       </Box>}
       <Box hidden={locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleFiltersOpen}>
-          <FilterAltOutlined color={'inherit'} />
+          <Badge color="error" variant="dot" invisible={invisibleBadge} className={classes.badge}>
+            <FilterAltOutlined color={'inherit'} />
+          </Badge>
         </MapButton>
         <MapFilters
           isMenuFiltersOpen={isMenuFiltersOpen}
           handleFiltersClose={handleFiltersClose}
           anchorFilters={anchorFilters}
-          dateRange={props.dateRange}
-          setDateRange={props.setDateRange}
+          invisibleBadge={invisibleBadge}
+          setInvisible={setInvisible}
         />
       </Box>
       <Box pb={2} pr={2}>

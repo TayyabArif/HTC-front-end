@@ -46,6 +46,8 @@ export const locations = () => {
       status: 'Estado Órdenes de Trabajo',
       state: 'Estado(s)',
       city: 'Ciudad(s)',
+      from: 'DESDE',
+      to: 'HASTA',
       action_buttons: {
         weather: 'Clima',
         radar: 'Radar',

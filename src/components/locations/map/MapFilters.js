@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 // Components
 import { Menu, MenuItem, Typography, Box, Button, ThemeProvider } from '@mui/material'
@@ -88,7 +88,8 @@ export const MapFilters = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const locationsStore = useSelector(state => state.locations)
+  const locationsFilters = useSelector(state => state.locations.locationFilters)
+  const [dateRange, setDateRange] = useState('today')
   const [anchorDates, setAnchorDates] = useState(null)
   const isMenuDatesOpen = Boolean(anchorDates)
   const [anchorStatus, setAnchorStatus] = useState(null)
@@ -110,6 +111,15 @@ export const MapFilters = (props) => {
   const [openCalendarTo, setCalendarTo] = useState(false)
   const rootRef = useRef()
 
+  useEffect(() => {
+    if (props.isMenuFiltersOpen) {
+      setDateRange(locationsFilters.dateRange)
+      setStatus(locationsFilters.status)
+      setState(locationsFilters.state)
+      setCity(locationsFilters.city)
+    }
+  }, [props.isMenuFiltersOpen])
+
   const handleDateOpen = (event) => {
     setAnchorDates(event.currentTarget)
   }
@@ -117,7 +127,7 @@ export const MapFilters = (props) => {
     setAnchorDates(null)
   }
   const handleChangeDate = (value) => {
-    dispatch(locationsActions.setSitesDateRange(value))
+    setDateRange(value)
     if (value === 'custom') {
       setCalendarFrom(true)
     } else {
@@ -166,13 +176,28 @@ export const MapFilters = (props) => {
     let formattedDate = ''
     formattedDate =
       moment(new Date(selectedDateFrom)).format('YYYY/MM/DD') +
-      ' - ' +
+      ' : ' +
       moment(new Date(date)).format('YYYY/MM/DD')
     setSelectedDate(formattedDate)
   }
 
   const disablePastDates = date => {
     return !(date >= selectedDateFrom)
+  }
+
+  const saveFilters = () => {
+    if (dateRange === 'today' && status === 'all' && state === 'All States' && city === 'All Cities') {
+      props.setInvisible(true)
+    } else {
+      props.setInvisible(false)
+    }
+    dispatch(locationsActions.setLocationFilters({
+      dateRange,
+      status,
+      state,
+      city
+    }))
+    props.handleFiltersClose()
   }
 
   return (<Menu
@@ -192,7 +217,7 @@ export const MapFilters = (props) => {
     <Box padding={1} key="date_range" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.date_range')}</Typography></Box>
     <Box padding={1} key="date_range_drop" className={classes.mainItem}>
       <MapFiltersButton onClick={handleDateOpen}>
-        <Typography className={classes.dateLabel} >{locationsStore.sitesDateRange !== 'custom' ? t(`locations.date_ranges.${locationsStore.sitesDateRange}`) : selectedDate}</Typography>
+        <Typography className={classes.dateLabel} >{dateRange !== 'custom' ? t(`locations.date_ranges.${dateRange}`) : selectedDate}</Typography>
         {isMenuDatesOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -213,7 +238,7 @@ export const MapFilters = (props) => {
           <Typography className={classes.menuLabel}>
             {t(`locations.date_ranges.${option.id}`)}
           </Typography>
-          {option.id === locationsStore.sitesDateRange && <CheckIcon className={classes.checkIcon} />}
+          {option.id === dateRange && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}
         <ThemeProvider theme={muiThemeDateFilter}>
           <LocalizationProvider
@@ -228,8 +253,9 @@ export const MapFilters = (props) => {
                 renderInput={() => { }}
                 disableToolbar={false}
                 ToolbarComponent={() => (
-                  <div style={calendarTitleStyle}>From:</div>
+                  <div style={calendarTitleStyle}>{t('locations.map.from')}:</div>
                 )}
+                showToolbar={true}
                 InputProps={{ className: classes.picker }}
                 format="MM/dd/yyyy"
                 margin="normal"
@@ -282,8 +308,9 @@ export const MapFilters = (props) => {
                 renderInput={() => { }}
                 disableToolbar={false}
                 ToolbarComponent={() => (
-                  <div style={calendarTitleStyle}>To:</div>
+                  <div style={calendarTitleStyle}>{t('locations.map.to')}:</div>
                 )}
+                showToolbar={true}
                 format="MM/dd/yyyy"
                 margin="normal"
                 variant="inline"
@@ -412,14 +439,16 @@ export const MapFilters = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Button
-      variant="outlined"
-      size="small"
-      color="primary"
-      style={{ ...enableButtonStyle, margin: '10px 0px 0px 38%' }}
-      onClick={props.handleFiltersClose}
-    >
-      {t('account_settings.form.save')}
-    </Button>
+    <Box width="100%" display="flex">
+      <Button
+        variant="outlined"
+        size="small"
+        color="primary"
+        style={{ ...enableButtonStyle, margin: '10px 8px 0px auto', width: '100px' }}
+        onClick={saveFilters}
+      >
+        {t('account_settings.form.save')}
+      </Button>
+    </Box>
   </Menu>)
 }

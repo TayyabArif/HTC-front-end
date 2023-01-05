@@ -108,10 +108,10 @@ export const iconSearch = {
 
 export const calendarTitleStyle = {
   textAlign: 'center',
-  fontSize: '22px',
-  color: '#47A0F4',
-  marginTop: '5px',
-  fontWeight: '700'
+  fontSize: '14px',
+  color: '#333333',
+  marginTop: '10px',
+  fontWeight: '500'
 }
 
 export const statusColors = {

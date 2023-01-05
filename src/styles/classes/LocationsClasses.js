@@ -524,6 +524,15 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   menuLabel: {
     fontSize: '12px',
     fontWeight: '400'
+  },
+  badge: {
+    '& .MuiBadge-badge': {
+      color: theme.colors.invoiceColors.red_error,
+      width: '11px',
+      height: '11px',
+      right: '-4px',
+      top: '-4px'
+    }
   }
 }))
 
@@ -716,7 +725,8 @@ export const mapFiltersStyles = makeStyles((theme) => ({
   mainDropdown: {
     marginLeft: 8,
     padding: '15px',
-    minWidth: '230px'
+    borderRadius: '8px',
+    minWidth: '280px'
   },
   radio: {
     padding: '0px',

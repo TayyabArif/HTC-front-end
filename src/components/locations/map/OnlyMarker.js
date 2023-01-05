@@ -5,7 +5,7 @@ import { Marker } from '@react-google-maps/api'
 
 /** Images **/
 import nonem23 from '../../../assets/images/clusters/nonem23.png'
-import m23 from '../../../assets/images/clusters/m23.png'
+import mLight from '../../../assets/images/clusters/mark_light_map.svg'
 import mOpen from '../../../assets/images/clusters/open.png'
 import mCompleted from '../../../assets/images/clusters/completed.png'
 import mInProgress from '../../../assets/images/clusters/in_progress.png'
@@ -21,8 +21,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
 
 export const OnlyMarker = (props) => {
-  const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
+  const dispatch = useDispatch()
 
   const index = props.index
   const site = props.site
@@ -35,9 +35,9 @@ export const OnlyMarker = (props) => {
   return (
     <Marker
       icon={ props.enableCluster
-        ? (locationsStore.setActiveInfoWindow === index ? nonem23 : m23)
+        ? (locationsStore.setActiveInfoWindow === index ? nonem23 : mLight)
         : (!site.work_order_status
-            ? m23
+            ? mLight
             : (site.work_order_status === 'Unknown'
                 ? mNoWorkOrder
                 : site.work_order_status === 'open'
