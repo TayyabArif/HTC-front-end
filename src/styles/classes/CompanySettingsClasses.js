@@ -29,7 +29,7 @@ export const companySettingsStyles = makeStyles(theme => ({
     fontSize: '28px',
     fontWeight: '700',
     color: theme.colors.text,
-    padding: '24px 0px 30px 42px'
+    padding: '24px 0px 30px 47px'
   },
   cardTitle: {
     fontSize: '20px',
