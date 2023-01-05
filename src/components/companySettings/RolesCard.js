@@ -10,7 +10,7 @@ import {
   CardContent,
   CardActions,
   IconButton,
-  Box
+  Box, Grid, Divider
 } from '@mui/material'
 import { AddCircleRounded } from '@mui/icons-material'
 // services
@@ -142,19 +142,24 @@ export const RolesCard = props => {
               }
             })
             return (
-              <div key={role.name} className={classes.itemDivider}>
-                <Box display="flex" flexDirection="row" alignItems="baseline">
-                  <Typography classes={{ root: classes.roleItem }}>
-                    {role.name}
-                  </Typography>
-                  <GlobalChip
-                    chips={permissions}
-                    selected={new Set()}
-                    setSelected={() => {}}
-                    skipTranslate={true}
-                  />
-                </Box>
-              </div>
+              <Grid container key={role.name}>
+                <Grid item xs={12}>
+                  <Box display="flex" flexDirection="row" alignItems="baseline">
+                    <Typography classes={{ root: classes.roleItem }}>
+                      {role.name}
+                    </Typography>
+                    <GlobalChip
+                      chips={permissions}
+                      selected={new Set()}
+                      setSelected={() => {}}
+                      skipTranslate={true}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={11.7}>
+                  <Divider />
+                </Grid>
+              </Grid>
             )
           })}
           <Box display="flex" flexDirection="row" alignItems="baseline">

@@ -954,7 +954,8 @@ export const rolesCardStyles = makeStyles(theme => ({
   roleItem: {
     fontSize: '20px',
     fontWeight: 500,
-    paddingBottom: '2em',
+    paddingBottom: '1.3em',
+    paddingTop: '1.3em',
     minWidth: '10em'
   }
 }))
