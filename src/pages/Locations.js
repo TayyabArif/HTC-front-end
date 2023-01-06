@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
 /** Material UI **/
@@ -34,7 +34,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: 360,
+    marginLeft: 430,
     ...(!open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
@@ -1041,7 +1041,6 @@ const Locations = () => {
   const [date, setDate] = useState('today')
   const [dateStart, setDateStart] = useState(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss Z'))
   const [dateEnd, setDateEnd] = useState(moment().format('YYYY-MM-DD HH:mm:ss Z'))
-  const searchField = useRef('')
   const locationsStore = useSelector((state) => state.locations)
   const clientStore = useSelector(state => state.auth.client)
   const [sitesResponse, setSitesResponse] = useState(null)
@@ -1056,6 +1055,7 @@ const Locations = () => {
   const [sort, setSort] = useState({})
   const [filters, setFilters] = useState({})
   const theme = useTheme()
+  const [searchValue, setSearch] = useState('')
 
   useEffect(() => {
     setSitesResponse(locationsData)
@@ -1089,7 +1089,7 @@ const Locations = () => {
   ]
 
   const handleClearSearchBox = async (event) => {
-    searchField.current.value = ''
+    setSearch('')
   }
 
   const handleFiltersOpen = (event) => {
@@ -1192,7 +1192,7 @@ const Locations = () => {
               </IconButton>}
               <TextField
                 className={classes.searchBox}
-                inputRef={searchField}
+                value={searchValue}
                 size='small'
                 disabled={userHasAuthorization('masquerade:write') && !clientStore}
                 variant='outlined'
@@ -1203,9 +1203,9 @@ const Locations = () => {
                 placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 InputProps={{
-                  endAdornment: (
+                  endAdornment: (searchValue !== '' &&
                     <InputAdornment
                       position='end'
                       onClick={handleClearSearchBox}
@@ -1266,7 +1266,7 @@ const Locations = () => {
             hideLeftSection={hideLeftSection}
             searchResults={sitesResponse}
             date={date}
-            searchValue={searchField}
+            searchValue={searchValue}
             handleClearSearchBox={handleClearSearchBox}
             actualWoTab={actualWoTab}
             setActualWoTab={setActualWoTab}

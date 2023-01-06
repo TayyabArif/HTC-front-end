@@ -274,6 +274,7 @@ export const MapFilters = (props) => {
                   anchorEl: () => rootRef.current,
                   placement: 'right-start'
                 }}
+                autoFocus={false}
                 PaperProps={{
                   style: {
                     backgroundColor: 'white',

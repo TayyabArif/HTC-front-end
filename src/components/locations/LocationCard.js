@@ -42,9 +42,7 @@ export const LocationCard = (props) => {
   const renderLocation = useMemo(() => {
     return (
       <Box className={'sitesCard'} pb={0.5} style={props.style}>
-        <Paper className={classes.locationTile} elevation={1}
-             onClick={handleClickLocation}
-          >
+        <Paper className={classes.locationTile} elevation={0} onClick={handleClickLocation}>
         <Box p={2}>
           <Typography className={classes.font16} align='left'>
             {props.info.name}
