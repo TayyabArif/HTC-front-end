@@ -41,9 +41,9 @@ export const locationsStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       display: 'none'
     },
-    height: 'calc(100vh - 60px)',
+    height: 'calc(100vh - 100px)',
     overflowY: 'overlay',
-    backgroundColor: theme.colors.locations.filters.leftColumnBackground,
+    backgroundColor: '#F2F2F2',
     padding: '0px'
   },
   leftColumnFilters: {
@@ -61,7 +61,7 @@ export const locationsStyles = makeStyles((theme) => ({
     backgroundColor: theme.colors.locations.filters.leftColumnBackground
   },
   searchBox: {
-    width: '285px',
+    width: '345px',
     marginLeft: '20px',
     '& input::placeholder': {
       fontSize: 16,
@@ -107,7 +107,7 @@ export const locationsStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     marginTop: '100px',
-    width: '360px',
+    width: '430px',
     border: 'none'
   },
   tabs: {
@@ -620,13 +620,13 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationTile: {
     cursor: 'pointer',
     height: '100%',
-    marginBottom: '5px'
+    margin: '3px 11px'
   }
 }))
 
 export const mapFiltersStyles = makeStyles((theme) => ({
   mainDropdown: {
-    marginLeft: 8,
+    marginLeft: 15,
     padding: '15px',
     borderRadius: '8px',
     minWidth: '280px'

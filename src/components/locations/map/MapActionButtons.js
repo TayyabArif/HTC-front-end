@@ -4,8 +4,13 @@ import ReactGA from 'react-ga4'
 
 /** Material UI **/
 import { Box, Menu, MenuItem, Typography, Badge } from '@mui/material'
-import { ThunderstormOutlined, LayersOutlined, Menu as MenuIcon, FilterAltOutlined, Check as CheckIcon } from '@mui/icons-material'
+import { Menu as MenuIcon, Check as CheckIcon } from '@mui/icons-material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
+
+// Icons
+import { MapFilterIcon } from '../../../assets/icons/MapFilterIcon'
+import { MapWeatherIcon } from '../../../assets/icons/MapWeatherIcon'
+import { MapLayersIcon } from '../../../assets/icons/MapLayersIcon'
 
 /** Components **/
 import { MapButton } from '../../../styles/mui_custom_components'
@@ -545,7 +550,7 @@ export const MapActionButtons = (props) => {
       <Box pb={2}>
         <MapButton onClick={handleFiltersOpen}>
           <Badge color="error" variant="dot" invisible={invisibleBadge} className={classes.badge}>
-            <FilterAltOutlined color={'inherit'} />
+            <MapFilterIcon color={isMenuFiltersOpen ? '#2F80ED' : '#333333'}/>
           </Badge>
         </MapButton>
         <MapFilters
@@ -558,7 +563,7 @@ export const MapActionButtons = (props) => {
       </Box>
       <Box pb={2}>
         <MapButton onClick={handleWeatherMenuOpen}>
-          <ThunderstormOutlined />
+          <MapWeatherIcon color={isMenuWeatherOpen ? '#2F80ED' : '#333333'}/>
         </MapButton>
 
         <Menu
@@ -605,7 +610,7 @@ export const MapActionButtons = (props) => {
 
       <Box pb={2}>
         <MapButton onClick={handleMapOptionsMenuOpen}>
-          <LayersOutlined />
+          <MapLayersIcon color={isMenuMapOptionsOpen ? '#2F80ED' : '#333333'}/>
         </MapButton>
 
         <Menu

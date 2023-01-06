@@ -3,12 +3,17 @@ import { createTheme } from '@mui/material/styles'
 export const muiThemeHeaderDate = createTheme({
   palette: {
     primary: {
-      main: '#47A0F4'
+      main: '#2F80ED'
     }
   },
   typography: {
     fontFamily: 'Rubik',
     fontSize: 12
+  },
+  selected: {
+    '&:hover': {
+      backgroundColor: 'transparent'
+    }
   }
 })
 

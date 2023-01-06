@@ -1,17 +1,14 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { useEffect, useMemo, useState } from 'react'
 
 /** Google maps **/
 import { GoogleMap, LoadScript, MarkerClusterer } from '@react-google-maps/api'
 
 /** Material UI **/
-import { Box, CircularProgress, useTheme, OutlinedInput, IconButton, InputAdornment, Button, Grid } from '@mui/material'
-import { SearchOutlined, ArrowBackIosOutlined, Clear } from '@mui/icons-material'
-import { mapStylesGray, iconSearch } from '../../../styles/mui_custom_theme'
+import { Box, CircularProgress, useTheme, Grid } from '@mui/material'
+import { mapStylesGray } from '../../../styles/mui_custom_theme'
 
 /** Components **/
 import { MapActionButtons } from './MapActionButtons'
-import workIcon from '../../../assets/icons/work_icon.svg'
 import { WeatherLegends } from './WeatherLegends'
 import { WeatherPlayer } from './WeatherPlayer'
 
@@ -25,7 +22,6 @@ import { InfoMarker } from './InfoMarker'
 import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
 import { filtersActions } from '../../../store/filters'
-import { userHasAuthorization } from '../../../services/AuthService'
 // TODO: create api endpoints for the page
 // import { getSiteWorkOrders, getSiteProposals } from '../../../services/ApiService'
 
@@ -39,11 +35,8 @@ import { useWindowWidth } from '@react-hook/window-size'
 export const GMap = (props) => {
   const classes = mapStyles()
   const theme = useTheme()
-  const { t } = useTranslation()
   const dispatch = useDispatch()
-  const woSearch = useRef('')
   const locationsStore = useSelector((state) => state.locations)
-  const clientStore = useSelector(state => state.auth.client)
   const requestLoading = useSelector(state => state.loading.loading)
   const [mapType, setMapType] = useState('roadmap')
   const [weather, setWeather] = useState('off')
@@ -66,142 +59,6 @@ export const GMap = (props) => {
   const getMapInstance = (mapInstance) => {
     setMap(mapInstance)
     mapInstance.setMapTypeId('terrain')
-  }
-
-  const handleSearchChange = (event) => {
-    if (!locationsStore.showSiteViewPanel) {
-      props.setSearchTerm(event.target.value)
-    }
-  }
-
-  const handleKeyUpSearch = (event) => {
-    if (locationsStore.showSiteViewPanel) {
-      if (event.key === 'Enter') {
-        switch (props.actualWoTab) {
-          case 'proposals':
-            // TODO: get location proposals
-            changeStatesProposals([], {}, {}, true)
-            /* updateProposalUsedParams(locationsStore.selectedSite.id, 1, 25, woSearch.current.value)
-            getSiteProposals(locationsStore.selectedSite.id, 1, 25, woSearch.current.value).then(response => {
-              ReactGA.event({
-                category: 'search',
-                action: 'site_view_search'
-              })
-              if (response) {
-                changeStatesProposals(response.proposals, response.meta, response.meta, true)
-              }
-            }).catch(e => {
-              console.error(e)
-            }) */
-            break
-          default:
-            // TODO: get locations work orders
-            changeStates([], {}, {}, false, true)
-            /* getSiteWorkOrders(locationsStore.selectedSite.id, 1, 25, woSearch.current.value).then(response => {
-              ReactGA.event({
-                category: 'search',
-                action: 'site_view_search'
-              })
-              if (response) {
-                changeStates(response.work_orders, response.meta, response.meta, false, true)
-              }
-            }).catch(e => {
-              console.error(e)
-            }) */
-            break
-        }
-      }
-    }
-  }
-
-  const changeStates = (workOrders, meta, metaFilters, advancedSearchApplied, resetChipFilters) => {
-    dispatch(locationsActions.setWorkOrders(workOrders))
-    dispatch(locationsActions.setWorkOrdersMeta(meta))
-    metaFilters && dispatch(locationsActions.setWorkOrdersMetaFilters(metaFilters))
-  }
-
-  const changeStatesProposals = (proposals, meta, metaFilters, resetChipFilters) => {
-    dispatch(locationsActions.setProposals(proposals))
-    dispatch(locationsActions.setProposalsMeta(meta))
-    metaFilters && dispatch(locationsActions.setProposalsMetaFilters(metaFilters))
-    dispatch(locationsActions.setResetChipFilters(resetChipFilters))
-  }
-
-  const handleClearSearchBox = (event) => {
-    woSearch.current.value = ''
-    if (!locationsStore.advancedSearchAppliedFlag) {
-      // TODO: get locations work orders
-      changeStates([], {}, {}, false, true)
-    }
-  }
-
-  const handleCloseSiteView = () => {
-    dispatch(locationsActions.setActiveInfoWindow(null))
-    dispatch(locationsActions.showSearch())
-    dispatch(locationsActions.showMapSiteView({
-      coordinates: {
-        lat: 40.175472,
-        lng: -101.466083
-      },
-      zoom: wWidth > mobileBreakpoint ? 5 : 3,
-      hideMarkers: false,
-      selectedMarkerIndex: null
-    }))
-  }
-
-  const handleActiveTab = () => {
-    if (locationsStore.showSiteViewPanel) {
-      switch (props.actualWoTab) {
-        case 'work_orders':
-          props.setActualWoTab('site_details')
-          break
-        case 'site_details':
-          props.setActualWoTab('proposals')
-          break
-        case 'proposals':
-          props.setActualWoTab('work_orders')
-          break
-      }
-      props.setHideLeftSection(!props.hideLeftSection)
-    } else {
-      dispatch(locationsActions.showMapSiteView({
-        coordinates: {
-          lat: 40.175472,
-          lng: -101.466083
-        },
-        zoom: wWidth > mobileBreakpoint ? 5 : 3,
-        hideMarkers: false,
-        selectedMarkerIndex: null
-      }))
-      dispatch(filtersActions.handleMobileDrawer(false))
-      dispatch(locationsActions.setActiveInfoWindow(null))
-      dispatch(locationsActions.setSelectedSite(null))
-      dispatch(locationsActions.setAdvancedFiltersSelected(null))
-      dispatch(locationsActions.setAdvancedFiltersParams(null))
-      dispatch(locationsActions.setSiteExceptionReport(null))
-      dispatch(locationsActions.setSiteExceptionReportParams(null))
-      dispatch(locationsActions.setActiveTab(locationsStore.activeTab === 'active_work_orders' ? 'all_sites' : 'active_work_orders'))
-      dispatch(locationsActions.reloadResponse())
-    }
-  }
-
-  const showLabel = () => {
-    if (locationsStore.showSiteViewPanel) {
-      switch (props.actualWoTab) {
-        case 'work_orders':
-          return t('sites.work')
-        case 'site_details':
-          return t('sites.details')
-        case 'proposals':
-          return t('sites.proposals')
-      }
-    } else {
-      if (locationsStore.activeTab === 'active_work_orders') {
-        return t('sites.active')
-      } else {
-        return t('sites.all')
-      }
-    }
   }
 
   const renderMap = useMemo(() => {
@@ -267,84 +124,11 @@ export const GMap = (props) => {
               queryTime={queryTime}
               play={play}
             />
-            {wWidth > mobileBreakpoint
-              ? <Grid marginLeft={-1} container>
+            <Grid marginLeft={-1} container>
                 <Grid align={'left'} item xs={12} >
                   <MapCounters searchResults={props.searchResults} date={props.date} hideLeftSection={props.hideLeftSection} />
                 </Grid>
-              </Grid>
-              : <Box hidden={window.location.pathname.includes('/work-orders') || window.location.pathname.includes('/proposals')} style={{ width: '100%' }} >
-                <Box style={{
-                  display: 'flex',
-                  padding: '0px 10px 0px 7px'
-                }} >
-                  {(locationsStore.showSiteViewPanel && <IconButton
-                    onClick={handleCloseSiteView}
-                    style={{
-                      color: theme.colors.workOrders.tab.wonum,
-                      marginTop: '13px',
-                      marginRight: '5px',
-                      padding: 'unset'
-                    }}>
-                    <ArrowBackIosOutlined />
-                  </IconButton>)}
-                  <OutlinedInput
-                    inputRef={locationsStore.showSiteViewPanel ? woSearch : props.searchValue}
-                    size='small'
-                    disabled={(userHasAuthorization('masquerade:write') && !clientStore) || props.actualWoTab === 'site_details'}
-                    onKeyUp={handleKeyUpSearch}
-                    fullWidth
-                    required
-                    id='search'
-                    autoComplete="off"
-                    placeholder={locationsStore.showSiteViewPanel ? t('sites.mobile_work') : t('sites.mobile_placeholder')}
-                    name='search'
-                    onChange={handleSearchChange}
-                    startAdornment={<SearchOutlined style={iconSearch} />}
-                    endAdornment={locationsStore.showSiteViewPanel
-                      ? <InputAdornment
-                        position='end'
-                        onClick={handleClearSearchBox}
-                      >
-                        <Clear className={classes.clearAdornment} />
-                      </InputAdornment>
-                      : null}
-                    // inline style to solve map classes overlapping
-                    style={{
-                      fontSize: 14,
-                      fontWeight: '400',
-                      marginRight: '10px',
-                      backgroundColor: `${theme.palette.primary.contrastText}`,
-                      borderRadius: '4px',
-                      height: '58px',
-                      marginTop: '16px',
-                      marginLeft: locationsStore.showSiteViewPanel ? '0px' : '8px'
-                    }}
-                  />
-                  <Box
-                    position='end'
-                  >
-                    <Button onClick={() => handleActiveTab()} style={{
-                      fontSize: '12px',
-                      width: '64px',
-                      fontWeight: '700',
-                      height: '58px',
-                      marginTop: '16px',
-                      padding: '0px 10px',
-                      textAlign: 'center',
-                      display: 'block',
-                      textTransform: 'none',
-                      color: theme.palette.primary.light,
-                      backgroundColor: theme.palette.primary.contrastText
-                    }} classes={{ root: classes.mobileMapButton }} >
-                      {locationsStore.showSiteViewPanel && <img className={classes.logo} src={workIcon} />}
-                      {showLabel()}
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            }
-
+            </Grid>
           </Box>
           {!requestLoading && props.searchResults.sites?.length
             ? <MarkerClusterer
