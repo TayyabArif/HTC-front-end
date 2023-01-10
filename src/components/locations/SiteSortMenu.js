@@ -66,6 +66,14 @@ export const SiteSortMenu = (props) => {
     props.handleSortClose()
   }
 
+  const isButtonDisabled = () => {
+    if (locationsStore.woListFilters.sortBy === sortBy) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (<Menu
     open={props.isSortMenuOpen}
     onClose={props.handleSortClose}
@@ -119,10 +127,11 @@ export const SiteSortMenu = (props) => {
         {t('locations.work_orders.reset')}
       </Button>
       <Button
+        disabled={locationsStore.woListFilters.sortBy === sortBy}
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...enableButtonStyle, margin: '10px 8px 0px auto' }}
+        style={{ ...(isButtonDisabled() ? disableButtonStyle : enableButtonStyle), margin: '10px 8px 0px auto' }}
         onClick={saveFilters}
       >
         {t('account_settings.form.save')}
