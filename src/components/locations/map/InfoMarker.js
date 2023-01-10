@@ -64,6 +64,7 @@ export const InfoMarker = (props) => {
   const site = props.site
 
   return (<Marker
+    visible={false}
     icon={props.enableCluster
       ? (locationsStore.setActiveInfoWindow === index ? selectedm23 : m23)
       : (site.work_order_status === 'Unknown'
@@ -92,7 +93,7 @@ export const InfoMarker = (props) => {
       position={site.coordinates}
       options={{
         disableAutoPan: false,
-        pixelOffset: new window.google.maps.Size(actualWidth > mobileBreakpoint ? 107 : 0, -15),
+        pixelOffset: new window.google.maps.Size(actualWidth > mobileBreakpoint ? 107 : 0, -25),
         closeBoxURL: '',
         visible: true,
         enableEventPropagation: false

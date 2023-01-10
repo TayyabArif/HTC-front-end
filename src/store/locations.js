@@ -21,6 +21,15 @@ const initialState = {
     state: 'All States',
     city: 'All Cities'
   },
+  woListFilters: {
+    startDate: '',
+    endDate: '',
+    status: 'all',
+    trade: 'All Trades',
+    type: 'All Types',
+    service: 'All Services',
+    sortBy: 'none'
+  },
   selectedSite: null,
   workOrders: null,
   workOrdersMeta: null,
@@ -106,6 +115,9 @@ const slice = createSlice({
     },
     setLocationFilters (state, action) {
       state.locationFilters = action.payload
+    },
+    setWoListFilters (state, action) {
+      state.woListFilters = action.payload
     }
   }
 })

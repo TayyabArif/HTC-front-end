@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Components
 import { Menu, MenuItem, Typography, Box, Button } from '@mui/material'
@@ -10,20 +10,27 @@ import { ArrowDropDownTwoTone, ArrowRightTwoTone, Check as CheckIcon } from '@mu
 import { woSortOptions } from '../../lib/Constants'
 
 // Redux
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { locationsActions } from '../../store/locations'
 
 // Styles
 import { mapFiltersStyles } from '../../styles/classes/LocationsClasses'
-import { enableButtonStyle } from '../../styles/mui_custom_theme'
+import { enableButtonStyle, disableButtonStyle } from '../../styles/mui_custom_theme'
 
 export const SiteSortMenu = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
-  // const dispatch = useDispatch()
-  // const locationsStore = useSelector(state => state.locations)
+  const dispatch = useDispatch()
+  const locationsStore = useSelector(state => state.locations)
   const [anchorSelector, setAnchorSelector] = useState(null)
   const isMenuSelectorOpen = Boolean(anchorSelector)
   const [sortBy, setSortBy] = useState('none')
+
+  useEffect(() => {
+    if (props.isSortMenuOpen) {
+      setSortBy(locationsStore.woListFilters.sortBy)
+    }
+  }, [props.isSortMenuOpen])
 
   const handleSelectorOpen = (event) => {
     setAnchorSelector(event.currentTarget)
@@ -34,6 +41,29 @@ export const SiteSortMenu = (props) => {
   const handleChangeSelector = (value) => {
     setSortBy(value)
     setAnchorSelector(null)
+  }
+
+  const saveFilters = () => {
+    if (sortBy === 'none') {
+      props.setInvisible(true)
+    } else {
+      props.setInvisible(false)
+    }
+    dispatch(locationsActions.setWoListFilters({
+      ...locationsStore.woListFilters,
+      sortBy: sortBy
+    }))
+    props.handleSortClose()
+  }
+
+  const handleReset = () => {
+    setSortBy('none')
+    dispatch(locationsActions.setWoListFilters({
+      ...locationsStore.woListFilters,
+      sortBy: 'none'
+    }))
+    props.setInvisible(true)
+    props.handleSortClose()
   }
 
   return (<Menu
@@ -83,8 +113,17 @@ export const SiteSortMenu = (props) => {
         variant="outlined"
         size="small"
         color="primary"
+        style={{ ...disableButtonStyle, margin: '10px 0px 0px 8px', width: '80px', color: '#333333' }}
+        onClick={handleReset}
+      >
+        {t('locations.work_orders.reset')}
+      </Button>
+      <Button
+        variant="outlined"
+        size="small"
+        color="primary"
         style={{ ...enableButtonStyle, margin: '10px 8px 0px auto' }}
-        onClick={props.handleSortClose}
+        onClick={saveFilters}
       >
         {t('account_settings.form.save')}
       </Button>

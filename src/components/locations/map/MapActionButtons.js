@@ -3,7 +3,7 @@ import { degrees2meters } from '../../../lib/Global'
 import ReactGA from 'react-ga4'
 
 /** Material UI **/
-import { Menu as MenuIcon, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
+import { Menu as MenuIcon, Check as CheckIcon } from '@mui/icons-material'
 import { Box, Menu, MenuItem, Typography, Badge } from '@mui/material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
@@ -555,7 +555,7 @@ export const MapActionButtons = (props) => {
       <Box hidden={locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleFiltersOpen}>
           <Badge color="error" variant="dot" invisible={invisibleBadge} className={classes.badge}>
-            <MapFilterIcon color={isMenuFiltersOpen ? '#2F80ED' : '#333333'}/>
+            <MapFilterIcon color={isMenuFiltersOpen ? '#2F80ED' : '#333333'} marginTop="10px" />
           </Badge>
         </MapButton>
         <MapFilters
@@ -652,11 +652,12 @@ export const MapActionButtons = (props) => {
           </MenuItem>
         </Menu>
       </Box>
-      <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
+      {/* TODO: uncomment when functionality is defined
+       <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={() => null}>
           <LocationSearchingOutlined color={'inherit'} />
         </MapButton>
-      </Box>
+      </Box> */}
     </Box>
     <LocationInfoCard />
   </div>

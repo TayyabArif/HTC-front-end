@@ -1,4 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { locationsActions } from '../../store/locations'
 
 // Components
 import { Menu, MenuItem, Typography, Box, Button, ThemeProvider } from '@mui/material'
@@ -20,7 +24,7 @@ import { mapStatusOptions } from '../../lib/Constants'
 
 // Styles
 import { mapFiltersStyles } from '../../styles/classes/LocationsClasses'
-import { /* calendarTitleStyle, */ muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle } from '../../styles/mui_custom_theme'
+import { muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle } from '../../styles/mui_custom_theme'
 
 const moment = require('moment')
 
@@ -101,8 +105,8 @@ const mapServiceOptions = [
 export const SiteFiltersMenu = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
-  // const dispatch = useDispatch()
-  // const locationsStore = useSelector(state => state.locations)
+  const dispatch = useDispatch()
+  const locationsStore = useSelector(state => state.locations)
   const [anchorStart, setAnchorStart] = useState(null)
   const isMenuStartOpen = Boolean(anchorStart)
   const [anchorEnd, setAnchorEnd] = useState(null)
@@ -127,6 +131,19 @@ export const SiteFiltersMenu = (props) => {
   const [endDate, setEndDate] = useState(new Date())
   const rootRefStart = useRef()
   const rootRefEnd = useRef()
+
+  useEffect(() => {
+    if (props.isFiltersMenuOpen) {
+      setStartLabel(locationsStore.woListFilters.startDate)
+      setStartDate(new Date(locationsStore.woListFilters.startDate))
+      setEndLabel(locationsStore.woListFilters.endDate)
+      setEndDate(new Date(locationsStore.woListFilters.endDate))
+      setStatus(locationsStore.woListFilters.status)
+      setTrade(locationsStore.woListFilters.trade)
+      setType(locationsStore.woListFilters.type)
+      setService(locationsStore.woListFilters.service)
+    }
+  }, [props.isFiltersMenuOpen])
 
   const handleStartOpen = (event) => {
     setAnchorStart(event.currentTarget)
@@ -188,6 +205,46 @@ export const SiteFiltersMenu = (props) => {
     } else {
       setEndLabel(formattedDate)
     }
+  }
+
+  const saveFilters = () => {
+    if (startLabel === '' && endLabel === '' && status === 'all' && trade === 'All Trades' && type === 'All Types' && service === 'All Services') {
+      props.setInvisible(true)
+    } else {
+      props.setInvisible(false)
+    }
+    dispatch(locationsActions.setWoListFilters({
+      ...locationsStore.woListFilters,
+      startDate: startLabel,
+      endDate: endLabel,
+      status,
+      trade,
+      type,
+      service
+    }))
+    props.handleFiltersClose()
+  }
+
+  const handleReset = () => {
+    setStartLabel('')
+    setStartDate(new Date())
+    setEndLabel('')
+    setEndDate(new Date())
+    setStatus('all')
+    setTrade('All Trades')
+    setType('All Types')
+    setService('All Services')
+    dispatch(locationsActions.setWoListFilters({
+      ...locationsStore.woListFilters,
+      startDate: '',
+      endDate: '',
+      status: 'all',
+      trade: 'All Trades',
+      type: 'All Types',
+      service: 'All Services'
+    }))
+    props.setInvisible(true)
+    props.handleFiltersClose()
   }
 
   return (<Menu
@@ -433,8 +490,17 @@ export const SiteFiltersMenu = (props) => {
         variant="outlined"
         size="small"
         color="primary"
+        style={{ ...disableButtonStyle, margin: '10px 0px 0px 8px', width: '80px', color: '#333333' }}
+        onClick={handleReset}
+      >
+        {t('locations.work_orders.reset')}
+      </Button>
+      <Button
+        variant="outlined"
+        size="small"
+        color="primary"
         style={{ ...enableButtonStyle, margin: '10px 8px 0px auto' }}
-        onClick={props.handleFiltersClose}
+        onClick={saveFilters}
       >
         {t('account_settings.form.save')}
       </Button>

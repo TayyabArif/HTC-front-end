@@ -25,15 +25,16 @@ export const locations = () => {
       trade: 'Trade',
       type: 'Type',
       service: 'Service',
+      reset: 'Reset',
       sort_options: {
         work_order_new: 'Work Order (Newest)',
         work_order_old: 'Work Order (Oldest)',
-        status_a: 'Status (A-Z)',
-        status_z: 'Status (Z-A)',
-        priority_a: 'Priority (A-Z)',
-        priority_z: 'Priority (Z-A)',
-        tracking_a: 'Tracking (A-Z)',
-        tracking_z: 'Tracking (Z-A)',
+        status_a: 'Status (A - Z)',
+        status_z: 'Status (Z - A)',
+        priority_a: 'Priority (A - Z)',
+        priority_z: 'Priority (Z - A)',
+        tracking_a: 'Tracking # (A - Z)',
+        tracking_z: 'Tracking # (Z - A)',
         none: 'None'
       }
     },

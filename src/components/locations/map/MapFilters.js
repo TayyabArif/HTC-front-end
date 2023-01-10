@@ -20,7 +20,7 @@ import { locationsActions } from '../../../store/locations'
 
 // Styles
 import { mapFiltersStyles } from '../../../styles/classes/LocationsClasses'
-import { calendarTitleStyle, muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle } from '../../../styles/mui_custom_theme'
+import { calendarTitleStyle, muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle } from '../../../styles/mui_custom_theme'
 
 const moment = require('moment')
 
@@ -197,6 +197,25 @@ export const MapFilters = (props) => {
       state,
       city
     }))
+    props.handleFiltersClose()
+  }
+
+  const handleReset = () => {
+    setSelectedDate('')
+    setDateRange('today')
+    setDateFrom(new Date())
+    setMaxDateFrom(null)
+    setDateTo(new Date())
+    setStatus('all')
+    setState('All States')
+    setCity('All Cities')
+    dispatch(locationsActions.setLocationFilters({
+      dateRange: 'today',
+      status: 'all',
+      state: 'All States',
+      city: 'All Cities'
+    }))
+    props.setInvisible(true)
     props.handleFiltersClose()
   }
 
@@ -441,6 +460,15 @@ export const MapFilters = (props) => {
       </Menu>
     </Box>
     <Box width="100%" display="flex">
+    <Button
+        variant="outlined"
+        size="small"
+        color="primary"
+        style={{ ...disableButtonStyle, margin: '10px 0px 0px 8px', width: '80px', color: '#333333' }}
+        onClick={handleReset}
+      >
+        {t('locations.work_orders.reset')}
+      </Button>
       <Button
         variant="outlined"
         size="small"

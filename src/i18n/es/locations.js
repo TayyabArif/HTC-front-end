@@ -25,15 +25,16 @@ export const locations = () => {
       trade: 'Comercio',
       type: 'Tipo',
       service: 'Servicio',
+      reset: 'Limpiar',
       sort_options: {
         work_order_new: 'Orden de Trabajo (Recientes)',
         work_order_old: 'Orden de Trabajo (Antiguas)',
-        status_a: 'Estado (A-Z)',
-        status_z: 'Estado (Z-A)',
-        priority_a: 'Prioridad (A-Z)',
-        priority_z: 'Prioridad (Z-A)',
-        tracking_a: 'Seguimiento (A-Z)',
-        tracking_z: 'Seguimiento (Z-A)',
+        status_a: 'Estado (A - Z)',
+        status_z: 'Estado (Z - A)',
+        priority_a: 'Prioridad (A - Z)',
+        priority_z: 'Prioridad (Z - A)',
+        tracking_a: 'Seguimiento # (A - Z)',
+        tracking_z: 'Seguimiento # (Z - A)',
         none: 'Ninguno'
       }
     },

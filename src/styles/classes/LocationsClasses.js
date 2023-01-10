@@ -151,7 +151,7 @@ export const locationsStyles = makeStyles((theme) => ({
     fontSize: '14px',
     color: theme.colors.gray,
     textTransform: 'none',
-    backgroundColor: theme.colors.backdropColor,
+    backgroundColor: '#F2F2F2',
     fontWeight: '400'
   },
   tab: {
@@ -164,11 +164,11 @@ export const locationsStyles = makeStyles((theme) => ({
     fontSize: '14px',
     color: theme.colors.gray,
     textTransform: 'none',
-    backgroundColor: theme.colors.backdropColor,
+    backgroundColor: '#F2F2F2',
     fontWeight: '400'
   },
   tabs: {
-    backgroundColor: 'white',
+    backgroundColor: '#F2F2F2',
     minHeight: 20,
     maxHeight: '34px',
     height: '40px',
@@ -188,7 +188,7 @@ export const locationsStyles = makeStyles((theme) => ({
     }
   },
   appBar: {
-    backgroundColor: theme.colors.backdropColor
+    backgroundColor: '#F2F2F2'
   },
   iconButton: {
     height: '35px',
@@ -232,6 +232,28 @@ export const locationsStyles = makeStyles((theme) => ({
     marginTop: '23px',
     width: '25px',
     height: '25px'
+  },
+  badge: {
+    position: 'fixed',
+    '& .MuiBadge-badge': {
+      position: 'absolute',
+      color: theme.colors.invoiceColors.red_error,
+      width: '7px',
+      height: '7px',
+      right: '-5px',
+      top: '3px'
+    }
+  },
+  badgeSort: {
+    position: 'fixed',
+    '& .MuiBadge-badge': {
+      position: 'absolute',
+      color: theme.colors.invoiceColors.red_error,
+      width: '7px',
+      height: '7px',
+      right: '3px',
+      top: '3px'
+    }
   }
 }))
 
@@ -483,7 +505,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
     width: '20px',
     position: 'relative',
     top: '0px',
-    left: '5px',
+    left: '10px',
     marginTop: '5px',
     [theme.breakpoints.down('md')]: {
       display: 'none'
@@ -530,8 +552,8 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
       color: theme.colors.invoiceColors.red_error,
       width: '11px',
       height: '11px',
-      right: '-4px',
-      top: '-4px'
+      right: '-6px',
+      top: '-2px'
     }
   }
 }))
@@ -957,7 +979,7 @@ export const woCardStyles = makeStyles((theme) => ({
   locationTile: {
     cursor: 'pointer',
     height: '100%',
-    marginBottom: '5px',
+    margin: '3px 8px',
     display: 'flex'
   },
   woType: {
@@ -965,7 +987,13 @@ export const woCardStyles = makeStyles((theme) => ({
     fontWeight: '400',
     color: theme.colors.text
   },
-  dateLabel: {
+  endLabel: {
+    fontSize: '11px',
+    fontWeight: '500',
+    color: theme.colors.text,
+    textAlign: 'end'
+  },
+  startLabel: {
     fontSize: '11px',
     fontWeight: '500',
     color: theme.colors.text
@@ -974,12 +1002,14 @@ export const woCardStyles = makeStyles((theme) => ({
     fontSize: '13px',
     fontWeight: '600',
     color: '#605D5D',
-    margin: '8px 0px 21px 0px'
+    margin: '8px 0px 21px 0px',
+    textAlign: 'end'
   },
   priority: {
     fontSize: '11px',
     fontWeight: '600',
-    color: theme.colors.gray
+    color: theme.colors.gray,
+    textAlign: 'end'
   }
 }))
 
@@ -989,7 +1019,7 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
     fontWeight: '500'
   },
   mainCard: {
-    width: '500px',
+    width: '515px',
     padding: '16px'
   },
   ratingLabel: {
@@ -1018,12 +1048,14 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
   fieldLabel: {
     fontSize: '14px',
     fontWeight: '600',
-    color: theme.colors.gray
+    color: theme.colors.gray,
+    letterSpacing: '0.4px'
   },
   fieldContent: {
     fontSize: '14px',
     fontWeight: '400',
-    color: theme.colors.gray
+    color: theme.colors.gray,
+    letterSpacing: '0.4px'
   },
   cardContent: {
     marginTop: '10px',

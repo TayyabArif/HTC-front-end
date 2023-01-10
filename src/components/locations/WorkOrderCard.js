@@ -60,21 +60,21 @@ export const WorkOrderCard = (props) => {
               <Typography className={classes.woType} align='left'>
                 {info?.call_type}
               </Typography>
-              <Typography className={classes.dateLabel} align='left'>
+              <Typography className={classes.startLabel} align='left'>
                 {t('locations.work_orders.start_date')} {info?.start_date}
               </Typography>
               <Typography className={classes.woType} align='left'>
                 {t('locations.work_orders.service_details')}: {info?.service_name}
               </Typography>
             </Box>
-            <Box flex={3}>
+            <Box flex={3} pr={1}>
               <Typography className={classes.woStatus} align='left'>
                 {t(`work_orders.wo_states.${info?.status}`)}
               </Typography>
               <Typography className={classes.priority} align='left'>
                 {t('locations.work_orders.priority')} {info?.priority}
               </Typography>
-              <Typography className={classes.dateLabel} align='left'>
+              <Typography className={classes.endLabel} align='left'>
                 {t('locations.work_orders.end_date')} {info?.end_date}
               </Typography>
             </Box>

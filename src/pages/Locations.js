@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
 /** Material UI **/
-import { Box, Drawer, Grid, IconButton, InputAdornment, TextField, Container, Tabs, Tab, AppBar } from '@mui/material'
-import { Menu, Clear, SortRounded, FilterAltOutlined, ArrowBackIos } from '@mui/icons-material'
+import { Box, Drawer, Grid, IconButton, InputAdornment, TextField, Container, Tabs, Tab, AppBar, Badge } from '@mui/material'
+import { Menu, Clear, SortRounded, ArrowBackIos } from '@mui/icons-material'
 import { styled, useTheme } from '@mui/material/styles'
 
 /** Redux **/
@@ -26,6 +26,9 @@ import { useWindowWidth } from '@react-hook/window-size'
 
 // Styles
 import { locationsStyles } from '../styles/classes/LocationsClasses'
+
+// Icon
+import { MapFilterIcon } from '../assets/icons/MapFilterIcon'
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, width }) => ({
@@ -1052,10 +1055,10 @@ const Locations = () => {
   const isSortMenuOpen = Boolean(anchorSort)
   const [anchorFilters, setAnchorFilters] = useState(null)
   const isFiltersMenuOpen = Boolean(anchorFilters)
-  const [sort, setSort] = useState({})
-  const [filters, setFilters] = useState({})
   const theme = useTheme()
   const [searchValue, setSearch] = useState('')
+  const [invisibleFilterBadge, setFilterInvisible] = useState(true)
+  const [invisibleSortBadge, setSortInvisible] = useState(true)
 
   useEffect(() => {
     setSitesResponse(locationsData)
@@ -1129,24 +1132,26 @@ const Locations = () => {
           <Tab classes={{ root: classes.midTab }} value="/proposals" label={t('locations.work_orders.proposals')} {...a11yProps('proposals')} />
           <Tab classes={{ root: classes.tab }} value="/invoices" label={t('locations.work_orders.invoices')} {...a11yProps('invoices')} />
           <IconButton className={classes.iconButton}>
-            <SortRounded onClick={handleSortOpen} classes={{ root: isSortMenuOpen ? classes.sortIconSelected : classes.sortIcon }} />
+            <Badge color="error" variant="dot" invisible={invisibleSortBadge} classes={{ root: classes.badgeSort }}>
+              <SortRounded onClick={handleSortOpen} classes={{ root: isSortMenuOpen ? classes.sortIconSelected : classes.sortIcon }} />
+            </Badge>
           </IconButton>
           <SiteSortMenu
             isSortMenuOpen={isSortMenuOpen}
             handleSortClose={handleSortClose}
             anchorSort={anchorSort}
-            sort={sort}
-            setSort={setSort}
+            setInvisible={setSortInvisible}
           />
-          <IconButton className={classes.iconButton}>
-            <FilterAltOutlined onClick={handleFiltersOpen} classes={{ root: isFiltersMenuOpen ? classes.filterIconSelected : classes.filterIcon }} />
+          <IconButton onClick={handleFiltersOpen} className={classes.iconButton}>
+            <Badge color="error" variant="dot" invisible={invisibleFilterBadge} classes={{ root: classes.badge }}>
+              <MapFilterIcon color={isFiltersMenuOpen ? '#2F80ED' : '#333333'}/>
+            </Badge>
           </IconButton>
           <SiteFiltersMenu
             isFiltersMenuOpen={isFiltersMenuOpen}
             handleFiltersClose={handleFiltersClose}
             anchorFilters={anchorFilters}
-            filters={filters}
-            setFilters={setFilters}
+            setInvisible={setFilterInvisible}
           />
         </Tabs>
       </AppBar>

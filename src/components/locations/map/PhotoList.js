@@ -23,6 +23,7 @@ export const PhotoList = (props) => {
       {photos.map((item) => (
         <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
           <img
+            style={{ borderRadius: '12px' }}
             {...srcset(item.img, 97, item.rows, item.cols)}
             alt={item.title}
             loading="lazy"
