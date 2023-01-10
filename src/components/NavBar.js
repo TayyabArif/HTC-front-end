@@ -43,7 +43,9 @@ export const NavBar = () => {
 
   useEffect(() => {
     // set navbar value
-    if (location.pathname === '/sign-in') {
+    if (location.pathname === '/') {
+      history.push('/work-orders')
+    } else if (location.pathname === '/sign-in') {
       setValue('/work-orders')
     } else if (location.pathname === '/createInvoice') {
       setValue('/invoices')

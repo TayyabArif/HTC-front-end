@@ -107,7 +107,7 @@ export const MapFilters = (props) => {
   const [selectedDateFrom, setDateFrom] = useState(new Date())
   const [maxDateFrom, setMaxDateFrom] = useState(null)
   const [openCalendarFrom, setCalendarFrom] = useState(false)
-  const [selectedDateTo, setDateTo] = useState(new Date())
+  const [selectedDateTo, setDateTo] = useState(null)
   const [openCalendarTo, setCalendarTo] = useState(false)
   const rootRef = useRef()
 
