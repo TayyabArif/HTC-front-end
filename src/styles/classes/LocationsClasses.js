@@ -165,7 +165,8 @@ export const locationsStyles = makeStyles((theme) => ({
     color: theme.colors.gray,
     textTransform: 'none',
     backgroundColor: '#F2F2F2',
-    fontWeight: '400'
+    fontWeight: '400',
+    marginRight: '230px' // TODO: remove when the rest of tabs appear
   },
   tabs: {
     backgroundColor: '#F2F2F2',

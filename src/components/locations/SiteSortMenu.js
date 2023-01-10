@@ -66,14 +66,6 @@ export const SiteSortMenu = (props) => {
     props.handleSortClose()
   }
 
-  const isButtonDisabled = () => {
-    if (locationsStore.woListFilters.sortBy === sortBy) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   return (<Menu
     open={props.isSortMenuOpen}
     onClose={props.handleSortClose}
@@ -118,10 +110,11 @@ export const SiteSortMenu = (props) => {
     </Box>
     <Box width="100%" display="flex">
       <Button
+        disabled={locationsStore.woListFilters.sortBy === 'none'}
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...disableButtonStyle, margin: '10px 0px 0px 8px', width: '80px', color: '#333333' }}
+        style={{ ...(locationsStore.woListFilters.sortBy === 'none' ? disableButtonStyle : enableButtonStyle), margin: '10px 0px 0px 8px', width: '80px' }}
         onClick={handleReset}
       >
         {t('locations.work_orders.reset')}
@@ -131,7 +124,7 @@ export const SiteSortMenu = (props) => {
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...(isButtonDisabled() ? disableButtonStyle : enableButtonStyle), margin: '10px 8px 0px auto' }}
+        style={{ ...(locationsStore.woListFilters.sortBy === sortBy ? disableButtonStyle : enableButtonStyle), margin: '10px 8px 0px auto' }}
         onClick={saveFilters}
       >
         {t('account_settings.form.save')}

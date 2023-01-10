@@ -1129,8 +1129,9 @@ const Locations = () => {
           }}
           style={{ zIndex: 1000 }} >
           <Tab classes={{ root: classes.tab }} value="/work-orders" label={t('locations.work_orders.work_orders')} {...a11yProps('work-orders')} />
-          <Tab classes={{ root: classes.midTab }} value="/proposals" label={t('locations.work_orders.proposals')} {...a11yProps('proposals')} />
-          <Tab classes={{ root: classes.tab }} value="/invoices" label={t('locations.work_orders.invoices')} {...a11yProps('invoices')} />
+          {/* TODO: uncomment when tabs content is designed
+           <Tab classes={{ root: classes.midTab }} value="/proposals" label={t('locations.work_orders.proposals')} {...a11yProps('proposals')} />
+          <Tab classes={{ root: classes.tab }} value="/invoices" label={t('locations.work_orders.invoices')} {...a11yProps('invoices')} /> */}
           <IconButton className={classes.iconButton}>
             <Badge color="error" variant="dot" invisible={invisibleSortBadge} classes={{ root: classes.badgeSort }}>
               <SortRounded onClick={handleSortOpen} classes={{ root: isSortMenuOpen ? classes.sortIconSelected : classes.sortIcon }} />

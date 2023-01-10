@@ -3,7 +3,7 @@ import { degrees2meters } from '../../../lib/Global'
 import ReactGA from 'react-ga4'
 
 /** Material UI **/
-import { Menu as MenuIcon, Check as CheckIcon } from '@mui/icons-material'
+import { Menu as MenuIcon, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
 import { Box, Menu, MenuItem, Typography, Badge } from '@mui/material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
@@ -18,7 +18,8 @@ import { useTranslation } from 'react-i18next'
 import { LocationInfoCard } from './LocationInfoCard'
 
 /** Redux **/
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { locationsActions } from '../../../store/locations'
 
 // Styles
 import { mapActionButtonsStyles } from '../../../styles/classes/LocationsClasses'
@@ -26,6 +27,7 @@ import { MapFilters } from './MapFilters'
 
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
+  const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
   const [anchorMOEl, setAnchorMOEl] = useState(null)
   const isMenuMapOptionsOpen = Boolean(anchorMOEl)
@@ -545,6 +547,15 @@ export const MapActionButtons = (props) => {
     props.setWeather(e.currentTarget.dataset.weather)
   }
 
+  const handleRecenter = () => {
+    dispatch(locationsActions.resetZoomAndCenter({
+      zoom: 19,
+      center: locationsStore.selectedSite.coordinates
+    }))
+    dispatch(locationsActions.setSelectedSite(locationsStore.selectedSite))
+    dispatch(locationsActions.setActiveInfoWindow(locationsStore.selectedSite.id))
+  }
+
   return (<div>
     <Box className={props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.hiddenButtonsBoxSiteLevel : props.hideLeftSection && !locationsStore.showSiteViewPanel ? classes.hiddenButtonsBox : !props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.mapButtonsBoxSiteLevel : classes.mapButtonsBox}>
       {props.hideLeftSection && <Box pb={2} pr={2}>
@@ -652,12 +663,11 @@ export const MapActionButtons = (props) => {
           </MenuItem>
         </Menu>
       </Box>
-      {/* TODO: uncomment when functionality is defined
        <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
-        <MapButton onClick={() => null}>
+        <MapButton onClick={handleRecenter}>
           <LocationSearchingOutlined color={'inherit'} />
         </MapButton>
-      </Box> */}
+      </Box>
     </Box>
     <LocationInfoCard />
   </div>

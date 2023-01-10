@@ -219,6 +219,40 @@ export const MapFilters = (props) => {
     props.handleFiltersClose()
   }
 
+  const isSaveDisabled = () => {
+    let response = true
+    if (locationsFilters.dateRange !== dateRange) {
+      response = false
+    }
+    if (locationsFilters.status !== status) {
+      response = false
+    }
+    if (locationsFilters.state !== state) {
+      response = false
+    }
+    if (locationsFilters.city !== city) {
+      response = false
+    }
+    return response
+  }
+
+  const isResetDisabled = () => {
+    let response = true
+    if (locationsFilters.dateRange !== 'today') {
+      response = false
+    }
+    if (locationsFilters.status !== 'all') {
+      response = false
+    }
+    if (locationsFilters.state !== 'All States') {
+      response = false
+    }
+    if (locationsFilters.city !== 'All Cities') {
+      response = false
+    }
+    return response
+  }
+
   return (<Menu
     open={props.isMenuFiltersOpen}
     onClose={props.handleFiltersClose}
@@ -461,19 +495,21 @@ export const MapFilters = (props) => {
     </Box>
     <Box width="100%" display="flex">
     <Button
+        disabled={isResetDisabled()}
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...disableButtonStyle, margin: '10px 0px 0px 8px', width: '80px', color: '#333333' }}
+        style={{ ...(isResetDisabled() ? disableButtonStyle : enableButtonStyle), margin: '10px 0px 0px 8px', width: '80px' }}
         onClick={handleReset}
       >
         {t('locations.work_orders.reset')}
       </Button>
       <Button
+        disabled={isSaveDisabled()}
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...enableButtonStyle, margin: '10px 8px 0px auto', width: '100px' }}
+        style={{ ...(isSaveDisabled() ? disableButtonStyle : enableButtonStyle), margin: '10px 8px 0px auto', width: '100px' }}
         onClick={saveFilters}
       >
         {t('account_settings.form.save')}

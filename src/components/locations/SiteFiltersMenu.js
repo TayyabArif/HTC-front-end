@@ -247,6 +247,54 @@ export const SiteFiltersMenu = (props) => {
     props.handleFiltersClose()
   }
 
+  const isSaveDisabled = () => {
+    let response = true
+    if (locationsStore.woListFilters.startDate !== startLabel) {
+      response = false
+    }
+    if (locationsStore.woListFilters.endDate !== endLabel) {
+      response = false
+    }
+    if (locationsStore.woListFilters.status !== status) {
+      response = false
+    }
+    if (locationsStore.woListFilters.trade !== trade) {
+      response = false
+    }
+    if (locationsStore.woListFilters.type !== type) {
+      response = false
+    }
+    if (locationsStore.woListFilters.service !== service) {
+      response = false
+    }
+
+    return response
+  }
+
+  const isResetDisabled = () => {
+    let response = true
+    if (locationsStore.woListFilters.startDate !== '') {
+      response = false
+    }
+    if (locationsStore.woListFilters.endDate !== '') {
+      response = false
+    }
+    if (locationsStore.woListFilters.status !== 'all') {
+      response = false
+    }
+    if (locationsStore.woListFilters.trade !== 'All Trades') {
+      response = false
+    }
+    if (locationsStore.woListFilters.type !== 'All Types') {
+      response = false
+    }
+    if (locationsStore.woListFilters.service !== 'All Services') {
+      response = false
+    }
+
+    return response
+  }
+
   return (<Menu
     open={props.isFiltersMenuOpen}
     onClose={props.handleFiltersClose}
@@ -487,19 +535,21 @@ export const SiteFiltersMenu = (props) => {
     </Box>
     <Box width="100%" display="flex">
       <Button
+        disabled={isResetDisabled()}
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...disableButtonStyle, margin: '10px 0px 0px 8px', width: '80px', color: '#333333' }}
+        style={{ ...(isResetDisabled() ? disableButtonStyle : enableButtonStyle), margin: '10px 0px 0px 8px', width: '80px' }}
         onClick={handleReset}
       >
         {t('locations.work_orders.reset')}
       </Button>
       <Button
+        disabled={isSaveDisabled()}
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...enableButtonStyle, margin: '10px 8px 0px auto' }}
+        style={{ ...(isSaveDisabled() ? disableButtonStyle : enableButtonStyle), margin: '10px 8px 0px auto' }}
         onClick={saveFilters}
       >
         {t('account_settings.form.save')}

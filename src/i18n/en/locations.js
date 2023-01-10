@@ -13,8 +13,8 @@ export const locations = () => {
     work_orders: {
       search_placeholder: 'Search Work Orders',
       tracking: 'Client Tracking',
-      start_date: 'Start',
-      end_date: 'End',
+      start_date: 'Start Date',
+      end_date: 'End Date',
       service_details: 'Service Details',
       priority: 'Priority',
       work_orders: 'Work Orders',
