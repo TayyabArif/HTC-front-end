@@ -25,7 +25,6 @@ import AccountSettings from './pages/AccountSettings'
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
   const user = useSelector(state => state.auth.user)
-  const redirect = useSelector(state => state.auth.redirect)
 
   if (token && user) {
     return (
@@ -33,9 +32,7 @@ const Routes = () => {
         <Switch>
           <MainContainer>
             <Route exact path="/">
-              <Redirect
-                to={redirect?.redirect ? redirect.redirect : '/work-orders'}
-              />
+              <Redirect to={'/work-orders'} />
             </Route>
             <Route exact path="/dashboard">
               <Dashboard />
@@ -52,8 +49,8 @@ const Routes = () => {
             <Route exact path="/account-settings">
               <AccountSettings />
             </Route>
-            <Route path="*">
-              <Redirect to="/" />
+            <Route path='*'>
+              <Redirect to={'/'}/>
             </Route>
           </MainContainer>
         </Switch>
@@ -79,12 +76,15 @@ const Routes = () => {
             <ForgotPasswordCode />
           </Route>
           <Route exact path="/sign-in">
-            <SignIn/>
+            <SignIn />
           </Route>
           <Route exact path="/create-account">
             <CreateAccount />
           </Route>
-          </Switch>
+          <Route path='*'>
+            <Redirect to={'/'}/>
+          </Route>
+        </Switch>
       </BrowserRouter>)
   }
 }
