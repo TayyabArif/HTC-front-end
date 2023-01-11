@@ -296,7 +296,10 @@ export const TextInputClasses = makeStyles(theme => ({
     },
     marginTop: 'unset',
     marginBottom: '12px',
-    flex: 1
+    flex: 1,
+    '& .MuiFormLabel-asterisk': {
+      color: 'red'
+    }
   },
   label: {
     marginTop: 'unset',
