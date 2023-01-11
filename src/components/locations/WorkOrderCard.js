@@ -54,28 +54,28 @@ export const WorkOrderCard = (props) => {
               <Typography className={classes.woNumber} display="inline" align='left'>
                 WO# {info?.external_id}
               </Typography>
-              <Typography className={classes.clientTracking} align='left'>
+              <Typography marginBottom={0.3} className={classes.clientTracking} align='left'>
                 {t('locations.work_orders.tracking')}# {info?.tracking}
               </Typography>
-              <Typography className={classes.woType} align='left'>
+              <Typography marginBottom={0.3} className={classes.woType} align='left'>
                 {info?.call_type}
               </Typography>
-              <Typography className={classes.startLabel} align='left'>
-                {t('locations.work_orders.start_date')} {info?.start_date}
+              <Typography marginBottom={0.3} className={classes.startLabel} align='left'>
+                {t('locations.work_orders.start')} {info?.start_date}
               </Typography>
-              <Typography className={classes.woType} align='left'>
+              <Typography marginBottom={0.3} className={classes.woType} align='left'>
                 {t('locations.work_orders.service_details')}: {info?.service_name}
               </Typography>
             </Box>
             <Box flex={3} pr={1}>
-              <Typography className={classes.woStatus} align='left'>
+              <Typography marginBottom={0.3} className={classes.woStatus} align='left'>
                 {t(`work_orders.wo_states.${info?.status}`)}
               </Typography>
-              <Typography className={classes.priority} align='left'>
+              <Typography marginBottom={0.3} className={classes.priority} align='left'>
                 {t('locations.work_orders.priority')} {info?.priority}
               </Typography>
-              <Typography className={classes.endLabel} align='left'>
-                {t('locations.work_orders.end_date')} {info?.end_date}
+              <Typography marginBottom={0.3} className={classes.endLabel} align='left'>
+                {t('locations.work_orders.end')} {info?.end_date}
               </Typography>
             </Box>
           </Box>

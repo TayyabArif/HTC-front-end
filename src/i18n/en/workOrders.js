@@ -35,7 +35,8 @@ export const workOrders = () => {
       incomplete: 'Incomplete',
       in_progress: 'In Progress',
       no_work_order: 'No Work Order',
-      dispatched: 'Dispatched'
+      dispatched: 'Dispatched',
+      all_label: 'All'
     },
     column_names: {
       client_name: 'Client Name',

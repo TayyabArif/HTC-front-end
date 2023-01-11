@@ -31,7 +31,7 @@ export const MapCounters = (props) => {
             <Grid container >
               <Grid xs={12} >
                 <Typography component={'span'} className={classes.font12}>
-                  {t('locations.all_locations')}
+                  {t('locations.total_locations')}
                 </Typography>
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >

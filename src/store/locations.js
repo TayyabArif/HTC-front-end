@@ -25,9 +25,9 @@ const initialState = {
     startDate: '',
     endDate: '',
     status: 'all',
-    trade: 'All Trades',
-    type: 'All Types',
-    service: 'All Services',
+    trade: 'All',
+    type: 'All',
+    service: 'All',
     sortBy: 'none'
   },
   selectedSite: null,

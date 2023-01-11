@@ -939,7 +939,8 @@ export const woCardStyles = makeStyles((theme) => ({
   serviceNameDiv: {
     backgroundColor: '#2B78E4',
     width: '24px',
-    marginRight: '4px'
+    marginRight: '4px',
+    borderBottomLeftRadius: '5px'
   },
   serviceName: {
     transform: 'rotate(90deg)',
@@ -981,7 +982,8 @@ export const woCardStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     height: '100%',
     margin: '3px 8px',
-    display: 'flex'
+    display: 'flex',
+    borderRadius: '0px 5px 0px 5px'
   },
   woType: {
     fontSize: '11px',

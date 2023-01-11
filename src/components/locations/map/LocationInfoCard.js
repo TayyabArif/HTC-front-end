@@ -64,28 +64,22 @@ export const LocationInfoCard = (props) => {
           <CardContent className={classes.cardContent}>
             <PhotoList photos={photosData ?? []}/>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>
-              <Typography className={classes.fieldContent}>{'Marketplace at Little Hassy'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{'Marketplace at Little Hassy'}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>
-              <Typography className={classes.fieldContent}>{'49 Van Ness Avenue, Little Hassy, NV 99018'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{'49 Van Ness Avenue, Little Hassy, NV 99018'}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>
-              <Typography className={classes.fieldContent}>{'Open - Closes 10PM'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{'Open - Closes 10PM'}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>
-              <Typography className={classes.fieldContent}>{'Garden Center at Hyde Street Plaza - Hyde Street Services, Garden Center at Hyde Street Plaza - Hyde Street Services'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{'Garden Center at Hyde Street Plaza - Hyde Street Services, Garden Center at Hyde Street Plaza - Hyde Street Services'}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>
-              <Typography className={classes.fieldContent}>{'(443) 984-4798'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{'(443) 984-4798'}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>
-              <Typography className={classes.fieldContent}>{'hydestreet.com'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{'hydestreet.com'}</Typography>
             </Box>
           </CardContent>
       </Collapse>

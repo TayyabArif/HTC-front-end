@@ -35,7 +35,8 @@ export const workOrders = () => {
       no_status: 'Sin estado',
       incomplete: 'Incompleto',
       no_work_order: 'Sin Órdenes',
-      dispatched: 'Despachado'
+      dispatched: 'Despachado',
+      all_label: 'Todos'
     },
     column_names: {
       client_name: 'Nombre del Cliente',
