@@ -1,25 +1,14 @@
-import { createTheme } from '@material-ui/core/styles'
-import RobotoRegular from '../assets/fonts/Roboto-Regular.woff2'
-
-const Roboto = {
-  fontFamily: 'Roboto',
-  fontWeight: 400,
-  fontSize: '20px',
-  fontStyle: 'normal',
-  src: `
-    local('Roboto'),
-    local('Roboto-Regular'),
-    url(${RobotoRegular})
-  `
-}
+import { createTheme } from '@mui/material/styles'
+import RubikRegular from '../assets/fonts/Rubik-Regular.ttf'
+import RubikBold from '../assets/fonts/Rubik-Bold.ttf'
+import RubikLight from '../assets/fonts/Rubik-Light.ttf'
 
 const customTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
       sm: 600,
-      // TODO: original value md: 900
-      md: 1150,
+      md: 900,
       lg: 1200,
       xl: 1536
     }
@@ -37,7 +26,6 @@ const customTheme = createTheme({
     MuiCssBaseline: {
       /* Try to avoid importants */
       '@global': {
-        '@font-face': [Roboto],
         '.MuiInputBase-input': {
           color: '#333333 !important'
         },
@@ -74,6 +62,7 @@ const customTheme = createTheme({
   colors: {
     maskIcon: '#212121',
     inputBorder: '#d8d8d8',
+    textButton: '#828282',
     generalBackground: '#fafafa',
     text: '#333333',
     transparent: 'rgba(0,0,0,0.0)',
@@ -96,6 +85,89 @@ const customTheme = createTheme({
     alert: '#47a0f499',
     borderBrowser: '#C3C3C3',
     filtersBorder: '#0000003b',
+    complianceBlue: '#E2EBF3',
+    iconBlue: '#2F80ED',
+    invoiceColors: {
+      open: 'rgba(77, 166, 233, 0.85)',
+      open_solid: 'rgba(77, 166, 233)',
+      declined: 'rgba(235, 87, 87, 0.85)',
+      declined_solid: 'rgba(235, 87, 87)',
+      sent: '#333333',
+      approved: 'rgba(143, 200, 61, 0.85)',
+      approved_solid: 'rgba(143, 200, 61)',
+      draft: 'rgba(86, 86, 86, 0.85)',
+      draft_solid: 'rgba(86, 86, 86)',
+      no_status: '#333333',
+      not_submitted: 'rgba(175, 175, 175, 0.85)',
+      not_submitted_solid: 'rgba(175, 175, 175)',
+      summary_bg: '#F5F5F5',
+      borders: '#F8F8F8',
+      dark_grey: '#4F4F4F',
+      table_text: '#828282',
+      disabled_grey: '#BDBDBD',
+      blue_button: '#2F80ED',
+      red_error: '#EB5757',
+      approved_green: '#219653',
+      header_grey: '#CED4DA',
+      labels_grey: '#6C7172',
+      shadow: '#D8D8D840',
+      invoice_created: '#2D9CDB',
+      invoice_approved: '#8BC400'
+    },
+    workOrders: {
+      counts: '#6C7172',
+      chipBack: '#F1F1F1',
+      selectedRow: 'rgba(93, 181, 224, 0.1)',
+      dotsBack: '#E0E0E0',
+      columnTitle: '#6C7172',
+      emptyText: '#6C7172',
+      detailsTitle: '#6C7172',
+      emptyCardTitle: '#333333',
+      downloadIcon: '#C4C4C4',
+      detailsCardBorderColor: 'rgba(216, 216, 216, 0.25)',
+      tab: {
+        description: '#121212',
+        wonum: '#212121',
+        duedate: '#828282'
+      },
+      buttonPrimary: '#EEEEEE',
+      gradient: '#DCDCDC',
+      etaText: '#A0A0A0'
+    },
+    workOrderColors: {
+      open: '#2F80ED',
+      completed: '#4F4F4F',
+      in_progress: '#219653',
+      active: '#8BC400',
+      draft: '#828282',
+      submitted: '#4F4F4F',
+      declined: '#EB5757',
+      approved: '#27AE60',
+      no_work_order: '#CE004A',
+      not_available: '#BDBDBD'
+    },
+    profile: {
+      text_grey: '#212121',
+      avatar_bg: '#F9F9F9',
+      avatar_icon: '#4F4F4F',
+      border_input: '#ced4da',
+      border_focus: '#80bdff',
+      box_shadow: 'rgba(0,123,255,.25)',
+      borders: '#F2F2F2',
+      darkCard: '#E0E0E0',
+      disabled_bg: '#F5F5F5',
+      mapFill: '#AF1199',
+      mapStroke: '#FFFFFF'
+    },
+    filters: {
+      leftColumnBackground: '#FDFDFD',
+      tagsBorder: '#EBEBEB',
+      fieldsBorder: '#E0E0E0',
+      fieldsLabels: '#6C7172',
+      fieldsBackground: '#FFFFFF',
+      selectedChips: 'blue',
+      selectedExceptionsDividers: '#B9B9B9'
+    },
     signInButton: {
       background: '#F2F2F2',
       label: '#676767'
@@ -103,8 +175,12 @@ const customTheme = createTheme({
     dividers: '#EAEBEB',
     tradesBackground: '#F8F8F8',
     mainContainerBackground: '#F8F8F8',
+    tab: {
+      description: '#121212',
+      duedate: '#828282'
+    },
     settings: {
-      fieldName: '#212121',
+      fieldName: '#828282',
       fieldInfo: '#6C7172',
       decline: '#FA5454',
       button_info: '#BCBCBC',
@@ -112,12 +188,17 @@ const customTheme = createTheme({
       border: '#E5E5E5',
       cardBorderColor: 'rgba(216, 216, 216, 0.25)',
       delete: '#FC5E5E',
-      disabledButton: '#C4C4C4'
+      disabledButton: '#C4C4C4',
+      editButton: '#2F80ED'
     },
     company: {
       title: '#333333',
       inputBorder: '#0000003A',
-      roleButton: '#E0E0E018'
+      roleButton: '#E0E0E018',
+      iconColor: '#B0B0B0'
+    },
+    accountSettings: {
+      bgBlue: '#6F7D94'
     },
     workStatusBorder: 'rgba(71,160,244,0.1)',
     infoWindowBackground: '#FBFBFB',
@@ -200,12 +281,60 @@ const customTheme = createTheme({
     dotsBack: '#E0E0E0'
   },
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: '"Rubik"',
     fontWeight: 400,
     fontSize: 18,
     fontStyle: 'normal',
     allVariants: {
       color: '#333333'
+    }
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Rubik';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: local('Rubik'), local('Rubik'), url(${RubikRegular}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+        @font-face {
+          font-family: 'Rubik Bold';
+          font-style: bold;
+          font-display: swap;
+          font-weight: 700;
+          src: local('Rubik'), local('Rubik'), url(${RubikBold}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+        @font-face {
+          font-family: 'Rubik Light';
+          font-style: normal;
+          font-display: swap;
+          src: local('Rubik'), local('Rubik'), url(${RubikLight}) format('truetype');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+      `,
+      '@global': {
+        '.MuiInputBase-input': {
+          color: '#333333 !important'
+        },
+        '.MuiCheckbox-root': {
+          color: '#E5E5E5 !important'
+        },
+        '.MuiCheckbox-colorPrimary.Mui-checked': {
+          color: '#47A0F4 !important'
+        },
+        '.MuiInputAdornment-root': {
+          color: '#333333 !important'
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: '10px'
+      }
     }
   },
   filtersClasses: {
@@ -217,8 +346,7 @@ const customTheme = createTheme({
       marginLeft: '0px',
       height: '32px',
       border: '1px solid #0000003b',
-      display: 'flex',
-      padding: '10px 0px 10px 10px'
+      display: 'flex'
     },
     mainInput2: {
       fontSize: '12px',
@@ -228,8 +356,7 @@ const customTheme = createTheme({
       marginLeft: '0px',
       height: '36px',
       border: '1px solid #0000003b',
-      display: 'flex',
-      padding: '10px 0px 10px 10px'
+      display: 'flex'
     },
     searchInput1: {
       fontSize: '12px',
@@ -250,11 +377,13 @@ const customTheme = createTheme({
       border: '0px'
     },
     menuItem: {
-      fontSize: '12px',
-      paddingRight: '0px',
-      width: '100%',
-      display: 'flex',
-      maxWidth: '352px'
+      '&.MuiMenuItem-root': {
+        fontSize: '14px',
+        width: '100%',
+        display: 'flex',
+        maxWidth: '352px',
+        flex: 1
+      }
     }
   },
   dashboard: {

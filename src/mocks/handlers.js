@@ -1,30 +1,22 @@
 import { rest } from 'msw'
-import moment from 'moment'
-const jwt = require('json-web-token')
+const jwt = require('jwt-encode')
 
-const apiHost = process.env.REACT_APP_API_URL
+const apiHost = process.env.REACT_APP_FTC_OAUTH_SERVER_URL
 
 export const handlers = [
-
-  rest.get(`${apiHost}/api/users/scopes`, (req, res, ctx) => {
-    return res(
-      ctx.json([{ id: 1, scope: 'dashboard:read', description: null }, { id: 2, scope: 'work_orders:read', description: null }, { id: 3, scope: 'sites:read', description: null }, { id: 4, scope: 'proposals:read', description: null }, { id: 5, scope: 'company_settings:read', description: null }, { id: 6, scope: 'company_settings:write', description: null }, { id: 7, scope: 'account_settings:read', description: null }, { id: 8, scope: 'account_settings:write', description: null }, { id: 9, scope: 'company_settings.users:create', description: null }, { id: 10, scope: 'company_settings.users:delete', description: null }, { id: 11, scope: 'work_orders:view', description: null }, { id: 12, scope: 'company_settings.manage_access:write', description: null }, { id: 13, scope: 'company_settings.report_scheduler:write', description: null }, { id: 14, scope: 'company_settings.users:edit', description: null }, { id: 15, scope: 'masquerade:write', description: null }, { id: 16, scope: 'company_settings.bes_notifications:write', description: null }])
-    )
-  }),
-
   rest.post(`${apiHost}/oauth/token`, (req, res, ctx) => {
-    const token = jwt.encode('secret', {
-      id: 'eb5lffbjYTkQaEig',
-      clientId: 1,
-      userId: 36,
-      scopes: 'dashboard:read work_orders:read sites:read proposals:read company_settings:read company_settings:write account_settings:read account_settings:write company_settings.users:create company_settings.users:delete work_orders:view company_settings.manage_access:write company_settings.report_scheduler:write company_settings.users:edit masquerade:write company_settings.bes_notifications:write',
-      createdAt: moment().add(5, 'hours'),
-      iat: 1652997232,
-      exp: 1653083632
-    })
+    const token = jwt.sign({
+      id: 'RCSLVW53kdeXHmmV',
+      clientId: '6196bc61475c85199200711a',
+      userId: '5e52b15a93fa096b158b4568',
+      scopes: 'users:read',
+      createdAt: '2022-11-24T15:32:29.350Z',
+      iat: 1669303949,
+      exp: 1669390349
+    }, 'secret')
 
     return res(
-      ctx.json({ access_token: token.value, token_type: 'Bearer', expires_in: 86399, refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRmTkFrbDU4OEh4RXVDVDMiLCJjbGllbnRJZCI6MSwidXNlcklkIjozNiwiY3JlYXRlZEF0IjoiMjAyMi0wNS0xOVQyMDoxNDoyMS45NjBaIiwiaWF0IjoxNjUyOTkxMjYxfQ.V3YHBDw22rOQOo2zFEPPxmygQyMgC82RdHvkaYyKkJQ' })
+      ctx.json({ access_token: token.value, token_type: 'Bearer', expires_in: 86399, refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVPcVNGek9FZU1XTUpkaUMiLCJjbGllbnRJZCI6IjYxOTZiYzYxNDc1Yzg1MTk5MjAwNzExYSIsInVzZXJJZCI6IjVlNTJiMTVhOTNmYTA5NmIxNThiNDU2OCIsInNjb3BlcyI6InVzZXJzOnJlYWQiLCJjcmVhdGVkQXQiOiIyMDIyLTExLTI0VDE1OjMyOjI5LjM1N1oiLCJpYXQiOjE2NjkzMDM5NDl9.IPdFjP6nMJvKiEWbamsvHEMzk681y-ioXrvRjoMRYp8' })
     )
   }),
 

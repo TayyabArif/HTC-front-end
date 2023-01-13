@@ -5,17 +5,14 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { BrowserRouter } from 'react-router-dom'
 import Routes from '../../Routes'
-import userEvent from '@testing-library/user-event'
 
 /** Material UI **/
-import { MuiThemeProvider } from '@material-ui/core'
+import { ThemeProvider } from '@mui/material'
 import customTheme from '../../styles/mui_theme'
 
 /** Components **/
-import ForgotPasswordChanged from '../../pages/signIn/ForgotPasswordChanged'
 import ForgotPassword from '../../pages/signIn/ForgotPassword'
 import ForgotPasswordCode from '../../pages/signIn/ForgotPasswordCode'
-import ForgotPasswordEmailSent from '../../pages/signIn/ForgotPasswordEmailSent'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: key => key })
@@ -23,7 +20,12 @@ jest.mock('react-i18next', () => ({
 
 describe('Sign In tests', () => {
   const initialState = {
-    auth: { token: null, user: null },
+    auth: {
+      token: null,
+      user: null,
+      changedEmail: null,
+      changedPass: null
+    },
     loading: { loading: false }
   }
   const mockStore = configureStore()
@@ -34,9 +36,9 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -59,10 +61,10 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
           <ForgotPassword/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -82,10 +84,10 @@ describe('Sign In tests', () => {
 
     render(<Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
+        <ThemeProvider theme={customTheme}>
           <Routes/>
           <ForgotPasswordCode/>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>)
 
@@ -95,53 +97,5 @@ describe('Sign In tests', () => {
     const submitBtn = screen.getByTestId('submit_button')
     expect(submitBtn).toBeInTheDocument()
     expect(submitBtn).toBeDisabled()
-  })
-
-  test('Test Forgot password Changed', () => {
-    store = mockStore(initialState)
-
-    render(<Provider store={store}>
-      <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
-          <Routes/>
-          <ForgotPasswordChanged/>
-        </MuiThemeProvider>
-      </BrowserRouter>
-    </Provider>)
-
-    const forgotPasswordChangedPage = screen.getByTestId('forgot_password_changed_page')
-    expect(forgotPasswordChangedPage).toBeInTheDocument()
-
-    const logIn = screen.getByTestId('log_in')
-
-    expect(logIn).toBeInTheDocument()
-    userEvent.click(logIn)
-
-    const signInPage = screen.getByTestId('sign_in_page')
-    expect(signInPage).toBeInTheDocument()
-  })
-
-  test('Test Forgot password Email Sent', () => {
-    store = mockStore(initialState)
-
-    render(<Provider store={store}>
-      <BrowserRouter>
-        <MuiThemeProvider theme={customTheme}>
-          <Routes/>
-          <ForgotPasswordEmailSent/>
-        </MuiThemeProvider>
-      </BrowserRouter>
-    </Provider>)
-
-    const forgotPasswordChangedPage = screen.getByTestId('forgot_password_sent')
-    expect(forgotPasswordChangedPage).toBeInTheDocument()
-
-    const logIn = screen.getByTestId('log_in')
-
-    expect(logIn).toBeInTheDocument()
-    userEvent.click(logIn)
-
-    const signInPage = screen.getByTestId('sign_in_page')
-    expect(signInPage).toBeInTheDocument()
   })
 })

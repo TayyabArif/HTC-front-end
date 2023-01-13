@@ -9,7 +9,9 @@ const initialAuthState = {
   clientInfo: null,
   masqueradeClientInfo: null,
   refreshTokenFlag: 0,
-  prevToken: null
+  prevToken: null,
+  email: null,
+  redirect: '/work-orders'
 }
 
 /**
@@ -39,7 +41,7 @@ const authSlice = createSlice({
     setUser (state, action) {
       state.user = action.payload
     },
-    setRememberEmail (state, action) {
+    setRemember (state, action) {
       state.email = action.payload
     },
     removeRemember (state) {
@@ -71,6 +73,12 @@ const authSlice = createSlice({
     },
     setPrevToken (state, action) {
       state.prevToken = action.payload
+    },
+    setRedirect (state, action) {
+      state.redirect = action.payload
+    },
+    resetRedirect (state, action) {
+      state.redirect = '/work-orders'
     }
   }
 })

@@ -1,4 +1,5 @@
 import { create } from 'apisauce'
+import qs from 'qs'
 
 /**
  * Create an api of auth server
@@ -6,7 +7,7 @@ import { create } from 'apisauce'
  * @type {ApisauceInstance}
  */
 const auth = create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_FTC_OAUTH_SERVER_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -20,12 +21,18 @@ const auth = create({
  * @param response
  * @returns {*}
  */
-const processApiResponse = (response) => {
+const processApiResponse = response => {
   if (!response.ok) {
     const title = `${response.status} - ${response.problem}`
     let message = `There was an error calling to the Auth Server: ${response.originalError}`
-    if (response.data && response.data.error) {
-      message = `${response.data.error_description}`
+    if (response.data) {
+      if (typeof response.data === 'string') {
+        message = `${response.data}`
+      } else {
+        if (response.data.error) {
+          message = `${response.data.error_description}`
+        }
+      }
     }
 
     throw {
@@ -75,16 +82,19 @@ const callAuth = async (type, route, params = {}) => {
  * @param scope
  * @returns {Promise<*>}
  */
-export const login = async (username, password, scope) => {
-  return await callAuth('POST', '/oauth/token',
-    new URLSearchParams({
+export const login = async (username, password) => {
+  return await callAuth(
+    'POST',
+    '/oauth/token',
+    qs.stringify({
       grant_type: 'password',
-      client_id: process.env.REACT_APP_BVBES_CLIENT_ID,
-      client_secret: process.env.REACT_APP_BVBES_CLIENT_SECRET,
+      client_id: process.env.REACT_APP_FTC_CLIENT_ID,
+      client_secret: process.env.REACT_APP_FTC_CLIENT_SECRET,
       username: username,
       password: password,
-      scope: scope
-    }))
+      scope: 'users:read'
+    })
+  )
 }
 
 /**
@@ -93,15 +103,18 @@ export const login = async (username, password, scope) => {
  * @param refreshToken
  * @returns {Promise<*>}
  */
-export const refreshToken = async (refreshToken) => {
-  return await callAuth('POST', '/oauth/token',
+export const refreshToken = async refreshToken => {
+  return await callAuth(
+    'POST',
+    '/oauth/token',
     new URLSearchParams({
       grant_type: 'refresh_token',
-      client_id: process.env.REACT_APP_BVBES_CLIENT_ID,
-      client_secret: process.env.REACT_APP_BVBES_CLIENT_SECRET,
+      client_id: process.env.REACT_APP_FTC_CLIENT_ID,
+      client_secret: process.env.REACT_APP_FTC_CLIENT_SECRET,
       refresh_token: refreshToken,
       scope: 'all'
-    }))
+    })
+  )
 }
 
 /**
@@ -114,13 +127,22 @@ export const refreshToken = async (refreshToken) => {
  * @param apiToken
  * @returns {Promise<*>}
  */
-export const resetPassword = async (selector, token, password, password2, apiToken) => {
-  return await callAuth('POST', '/oauth/reset-password',
+export const resetPassword = async (
+  selector,
+  token,
+  password,
+  password2,
+  apiToken
+) => {
+  return await callAuth(
+    'POST',
+    '/oauth/reset-password',
     new URLSearchParams({
       selector,
       token,
       password,
       password2,
       apiToken
-    }))
+    })
+  )
 }

@@ -5,11 +5,10 @@ export const forgotPassword = () => {
     email: 'Correo',
     send: 'Enviar',
     back_to_log_in: 'Regresar a Iniciar Sesión',
-    email_not_found: 'Lo sentimos, este email no se encuentra en el sistema',
+    email_not_found: 'El email ingresado es inválido, por favor intenta nuevamente.',
     email_sent: {
-      title: 'Email Enviado!',
-      subtitle_1: 'Gracias por enviar su solicitud',
-      subtitle_2: 'Por favor revise su correo para continuar con el proceso',
+      title: 'Reseteo de Contraseña Enviado!',
+      subtitle_1: 'Se ha enviado un correo electrónico para restablecer la contraseña. Comprueba tu carpeta de correo no deseado si no estás recibiendo correos electrónicos de la plataforma ConnectAD.',
       log_in: 'Iniciar Sesión'
     }
   }

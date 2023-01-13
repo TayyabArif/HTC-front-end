@@ -9,6 +9,11 @@ import { contactUs } from './contactUs'
 import { contactUsSent } from './contactUsSent'
 import { navBar } from './navBar'
 import { dashboard } from './dashboard'
+import { companySettings } from './companySettings'
+import { companyProfile } from './companyProfile'
+import { accountSettings } from './accountSettings'
+import { workOrders } from './workOrders'
+import { createAccount } from './createAccount'
 
 export const i18nEn = () => {
   return {
@@ -22,6 +27,11 @@ export const i18nEn = () => {
     contact_us_sent: contactUsSent(),
     nav_bar: navBar(),
     dashboard: dashboard(),
-    general: general()
+    general: general(),
+    company_settings: companySettings(),
+    create_account: createAccount(),
+    company_profile: companyProfile(),
+    account_settings: accountSettings(),
+    work_orders: workOrders()
   }
 }
