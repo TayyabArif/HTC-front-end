@@ -63,3 +63,8 @@ export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
 
 export const navBarHeaderHeight = '100px'
+
+export const profileCardLimits = {
+  top: 1340,
+  bottom: 1200
+}

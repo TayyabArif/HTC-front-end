@@ -11,6 +11,9 @@ import { profileInfoCardStyles } from '../../styles/classes/CompanySettingsClass
 import { conformToMask } from 'react-text-mask'
 import { useWindowSize } from '@react-hook/window-size'
 
+// Constants
+import { profileCardLimits } from '../../lib/Constants'
+
 const EditButton = props => {
   const classes = profileInfoCardStyles()
   return (
@@ -102,7 +105,7 @@ export const ProfileInfoCard = props => {
                                   ? props?.profile?.country
                                   : 'N/A'
                             }
-                            label={wWidth > 1340 || wWidth < 1200 ? t('company_profile.labels.country') : t('company_profile.labels.country').slice(0, -7) + '.'}
+                            label={wWidth > profileCardLimits.top || wWidth < profileCardLimits.bottom ? t('company_profile.labels.country') : t('company_profile.labels.country').slice(0, -7) + '.'}
                             disabled
                             className={classes.disabledText}
                         />
@@ -123,14 +126,14 @@ export const ProfileInfoCard = props => {
                         <GlobalInput
                             field="business_hours_phone"
                             value={maskValue(props?.profile?.business_hours?.phone)}
-                            label={wWidth > 1340 || wWidth < 1200 ? t('company_profile.labels.business_hours') : t('company_profile.labels.business_hours_ab')}
+                            label={wWidth > profileCardLimits.top || wWidth < profileCardLimits.bottom ? t('company_profile.labels.business_hours') : t('company_profile.labels.business_hours_ab')}
                             disabled
                             className={classes.disabledText}
                         />
                         <GlobalInput
                             field="after_hours_phone"
                             value={maskValue(props?.profile?.after_hours?.phone)}
-                            label={wWidth > 1340 || wWidth < 1200 ? t('company_profile.labels.after_hours') : t('company_profile.labels.after_hours_ab')}
+                            label={wWidth > profileCardLimits.top || wWidth < profileCardLimits.bottom ? t('company_profile.labels.after_hours') : t('company_profile.labels.after_hours_ab')}
                             disabled
                             className={classes.disabledText}
                         />
