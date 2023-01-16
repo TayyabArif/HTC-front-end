@@ -15,7 +15,7 @@ export const PhotoList = (props) => {
   const { photos } = props
   return (
     <ImageList
-      sx={{ width: 480, height: 200 }}
+      sx={{ width: 530, height: 200 }}
       variant="quilted"
       cols={4}
       rowHeight={97}

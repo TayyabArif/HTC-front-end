@@ -571,6 +571,11 @@ export const mapCountersStyles = makeStyles((theme) => ({
     fontWeight: 500,
     whiteSpace: 'nowrap'
   },
+  font14: {
+    fontSize: 14,
+    fontWeight: 500,
+    whiteSpace: 'nowrap'
+  },
   activeWork: {
     position: 'relative',
     top: 4,
@@ -1022,7 +1027,7 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
     fontWeight: '500'
   },
   mainCard: {
-    width: '515px',
+    width: '560px',
     padding: '16px'
   },
   ratingLabel: {

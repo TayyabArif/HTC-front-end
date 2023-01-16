@@ -127,9 +127,8 @@ export const MapCounter = withStyles({
     background: '#FFFFFF',
     minWidth: 'fit-content',
     width: 'fit-content',
-    height: '49px',
     paddingLeft: '12px',
-    paddingRight: '5px',
+    paddingRight: '12px',
     borderRadius: 8,
     paddingBottom: '5px'
   }
