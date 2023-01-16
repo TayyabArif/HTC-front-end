@@ -168,6 +168,74 @@ const customTheme = createTheme({
       selectedChips: 'blue',
       selectedExceptionsDividers: '#B9B9B9'
     },
+    locations: {
+      pullDrawer: '#E3E3E3',
+      activeWork: '#8BC400',
+      openedWork: '#47A0F4',
+      inProgressWork: '#8BC400',
+      returningWork: '#F49A47',
+      completedWork: '#4F4F4F',
+      incompleteWork: '#CE004A',
+      noWorkOrder: '#EEEEEE',
+      noActivity: '#CE004A',
+      clustersTextColor: '#FFFFFF',
+      returning: '#F49A47',
+      completed: '#4F4F4F',
+      incomplete: '#CE004A',
+      canceled: '#E0E0E0',
+      locationAddress: '#767583',
+      dateFilter: '#767583',
+      legendsBackground: '#F3F3F3',
+      legendsLabels: '#4F4F4F',
+      inputBorderRGB: 'rgba(0, 0, 0, 0.23)',
+      inputBorderRGBHover: 'rgba(0, 0, 0, 0.6)',
+      checkIcon: '#4696EC',
+      filters: {
+        leftColumnBackground: '#FDFDFD',
+        tagsBorder: '#EBEBEB',
+        fieldsBorder: '#E0E0E0',
+        fieldsLabels: '#6C7172',
+        fieldsBackground: '#FFFFFF',
+        selectedChips: '#4F4F4F',
+        selectedExceptionsDividers: '#B9B9B9'
+      },
+      markers: {
+        locationAddress: '#6C7172'
+      },
+      workOrderColors: {
+        open: '#F2C94C',
+        dispatched: '#47A0F4',
+        returning: '#F49A47',
+        in_progress: '#0072CE',
+        completed: '#8BC400',
+        noWorkOrder: '#333333',
+        canceled: '#6C7172',
+        incomplete: '#CE004A',
+        no_work_order: '#CE004A',
+        no_service_required: '#333333',
+        no_status: '#333333'
+      },
+      proposalColors: {
+        new: '#47A0F4',
+        proposed: '#0072CE',
+        revision_needed: '#F49A47',
+        approved: '#8BC400',
+        rejected: '#CE004A',
+        cancelled: '#6C7172'
+      },
+      siteView: {
+        headerInfo: '#293540',
+        arrowBackColor: '#FFFFFF',
+        selectedTabTextColor: '#FFFFFF',
+        unselectedTabTextColor: '#828282',
+        unselectedTabColor: '#F2F2F2',
+        chipFiltersBorder: '#EBEBEB',
+        selectedChipFiltersBackground: '#EBEBEB',
+        selectedChipFiltersText: '#4F4F4F',
+        unselectedChipFiltersBackground: '#FFFFFF',
+        unselectedChipFiltersText: '#828282'
+      }
+    },
     signInButton: {
       background: '#F2F2F2',
       label: '#676767'
@@ -205,6 +273,7 @@ const customTheme = createTheme({
     columnTitle: '#6C7172',
     disabledField: '#E0E0E0',
     map: {
+      backgroundFilters: '#F6F6F6',
       playerSliderRail: '#E0E0E0',
       playerSliderThumb: '#333333',
       playerSliderMark: '#6C7172',
