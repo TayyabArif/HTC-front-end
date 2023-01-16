@@ -157,3 +157,5 @@ export const woSortOptions = [
     id: 'none'
   }
 ]
+
+export const locationsPerPage = 25

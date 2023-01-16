@@ -730,6 +730,36 @@ export const locationCardStyles = makeStyles((theme) => ({
   completedWork: {
     position: 'relative',
     top: 4,
+    color: theme.colors.workOrderColors.completed,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  noActivityWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.workOrderColors.declined,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  openWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.workOrderColors.open,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  inProgressWork: {
+    position: 'relative',
+    top: 4,
     color: theme.colors.locations.workOrderColors.completed,
     width: '17px',
     height: '17px',
@@ -797,7 +827,8 @@ export const mapFiltersStyles = makeStyles((theme) => ({
   },
   muiPaper: {
     borderRadius: '12px',
-    marginLeft: '15px'
+    marginLeft: '15px',
+    maxHeight: '400px'
   },
   checkIcon: {
     marginLeft: 'auto',

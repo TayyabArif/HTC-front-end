@@ -3,7 +3,8 @@ export const locations = () => {
     search_placeholder: 'Search by location name or address',
     locations_active_work: 'active work orders',
     locations_completed_work: 'completed',
-    locations_no_activity: 'no activity',
+    locations_open_work: 'open work orders',
+    locations_no_activity: 'No activity',
     locations_in_progress_work: 'in progress',
     all_locations: 'All locations',
     total_locations: 'Total Locations',
@@ -11,6 +12,8 @@ export const locations = () => {
     in_progress: 'In Progress',
     completed: 'Completed',
     no_activity: 'No Activity',
+    no_results: 'No Results',
+    update_search: 'Please update your search parameters',
     work_orders: {
       search_placeholder: 'Search Work Orders',
       tracking: 'Client Tracking',
@@ -52,6 +55,8 @@ export const locations = () => {
       city: 'City(s)',
       from: 'FROM',
       to: 'TO',
+      all_states: 'All States',
+      all_cities: 'All Cities',
       action_buttons: {
         weather: 'Weather',
         radar: 'Radar',

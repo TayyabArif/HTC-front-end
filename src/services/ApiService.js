@@ -2,6 +2,41 @@ import * as Api from '../lib/Api'
 import { loadingActions } from '../store/loading'
 import { store } from '../store'
 import { login } from './AuthService'
+import { create } from 'apisauce'
+
+/**
+ * Create an api of location API
+ *
+ * @type {ApisauceInstance}
+ */
+const locationApi = create({
+  baseURL: 'https://countriesnow.space/api/v0.1/countries',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
+  timeout: 10000
+})
+
+export const callLocationApi = async (type, route, params = {}) => {
+  let response
+  switch (type) {
+    case 'POST':
+      response = await locationApi.post(route, params)
+      break
+    case 'GET':
+      response = await locationApi.get(route, params)
+      break
+    default:
+      throw {
+        name: 'Method Not Allowed',
+        message: 'Call type not supported',
+        code: 405
+      }
+  }
+  if (!response.ok) return {}
+  return response.data
+}
 
 export const createLog = async (
   logType,
@@ -555,6 +590,18 @@ export const changeUserPassword = async password => {
   store.dispatch(loadingActions.show())
   try {
     const response = await Api.changeUserPassword(password)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getLocations = async (clientId, page, limit, id, search, dateRange, woDateFrom, woDateTo, status, state, city) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocations(clientId, page, limit, id, search, dateRange, woDateFrom, woDateTo, status, state, city)
     store.dispatch(loadingActions.hide())
     return response
   } catch (err) {
