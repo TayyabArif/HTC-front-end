@@ -87,6 +87,7 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    mainBlue: '#0072CE',
     invoiceColors: {
       open: 'rgba(77, 166, 233, 0.85)',
       open_solid: 'rgba(77, 166, 233)',
@@ -245,7 +246,8 @@ const customTheme = createTheme({
     mainContainerBackground: '#F8F8F8',
     tab: {
       description: '#121212',
-      duedate: '#828282'
+      duedate: '#828282',
+      selected: '#2F80ED'
     },
     settings: {
       fieldName: '#828282',

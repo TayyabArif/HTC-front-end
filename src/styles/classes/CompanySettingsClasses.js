@@ -35,7 +35,7 @@ export const companySettingsStyles = makeStyles(theme => ({
     fontSize: '28px',
     fontWeight: '700',
     color: theme.colors.text,
-    padding: '24px 0px 30px 42px'
+    padding: '24px 0px 30px 47px'
   },
   cardTitle: {
     fontSize: '20px',
@@ -966,7 +966,8 @@ export const rolesCardStyles = makeStyles(theme => ({
   roleItem: {
     fontSize: '20px',
     fontWeight: 500,
-    paddingBottom: '2em',
+    paddingBottom: '1.3em',
+    paddingTop: '1.3em',
     minWidth: '10em'
   }
 }))
