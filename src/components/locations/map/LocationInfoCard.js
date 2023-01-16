@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 // Components
 import { Box, Card, Typography, Rating, Collapse, CardContent } from '@mui/material'
 import { ArrowDropDownRounded, ArrowDropUpRounded } from '@mui/icons-material'
-// import { PhotoList } from './PhotoList'
+import { PhotoList } from './PhotoList'
 
 /** Redux **/
 import { useSelector } from 'react-redux'
@@ -60,25 +60,24 @@ export const LocationInfoCard = (props) => {
         <Typography className={classes.locationDescription}>{`$ - ${props.info.name}`}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent className={classes.cardContent}>
-            {/* <PhotoList photos={photosData ?? []}/> */}
-            <a href="https://maps.google.com/maps/contrib/104790014239029387558\">Museum of Contemporary Art Australia</a>
+            <PhotoList photos={props.info.photos ?? []}/>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{'Marketplace at Little Hassy'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info.located_in}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{'49 Van Ness Avenue, Little Hassy, NV 99018'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{props.info.address}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{'Open - Closes 10PM'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{props.info.opening_hours.map(element => element)}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{'Garden Center at Hyde Street Plaza - Hyde Street Services, Garden Center at Hyde Street Plaza - Hyde Street Services'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{props.info.departments}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{'(443) 984-4798'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{props.info.phone_number}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{'hydestreet.com'}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>{props.info.website}</Typography>
             </Box>
           </CardContent>
       </Collapse>

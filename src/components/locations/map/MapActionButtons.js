@@ -38,6 +38,14 @@ export const MapActionButtons = (props) => {
   const { t } = useTranslation()
   const mapInstance = props.map
   const [invisibleBadge, setInvisible] = useState(true)
+  const [locationInfo, setLocationInfo] = useState()
+
+  useEffect(() => {
+    if (locationsStore.selectedSite) {
+      console.log('get google place details')
+      setLocationInfo()
+    }
+  }, [locationsStore.selectedSite])
 
   const handleMapOptionsMenuOpen = (event) => {
     setAnchorMOEl(event.currentTarget)
@@ -669,7 +677,7 @@ export const MapActionButtons = (props) => {
         </MapButton>
       </Box>
     </Box>
-    <LocationInfoCard />
+    <LocationInfoCard info={locationInfo} />
   </div>
   )
 }
