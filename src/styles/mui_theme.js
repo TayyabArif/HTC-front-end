@@ -189,6 +189,7 @@ const customTheme = createTheme({
       legendsLabels: '#4F4F4F',
       inputBorderRGB: 'rgba(0, 0, 0, 0.23)',
       inputBorderRGBHover: 'rgba(0, 0, 0, 0.6)',
+      checkIcon: '#4696EC',
       filters: {
         leftColumnBackground: '#FDFDFD',
         tagsBorder: '#EBEBEB',

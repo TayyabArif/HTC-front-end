@@ -43,7 +43,7 @@ export const locationsStyles = makeStyles((theme) => ({
     },
     height: 'calc(100vh - 100px)',
     overflowY: 'overlay',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: theme.colors.profile.borders,
     padding: '0px'
   },
   leftColumnFilters: {
@@ -77,7 +77,7 @@ export const locationsStyles = makeStyles((theme) => ({
   searchBoxInput: {
     marginLeft: '-20px',
     width: 'auto',
-    border: '1px solid #F2F2F2',
+    border: `1px solid ${theme.colors.profile.borders}`,
     borderRadius: '8px',
     backgroundColor: 'white'
   },
@@ -173,7 +173,7 @@ export const mapStyles = makeStyles((theme) => ({
       display: 'none !important'
     },
     '& .gm-style-iw-c': {
-      backgroundColor: '#FBFBFB !important'
+      backgroundColor: `${theme.colors.infoWindowBackground} !important`
     },
     '& .gm-style-iw-c > div': {
       overflow: 'hidden !important'
@@ -407,7 +407,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   },
   menuItem: {
     fontSize: '12px',
-    borderBottom: '1px solid #F2F2F2',
+    borderBottom: `1px solid ${theme.colors.profile.borders}`,
     width: '176px',
     height: '40px',
     '&:focus': {
@@ -420,7 +420,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   },
   checkIcon: {
     marginLeft: 'auto',
-    color: '#4696EC',
+    color: theme.colors.locations.checkIcon,
     width: '18px',
     height: '18px'
   },
@@ -560,7 +560,7 @@ export const mapCountersStyles = makeStyles((theme) => ({
     fontSize: '9px',
     fontStyle: 'italic',
     fontWeight: '400',
-    color: '#4F4F4F'
+    color: theme.colors.gray
   }
 }))
 
@@ -646,7 +646,7 @@ export const mapFiltersStyles = makeStyles((theme) => ({
   },
   menuItem: {
     fontSize: '12px',
-    borderBottom: '1px solid #F2F2F2',
+    borderBottom: `1px solid ${theme.colors.profile.borders}`,
     width: '176px',
     height: '40px',
     '&:focus': {
@@ -681,7 +681,7 @@ export const mapFiltersStyles = makeStyles((theme) => ({
   },
   checkIcon: {
     marginLeft: 'auto',
-    color: '#4696EC',
+    color: theme.colors.locations.checkIcon,
     width: '18px',
     height: '18px'
   }
