@@ -127,3 +127,8 @@ export const AFStateOptions = [
 ]
 
 export const navBarHeaderHeight = '100px'
+
+export const profileCardLimits = {
+  top: 1340,
+  bottom: 1200
+}

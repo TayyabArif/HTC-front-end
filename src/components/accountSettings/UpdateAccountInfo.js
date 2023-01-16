@@ -45,7 +45,6 @@ export const UpdateAccountInfo = props => {
     event,
     updateUsers,
     affiliateId,
-    accountOwner,
     mobile
   } = props
   const classes = UpdateAccountInfoClasses()
@@ -443,7 +442,6 @@ export const UpdateAccountInfo = props => {
                       }
                       error={!!errors.roles}
                       helperText={errors.roles && errors.roles.message}
-                      disabled={accountOwner}
                       {...register('roles')}
                     />
                   </Grid>

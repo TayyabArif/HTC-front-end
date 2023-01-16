@@ -176,7 +176,6 @@ export const UsersCard = props => {
           roles={roles}
           roleOptions={roleOptions}
           affiliateId={props.company.affiliate_id}
-          accountOwner={selectedUser.id === userStore.userInfo.id}
           mobile={props.mobile}
         />
       )}

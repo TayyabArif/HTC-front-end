@@ -565,7 +565,7 @@ const CompanySettings = props => {
           {t('company_settings.title')}
         </Typography>
       </Box>
-      <Box display="flex" className={classes.cardsContainer}>
+      <Box className={classes.cardsContainer}>
         <Box flex={1}>
           {/* Logo card */}
           <Card data-testid='logo_card' className={classes.card}>
