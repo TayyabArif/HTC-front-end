@@ -691,7 +691,7 @@ export const uploadWoLog = async (woLog, iframe = false) => {
  * @returns Locations
  */
 export const getLocations = async (clientId, page, limit, id, search, dateRange, woDateFrom, woDateTo, status, state, city) => {
-  return await callAPI('GET', '/sitesListing', new URLSearchParams({
+  return await callAPI('GET', '/sites/listing', new URLSearchParams({
     client_id: clientId,
     page,
     limit,

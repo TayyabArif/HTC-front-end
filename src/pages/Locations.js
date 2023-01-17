@@ -585,6 +585,7 @@ const Locations = () => {
         filters.state === 'all' ? '' : filters.state,
         filters.city === 'all' ? '' : filters.city)
       setSitesResponse(response)
+      setTimeout(() => setForceReloadOverlay(response), 500)
       if (page === 1) {
         setSiteListing(response.sites)
       } else {
