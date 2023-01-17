@@ -1063,5 +1063,11 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
   cardContent: {
     marginTop: '10px',
     padding: '0 !important'
+  },
+  moreHours: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: theme.colors.iconBlue,
+    cursor: 'pointer'
   }
 }))

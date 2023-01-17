@@ -42,6 +42,16 @@ export const LocationInfoCard = (props) => {
   const [expanded, setExpanded] = useState(false)
   const locationsStore = useSelector((state) => state.locations)
   const selectedSite = useSelector((state) => state.locations.selectedSite)
+  const [expandHours, setExpandHours] = useState(false)
+
+  const openingHoursPrev = () => {
+    if (props.info && props.info.opening_hours && props.info.opening_hours.length > 1) {
+      const preview = props.info.opening_hours[1].split(': ')
+      return preview.length ? preview[1] : ''
+    } else {
+      return ''
+    }
+  }
 
   return (
   <Box marginLeft="10px" position="relative" hidden={!locationsStore.showSiteViewPanel}>
@@ -60,7 +70,7 @@ export const LocationInfoCard = (props) => {
         <Typography className={classes.locationDescription}>{`$ - ${props.info?.name}`}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent className={classes.cardContent}>
-            <PhotoList photos={props.info?.photos ?? []}/>
+            <PhotoList photos={props.info?.photos ?? []} url={props.info?.url}/>
             <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info?.located_in}</Typography>
             </Box>
@@ -68,7 +78,7 @@ export const LocationInfoCard = (props) => {
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{props.info?.address}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{props.info?.opening_hours.map(element => element)}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{expandHours ? props.info?.opening_hours.map(element => `${element}, `) : openingHoursPrev()}<Typography display="inline" className={classes.moreHours} onClick={() => setExpandHours(!expandHours)} >&nbsp;{t('locations.info_card.more_hours')}</Typography></Typography>
             </Box>
             <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{props.info?.departments}</Typography>

@@ -5,20 +5,26 @@ import ImageListItem from '@mui/material/ImageListItem'
 function srcset (image, size, rows = 1, cols = 1) {
   return {
     src: `${image}`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`
+    srcSet: `${image}`
   }
 }
 
 export const PhotoList = (props) => {
-  const { photos } = props
+  const { photos, url } = props
+
+  const handleRedirectURL = () => {
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer')
+    }
+  }
+
   return (
     <ImageList
-      sx={{ width: 480, height: 200 }}
+      sx={{ width: 480, height: 200, cursor: 'pointer' }}
       variant="quilted"
       cols={4}
       rowHeight={97}
+      onClick={handleRedirectURL}
     >
       {photos.map((item, index) => index <= 4 && (
         <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>

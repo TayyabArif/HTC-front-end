@@ -96,7 +96,8 @@ export const locations = () => {
       hours: 'Horario',
       departments: 'Departamentos',
       phone: 'Teléfono',
-      order: 'Órden'
+      order: 'Órden',
+      more_hours: 'Más horas'
     }
   }
 }
