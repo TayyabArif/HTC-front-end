@@ -267,8 +267,8 @@ export const MapFilters = (props) => {
     }}
     classes={{ paper: classes.mainDropdown }}
   >
-    <Box padding="8px 8px 4px 8px" key="date_range" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.date_range')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="date_range_drop" className={classes.mainItem}>
+    <Box key="date_range" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.date_range')}</Typography></Box>
+    <Box key="date_range_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleDateOpen}>
         <Typography className={classes.dateLabel} >{dateRange !== 'custom' ? t(`locations.date_ranges.${dateRange}`) : selectedDate}</Typography>
         {isMenuDatesOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -409,8 +409,8 @@ export const MapFilters = (props) => {
         </ThemeProvider>
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="status" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.status')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="status_drop" className={classes.mainItem}>
+    <Box key="status" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.status')}</Typography></Box>
+    <Box key="status_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleStatusOpen}>
         <Typography className={classes.dateLabel} >{t(`work_orders.wo_states.${status}`)}</Typography>
         {isMenuStatusOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -437,8 +437,8 @@ export const MapFilters = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="state" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.state')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="statate_drop" className={classes.mainItem}>
+    <Box key="state" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.state')}</Typography></Box>
+    <Box key="statate_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleStateOpen}>
         <Typography className={classes.dateLabel} >{state}</Typography>
         {isMenuStateOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -465,8 +465,8 @@ export const MapFilters = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="city" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.map.city')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="city_drop" className={classes.mainItem}>
+    <Box key="city" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.city')}</Typography></Box>
+    <Box key="city_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleCityOpen}>
         <Typography className={classes.dateLabel} >{city}</Typography>
         {isMenuCityOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
