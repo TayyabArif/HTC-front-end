@@ -25,6 +25,9 @@ import { locationsActions } from '../../../store/locations'
 import { mapActionButtonsStyles } from '../../../styles/classes/LocationsClasses'
 import { MapFilters } from './MapFilters'
 
+// Service
+import { getLocationInfo } from '../../../services/ApiService'
+
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
   const dispatch = useDispatch()
@@ -41,11 +44,15 @@ export const MapActionButtons = (props) => {
   const [locationInfo, setLocationInfo] = useState()
 
   useEffect(() => {
-    if (locationsStore.selectedSite) {
-      console.log('get google place details')
-      setLocationInfo()
+    getGoogleLocation()
+  }, [locationsStore.selectedSite, locationsStore.showSiteViewPanel])
+
+  const getGoogleLocation = async () => {
+    if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
+      const response = await getLocationInfo(/* locationsStore.selectedSite.id */ '61eef1549a1f46b00c89b0cc')
+      setLocationInfo(response)
     }
-  }, [locationsStore.selectedSite])
+  }
 
   const handleMapOptionsMenuOpen = (event) => {
     setAnchorMOEl(event.currentTarget)

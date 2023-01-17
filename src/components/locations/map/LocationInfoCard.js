@@ -53,31 +53,31 @@ export const LocationInfoCard = (props) => {
               : <ArrowDropUpRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)}/>}
         </Box>
         <Box display="flex">
-            <Typography className={classes.ratingLabel} >{props.info.rating}</Typography>
-            <Rating classes={{ root: classes.rating }} className={classes.rating} size='small' value={props.info.rating} readOnly />
-            <Typography className={classes.ratingLabel} >{`(${props.info.user_ratings_total})`}</Typography>
+            <Typography className={classes.ratingLabel} >{props.info?.rating}</Typography>
+            <Rating classes={{ root: classes.rating }} className={classes.rating} size='small' value={props.info?.rating} readOnly />
+            <Typography className={classes.ratingLabel} >{`(${props.info?.user_ratings_total})`}</Typography>
         </Box>
-        <Typography className={classes.locationDescription}>{`$ - ${props.info.name}`}</Typography>
+        <Typography className={classes.locationDescription}>{`$ - ${props.info?.name}`}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent className={classes.cardContent}>
-            <PhotoList photos={props.info.photos ?? []}/>
+            <PhotoList photos={props.info?.photos ?? []}/>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info.located_in}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info?.located_in}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{props.info.address}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{props.info?.address}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{props.info.opening_hours.map(element => element)}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{props.info?.opening_hours.map(element => element)}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{props.info.departments}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{props.info?.departments}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{props.info.phone_number}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{props.info?.phone_number}</Typography>
             </Box>
             <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>{props.info.website}</Typography>
+              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>{props.info?.website}</Typography>
             </Box>
           </CardContent>
       </Collapse>

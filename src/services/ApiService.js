@@ -562,3 +562,15 @@ export const changeUserPassword = async password => {
     throw err
   }
 }
+
+export const getLocationInfo = async id => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocationInfo(id)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}

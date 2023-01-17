@@ -4,7 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem'
 
 function srcset (image, size, rows = 1, cols = 1) {
   return {
-    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+    src: `${image}`,
     srcSet: `${image}?w=${size * cols}&h=${
       size * rows
     }&fit=crop&auto=format&dpr=2 2x`
@@ -20,7 +20,7 @@ export const PhotoList = (props) => {
       cols={4}
       rowHeight={97}
     >
-      {photos.map((item) => (
+      {photos.map((item, index) => index <= 4 && (
         <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
           <img
             style={{ borderRadius: '12px' }}
