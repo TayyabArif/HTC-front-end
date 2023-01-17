@@ -309,8 +309,8 @@ export const SiteFiltersMenu = (props) => {
     }}
     classes={{ paper: classes.mainDropdown }}
   >
-    <Box padding="8px 8px 4px 8px" key="date_start" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.start_date')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="date_start_drop" className={classes.mainItem}>
+    <Box key="date_start" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.start_date')}</Typography></Box>
+    <Box key="date_start_drop" className={classes.filterDrop}>
       <MapFiltersButton ref={rootRefStart} onClick={handleStartOpen}>
         <Typography className={classes.dateLabel} >{startLabel !== '' ? startLabel : t('locations.work_orders.sort_options.none')}</Typography>
         {isMenuStartOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -365,8 +365,8 @@ export const SiteFiltersMenu = (props) => {
           </LocalizationProvider>
         </ThemeProvider>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="date_end" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="date_end_drop" className={classes.mainItem}>
+    <Box key="date_end" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
+    <Box key="date_end_drop" className={classes.filterDrop}>
       <MapFiltersButton ref={rootRefEnd} onClick={handleEndOpen}>
         <Typography className={classes.dateLabel} >{endLabel !== '' ? endLabel : t('locations.work_orders.sort_options.none')}</Typography>
         {isMenuEndOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -421,8 +421,8 @@ export const SiteFiltersMenu = (props) => {
           </LocalizationProvider>
         </ThemeProvider>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="status" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="status_drop" className={classes.mainItem}>
+    <Box key="status" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
+    <Box key="status_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleStatusOpen}>
         <Typography className={classes.dateLabel} >{status === 'all' ? t('work_orders.wo_states.all_label') : t(`work_orders.wo_states.${status}`)}</Typography>
         {isMenuStatusOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -449,8 +449,8 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="trade" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.trade')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="trade_drop" className={classes.mainItem}>
+    <Box key="trade" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.trade')}</Typography></Box>
+    <Box key="trade_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleTradeOpen}>
         <Typography className={classes.dateLabel} >{trade}</Typography>
         {isMenuTradeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -477,8 +477,8 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="type" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.type')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="type_drop" className={classes.mainItem}>
+    <Box key="type" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.type')}</Typography></Box>
+    <Box key="type_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleTypeOpen}>
         <Typography className={classes.dateLabel} >{type}</Typography>
         {isMenuTypeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -505,8 +505,8 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="service" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.service')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="service_drop" className={classes.mainItem}>
+    <Box key="service" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.service')}</Typography></Box>
+    <Box key="service_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleServiceOpen}>
         <Typography className={classes.dateLabel} >{service}</Typography>
         {isMenuServiceOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
