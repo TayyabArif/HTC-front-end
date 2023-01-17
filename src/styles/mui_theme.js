@@ -87,6 +87,7 @@ const customTheme = createTheme({
     filtersBorder: '#0000003b',
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
+    mainBlue: '#0072CE',
     invoiceColors: {
       open: 'rgba(77, 166, 233, 0.85)',
       open_solid: 'rgba(77, 166, 233)',
@@ -189,6 +190,7 @@ const customTheme = createTheme({
       legendsLabels: '#4F4F4F',
       inputBorderRGB: 'rgba(0, 0, 0, 0.23)',
       inputBorderRGBHover: 'rgba(0, 0, 0, 0.6)',
+      checkIcon: '#4696EC',
       filters: {
         leftColumnBackground: '#FDFDFD',
         tagsBorder: '#EBEBEB',
@@ -244,7 +246,8 @@ const customTheme = createTheme({
     mainContainerBackground: '#F8F8F8',
     tab: {
       description: '#121212',
-      duedate: '#828282'
+      duedate: '#828282',
+      selected: '#2F80ED'
     },
     settings: {
       fieldName: '#828282',

@@ -1,7 +1,7 @@
 /* eslint-disable multiline-ternary */
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import {
-  FormControl,
+  FormControl, Grid,
   Menu,
   MenuItem,
   OutlinedInput
@@ -113,6 +113,7 @@ export const SlideFilter = props => {
         onClick={handleOpen}
         className={props.type === 1 ? classes.mainInput1 : classes.mainInput2}
         autoComplete="off"
+        readOnly
         endAdornment={<FontAwesomeIcon icon={faAngleDown} />}
         ref={inputRef}
       />
@@ -126,6 +127,7 @@ export const SlideFilter = props => {
           getContentAnchorEl={null}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          className={classes.mainMenu}
         >
           {[
             ...(props.hasAll ? [{ label: 'All', value: 'all' }] : []),
@@ -138,15 +140,21 @@ export const SlideFilter = props => {
               classes={{ root: classes.menuItem }}
               onClick={event => handleChangeSwitch(obj.value, event)}
             >
-              {obj.label}
-              {((values !== '' &&
-                values.split('|').length === props.options.length) ||
-                values.split('|').includes(obj.value)) && (
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className={classes.switch}
-                />
-              )}
+              <Grid container justifyContent="space-between" alignItems="center">
+                <Grid item xs={11}>
+                  {obj.label}
+                </Grid>
+                <Grid item xs={1}>
+                  {((values !== '' &&
+                      values.split('|').length === props.options.length) ||
+                    values.split('|').includes(obj.value)) && (
+                    <FontAwesomeIcon
+                      icon={faCheck}
+                      className={classes.switch}
+                    />
+                  )}
+                </Grid>
+              </Grid>
             </MenuItem>
           ))}
         </Menu>

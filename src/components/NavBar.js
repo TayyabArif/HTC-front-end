@@ -77,6 +77,10 @@ export const NavBar = () => {
     history.replace('/')
   }
 
+  const currentTextColor = () => {
+    return location.pathname === '/company-settings' || location.pathname === '/account-settings' ? 'textGray' : 'text'
+  }
+
   return (
     <Box pl={3} pr={3} className={classes.navBar}>
       <Grid container className={classes.header}>
@@ -92,28 +96,33 @@ export const NavBar = () => {
                 <img className={classes.logo} src={AcmeIcon} />
               </Link>
             </Box>
-            <StyledNavTabs value={value} onChange={handleChangeNavBar}>
+            <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>
               <StyledNavTab style={{ display: 'none' }} value={''} />
               <StyledNavTab
                 value={'/work-orders'}
                 label={t('nav_bar.work_orders')}
                 iconPosition="end"
+                color={currentTextColor()}
               />
               <StyledNavTab
                 value={'/locations'}
                 label={t('nav_bar.locations')}
+                color={currentTextColor()}
               />
               <StyledNavTab
                 style={{ display: 'none' }}
                 value={'/account-settings'}
+                color={currentTextColor()}
               />
               <StyledNavTab
                 style={{ display: 'none' }}
                 value={'/company-settings'}
+                color={currentTextColor()}
               />
               <StyledNavTab
                 style={{ display: 'none' }}
                 value={'/company-profile'}
+                color={currentTextColor()}
               />
             </StyledNavTabs>
           </Box>
