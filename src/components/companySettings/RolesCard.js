@@ -10,7 +10,7 @@ import {
   CardContent,
   CardActions,
   IconButton,
-  Box
+  Box, Grid, Divider
 } from '@mui/material'
 import { AddCircleRounded } from '@mui/icons-material'
 // services
@@ -109,11 +109,9 @@ export const RolesCard = props => {
       setOpenPanel(false)
     }
   }
-
-  const permissions = [
-    t('company_settings.roles_card.workorders'),
-    t('company_settings.roles_card.invoices'),
-    t('company_settings.roles_card.company_settings')
+  const permissionsList = [
+    'workorders',
+    'company_settings'
   ]
   const permissionsMobile = [t('company_settings.roles_card.no_portal_access')]
 
@@ -136,24 +134,37 @@ export const RolesCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box display="flex" flexDirection="column">
-          {roles?.map(role => (
-            <div key={role.name} className={classes.itemDivider}>
-              <Box display="flex" flexDirection="row" alignItems="baseline">
-                <Typography classes={{ root: classes.roleItem }}>
-                  {role.name}
-                </Typography>
-                <GlobalChip
-                  chips={permissions}
-                  selected={new Set()}
-                  setSelected={() => {}}
-                  skipTranslate={true}
-                />
-              </Box>
-            </div>
-          ))}
+          {roles?.map(role => {
+            const permissions = []
+            permissionsList.forEach((item) => {
+              if (role.permissions[item] && !permissions.find(element => element === t('company_settings.roles_card.' + item))) {
+                permissions.push(t('company_settings.roles_card.' + item))
+              }
+            })
+            return (
+              <Grid container key={role.name}>
+                <Grid item xs={12}>
+                  <Box display="flex" flexDirection="row" alignItems="baseline">
+                    <Typography classes={{ root: classes.roleItem }}>
+                      {role.name}
+                    </Typography>
+                    <GlobalChip
+                      chips={permissions}
+                      selected={new Set()}
+                      setSelected={() => {}}
+                      skipTranslate={true}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={11.7}>
+                  <Divider />
+                </Grid>
+              </Grid>
+            )
+          })}
           <Box display="flex" flexDirection="row" alignItems="baseline">
             <Typography classes={{ root: classes.roleItem }}>
-              {t('company_settings.mobile_only')}
+              {t('company_settings.view_only')}
             </Typography>
             <GlobalChip
               chips={permissionsMobile}

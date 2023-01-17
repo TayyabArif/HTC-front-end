@@ -79,7 +79,6 @@ export const AccountInfoCard = props => {
                 editDrawer={editDrawer}
                 handleClosePanel={handleClosePanel}
                 accountInfo={userInfo}
-                accountOwner
                 roles={roles}
             />
             <Card className={classes.card} data-testid={'account_info_card'} elevation={0}>

@@ -157,3 +157,8 @@ export const woSortOptions = [
     id: 'none'
   }
 ]
+
+export const profileCardLimits = {
+  top: 1340,
+  bottom: 1200
+}
