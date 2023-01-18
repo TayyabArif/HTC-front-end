@@ -64,7 +64,6 @@ export const UpdateAccountInfo = props => {
     }
   }
 
-  const passwordPlaceHolder = '********'
   const startingInfo = {
     firstName: accountInfo.userInfo.firstName,
     lastName: accountInfo.userInfo.lastName,
@@ -74,9 +73,7 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
-    employeeId: accountInfo.userInfo.employee_id,
-    password: passwordPlaceHolder,
-    passwordConfirm: passwordPlaceHolder
+    employeeId: accountInfo.userInfo.employee_id
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
@@ -206,7 +203,7 @@ export const UpdateAccountInfo = props => {
         employee_id: updatedInfo.employeeId
       }
 
-      if (updatedInfo.password !== passwordPlaceHolder) {
+      if (updatedInfo.password) {
         newData = { ...newData, password: updatedInfo.password }
       }
 
@@ -278,10 +275,7 @@ export const UpdateAccountInfo = props => {
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
         employee_id: updatedInfo.employeeId,
-        password:
-          updatedInfo.password === passwordPlaceHolder
-            ? undefined
-            : updatedInfo.password
+        password: updatedInfo.password
       })
       updateUsers()
       handleClose()

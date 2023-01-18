@@ -43,7 +43,7 @@ export const mainContainerStyles = makeStyles(theme => ({
       touchAction: 'pan-y'
     },
     [theme.breakpoints.up('md')]: {
-      overflowY: 'auto'
+      overflowY: 'hidden'
     }
   },
   backdrop: {
