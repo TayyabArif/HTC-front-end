@@ -80,8 +80,8 @@ export const SiteSortMenu = (props) => {
     }}
     classes={{ paper: classes.mainDropdown }}
   >
-    <Box padding="8px 8px 4px 8px" key="sort" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.sort_by')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="sort_drop" className={classes.mainItem}>
+    <Box key="sort" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.sort_by')}</Typography></Box>
+    <Box key="sort_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleSelectorOpen}>
         <Typography className={classes.dateLabel} >{t(`locations.work_orders.sort_options.${sortBy}`)}</Typography>
         {isMenuSelectorOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-// Redux
+/** Redux **/
 import { useSelector, useDispatch } from 'react-redux'
 import { locationsActions } from '../../store/locations'
 
-// Components
+/** Components **/
 import { Menu, MenuItem, Typography, Box, Button, ThemeProvider } from '@mui/material'
 import {
   LocalizationProvider,
@@ -15,14 +15,10 @@ import { MapFiltersButton } from '../../styles/mui_custom_components'
 import { ArrowDropDownTwoTone, ArrowRightTwoTone, Check as CheckIcon } from '@mui/icons-material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
-// Constants
+/** Constants **/
 import { mapStatusOptions } from '../../lib/Constants'
 
-// Redux
-// import { useDispatch, useSelector } from 'react-redux'
-// import { locationsActions } from '../../store/locations'
-
-// Styles
+/** Styles **/
 import { mapFiltersStyles } from '../../styles/classes/LocationsClasses'
 import { muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle } from '../../styles/mui_custom_theme'
 
@@ -208,7 +204,12 @@ export const SiteFiltersMenu = (props) => {
   }
 
   const saveFilters = () => {
-    if (startLabel === '' && endLabel === '' && status === 'all' && trade === 'All Trades' && type === 'All Types' && service === 'All Services') {
+    if (startLabel === '' &&
+      endLabel === '' &&
+      status === 'all' &&
+      trade === 'All Trades' &&
+      type === 'All Types' &&
+      service === 'All Services') {
       props.setInvisible(true)
     } else {
       props.setInvisible(false)
@@ -309,120 +310,120 @@ export const SiteFiltersMenu = (props) => {
     }}
     classes={{ paper: classes.mainDropdown }}
   >
-    <Box padding="8px 8px 4px 8px" key="date_start" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.start_date')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="date_start_drop" className={classes.mainItem}>
+    <Box key="date_start" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.start_date')}</Typography></Box>
+    <Box key="date_start_drop" className={classes.filterDrop}>
       <MapFiltersButton ref={rootRefStart} onClick={handleStartOpen}>
         <Typography className={classes.dateLabel} >{startLabel !== '' ? startLabel : t('locations.work_orders.sort_options.none')}</Typography>
         {isMenuStartOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <ThemeProvider theme={muiThemeDateFilter}>
-          <LocalizationProvider
+        <LocalizationProvider
+          key="date-picker-dialog-from"
+          dateAdapter={AdapterDayjs}
+        >
+          <ThemeProvider
             key="date-picker-dialog-from"
-            dateAdapter={AdapterDayjs}
+            theme={muiThemeHeaderDate}
           >
-            <ThemeProvider
+            <DatePicker
+              renderInput={() => { }}
+              disableToolbar={false}
+              InputProps={{ className: classes.picker }}
+              format="MM/dd/yyyy"
+              margin="normal"
+              variant="inline"
+              id="date-picker-dialog-from"
               key="date-picker-dialog-from"
-              theme={muiThemeHeaderDate}
-            >
-              <DatePicker
-                renderInput={() => { }}
-                disableToolbar={false}
-                InputProps={{ className: classes.picker }}
-                format="MM/dd/yyyy"
-                margin="normal"
-                variant="inline"
-                id="date-picker-dialog-from"
-                key="date-picker-dialog-from"
-                value={startDate}
-                onChange={date => {
-                  setStartDate(date)
-                }}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-                PopperProps={{
-                  anchorEl: () => rootRefStart.current,
-                  placement: 'right-start'
-                }}
-                PaperProps={{
-                  style: {
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    marginLeft: '25px'
-                  }
-                }}
-                TextFieldComponent={() => null}
-                open={isMenuStartOpen}
-                onClose={() => {
-                  setAnchorStart(null)
-                }}
-                onAccept={(date) => {
-                  handleChange(date, 'start')
-                  setAnchorStart(null)
-                }}
-              />
-            </ThemeProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
+              value={startDate}
+              onChange={date => {
+                setStartDate(date)
+              }}
+              KeyboardButtonProps={{
+                'aria-label': 'change date'
+              }}
+              PopperProps={{
+                anchorEl: () => rootRefStart.current,
+                placement: 'right-start'
+              }}
+              PaperProps={{
+                style: {
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  marginLeft: '25px'
+                }
+              }}
+              TextFieldComponent={() => null}
+              open={isMenuStartOpen}
+              onClose={() => {
+                setAnchorStart(null)
+              }}
+              onAccept={(date) => {
+                handleChange(date, 'start')
+                setAnchorStart(null)
+              }}
+            />
+          </ThemeProvider>
+        </LocalizationProvider>
+      </ThemeProvider>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="date_end" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="date_end_drop" className={classes.mainItem}>
+    <Box key="date_end" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
+    <Box key="date_end_drop" className={classes.filterDrop}>
       <MapFiltersButton ref={rootRefEnd} onClick={handleEndOpen}>
         <Typography className={classes.dateLabel} >{endLabel !== '' ? endLabel : t('locations.work_orders.sort_options.none')}</Typography>
         {isMenuEndOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <ThemeProvider theme={muiThemeDateFilter}>
-          <LocalizationProvider
+        <LocalizationProvider
+          key="date-picker-dialog-from"
+          dateAdapter={AdapterDayjs}
+        >
+          <ThemeProvider
             key="date-picker-dialog-from"
-            dateAdapter={AdapterDayjs}
+            theme={muiThemeHeaderDate}
           >
-            <ThemeProvider
+            <DatePicker
+              renderInput={() => { }}
+              disableToolbar={false}
+              InputProps={{ className: classes.picker }}
+              format="MM/dd/yyyy"
+              margin="normal"
+              variant="inline"
+              id="date-picker-dialog-from"
               key="date-picker-dialog-from"
-              theme={muiThemeHeaderDate}
-            >
-              <DatePicker
-                renderInput={() => { }}
-                disableToolbar={false}
-                InputProps={{ className: classes.picker }}
-                format="MM/dd/yyyy"
-                margin="normal"
-                variant="inline"
-                id="date-picker-dialog-from"
-                key="date-picker-dialog-from"
-                value={endDate}
-                onChange={date => {
-                  setEndDate(date)
-                }}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-                PopperProps={{
-                  anchorEl: () => rootRefEnd.current,
-                  placement: 'right-start'
-                }}
-                PaperProps={{
-                  style: {
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    marginLeft: '25px'
-                  }
-                }}
-                TextFieldComponent={() => null}
-                open={isMenuEndOpen}
-                onClose={() => {
-                  setAnchorEnd(null)
-                }}
-                onAccept={(date) => {
-                  handleChange(date, 'end')
-                  setAnchorStart(null)
-                }}
-              />
-            </ThemeProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
+              value={endDate}
+              onChange={date => {
+                setEndDate(date)
+              }}
+              KeyboardButtonProps={{
+                'aria-label': 'change date'
+              }}
+              PopperProps={{
+                anchorEl: () => rootRefEnd.current,
+                placement: 'right-start'
+              }}
+              PaperProps={{
+                style: {
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  marginLeft: '25px'
+                }
+              }}
+              TextFieldComponent={() => null}
+              open={isMenuEndOpen}
+              onClose={() => {
+                setAnchorEnd(null)
+              }}
+              onAccept={(date) => {
+                handleChange(date, 'end')
+                setAnchorStart(null)
+              }}
+            />
+          </ThemeProvider>
+        </LocalizationProvider>
+      </ThemeProvider>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="status" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="status_drop" className={classes.mainItem}>
+    <Box key="status" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
+    <Box key="status_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleStatusOpen}>
         <Typography className={classes.dateLabel} >{status === 'all' ? t('work_orders.wo_states.all_label') : t(`work_orders.wo_states.${status}`)}</Typography>
         {isMenuStatusOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -449,8 +450,8 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="trade" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.trade')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="trade_drop" className={classes.mainItem}>
+    <Box key="trade" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.trade')}</Typography></Box>
+    <Box key="trade_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleTradeOpen}>
         <Typography className={classes.dateLabel} >{trade}</Typography>
         {isMenuTradeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -477,8 +478,8 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="type" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.type')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="type_drop" className={classes.mainItem}>
+    <Box key="type" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.type')}</Typography></Box>
+    <Box key="type_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleTypeOpen}>
         <Typography className={classes.dateLabel} >{type}</Typography>
         {isMenuTypeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
@@ -505,8 +506,8 @@ export const SiteFiltersMenu = (props) => {
         </MenuItem>)}
       </Menu>
     </Box>
-    <Box padding="8px 8px 4px 8px" key="service" className={classes.mainItem}><Typography className={classes.menuTitle}>{t('locations.work_orders.service')}</Typography></Box>
-    <Box padding="0px 8px 8px 8px" key="service_drop" className={classes.mainItem}>
+    <Box key="service" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.service')}</Typography></Box>
+    <Box key="service_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleServiceOpen}>
         <Typography className={classes.dateLabel} >{service}</Typography>
         {isMenuServiceOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
