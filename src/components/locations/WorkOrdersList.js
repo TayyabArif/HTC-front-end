@@ -13,11 +13,11 @@ import { List, AutoSizer } from 'react-virtualized'
 /** Redux **/
 import { useSelector } from 'react-redux'
 
-/* Utils */
+/** Utils **/
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
 import { mobileBreakpoint } from '../../lib/Constants'
 
-// Styles
+/** Styles **/
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
 
 export const WorkOrdersList = (props) => {

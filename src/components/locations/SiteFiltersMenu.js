@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-// Redux
+/** Redux **/
 import { useSelector, useDispatch } from 'react-redux'
 import { locationsActions } from '../../store/locations'
 
-// Components
+/** Components **/
 import { Menu, MenuItem, Typography, Box, Button, ThemeProvider } from '@mui/material'
 import {
   LocalizationProvider,
@@ -15,14 +15,10 @@ import { MapFiltersButton } from '../../styles/mui_custom_components'
 import { ArrowDropDownTwoTone, ArrowRightTwoTone, Check as CheckIcon } from '@mui/icons-material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
-// Constants
+/** Constants **/
 import { mapStatusOptions } from '../../lib/Constants'
 
-// Redux
-// import { useDispatch, useSelector } from 'react-redux'
-// import { locationsActions } from '../../store/locations'
-
-// Styles
+/** Styles **/
 import { mapFiltersStyles } from '../../styles/classes/LocationsClasses'
 import { muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle } from '../../styles/mui_custom_theme'
 
@@ -208,7 +204,12 @@ export const SiteFiltersMenu = (props) => {
   }
 
   const saveFilters = () => {
-    if (startLabel === '' && endLabel === '' && status === 'all' && trade === 'All Trades' && type === 'All Types' && service === 'All Services') {
+    if (startLabel === '' &&
+      endLabel === '' &&
+      status === 'all' &&
+      trade === 'All Trades' &&
+      type === 'All Types' &&
+      service === 'All Services') {
       props.setInvisible(true)
     } else {
       props.setInvisible(false)
@@ -316,54 +317,54 @@ export const SiteFiltersMenu = (props) => {
         {isMenuStartOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <ThemeProvider theme={muiThemeDateFilter}>
-          <LocalizationProvider
+        <LocalizationProvider
+          key="date-picker-dialog-from"
+          dateAdapter={AdapterDayjs}
+        >
+          <ThemeProvider
             key="date-picker-dialog-from"
-            dateAdapter={AdapterDayjs}
+            theme={muiThemeHeaderDate}
           >
-            <ThemeProvider
+            <DatePicker
+              renderInput={() => { }}
+              disableToolbar={false}
+              InputProps={{ className: classes.picker }}
+              format="MM/dd/yyyy"
+              margin="normal"
+              variant="inline"
+              id="date-picker-dialog-from"
               key="date-picker-dialog-from"
-              theme={muiThemeHeaderDate}
-            >
-              <DatePicker
-                renderInput={() => { }}
-                disableToolbar={false}
-                InputProps={{ className: classes.picker }}
-                format="MM/dd/yyyy"
-                margin="normal"
-                variant="inline"
-                id="date-picker-dialog-from"
-                key="date-picker-dialog-from"
-                value={startDate}
-                onChange={date => {
-                  setStartDate(date)
-                }}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-                PopperProps={{
-                  anchorEl: () => rootRefStart.current,
-                  placement: 'right-start'
-                }}
-                PaperProps={{
-                  style: {
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    marginLeft: '25px'
-                  }
-                }}
-                TextFieldComponent={() => null}
-                open={isMenuStartOpen}
-                onClose={() => {
-                  setAnchorStart(null)
-                }}
-                onAccept={(date) => {
-                  handleChange(date, 'start')
-                  setAnchorStart(null)
-                }}
-              />
-            </ThemeProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
+              value={startDate}
+              onChange={date => {
+                setStartDate(date)
+              }}
+              KeyboardButtonProps={{
+                'aria-label': 'change date'
+              }}
+              PopperProps={{
+                anchorEl: () => rootRefStart.current,
+                placement: 'right-start'
+              }}
+              PaperProps={{
+                style: {
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  marginLeft: '25px'
+                }
+              }}
+              TextFieldComponent={() => null}
+              open={isMenuStartOpen}
+              onClose={() => {
+                setAnchorStart(null)
+              }}
+              onAccept={(date) => {
+                handleChange(date, 'start')
+                setAnchorStart(null)
+              }}
+            />
+          </ThemeProvider>
+        </LocalizationProvider>
+      </ThemeProvider>
     </Box>
     <Box key="date_end" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
     <Box key="date_end_drop" className={classes.filterDrop}>
@@ -372,54 +373,54 @@ export const SiteFiltersMenu = (props) => {
         {isMenuEndOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <ThemeProvider theme={muiThemeDateFilter}>
-          <LocalizationProvider
+        <LocalizationProvider
+          key="date-picker-dialog-from"
+          dateAdapter={AdapterDayjs}
+        >
+          <ThemeProvider
             key="date-picker-dialog-from"
-            dateAdapter={AdapterDayjs}
+            theme={muiThemeHeaderDate}
           >
-            <ThemeProvider
+            <DatePicker
+              renderInput={() => { }}
+              disableToolbar={false}
+              InputProps={{ className: classes.picker }}
+              format="MM/dd/yyyy"
+              margin="normal"
+              variant="inline"
+              id="date-picker-dialog-from"
               key="date-picker-dialog-from"
-              theme={muiThemeHeaderDate}
-            >
-              <DatePicker
-                renderInput={() => { }}
-                disableToolbar={false}
-                InputProps={{ className: classes.picker }}
-                format="MM/dd/yyyy"
-                margin="normal"
-                variant="inline"
-                id="date-picker-dialog-from"
-                key="date-picker-dialog-from"
-                value={endDate}
-                onChange={date => {
-                  setEndDate(date)
-                }}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-                PopperProps={{
-                  anchorEl: () => rootRefEnd.current,
-                  placement: 'right-start'
-                }}
-                PaperProps={{
-                  style: {
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    marginLeft: '25px'
-                  }
-                }}
-                TextFieldComponent={() => null}
-                open={isMenuEndOpen}
-                onClose={() => {
-                  setAnchorEnd(null)
-                }}
-                onAccept={(date) => {
-                  handleChange(date, 'end')
-                  setAnchorStart(null)
-                }}
-              />
-            </ThemeProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
+              value={endDate}
+              onChange={date => {
+                setEndDate(date)
+              }}
+              KeyboardButtonProps={{
+                'aria-label': 'change date'
+              }}
+              PopperProps={{
+                anchorEl: () => rootRefEnd.current,
+                placement: 'right-start'
+              }}
+              PaperProps={{
+                style: {
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  marginLeft: '25px'
+                }
+              }}
+              TextFieldComponent={() => null}
+              open={isMenuEndOpen}
+              onClose={() => {
+                setAnchorEnd(null)
+              }}
+              onAccept={(date) => {
+                handleChange(date, 'end')
+                setAnchorStart(null)
+              }}
+            />
+          </ThemeProvider>
+        </LocalizationProvider>
+      </ThemeProvider>
     </Box>
     <Box key="status" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
     <Box key="status_drop" className={classes.filterDrop}>
