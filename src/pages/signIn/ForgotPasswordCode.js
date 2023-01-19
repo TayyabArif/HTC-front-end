@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 /** Material UI **/
 import { HighlightButton } from '../../styles/mui_custom_components'
@@ -108,16 +108,29 @@ const ForgotPasswordCode = () => {
   const [newPassword, setNewPassword] = useState('')
   const authStore = store.getState().auth
   const [error, setError] = useState()
+  const [enableSave, setEnableSave] = useState()
 
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
-    code: yup.string().required(t('general.messages.errors.required')),
-    new_password: yup.string().required(t('general.messages.errors.required')).test('len', t('forgot_password_code.min_6_chars'), (val) => val.toString().length >= 6)
+    new_password: yup.string()
+      .required(t('general.messages.errors.required'))
+      .min(6, t('forgot_password_code.min_6_chars'))
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'all',
     resolver: yupResolver(validationSchema)
   })
+
+  useEffect(() => {
+    console.log(newPassword)
+    console.log(errors.new_password)
+    let save = true
+    if (!newPassword || errors?.new_password?.message) {
+      save = false
+    }
+    setEnableSave(save)
+  }, [newPassword, errors])
 
   const onSubmit = async () => {
     try {
@@ -147,6 +160,7 @@ const ForgotPasswordCode = () => {
     setError(null)
     setNewPassword(event.target.value)
   }
+  const onError = (errors, e) => console.error(errors, e)
 
   return (
     <SignInContainer>
@@ -165,7 +179,7 @@ const ForgotPasswordCode = () => {
             </Grid>
             <Grid item xs={12} md={8}>
               <Box className={classes.formBox} >
-                <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+                <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit, onError)}>
                   <TextField
                     className={classes.fields}
                     variant='outlined'
@@ -193,16 +207,16 @@ const ForgotPasswordCode = () => {
                         notchedOutline: classes.fieldsOutlined
                       }
                     }}
-                    onInput={handleNewPasswordChange}
+                    onKeyUp={handleNewPasswordChange}
                   />
-                  <Box hidden={error === null}>
+                  <Box hidden={error === null} ml={2}>
                     <Typography align={'left'} className={classes.errorMessage}>
                       {error}
                     </Typography>
                   </Box>
                   <Grid className={classes.buttons} container justifyContent='flex-end' spacing={3} mt={2}>
                     <Grid item className={classes.buttonGrid} >
-                      <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!newPassword} type='submit' variant='contained' onClick={onSubmit} >
+                      <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!enableSave} type='submit' variant='contained' onClick={onSubmit} >
                         {t('forgot_password_code.reset_password')}
                       </HighlightButton>
                     </Grid>
