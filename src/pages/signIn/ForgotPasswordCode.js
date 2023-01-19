@@ -123,8 +123,6 @@ const ForgotPasswordCode = () => {
   })
 
   useEffect(() => {
-    console.log(newPassword)
-    console.log(errors.new_password)
     let save = true
     if (!newPassword || errors?.new_password?.message) {
       save = false
