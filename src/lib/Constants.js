@@ -62,4 +62,73 @@ export const mobileBreakpoint = 1150
 export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
 
+export const mapDateRangeOptions = [
+  {
+    id: 'today'
+  },
+  {
+    id: 'last_3_days'
+  },
+  {
+    id: 'last_5_days'
+  },
+  {
+    id: 'last_7_days'
+  },
+  {
+    id: 'last_30_days'
+  },
+  {
+    id: 'custom'
+  }
+]
+
+export const mapStatusOptions = [
+  {
+    id: 'all'
+  },
+  {
+    id: 'open'
+  },
+  {
+    id: 'in_progress'
+  },
+  {
+    id: 'dispatched'
+  },
+  {
+    id: 'returning'
+  },
+  {
+    id: 'completed'
+  },
+  {
+    id: 'canceled'
+  }
+]
+
+export const AFStateOptions = [
+  {
+    label: '2x',
+    value: 2
+  },
+  {
+    label: '5x',
+    value: 5
+  },
+  {
+    label: '10x',
+    value: 10
+  },
+  {
+    label: '20x',
+    value: 24
+  }
+]
+
 export const navBarHeaderHeight = '100px'
+
+export const profileCardLimits = {
+  top: 1340,
+  bottom: 1200
+}

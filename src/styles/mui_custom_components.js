@@ -128,9 +128,10 @@ export const MapCounter = withStyles({
     minWidth: 'fit-content',
     width: 'fit-content',
     height: '49px',
-    paddingLeft: '15px',
-    paddingRight: '15px',
-    borderRadius: 8
+    paddingLeft: '12px',
+    paddingRight: '5px',
+    borderRadius: 8,
+    paddingBottom: '5px'
   }
 })(Paper)
 
@@ -159,7 +160,7 @@ export const StyledNavTabs = withStyles((theme) => ({
     '& > span': {
       maxWidth: 78,
       width: '100%',
-      backgroundColor: theme.palette.primary.dark
+      backgroundColor: theme.colors.tab.selected
     },
     transition: 'none'
   },
@@ -174,7 +175,7 @@ export const StyledNavTab = withStyles((theme) => ({
   root: {
     minWidth: '70px',
     textTransform: 'none',
-    color: theme.colors.text,
+    color: props => theme.colors[props.color],
     fontWeight: '400',
     fontSize: '16px',
     '&:focus': {
@@ -183,7 +184,7 @@ export const StyledNavTab = withStyles((theme) => ({
     transition: 'none'
   },
   selected: {
-    color: theme.palette.primary.dark,
+    color: `${theme.colors.tab.selected} !important`,
     fontWeight: '500'
   }
 }))((props) => <Tab disableRipple {...props} />)
@@ -198,7 +199,7 @@ export const BootstrapInput = withStyles((theme) => ({
     borderRadius: '10px !important',
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
-    border: `1px solid ${theme.colors.sites.filters.fieldsBorder}`,
+    border: `1px solid ${theme.colors.locations.filters.fieldsBorder}`,
     fontSize: '10px !important',
     height: '13px !important',
     padding: '5px 12px 16px !important',
@@ -246,17 +247,17 @@ export const StyledSiteViewTab = withStyles((theme) => ({
   root: {
     minWidth: '70px',
     textTransform: 'none',
-    color: theme.colors.sites.siteView.unselectedTabTextColor,
+    color: theme.colors.locations.siteView.unselectedTabTextColor,
     fontWeight: '700',
     fontSize: '12px',
     '&:focus': {
       opacity: 1
     },
-    backgroundColor: theme.colors.sites.siteView.unselectedTabColor
+    backgroundColor: theme.colors.locations.siteView.unselectedTabColor
   },
   selected: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.colors.sites.siteView.selectedTabTextColor
+    color: theme.colors.locations.siteView.selectedTabTextColor
   }
 }))((props) => <Tab disableRipple {...props} />)
 
@@ -271,6 +272,30 @@ export const MobileMasqueradeIcon = (props) => {
         <path d="M17.5 0.5C0.234375 0.5 3.55469 15.5 11.3281 15.5C12.8906 15.5 14.3359 14.7188 15.2734 13.3516L16.2891 11.8672C16.6016 11.3984 17.0312 11.2031 17.5 11.2031C17.9688 11.2031 18.4375 11.3984 18.7109 11.8672L19.7266 13.3516C20.6641 14.7188 22.1484 15.5 23.7109 15.5C31.0938 15.5 35.0391 0.5 17.5 0.5ZM23.7109 14.1719C22.5391 14.1719 21.4453 13.5469 20.7422 12.5312L19.7266 11.0469C19.2188 10.2656 18.3984 9.83594 17.5 9.83594C16.6406 9.83594 15.8203 10.2656 15.2734 11.0469L14.2578 12.5312C13.5938 13.5469 12.4609 14.1719 11.3281 14.1719C8.28125 14.1719 6.25 11.3203 6.25 8.66406C6.25 7.45312 6.64062 5.69531 8.55469 4.21094C10.5078 2.6875 13.5938 1.86719 17.5 1.86719C21.4062 1.86719 24.5312 2.6875 26.4453 4.17188C28.3203 5.61719 28.75 7.33594 28.75 8.54688C28.75 11.2031 26.6797 14.1719 23.7109 14.1719ZM12.5 5.30469C10.6641 5.30469 9.45312 6.47656 8.90625 7.17969C8.67188 7.45312 8.67188 7.88281 8.90625 8.19531C9.45312 8.89844 10.6641 10.0703 12.5 10.0703C14.2969 10.0703 15.5078 8.89844 16.0547 8.19531C16.2891 7.88281 16.2891 7.45312 16.0547 7.17969C15.5078 6.47656 14.2969 5.30469 12.5 5.30469ZM12.5 8.70312C11.4453 8.70312 10.6641 8.15625 10.1953 7.6875C10.6641 7.17969 11.4453 6.67188 12.5 6.67188C13.5156 6.67188 14.2969 7.17969 14.7656 7.6875C14.2969 8.15625 13.5156 8.70312 12.5 8.70312ZM22.5 5.30469C20.6641 5.30469 19.4531 6.47656 18.9062 7.17969C18.6719 7.45312 18.6719 7.88281 18.9062 8.19531C19.4531 8.89844 20.6641 10.0703 22.5 10.0703C24.2969 10.0703 25.5078 8.89844 26.0547 8.19531C26.2891 7.88281 26.2891 7.45312 26.0547 7.17969C25.5078 6.47656 24.2969 5.30469 22.5 5.30469ZM22.5 8.70312C21.4453 8.70312 20.6641 8.15625 20.1953 7.6875C20.6641 7.17969 21.4453 6.67188 22.5 6.67188C23.5156 6.67188 24.2969 7.17969 24.7656 7.6875C24.2969 8.15625 23.5156 8.70312 22.5 8.70312Z" fill={props.color} />
     </svg>)
 }
+
+export const MapFiltersButton = withStyles((theme) => ({
+  root: {
+    background: `${theme.colors.map.backgroundFilters} !important`,
+    color: `${theme.colors.gray} !important`,
+    textTransform: 'unset !important',
+    width: '100%',
+    justifyContent: 'flex-start'
+  },
+  contained: {
+    boxShadow: '0 0 0 0'
+  },
+  label: {
+    fontWeight: 'bold',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '20px',
+      color: theme.colors.basicDisabledButtonColor
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '18px',
+      color: theme.palette.primary.main
+    }
+  }
+}))(Button)
 
 export const CustomOutlinedInput = withStyles(theme => ({
   root: {

@@ -8,7 +8,7 @@ import {
   CardActions,
   CardContent,
   Typography,
-  Box
+  Box, Grid, Divider
 } from '@mui/material'
 import { Button } from 'antd'
 import GlobalChip from '../form/Chip'
@@ -128,37 +128,41 @@ export const UsersCard = props => {
           className={classes.usersList}
         >
           {filterUser?.map((user, index) => (
-            <div
+            <Grid container
               key={user.lastName + '_' + index}
-              className={classes.itemDivider}
             >
-              <Box
-                display="flex"
-                flexDirection="column"
-                onClick={() => handleEditPanel(user)}
-                className={classes.lineItem}
-              >
-                <Typography
-                  classes={{ root: classes.userItem }}
+              <Grid item xs={12}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  onClick={() => handleEditPanel(user)}
+                  className={classes.lineItem}
                 >
-                  {user.firstName} {user.lastName}
-                </Typography>
-                <GlobalChip
-                  chips={[
-                    user.phone,
-                    adaptRoleName(user.role),
-                    roleOptions && user.roles && user.roles !== 'no_value'
-                      ? roleOptions[user.roles]
-                      : t('company_settings.mobile_only')
-                  ].filter(
-                    item => typeof item !== 'undefined' && item !== '' && item
-                  )}
-                  selected={new Set()}
-                  setSelected={() => {}}
-                  skipTranslate={true}
-                />
-              </Box>
-            </div>
+                  <Typography
+                    classes={{ root: classes.userItem }}
+                  >
+                    {user.firstName} {user.lastName}
+                  </Typography>
+                  <GlobalChip
+                    chips={[
+                      user.phone,
+                      adaptRoleName(user.role),
+                      roleOptions && user.roles && user.roles !== 'no_value'
+                        ? roleOptions[user.roles]
+                        : t('company_settings.mobile_only')
+                    ].filter(
+                      item => typeof item !== 'undefined' && item !== '' && item
+                    )}
+                    selected={new Set()}
+                    setSelected={() => {}}
+                    skipTranslate={true}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={11.7}>
+                <Divider/>
+              </Grid>
+            </Grid>
           ))}
         </Box>
       </CardContent>
@@ -176,7 +180,6 @@ export const UsersCard = props => {
           roles={roles}
           roleOptions={roleOptions}
           affiliateId={props.company.affiliate_id}
-          accountOwner={selectedUser.id === userStore.userInfo.id}
           mobile={props.mobile}
         />
       )}

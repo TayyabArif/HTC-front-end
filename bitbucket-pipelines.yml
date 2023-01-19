@@ -61,7 +61,7 @@ pipelines:
             - docker
           <<: *deployCodeScript
   tags:
-    '*':
+    '**':
       - <<: *unitTesting
       - step:
           name: Deploy to production environment

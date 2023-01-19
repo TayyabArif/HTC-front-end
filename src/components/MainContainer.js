@@ -41,7 +41,7 @@ export const MainContainer = props => {
           </Backdrop>
           <NavBar />
           <Box className={classes.navBarOffset}></Box>
-          <Box>{props.children}</Box>
+          <Box className={classes.contentBox}>{props.children}</Box>
         </Container>
       </Container>
     </div>
