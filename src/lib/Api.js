@@ -705,3 +705,20 @@ export const getLocations = async (clientId, page, limit, id, search, dateRange,
     city
   }))
 }
+
+/*
+ * GET Location Work Orders
+ * @returns Work Orders
+ */
+export const getLocationWorkOrders = async (id, limit, page, openDate, expirationDate, status, category, services, callType) => {
+  return await callAPI('GET', `sites/${id}/work-orders`, new URLSearchParams({
+    limit,
+    page,
+    open_date: openDate,
+    expiration_date: expirationDate,
+    status,
+    category,
+    services,
+    call_type: callType
+  }))
+}
