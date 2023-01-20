@@ -39,10 +39,17 @@ export const LocationInfoCard = (props) => {
     const splittedArray = []
     props.info?.opening_hours.forEach(element => {
       const splitted = element.split(': ')
-      splittedArray.push({
-        day: splitted[0],
-        period: splitted[1]
-      })
+      if (splitted.length === 2) {
+        splittedArray.push({
+          day: splitted[0],
+          period: splitted[1]
+        })
+      } else {
+        splittedArray.push({
+          day: '',
+          period: ''
+        })
+      }
     })
     return splittedArray.map((element, index) => <Typography key={index} className={classes.fieldContent}>{element.day}:</Typography>)
   }
@@ -51,10 +58,17 @@ export const LocationInfoCard = (props) => {
     const splittedArray = []
     props.info?.opening_hours.forEach(element => {
       const splitted = element.split(': ')
-      splittedArray.push({
-        day: splitted[0],
-        period: splitted[1]
-      })
+      if (splitted.length === 2) {
+        splittedArray.push({
+          day: splitted[0],
+          period: splitted[1]
+        })
+      } else {
+        splittedArray.push({
+          day: '',
+          period: ''
+        })
+      }
     })
     return splittedArray.map((element, index) => <Typography key={index} className={classes.fieldContent}>{element.period}</Typography>)
   }
