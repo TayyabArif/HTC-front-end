@@ -81,9 +81,12 @@ export const LocationInfoCard = (props) => {
             {props.info?.website && props.info?.website !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}>
                 <Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>
-                {props.info?.website.length > 50
-                  ? <div style={{ display: 'inline' }} >{expandUrl ? props.info?.website : props.info?.website.slice(0, 45) + '...'}<Typography display="inline" className={classes.moreHours} onClick={() => setExpandUrl(!expandUrl)} >&nbsp;{expandUrl ? t('locations.info_card.show_less') : t('locations.info_card.show_more')}</Typography></div>
-                  : props.info?.website}
+                  {props.info?.website.length > 50
+                    ? <div className={classes.urlDiv} >
+                      {expandUrl ? props.info?.website : props.info?.website.slice(0, 45) + '...'}
+                      <Typography display="inline" className={classes.moreHours} onClick={() => setExpandUrl(!expandUrl)} >&nbsp;{expandUrl ? t('locations.info_card.show_less') : t('locations.info_card.show_more')}</Typography>
+                    </div>
+                    : props.info?.website}
               </Typography>
             </Box>}
           </CardContent>
