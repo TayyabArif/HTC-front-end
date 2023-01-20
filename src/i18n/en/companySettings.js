@@ -3,6 +3,7 @@ export const companySettings = () => {
     title: 'Company Settings',
     compliant: 'COMPLIANT',
     mobile_only: 'Mobile Only',
+    view_only: 'View Only',
     missing: 'Missing',
     upload_logo: 'Upload Company Logo',
     info_card: {
@@ -39,8 +40,9 @@ export const companySettings = () => {
       delete_users: 'Delete Users',
       wo_view: 'View Work Orders',
       workorders: 'Work Orders',
+      proposals: 'Proposals',
       invoices: 'Invoices',
-      company_settings: 'Company Profile',
+      company_settings: 'Settings',
       sites: 'Sites',
       no_portal_access: 'No Portal Access',
       manage_access: 'Manage Access',

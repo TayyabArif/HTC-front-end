@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { Menu, MenuItem } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Sort as SortIcon } from '@mui/icons-material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSort } from '@fortawesome/free-solid-svg-icons'
 import { sortMenuStyles } from '../../styles/classes/WorkOrdersClasses'
 
 const sortStyle = {
@@ -88,8 +86,6 @@ export const SortMenu = props => {
             : props.id === 'duedate' || props.id === 'opendate'
               ? t('work_orders.oldest')
               : 'A'}{' '}
-          :{''}
-          <FontAwesomeIcon icon={faSort} />
         </MenuItem>
         <MenuItem
           onClick={() => handleSelect('asc_sort', 'desc_sort')}
@@ -107,7 +103,6 @@ export const SortMenu = props => {
             : props.id === 'duedate' || props.id === 'opendate'
               ? t('work_orders.newest')
               : 'Z'}{' '}
-          : <FontAwesomeIcon icon={faSort} />
         </MenuItem>
         {props.values.asc_sort === props.id ||
         props.values.desc_sort === props.id
