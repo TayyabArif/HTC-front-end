@@ -1096,5 +1096,8 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
   },
   urlDiv: {
     display: 'inline'
+  },
+  rangesDiv: {
+    margin: '0px 5px'
   }
 }))

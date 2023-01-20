@@ -35,6 +35,30 @@ export const LocationInfoCard = (props) => {
     }
   }
 
+  const openingDaysComp = () => {
+    const splittedArray = []
+    props.info?.opening_hours.forEach(element => {
+      const splitted = element.split(': ')
+      splittedArray.push({
+        day: splitted[0],
+        period: splitted[1]
+      })
+    })
+    return splittedArray.map((element, index) => <Typography key={index} className={classes.fieldContent}>{element.day}:</Typography>)
+  }
+
+  const openingRangeComp = () => {
+    const splittedArray = []
+    props.info?.opening_hours.forEach(element => {
+      const splitted = element.split(': ')
+      splittedArray.push({
+        day: splitted[0],
+        period: splitted[1]
+      })
+    })
+    return splittedArray.map((element, index) => <Typography key={index} className={classes.fieldContent}>{element.period}</Typography>)
+  }
+
   return (
     <Box marginLeft="10px" position="relative" hidden={!locationsStore.showSiteViewPanel}>
       <Card className={classes.mainCard}>
@@ -69,7 +93,9 @@ export const LocationInfoCard = (props) => {
             </Box>}
             {props.info?.opening_hours && props.info?.opening_hours.length !== 0 && <Box mb="6px" display="flex">
               <Typography className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>
-              <div>{expandHours ? props.info?.opening_hours.map((element, index) => <Typography key={index} className={classes.fieldContent}>{element}</Typography>) : <Typography className={classes.fieldContent}>{openingHoursPrev()}</Typography>}</div>
+              {expandHours && <div>{openingDaysComp()}</div>}
+              {expandHours && <div className={classes.rangesDiv} >{openingRangeComp()}</div>}
+              {!expandHours && <Typography className={classes.fieldContent}>{openingHoursPrev()}</Typography>}
               <Typography display="inline" className={classes.moreHours} onClick={() => setExpandHours(!expandHours)} >&nbsp;{expandHours ? t('locations.info_card.less_hours') : t('locations.info_card.more_hours')}</Typography>
             </Box>}
             {props.info?.departments && props.info?.departments !== '' && <Box mb="6px" display="flex">
