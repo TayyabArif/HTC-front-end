@@ -97,7 +97,11 @@ export const locations = () => {
       departments: 'Departments',
       phone: 'Phone',
       order: 'Order',
-      more_hours: 'More hours'
+      more_hours: 'More hours',
+      less_hours: 'Less hours',
+      show_more: 'Show all',
+      show_less: 'Show less',
+      photos: 'Photos'
     }
   }
 }

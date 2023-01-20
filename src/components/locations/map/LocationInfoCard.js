@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 // Components
@@ -12,30 +12,6 @@ import { useSelector } from 'react-redux'
 // Styles
 import { locationInfoCardStyles } from '../../../styles/classes/LocationsClasses'
 
-// hardcoded photos
-/* const photosData = [
-  {
-    img: 'https://www.investopedia.com/thmb/6tBnqfHCJ_GHn_kcw6jGf2tMPDE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Walmart_exterior-8db53b3ec5c442f0a343fe01e6640090.jpg',
-    title: 'Store 1'
-  },
-  {
-    img: 'https://www.big-box.com/wp-content/uploads/2017/02/big-box-store-aisle-300x200.jpg',
-    title: 'Store 2'
-  },
-  {
-    img: 'https://s3-prod.chicagobusiness.com/carsons_0.jpg',
-    title: 'Store 3'
-  },
-  {
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/PknMitre10MEGAinterior.JPG/140px-PknMitre10MEGAinterior.JPG',
-    title: 'Store 4'
-  },
-  {
-    img: 'https://www.joneslanglasalle.com.cn/images/apac/articles/jll-why-bigbox-retail-stores-are-turning-into-warehouses-social-1200x628.jpg',
-    title: 'Store 5'
-  }
-] */
-
 export const LocationInfoCard = (props) => {
   const classes = locationInfoCardStyles()
   const { t } = useTranslation()
@@ -43,6 +19,12 @@ export const LocationInfoCard = (props) => {
   const locationsStore = useSelector((state) => state.locations)
   const selectedSite = useSelector((state) => state.locations.selectedSite)
   const [expandHours, setExpandHours] = useState(false)
+  const [expandUrl, setExpandUrl] = useState(false)
+  const [rating, setRating] = useState(0)
+
+  useEffect(() => {
+    setRating(props.info?.rating)
+  }, [props.info?.rating])
 
   const openingHoursPrev = () => {
     if (props.info && props.info.opening_hours && props.info.opening_hours.length > 1) {
@@ -54,44 +36,59 @@ export const LocationInfoCard = (props) => {
   }
 
   return (
-  <Box marginLeft="10px" position="relative" hidden={!locationsStore.showSiteViewPanel}>
+    <Box marginLeft="10px" position="relative" hidden={!locationsStore.showSiteViewPanel}>
       <Card className={classes.mainCard}>
         <Box display="flex">
-            <Typography className={classes.nameLabel} >{selectedSite?.name}</Typography>
-            {!expanded
-              ? <ArrowDropDownRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)}/>
-              : <ArrowDropUpRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)}/>}
+          <Typography className={classes.nameLabel} >{selectedSite?.name}</Typography>
+          {!expanded
+            ? <ArrowDropDownRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />
+            : <ArrowDropUpRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />}
         </Box>
         <Box display="flex">
-            <Typography className={classes.ratingLabel} >{props.info?.rating}</Typography>
-            <Rating classes={{ root: classes.rating }} className={classes.rating} size='small' value={props.info?.rating} readOnly />
-            <Typography className={classes.ratingLabel} >{`(${props.info?.user_ratings_total})`}</Typography>
+          <Typography className={classes.ratingLabel} >{rating}</Typography>
+          <Rating
+            classes={{ root: classes.rating }}
+            size='small'
+            value={rating}
+            readOnly
+            precision={0.5}
+            max={5}
+            name="unique-rating"
+          />
+          <Typography className={classes.ratingLabel} >{`(${props.info?.user_ratings_total})`}</Typography>
         </Box>
         <Typography className={classes.locationDescription}>{`$ - ${props.info?.name}`}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent className={classes.cardContent}>
-            <PhotoList photos={props.info?.photos ?? []} url={props.info?.url}/>
-            <Box mb="6px" display="flex">
+            <PhotoList photos={props.info?.photos ?? []} url={props.info?.url} />
+            {props.info?.located_in && props.info?.located_in !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info?.located_in}</Typography>
-            </Box>
-            <Box mb="6px" display="flex">
+            </Box>}
+            {props.info?.address && props.info?.address !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{props.info?.address}</Typography>
-            </Box>
-            <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>{expandHours ? props.info?.opening_hours.map(element => `${element}, `) : openingHoursPrev()}<Typography display="inline" className={classes.moreHours} onClick={() => setExpandHours(!expandHours)} >&nbsp;{t('locations.info_card.more_hours')}</Typography></Typography>
-            </Box>
-            <Box mb="6px" display="flex">
+            </Box>}
+            {props.info?.opening_hours && props.info?.opening_hours.length !== 0 && <Box mb="6px" display="flex">
+              <Typography className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>
+              <div>{expandHours ? props.info?.opening_hours.map((element, index) => <Typography key={index} className={classes.fieldContent}>{element}</Typography>) : <Typography className={classes.fieldContent}>{openingHoursPrev()}</Typography>}</div>
+              <Typography display="inline" className={classes.moreHours} onClick={() => setExpandHours(!expandHours)} >&nbsp;{expandHours ? t('locations.info_card.less_hours') : t('locations.info_card.more_hours')}</Typography>
+            </Box>}
+            {props.info?.departments && props.info?.departments !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{props.info?.departments}</Typography>
-            </Box>
-            <Box mb="6px" display="flex">
+            </Box>}
+            {props.info?.phone_number && props.info?.phone_number !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{props.info?.phone_number}</Typography>
-            </Box>
-            <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>{props.info?.website}</Typography>
-            </Box>
+            </Box>}
+            {props.info?.website && props.info?.website !== '' && <Box mb="6px" display="flex">
+              <Typography className={classes.fieldContent}>
+                <Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>
+                {props.info?.website.length > 50
+                  ? <div style={{ display: 'inline' }} >{expandUrl ? props.info?.website : props.info?.website.slice(0, 45) + '...'}<Typography display="inline" className={classes.moreHours} onClick={() => setExpandUrl(!expandUrl)} >&nbsp;{expandUrl ? t('locations.info_card.show_less') : t('locations.info_card.show_more')}</Typography></div>
+                  : props.info?.website}
+              </Typography>
+            </Box>}
           </CardContent>
-      </Collapse>
+        </Collapse>
       </Card>
-  </Box>
+    </Box>
   )
 }
