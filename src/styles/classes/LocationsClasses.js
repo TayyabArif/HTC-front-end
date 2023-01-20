@@ -385,6 +385,7 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     }
   },
   infoSiteWindow: {
+    minWidth: '220px',
     width: 'auto',
     minHeight: 70,
     cursor: 'pointer',
