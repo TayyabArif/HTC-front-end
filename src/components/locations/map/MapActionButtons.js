@@ -4,7 +4,7 @@ import ReactGA from 'react-ga4'
 
 /** Material UI **/
 import { Menu as MenuIcon, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
-import { Box, Menu, MenuItem, Typography, Badge } from '@mui/material'
+import { Box, Menu, MenuItem, Typography, Badge, useTheme } from '@mui/material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
 // Icons
@@ -27,6 +27,7 @@ import { MapFilters } from './MapFilters'
 
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
+  const theme = useTheme()
   const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
   const [anchorMOEl, setAnchorMOEl] = useState(null)
@@ -566,7 +567,7 @@ export const MapActionButtons = (props) => {
       <Box hidden={locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleFiltersOpen}>
           <Badge color="error" variant="dot" invisible={invisibleBadge} className={classes.badge}>
-            <MapFilterIcon color={isMenuFiltersOpen ? '#2F80ED' : '#333333'} marginTop="10px" />
+            <MapFilterIcon color={isMenuFiltersOpen ? theme.colors.iconBlue : theme.colors.text} marginTop="10px" />
           </Badge>
         </MapButton>
         <MapFilters
@@ -579,7 +580,7 @@ export const MapActionButtons = (props) => {
       </Box>
       <Box pb={2} pr={2}>
         <MapButton onClick={handleWeatherMenuOpen}>
-          <MapWeatherIcon color={isMenuWeatherOpen ? '#2F80ED' : '#333333'}/>
+          <MapWeatherIcon color={isMenuWeatherOpen ? theme.colors.iconBlue : theme.colors.text}/>
         </MapButton>
         <Menu
           open={isMenuWeatherOpen}
@@ -625,7 +626,7 @@ export const MapActionButtons = (props) => {
 
       <Box pb={2} pr={2}>
         <MapButton onClick={handleMapOptionsMenuOpen}>
-          <MapLayersIcon color={isMenuMapOptionsOpen ? '#2F80ED' : '#333333'}/>
+          <MapLayersIcon color={isMenuMapOptionsOpen ? theme.colors.iconBlue : theme.colors.text}/>
         </MapButton>
 
         <Menu

@@ -29,8 +29,8 @@ export const WorkOrderCard = (props) => {
   const classes = woCardStyles(styleProps)
 
   const handleClickWo = () => {
-    console.log(props.info)
-    /* dispatch(locationsActions.showMapSiteView({
+    /* TODO: uncomment when connected:
+    dispatch(locationsActions.showMapSiteView({
       coordinates: props.info.coordinates,
       zoom: 19,
       hideMarkers: true,

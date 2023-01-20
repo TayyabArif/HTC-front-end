@@ -151,7 +151,7 @@ export const locationsStyles = makeStyles((theme) => ({
     fontSize: '14px',
     color: theme.colors.gray,
     textTransform: 'none',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: theme.colors.signInButton.background,
     fontWeight: '400'
   },
   tab: {
@@ -164,12 +164,12 @@ export const locationsStyles = makeStyles((theme) => ({
     fontSize: '14px',
     color: theme.colors.gray,
     textTransform: 'none',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: theme.colors.signInButton.background,
     fontWeight: '400',
     marginRight: '230px' // TODO: remove when the rest of tabs appear
   },
   tabs: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: theme.colors.signInButton.background,
     minHeight: 20,
     maxHeight: '34px',
     height: '40px',
@@ -189,7 +189,7 @@ export const locationsStyles = makeStyles((theme) => ({
     }
   },
   appBar: {
-    backgroundColor: '#F2F2F2'
+    backgroundColor: theme.colors.signInButton.background
   },
   iconButton: {
     height: '35px',
@@ -427,7 +427,7 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     width: 32,
     height: 32,
     display: 'flex',
-    color: '#828282',
+    color: theme.colors.textButton,
     marginTop: '60%',
     cursor: 'pointer'
   },
@@ -568,6 +568,11 @@ export const mapCountersStyles = makeStyles((theme) => ({
   },
   font12: {
     fontSize: 12,
+    fontWeight: 500,
+    whiteSpace: 'nowrap'
+  },
+  font14: {
+    fontSize: 14,
     fontWeight: 500,
     whiteSpace: 'nowrap'
   },
@@ -788,11 +793,19 @@ export const mapFiltersStyles = makeStyles((theme) => ({
       height: '20px'
     }
   },
-  mainItem: {
+  filterLabel: {
     fontSize: '12px',
     '&:focus': {
       backgroundColor: 'unset'
-    }
+    },
+    padding: '8px 8px 4px 8px'
+  },
+  filterDrop: {
+    fontSize: '12px',
+    '&:focus': {
+      backgroundColor: 'unset'
+    },
+    padding: '0px 8px 8px 8px'
   },
   menuItem: {
     fontSize: '12px',
@@ -968,7 +981,7 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
 
 export const woCardStyles = makeStyles((theme) => ({
   serviceNameDiv: {
-    backgroundColor: '#2B78E4',
+    backgroundColor: theme.colors.divBack,
     width: '24px',
     marginRight: '4px',
     borderBottomLeftRadius: '5px'
@@ -1035,7 +1048,7 @@ export const woCardStyles = makeStyles((theme) => ({
   woStatus: {
     fontSize: '13px',
     fontWeight: '600',
-    color: '#605D5D',
+    color: theme.colors.statusLabel,
     margin: '8px 0px 21px 0px',
     textAlign: 'end'
   },
@@ -1053,7 +1066,7 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
     fontWeight: '500'
   },
   mainCard: {
-    width: '515px',
+    width: '560px',
     padding: '16px'
   },
   ratingLabel: {
