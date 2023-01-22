@@ -527,6 +527,7 @@ export const UpdateAccountInfo = props => {
                       endAdornment={true}
                       {...register('password')}
                       InputLabelProps={{ required: true }}
+                      autoComplete="new-password"
                     />
                   </Grid>
                 </Grid>
