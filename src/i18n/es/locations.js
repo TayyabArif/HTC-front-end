@@ -32,6 +32,7 @@ export const locations = () => {
       type: 'Tipo',
       service: 'Servicio',
       reset: 'Limpiar',
+      no_type: 'Órden sin Tipo',
       sort_options: {
         work_order_new: 'Orden de Trabajo (Recientes)',
         work_order_old: 'Orden de Trabajo (Antiguas)',

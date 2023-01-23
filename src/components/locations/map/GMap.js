@@ -52,10 +52,6 @@ export const GMap = (props) => {
     setEnableCluster(locationsStore.activeTab === 'all_sites')
   }, [locationsStore.activeTab])
 
-  useEffect(() => {
-    console.log(props.siteListing)
-  }, [props.siteListing])
-
   const handlerSearchBtnClick = () => {
     props.setHideLeftSection(!props.hideLeftSection)
   }
@@ -190,7 +186,6 @@ export const GMap = (props) => {
                       return null
                     }
                   } else {
-                    console.log('else!')
                     return <OnlyMarker
                       key={index}
                       index={site.id}

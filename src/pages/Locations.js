@@ -19,7 +19,7 @@ import { SiteSortMenu } from '../components/locations/SiteSortMenu'
 import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
 
 /** Services **/
-import { getLocations, callLocationApi } from '../services/ApiService'
+import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo/* , getLocationCallTypes */ } from '../services/ApiService'
 
 // Constants
 import { useWindowWidth } from '@react-hook/window-size'
@@ -615,6 +615,17 @@ const Locations = () => {
       })
       dispatch(locationsActions.setStatesOptions(finalStates))
     }
+    const filters = await getSitesAdvancedFiltersInfo()
+    /* const callTypes = await getLocationCallTypes('id')
+    console.log(callTypes) */
+    filters.trades.forEach(trade => {
+      trade.id = trade.name
+    })
+    filters.services.forEach(service => {
+      service.id = service.name
+    })
+    dispatch(locationsActions.setTradesOptions([{ id: 'all' }, ...filters.trades]))
+    dispatch(locationsActions.setServicesOptions([{ id: 'all' }, ...filters.services]))
   }
 
   const dateOptions = [

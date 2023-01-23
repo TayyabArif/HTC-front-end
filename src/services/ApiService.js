@@ -610,10 +610,22 @@ export const getLocations = async (clientId, page, limit, id, search, dateRange,
   }
 }
 
-export const getLocationWorkOrders = async (id, limit, page, openDate, expirationDate, status, category, services, callType) => {
+export const getLocationWorkOrders = async (id, search, limit, page, openDate, expirationDate, status, category, services, callType, sortBy) => {
   store.dispatch(loadingActions.show())
   try {
-    const response = await Api.getLocationWorkOrders(id, limit, page, openDate, expirationDate, status, category, services, callType)
+    const response = await Api.getLocationWorkOrders(id, search, limit, page, openDate, expirationDate, status, category, services, callType, sortBy)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getLocationCallTypes = async (siteId) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocationCallTypes(siteId)
     store.dispatch(loadingActions.hide())
     return response
   } catch (err) {

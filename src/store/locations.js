@@ -27,12 +27,14 @@ const initialState = {
     startDate: '',
     endDate: '',
     status: 'all',
-    trade: 'All',
-    type: 'All',
-    service: 'All',
+    trade: 'all',
+    type: 'all',
+    service: 'all',
     sortBy: 'none'
   },
   statesOptions: [],
+  tradeOptions: [],
+  serviceOptions: [],
   selectedSite: null,
   workOrders: null,
   workOrdersMeta: null,
@@ -124,6 +126,12 @@ const slice = createSlice({
     },
     setStatesOptions (state, action) {
       state.statesOptions = action.payload
+    },
+    setTradesOptions (state, action) {
+      state.tradeOptions = action.payload
+    },
+    setServicesOptions (state, action) {
+      state.serviceOptions = action.payload
     }
   }
 })

@@ -68,12 +68,12 @@ function EnhancedTableHead (props) {
   const { t } = useTranslation()
 
   const tradesOptions =
-    filtersCatalog.trades.length &&
+    filtersCatalog.trades?.length &&
     filtersCatalog.trades.map(item => {
       return { label: titleCase(item.name), value: item.name }
     })
   const servicesOptions =
-    filtersCatalog.services.length &&
+    filtersCatalog.services?.length &&
     filtersCatalog.services.map(item => {
       return { label: titleCase(item.name), value: item.name }
     })

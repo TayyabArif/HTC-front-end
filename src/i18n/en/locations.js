@@ -32,9 +32,10 @@ export const locations = () => {
       type: 'Type',
       service: 'Service',
       reset: 'Reset',
+      no_type: 'No WO Type',
       sort_options: {
-        work_order_new: 'Work Order (Newest)',
-        work_order_old: 'Work Order (Oldest)',
+        work_order_a: 'Work Order (Newest)',
+        work_order_z: 'Work Order (Oldest)',
         status_a: 'Status (A - Z)',
         status_z: 'Status (Z - A)',
         priority_a: 'Priority (A - Z)',

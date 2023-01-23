@@ -992,7 +992,11 @@ export const woCardStyles = makeStyles((theme) => ({
     fontSize: '10px',
     fontWeight: '700',
     color: 'white',
-    marginTop: '8px'
+    marginTop: '8px',
+    width: '120px',
+    position: 'absolute',
+    top: '55px',
+    left: '-40px'
   },
   woNumber: {
     fontSize: 16,

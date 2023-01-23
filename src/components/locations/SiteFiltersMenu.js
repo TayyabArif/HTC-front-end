@@ -25,35 +25,6 @@ import { muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButto
 const moment = require('moment')
 
 // hardcoded options
-const mapTradeOptions = [
-  {
-    id: 'All'
-  },
-  {
-    id: 'Hvac'
-  },
-  {
-    id: 'Land'
-  },
-  {
-    id: 'Special'
-  },
-  {
-    id: 'Snow'
-  },
-  {
-    id: 'Irrigation'
-  },
-  {
-    id: 'Sweep'
-  },
-  {
-    id: 'Pre-season Inspection'
-  },
-  {
-    id: 'Atmosphere Inspection'
-  }
-]
 const mapTypeOptions = [
   {
     id: 'All'
@@ -69,32 +40,6 @@ const mapTypeOptions = [
   },
   {
     id: 'Complaint'
-  }
-]
-const mapServiceOptions = [
-  {
-    id: 'All'
-  },
-  {
-    id: 'Snow Removal'
-  },
-  {
-    id: 'Pruning'
-  },
-  {
-    id: 'Winterization'
-  },
-  {
-    id: 'Penguin Boarding'
-  },
-  {
-    id: 'Landscape Maintenance'
-  },
-  {
-    id: 'Wet Check'
-  },
-  {
-    id: 'Plumbing'
   }
 ]
 
@@ -453,7 +398,7 @@ export const SiteFiltersMenu = (props) => {
     <Box key="trade" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.trade')}</Typography></Box>
     <Box key="trade_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleTradeOpen}>
-        <Typography className={classes.dateLabel} >{trade}</Typography>
+        <Typography className={classes.dateLabel} >{trade === 'all' ? t('work_orders.wo_states.all_label') : trade}</Typography>
         {isMenuTradeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -470,9 +415,9 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapTradeOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeTrade(option.id)} className={classes.menuItem}>
+        {locationsStore.tradeOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeTrade(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
-            {option.id}
+            {option.id === 'all' ? t('work_orders.wo_states.all_label') : option.id}
           </Typography>
           {option.id === trade && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}
@@ -509,7 +454,7 @@ export const SiteFiltersMenu = (props) => {
     <Box key="service" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.service')}</Typography></Box>
     <Box key="service_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleServiceOpen}>
-        <Typography className={classes.dateLabel} >{service}</Typography>
+        <Typography className={classes.dateLabel} >{service === 'all' ? t('work_orders.wo_states.all_label') : service}</Typography>
         {isMenuServiceOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -526,9 +471,9 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapServiceOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeService(option.id)} className={classes.menuItem}>
+        {locationsStore.serviceOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeService(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
-            {option.id}
+            {option.id === 'all' ? t('work_orders.wo_states.all_label') : option.id}
           </Typography>
           {option.id === service && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}

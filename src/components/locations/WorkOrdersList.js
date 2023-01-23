@@ -40,15 +40,11 @@ export const WorkOrdersList = (props) => {
     return () => {
       clearTimeout(timer1)
     }
-  }, [page, userStore.clientId, searchValue, locationsStore.woListFilters])
+  }, [page, userStore.clientId, searchValue, locationsStore.woListFilters, locationsStore.selectedSite, locationsStore.showSiteViewPanel])
 
   useEffect(() => {
     setPage(1)
   }, [searchValue, locationsStore.locationFilters])
-
-  useEffect(() => {
-    // handleGetCatalogs()
-  }, [])
 
   const handleGetWorkOrders = async () => {
     try {
@@ -56,19 +52,20 @@ export const WorkOrdersList = (props) => {
         const filters = locationsStore.woListFilters
         const response = await getLocationWorkOrders(
           locationsStore.selectedSite.id,
+          searchValue,
           locationsPerPage,
           page,
           filters.startDate,
           filters.endDate,
-          filters.status,
-          filters.trade,
-          filters.service,
-          filters.type,
-          searchValue)
+          filters.status === 'all' ? '' : filters.status,
+          filters.trade === 'all' ? '' : filters.trade,
+          filters.service === 'all' ? '' : filters.service,
+          filters.type === 'all' ? '' : filters.type,
+          filters.sortBy === 'none' ? '' : filters.sortBy)
         if (page === 1) {
-          setWorkOrders(response.workOrders)
+          setWorkOrders(response.work_orders)
         } else {
-          setWorkOrders(prevList => [...prevList, ...response.workOrders])
+          setWorkOrders(prevList => [...prevList, ...response.work_orders])
         }
       }
     } catch (err) {

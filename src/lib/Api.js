@@ -710,8 +710,9 @@ export const getLocations = async (clientId, page, limit, id, search, dateRange,
  * GET Location Work Orders
  * @returns Work Orders
  */
-export const getLocationWorkOrders = async (id, limit, page, openDate, expirationDate, status, category, services, callType) => {
+export const getLocationWorkOrders = async (id, search, limit, page, openDate, expirationDate, status, category, services, callType, sortBy) => {
   return await callAPI('GET', `sites/${id}/work-orders`, new URLSearchParams({
+    search,
     limit,
     page,
     open_date: openDate,
@@ -719,6 +720,22 @@ export const getLocationWorkOrders = async (id, limit, page, openDate, expiratio
     status,
     category,
     services,
-    call_type: callType
+    call_type: callType,
+    sort_by: sortBy
   }))
+}
+
+/**
+ * GET Trades list for current user
+ * @returns Trades list
+ */
+export const getLocationCallTypes = async (siteId) => {
+  try {
+    const response = await callAPI('GET', '/sites/call_types', new URLSearchParams({
+      site_id: siteId
+    }))
+    return response
+  } catch {
+    return false
+  }
 }
