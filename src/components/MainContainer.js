@@ -8,6 +8,7 @@ import {
   Container,
   CssBaseline
 } from '@mui/material'
+import clsx from 'clsx'
 
 /** Components **/
 import { NavBar } from './NavBar'
@@ -35,7 +36,7 @@ export const MainContainer = props => {
           minWidth: isMobile ? 'unset' : wWidth > 800 ? '800px' : '1440px'
         }}
       >
-        <Container className={classes.container}>
+        <Container className={window.location.pathname.includes('/work-orders') ? clsx(classes.container, classes.containerScrollHidden) : classes.container}>
           <Backdrop className={classes.backdrop} open={loading}>
             <CircularProgress color="inherit" />
           </Backdrop>
