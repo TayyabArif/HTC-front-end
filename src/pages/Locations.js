@@ -50,7 +50,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 )
 
 // hardcoded data
-const workOrdersData = {
+/* const workOrdersData = {
   meta: {
     current_page: 1,
     next_page: 2,
@@ -500,7 +500,7 @@ const workOrdersData = {
       priority: 'Low'
     }
   ]
-}
+} */
 
 function a11yProps (index) {
   return {
@@ -570,25 +570,27 @@ const Locations = () => {
 
   const handleGetLocations = async () => {
     try {
-      const filters = locationsStore.locationFilters
-      const response = await getLocations(
-        /* userStore.clientId, */
-        '6387d20204d14b5d5eb80eb9',
-        page,
-        locationsPerPage,
-        null,
-        searchValue,
-        filters.dateRange,
-        filters.dateFrom,
-        filters.dateTo,
-        filters.status === 'all' ? '' : filters.status,
-        filters.state === 'all' ? '' : filters.state,
-        filters.city === 'all' ? '' : filters.city)
-      setSitesResponse(response)
-      if (page === 1) {
-        setSiteListing(response.sites)
-      } else {
-        setSiteListing(prevList => [...prevList, ...response.sites])
+      if (!locationsStore.showSiteViewPanel && !locationsStore.selectedSite) {
+        const filters = locationsStore.locationFilters
+        const response = await getLocations(
+          /* userStore.clientId, */
+          '6387d20204d14b5d5eb80eb9',
+          page,
+          locationsPerPage,
+          null,
+          searchValue,
+          filters.dateRange,
+          filters.dateFrom,
+          filters.dateTo,
+          filters.status === 'all' ? '' : filters.status,
+          filters.state === 'all' ? '' : filters.state,
+          filters.city === 'all' ? '' : filters.city)
+        setSitesResponse(response)
+        if (page === 1) {
+          setSiteListing(response.sites)
+        } else {
+          setSiteListing(prevList => [...prevList, ...response.sites])
+        }
       }
     } catch (err) {
       console.error(err)
@@ -696,7 +698,7 @@ const Locations = () => {
           />
           <IconButton onClick={handleFiltersOpen} className={classes.iconButton}>
             <Badge color="error" variant="dot" invisible={invisibleFilterBadge} classes={{ root: classes.badge }}>
-              <MapFilterIcon color={isFiltersMenuOpen ? '#2F80ED' : '#333333'}/>
+              <MapFilterIcon color={isFiltersMenuOpen ? '#2F80ED' : '#333333'} />
             </Badge>
           </IconButton>
           <SiteFiltersMenu
@@ -708,7 +710,7 @@ const Locations = () => {
         </Tabs>
       </AppBar>
       <TabPanel classes={{ root: classes.tabPanel }} index="/work-orders" value={tabValue}>
-        <WorkOrdersList workOrders={workOrdersData?.work_orders ?? []} />
+        <WorkOrdersList searchValue={searchValue} />
       </TabPanel>
       <TabPanel classes={{ root: classes.tabPanel }} index="/proposals" value={tabValue}>
         { }
