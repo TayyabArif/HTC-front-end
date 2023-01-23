@@ -103,7 +103,7 @@ export const locations = () => {
       show_less: 'Mostrar menos',
       photos: 'Fotos',
       no_data: 'No existe información desde Google para esta locación',
-      no_data_content: 'Información desde Google acerca de una locación puede ocurrir por varias razones. ie. Locaciones recientemente añadidas las cuales no cuentan con una edificación. Por favor comuníquese con el administrador si este mensaje se ha presentado.'
+      no_data_content: 'Los datos de búsqueda de Google inexistentes para una dirección pueden ocurrir por diferentes razones. Por ejemplo en el caso de locaciones recientemente añadidas las cuales no cuentan con una edificación. Por favor comuníquese con el administrador si este mensaje se ha presentado.'
     }
   }
 }
