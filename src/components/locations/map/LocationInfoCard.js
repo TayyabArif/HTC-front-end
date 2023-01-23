@@ -82,7 +82,7 @@ export const LocationInfoCard = (props) => {
             ? <ArrowDropDownRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />
             : <ArrowDropUpRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />}
         </Box>
-        <Box display="flex">
+        {props.info && <Box display="flex">
           <Typography className={classes.ratingLabel} >{rating}</Typography>
           <Rating
             classes={{ root: classes.rating }}
@@ -94,10 +94,10 @@ export const LocationInfoCard = (props) => {
             name="unique-rating"
           />
           <Typography className={classes.ratingLabel} >{`(${props.info?.user_ratings_total})`}</Typography>
-        </Box>
-        <Typography className={classes.locationDescription}>{`$ - ${props.info?.name}`}</Typography>
+        </Box>}
+        <Typography className={classes.locationDescription}>{props.info ? `$ - ${props.info?.name}` : t('locations.info_card.no_data')}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent className={classes.cardContent}>
+          {props.info && <CardContent className={classes.cardContent}>
             <PhotoList photos={props.info?.photos ?? []} url={props.info?.url} />
             {props.info?.located_in && props.info?.located_in !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info?.located_in}</Typography>
@@ -129,7 +129,10 @@ export const LocationInfoCard = (props) => {
                     : props.info?.website}
               </Typography>
             </Box>}
-          </CardContent>
+          </CardContent>}
+          {!props.info && <CardContent className={classes.cardNoContent}>
+            <Typography className={classes.ratingLabel} >{t('locations.info_card.no_data_content')}</Typography>
+          </CardContent>}
         </Collapse>
       </Card>
     </Box>

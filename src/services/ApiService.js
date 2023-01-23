@@ -568,9 +568,9 @@ export const getLocationInfo = async id => {
   try {
     const response = await Api.getLocationInfo(id)
     store.dispatch(loadingActions.hide())
-    return response
+    return { status: true, content: response }
   } catch (err) {
     store.dispatch(loadingActions.hide())
-    throw err
+    return { status: false, content: err }
   }
 }

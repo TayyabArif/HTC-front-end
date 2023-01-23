@@ -50,8 +50,12 @@ export const MapActionButtons = (props) => {
 
   const getGoogleLocation = async () => {
     if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
-      const response = await getLocationInfo(/* locationsStore.selectedSite.id */ '61eef1549a1f46b00c89b0cc')
-      setLocationInfo(response)
+      const response = await getLocationInfo(locationsStore.selectedSite.id)
+      if (response.status) {
+        setLocationInfo(response.content)
+      } else {
+        setLocationInfo(null)
+      }
     }
   }
 

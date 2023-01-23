@@ -1077,6 +1077,11 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
     marginTop: '10px',
     padding: '0 !important'
   },
+  cardNoContent: {
+    marginTop: '30px',
+    padding: '0 !important',
+    textAlign: 'center'
+  },
   moreHours: {
     fontSize: '14px',
     fontWeight: '600',

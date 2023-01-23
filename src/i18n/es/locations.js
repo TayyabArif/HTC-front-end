@@ -101,7 +101,9 @@ export const locations = () => {
       less_hours: 'Menos horas',
       show_more: 'Mostrar todo',
       show_less: 'Mostrar menos',
-      photos: 'Fotos'
+      photos: 'Fotos',
+      no_data: 'No existe información desde Google para esta locación',
+      no_data_content: 'Información desde Google acerca de una locación puede ocurrir por varias razones. ie. Locaciones recientemente añadidas las cuales no cuentan con una edificación. Por favor comuníquese con el administrador si este mensaje se ha presentado.'
     }
   }
 }
