@@ -66,7 +66,7 @@ export const GMap = (props) => {
       return (<LoadScript
         id={props.screen + '-map'}
         key={props.screen + '-map'}
-        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
       >
         <GoogleMap
           id={props.screen + '-map'}

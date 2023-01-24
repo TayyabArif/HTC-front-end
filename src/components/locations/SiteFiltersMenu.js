@@ -20,65 +20,58 @@ import { mapStatusOptions } from '../../lib/Constants'
 
 /** Styles **/
 import { mapFiltersStyles } from '../../styles/classes/LocationsClasses'
-import { muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle } from '../../styles/mui_custom_theme'
+import { muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle, calendarTitleStyle } from '../../styles/mui_custom_theme'
 
 const moment = require('moment')
-
-// hardcoded options
-const mapTypeOptions = [
-  {
-    id: 'All'
-  },
-  {
-    id: 'Maintenance'
-  },
-  {
-    id: 'Enhancement'
-  },
-  {
-    id: 'Seasonal'
-  },
-  {
-    id: 'Complaint'
-  }
-]
 
 export const SiteFiltersMenu = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const locationsStore = useSelector(state => state.locations)
-  const [anchorStart, setAnchorStart] = useState(null)
-  const isMenuStartOpen = Boolean(anchorStart)
-  const [anchorEnd, setAnchorEnd] = useState(null)
-  const isMenuEndOpen = Boolean(anchorEnd)
   const [anchorStatus, setAnchorStatus] = useState(null)
   const isMenuStatusOpen = Boolean(anchorStatus)
   const [status, setStatus] = useState('all')
   const [anchorTrade, setAnchorTrade] = useState(null)
   const isMenuTradeOpen = Boolean(anchorTrade)
-  const [trade, setTrade] = useState('All')
+  const [trade, setTrade] = useState('all')
   const [anchorType, setAnchorType] = useState(null)
   const isMenuTypeOpen = Boolean(anchorType)
-  const [type, setType] = useState('All')
+  const [type, setType] = useState('all')
   const [anchorService, setAnchorService] = useState(null)
   const isMenuServiceOpen = Boolean(anchorService)
-  const [service, setService] = useState('All')
+  const [service, setService] = useState('all')
 
   // calendar
-  const [startLabel, setStartLabel] = useState('')
-  const [startDate, setStartDate] = useState(new Date())
-  const [endLabel, setEndLabel] = useState('')
-  const [endDate, setEndDate] = useState(new Date())
+  const [rangeStart, setRangeStart] = useState('')
+  const [fromStart, setFromStart] = useState(new Date())
+  const [maxStart, setMaxStart] = useState(null)
+  const [calendarFromStart, setCalendarFromStart] = useState(false)
+  const [toStart, setToStart] = useState(null)
+  const [calendarToStart, setCalendarToStart] = useState(false)
+  const [rangeEnd, setRangeEnd] = useState('')
+  const [fromEnd, setFromEnd] = useState(new Date())
+  const [maxEnd, setMaxEnd] = useState(null)
+  const [calendarFromEnd, setCalendarFromEnd] = useState(false)
+  const [toEnd, setToEnd] = useState(null)
+  const [calendarToEnd, setCalendarToEnd] = useState(false)
   const rootRefStart = useRef()
   const rootRefEnd = useRef()
 
   useEffect(() => {
     if (props.isFiltersMenuOpen) {
-      setStartLabel(locationsStore.woListFilters.startDate)
-      setStartDate(new Date(locationsStore.woListFilters.startDate))
-      setEndLabel(locationsStore.woListFilters.endDate)
-      setEndDate(new Date(locationsStore.woListFilters.endDate))
+      setRangeStart(locationsStore.woListFilters.startDate)
+      const splitStart = locationsStore.woListFilters.startDate.split(' - ')
+      if (splitStart && splitStart.length === 2) {
+        setFromStart(new Date(splitStart[0]))
+        setToStart(new Date(splitStart[1]))
+      }
+      setRangeEnd(locationsStore.woListFilters.endDate)
+      const splitEnd = locationsStore.woListFilters.endDate.split(' - ')
+      if (splitEnd && splitEnd.length === 2) {
+        setFromEnd(new Date(splitEnd[0]))
+        setToEnd(new Date(splitEnd[1]))
+      }
       setStatus(locationsStore.woListFilters.status)
       setTrade(locationsStore.woListFilters.trade)
       setType(locationsStore.woListFilters.type)
@@ -87,11 +80,11 @@ export const SiteFiltersMenu = (props) => {
   }, [props.isFiltersMenuOpen])
 
   const handleStartOpen = (event) => {
-    setAnchorStart(event.currentTarget)
+    setCalendarFromStart(true)
   }
 
   const handleEndOpen = (event) => {
-    setAnchorEnd(event.currentTarget)
+    setCalendarFromEnd(true)
   }
 
   const handleStatusOpen = (event) => {
@@ -140,29 +133,36 @@ export const SiteFiltersMenu = (props) => {
 
   const handleChange = (date, type) => {
     let formattedDate = ''
-    formattedDate = moment(new Date(date)).format('YYYY/MM/DD')
     if (type === 'start') {
-      setStartLabel(formattedDate)
+      formattedDate =
+      moment(new Date(fromStart)).format('YYYY/MM/DD') +
+      ' - ' +
+      moment(new Date(date)).format('YYYY/MM/DD')
+      setRangeStart(formattedDate)
     } else {
-      setEndLabel(formattedDate)
+      formattedDate =
+      moment(new Date(fromEnd)).format('YYYY/MM/DD') +
+      ' - ' +
+      moment(new Date(date)).format('YYYY/MM/DD')
+      setRangeEnd(formattedDate)
     }
   }
 
   const saveFilters = () => {
-    if (startLabel === '' &&
-      endLabel === '' &&
+    if (rangeStart === '' &&
+      rangeEnd === '' &&
       status === 'all' &&
-      trade === 'All Trades' &&
-      type === 'All Types' &&
-      service === 'All Services') {
+      trade === 'all' &&
+      type === 'all' &&
+      service === 'all') {
       props.setInvisible(true)
     } else {
       props.setInvisible(false)
     }
     dispatch(locationsActions.setWoListFilters({
       ...locationsStore.woListFilters,
-      startDate: startLabel,
-      endDate: endLabel,
+      startDate: rangeStart,
+      endDate: rangeEnd,
       status,
       trade,
       type,
@@ -172,22 +172,24 @@ export const SiteFiltersMenu = (props) => {
   }
 
   const handleReset = () => {
-    setStartLabel('')
-    setStartDate(new Date())
-    setEndLabel('')
-    setEndDate(new Date())
+    setRangeStart('')
+    setFromStart(new Date())
+    setToStart(new Date())
+    setRangeEnd('')
+    setFromEnd(new Date())
+    setToEnd(new Date())
     setStatus('all')
-    setTrade('All')
-    setType('All')
-    setService('All')
+    setTrade('all')
+    setType('all')
+    setService('all')
     dispatch(locationsActions.setWoListFilters({
       ...locationsStore.woListFilters,
       startDate: '',
       endDate: '',
       status: 'all',
-      trade: 'All',
-      type: 'All',
-      service: 'All'
+      trade: 'all',
+      type: 'all',
+      service: 'all'
     }))
     props.setInvisible(true)
     props.handleFiltersClose()
@@ -195,10 +197,10 @@ export const SiteFiltersMenu = (props) => {
 
   const isSaveDisabled = () => {
     let response = true
-    if (locationsStore.woListFilters.startDate !== startLabel) {
+    if (locationsStore.woListFilters.startDate !== rangeStart) {
       response = false
     }
-    if (locationsStore.woListFilters.endDate !== endLabel) {
+    if (locationsStore.woListFilters.endDate !== rangeEnd) {
       response = false
     }
     if (locationsStore.woListFilters.status !== status) {
@@ -228,13 +230,13 @@ export const SiteFiltersMenu = (props) => {
     if (locationsStore.woListFilters.status !== 'all') {
       response = false
     }
-    if (locationsStore.woListFilters.trade !== 'All') {
+    if (locationsStore.woListFilters.trade !== 'all') {
       response = false
     }
-    if (locationsStore.woListFilters.type !== 'All') {
+    if (locationsStore.woListFilters.type !== 'all') {
       response = false
     }
-    if (locationsStore.woListFilters.service !== 'All') {
+    if (locationsStore.woListFilters.service !== 'all') {
       response = false
     }
 
@@ -258,8 +260,8 @@ export const SiteFiltersMenu = (props) => {
     <Box key="date_start" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.start_date')}</Typography></Box>
     <Box key="date_start_drop" className={classes.filterDrop}>
       <MapFiltersButton ref={rootRefStart} onClick={handleStartOpen}>
-        <Typography className={classes.dateLabel} >{startLabel !== '' ? startLabel : t('locations.work_orders.sort_options.none')}</Typography>
-        {isMenuStartOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+        <Typography className={classes.dateLabel} >{rangeStart !== '' ? rangeStart : t('locations.work_orders.sort_options.none')}</Typography>
+        {calendarFromStart || calendarToStart ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <ThemeProvider theme={muiThemeDateFilter}>
         <LocalizationProvider
@@ -273,15 +275,20 @@ export const SiteFiltersMenu = (props) => {
             <DatePicker
               renderInput={() => { }}
               disableToolbar={false}
+              ToolbarComponent={() => (
+                <div style={calendarTitleStyle}>{t('locations.map.from')}:</div>
+              )}
+              showToolbar={true}
               InputProps={{ className: classes.picker }}
               format="MM/dd/yyyy"
               margin="normal"
               variant="inline"
               id="date-picker-dialog-from"
               key="date-picker-dialog-from"
-              value={startDate}
+              value={fromStart}
               onChange={date => {
-                setStartDate(date)
+                setFromStart(date)
+                setMaxStart(date)
               }}
               KeyboardButtonProps={{
                 'aria-label': 'change date'
@@ -298,46 +305,108 @@ export const SiteFiltersMenu = (props) => {
                 }
               }}
               TextFieldComponent={() => null}
-              open={isMenuStartOpen}
+              open={calendarFromStart}
               onClose={() => {
-                setAnchorStart(null)
+                setCalendarFromStart(false)
+                setCalendarToStart(false)
               }}
               onAccept={(date) => {
-                handleChange(date, 'start')
-                setAnchorStart(null)
+                setCalendarToStart(true)
+                setTimeout(() => setCalendarFromStart(false), 100)
               }}
             />
           </ThemeProvider>
         </LocalizationProvider>
+        <LocalizationProvider
+            key="date-picker-start-to"
+            dateAdapter={AdapterDayjs}
+          >
+            <ThemeProvider
+              key="date-picker-start-to"
+              theme={muiThemeHeaderDate}
+            >
+              <DatePicker
+                disableOpenPicker={true}
+                renderInput={() => { }}
+                disableToolbar={false}
+                ToolbarComponent={() => (
+                  <div style={calendarTitleStyle}>{t('locations.map.to')}:</div>
+                )}
+                showToolbar={true}
+                format="MM/dd/yyyy"
+                margin="normal"
+                variant="inline"
+                id="date-picker-dialog-to"
+                key="date-picker-dialog-to"
+                value={toStart}
+                onChange={date => {
+                  setToStart(date)
+                }}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date'
+                }}
+                PopperProps={{
+                  anchorEl: () => rootRefStart.current,
+                  placement: 'right-start'
+                }}
+                PaperProps={{
+                  style: {
+                    backgroundColor: 'white',
+                    borderRadius: '8px',
+                    marginLeft: '6px'
+                  }
+                }}
+                TextFieldComponent={() => null}
+                open={calendarToStart}
+                onOpen={() => setCalendarToStart(true)}
+                onClose={() => {
+                  setCalendarFromStart(false)
+                  setCalendarToStart(false)
+                }}
+                onAccept={date => {
+                  if (!calendarFromStart) {
+                    setCalendarToStart(false)
+                    handleChange(date, 'start')
+                  }
+                }}
+                minDate={maxStart}
+              />
+            </ThemeProvider>
+          </LocalizationProvider>
       </ThemeProvider>
     </Box>
     <Box key="date_end" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.end_date')}</Typography></Box>
     <Box key="date_end_drop" className={classes.filterDrop}>
       <MapFiltersButton ref={rootRefEnd} onClick={handleEndOpen}>
-        <Typography className={classes.dateLabel} >{endLabel !== '' ? endLabel : t('locations.work_orders.sort_options.none')}</Typography>
-        {isMenuEndOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
+        <Typography className={classes.dateLabel} >{rangeEnd !== '' ? rangeEnd : t('locations.work_orders.sort_options.none')}</Typography>
+        {calendarFromEnd || calendarToEnd ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <ThemeProvider theme={muiThemeDateFilter}>
         <LocalizationProvider
-          key="date-picker-dialog-from"
+          key="date-picker-from-end"
           dateAdapter={AdapterDayjs}
         >
           <ThemeProvider
-            key="date-picker-dialog-from"
+            key="date-picker-from-end"
             theme={muiThemeHeaderDate}
           >
             <DatePicker
               renderInput={() => { }}
               disableToolbar={false}
+              ToolbarComponent={() => (
+                <div style={calendarTitleStyle}>{t('locations.map.from')}:</div>
+              )}
+              showToolbar={true}
               InputProps={{ className: classes.picker }}
               format="MM/dd/yyyy"
               margin="normal"
               variant="inline"
               id="date-picker-dialog-from"
               key="date-picker-dialog-from"
-              value={endDate}
+              value={fromEnd}
               onChange={date => {
-                setEndDate(date)
+                setFromEnd(date)
+                setMaxEnd(date)
               }}
               KeyboardButtonProps={{
                 'aria-label': 'change date'
@@ -354,17 +423,74 @@ export const SiteFiltersMenu = (props) => {
                 }
               }}
               TextFieldComponent={() => null}
-              open={isMenuEndOpen}
+              open={calendarFromEnd}
               onClose={() => {
-                setAnchorEnd(null)
+                setCalendarFromEnd(false)
+                setCalendarToEnd(false)
               }}
               onAccept={(date) => {
-                handleChange(date, 'end')
-                setAnchorStart(null)
+                setCalendarToEnd(true)
+                setTimeout(() => setCalendarFromEnd(false), 100)
               }}
             />
           </ThemeProvider>
         </LocalizationProvider>
+        <LocalizationProvider
+            key="date-picker-end-to"
+            dateAdapter={AdapterDayjs}
+          >
+            <ThemeProvider
+              key="date-picker-end-to"
+              theme={muiThemeHeaderDate}
+            >
+              <DatePicker
+                disableOpenPicker={true}
+                renderInput={() => { }}
+                disableToolbar={false}
+                ToolbarComponent={() => (
+                  <div style={calendarTitleStyle}>{t('locations.map.to')}:</div>
+                )}
+                showToolbar={true}
+                format="MM/dd/yyyy"
+                margin="normal"
+                variant="inline"
+                id="date-picker-dialog-to"
+                key="date-picker-dialog-to"
+                value={toEnd}
+                onChange={date => {
+                  setToEnd(date)
+                }}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date'
+                }}
+                PopperProps={{
+                  anchorEl: () => rootRefEnd.current,
+                  placement: 'right-start'
+                }}
+                PaperProps={{
+                  style: {
+                    backgroundColor: 'white',
+                    borderRadius: '8px',
+                    marginLeft: '6px'
+                  }
+                }}
+                TextFieldComponent={() => null}
+                open={calendarToEnd}
+                onOpen={() => setCalendarToEnd(true)}
+                onClose={() => {
+                  setCalendarFromEnd(false)
+                  setCalendarToEnd(false)
+                }}
+                onAccept={date => {
+                  if (!calendarFromStart) {
+                    setCalendarToEnd(false)
+                    handleChange(date, 'end')
+                  }
+                }}
+                minDate={maxEnd}
+              />
+            </ThemeProvider>
+          </LocalizationProvider>
       </ThemeProvider>
     </Box>
     <Box key="status" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.status')}</Typography></Box>
@@ -426,7 +552,7 @@ export const SiteFiltersMenu = (props) => {
     <Box key="type" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.work_orders.type')}</Typography></Box>
     <Box key="type_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleTypeOpen}>
-        <Typography className={classes.dateLabel} >{type}</Typography>
+        <Typography className={classes.dateLabel} >{type === 'all' ? t('work_orders.wo_states.all_label') : type}</Typography>
         {isMenuTypeOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -443,9 +569,9 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapTypeOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeType(option.id)} className={classes.menuItem}>
+        {locationsStore.callTypeOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeType(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
-            {option.id}
+            {option.id === 'all' ? t('work_orders.wo_states.all_label') : option.id}
           </Typography>
           {option.id === type && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}

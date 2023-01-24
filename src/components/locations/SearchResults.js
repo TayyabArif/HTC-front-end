@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /** Components **/
@@ -15,47 +15,36 @@ import { useSelector } from 'react-redux'
 
 /* Utils */
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
-import { mobileBreakpoint, locationsPerPage } from '../../lib/Constants'
+import { mobileBreakpoint/* , locationsPerPage */ } from '../../lib/Constants'
 
 // Styles
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
 
 export const SearchResults = (props) => {
-  const { sites } = props
+  const { sites, actualPage, hasMore } = props
   const classes = searchResultsStyles()
   const wWidth = useWindowWidth()
   const { t } = useTranslation()
   const wHeight = useWindowHeight()
   const locationsStore = useSelector((state) => state.locations)
-  const loading = useSelector((state) => state.loading.loading)
   const [keyAutoSizer, setKeyAutoSizer] = useState(0)
-
-  const observer = useRef()
-  const lastTableElement = useCallback(
-    node => {
-      if (loading) return
-      if (observer.current) observer.current.disconnect()
-      observer.current = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting && (sites.length % locationsPerPage) === 0) {
-          props.setTablePage(prevTablePage => prevTablePage + 1)
-        }
-      })
-      if (node) observer.current.observe(node)
-    },
-    [loading, sites]
-  )
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setKeyAutoSizer(value => value + 1)
   }, [locationsStore.activeTab])
 
+  useEffect(() => {
+    setLoading(false)
+  }, [sites])
+
   const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const row = sites[index]
-    let tableReference = null
-    if (sites.length === index + 1) {
-      tableReference = lastTableElement
+    if ((sites.length - 1) === index && isVisible && hasMore && !loading) {
+      setLoading(true)
+      props.setTablePage(actualPage + 1)
     }
-    return <LocationCard ref={tableReference} activeTab={props.activeTab} key={row.id} info={row} style={style} />
+    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} style={style} />
   }
 
   const getRowHeight = ({ index }) => {

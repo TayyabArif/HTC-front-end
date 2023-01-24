@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { Box, Paper, Typography, useTheme } from '@mui/material'
 
 /** Redux **/
-import { useSelector/* , useDispatch */ } from 'react-redux'
-// import { locationsActions } from '../../store/locations'
+import { useSelector, useDispatch } from 'react-redux'
+import { locationsActions } from '../../store/locations'
 
 // Styles
 import { woCardStyles } from '../../styles/classes/LocationsClasses'
@@ -16,7 +16,7 @@ const moment = require('moment')
 export const WorkOrderCard = (props) => {
   const { info } = props
   const theme = useTheme()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
   const { t } = useTranslation()
 
@@ -31,15 +31,7 @@ export const WorkOrderCard = (props) => {
   const classes = woCardStyles(styleProps)
 
   const handleClickWo = () => {
-    /* TODO: uncomment when connected:
-    dispatch(locationsActions.showMapSiteView({
-      coordinates: props.info.coordinates,
-      zoom: 19,
-      hideMarkers: true,
-      selectedMarkerIndex: props.index
-    }))
-    dispatch(locationsActions.setSelectedSite(props.info))
-    dispatch(locationsActions.setActiveInfoWindow(props.info.id)) */
+    dispatch(locationsActions.setSelectedWorkOrder(info))
   }
 
   const getServicesLabel = () => {
@@ -75,7 +67,7 @@ export const WorkOrderCard = (props) => {
                 {info?.call_type && info?.call_type !== '' ? info?.call_type : t('locations.work_orders.no_type')}
               </Typography>
               <Typography marginBottom={0.3} className={classes.startLabel} align='left'>
-                {t('locations.work_orders.start')} {info?.open_date ? moment(new Date(info.open_date)).format('DD/MM/YY hh:mm a') : ''}
+                {t('locations.work_orders.start')} {info?.open_date ? moment.unix(info.open_date).format('DD/MM/YY hh:mm a') : ''}
               </Typography>
               <Typography marginBottom={0.3} className={classes.woType} align='left'>
                 {t('locations.work_orders.service_details')}: {getServicesLabel()}
@@ -89,7 +81,7 @@ export const WorkOrderCard = (props) => {
                 {info?.priority}
               </Typography>
               <Typography marginBottom={0.3} className={classes.endLabel} align='left'>
-                {t('locations.work_orders.end')} {info?.expiration_date ? moment(new Date(info.expiration_date)).format('DD/MM/YY hh:mm a') : ''}
+                {t('locations.work_orders.end')} {info?.expiration_date ? moment.unix(info.expiration_date).format('DD/MM/YY hh:mm a') : ''}
               </Typography>
             </Box>
           </Box>

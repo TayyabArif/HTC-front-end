@@ -35,8 +35,9 @@ const initialState = {
   statesOptions: [],
   tradeOptions: [],
   serviceOptions: [],
+  callTypeOptions: [],
+  selectedWorkOrder: null,
   selectedSite: null,
-  workOrders: null,
   workOrdersMeta: null,
   workOrdersMetaFilters: null,
   proposals: null,
@@ -81,9 +82,6 @@ const slice = createSlice({
     },
     setActiveTab (state, action) {
       state.activeTab = action.payload
-    },
-    setWorkOrders (state, action) {
-      state.workOrders = action.payload
     },
     setWorkOrdersMeta (state, action) {
       state.workOrdersMeta = action.payload
@@ -132,6 +130,12 @@ const slice = createSlice({
     },
     setServicesOptions (state, action) {
       state.serviceOptions = action.payload
+    },
+    setCallTypeOptions (state, action) {
+      state.callTypeOptions = action.payload
+    },
+    setSelectedWorkOrder (state, action) {
+      state.selectedWorkOrder = action.payload
     }
   }
 })

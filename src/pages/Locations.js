@@ -17,9 +17,10 @@ import { SearchResults } from '../components/locations/SearchResults'
 import { WorkOrdersList } from '../components/locations/WorkOrdersList'
 import { SiteSortMenu } from '../components/locations/SiteSortMenu'
 import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
+import { DetailedInfo } from '../components/workorders/DetailedInfo'
 
 /** Services **/
-import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo/* , getLocationCallTypes */ } from '../services/ApiService'
+import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo, getLocationCallTypes } from '../services/ApiService'
 
 // Constants
 import { useWindowWidth } from '@react-hook/window-size'
@@ -48,459 +49,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     })
   })
 )
-
-// hardcoded data
-/* const workOrdersData = {
-  meta: {
-    current_page: 1,
-    next_page: 2,
-    prev_page: null,
-    total_pages: 4,
-    total_count: 82,
-    total_result: 25,
-    total_open: 6,
-    total_active: 0,
-    total_completed: 63,
-    total_returning: 0,
-    total_canceled: 0,
-    total_incomplete: 10,
-    total_dispatched: 3,
-    total_no_service: 0,
-    active_work_orders: 0,
-    completed_work_orders: 0,
-    open_work_orders: 0,
-    returning_work_orders: 0,
-    canceled_work_orders: 0,
-    incomplete_work_orders: 0
-  },
-  work_orders: [
-    {
-      id: 1408437,
-      external_id: '01633230',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'open',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '34235',
-      priority: 'High'
-    },
-    {
-      id: 1390386,
-      external_id: '01611484',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'open',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '21312',
-      priority: 'Low'
-    },
-    {
-      id: 1383885,
-      external_id: '01604982',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'open',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '87567',
-      priority: 'High'
-    },
-    {
-      id: 1374619,
-      external_id: '01595446',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'open',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '56457',
-      priority: 'High'
-    },
-    {
-      id: 1362376,
-      external_id: '01583186',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '4365',
-      priority: 'Low'
-    },
-    {
-      id: 1351803,
-      external_id: '01554304',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '675634',
-      priority: 'High'
-    },
-    {
-      id: 1342612,
-      external_id: '01545657',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '343345',
-      priority: 'Low'
-    },
-    {
-      id: 1339606,
-      external_id: '01541339',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '34534',
-      priority: 'Low'
-    },
-    {
-      id: 1313443,
-      external_id: '01520101',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'dispatched',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '1234',
-      priority: 'High'
-    },
-    {
-      id: 1328422,
-      external_id: '01501616',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'dispatched',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '465456',
-      priority: 'High'
-    },
-    {
-      id: 1307446,
-      external_id: '01490192',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '947375',
-      priority: 'Low'
-    },
-    {
-      id: 1296617,
-      external_id: '01479306',
-      trade_name: 'Land',
-      service_name: null,
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '46346',
-      priority: 'Low'
-    },
-    {
-      id: 1289921,
-      external_id: '01472442',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '35346',
-      priority: 'Low'
-    },
-    {
-      id: 1289796,
-      external_id: '01472163',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '235346',
-      priority: 'Low'
-    },
-    {
-      id: 1284368,
-      external_id: '01467342',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '453464',
-      priority: 'Low'
-    },
-    {
-      id: 1265316,
-      external_id: '01461934',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'open',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '35467457',
-      priority: 'High'
-    },
-    {
-      id: 1269713,
-      external_id: '01451478',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'incomplete',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '46454',
-      priority: 'High'
-    },
-    {
-      id: 1247730,
-      external_id: '01440613',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'open',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '987959',
-      priority: 'Low'
-    },
-    {
-      id: 1239442,
-      external_id: '01432499',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'dispatched',
-      start_date: '02/22/22 5:00 PM',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '66754',
-      priority: 'Low'
-    },
-    {
-      id: 1225902,
-      external_id: '01418762',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '2022-09-10T12:56:39.000Z',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '767567',
-      priority: 'High'
-    },
-    {
-      id: 1216174,
-      external_id: '01408972',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '2022-09-03T17:26:55.000Z',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '45353',
-      priority: 'Low'
-    },
-    {
-      id: 1207229,
-      external_id: '01400012',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '2022-08-27T13:41:24.000Z',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '45645',
-      priority: 'High'
-    },
-    {
-      id: 1154710,
-      external_id: '01347490',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '2022-08-20T11:38:07.000Z',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '234235',
-      priority: 'High'
-    },
-    {
-      id: 416631,
-      external_id: '01329724',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '2022-08-13T15:09:50.000Z',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '567457',
-      priority: 'High'
-    },
-    {
-      id: 404607,
-      external_id: '01317582',
-      trade_name: 'Land',
-      service_name: 'Landscape Maintenance',
-      call_type: 'Maintenance',
-      status: 'completed',
-      start_date: '2022-08-06T14:11:33.000Z',
-      end_date: '02/22/22 6:00 PM',
-      site_name: 'Starbucks 8425',
-      city: 'Jacksonville',
-      state: 'Florida',
-      pon: null,
-      address: '9661 San Jose Blvd',
-      tracking: '46457',
-      priority: 'Low'
-    }
-  ]
-} */
 
 function a11yProps (index) {
   return {
@@ -552,6 +100,7 @@ const Locations = () => {
   const [invisibleSortBadge, setSortInvisible] = useState(true)
   const [page, setPage] = useState(1)
   const [siteListing, setSiteListing] = useState([])
+  const [hasMore, setHasMore] = useState(true)
 
   useEffect(() => {
     const timer1 = setTimeout(() => handleGetLocations(), 500)
@@ -586,6 +135,7 @@ const Locations = () => {
           filters.state === 'all' ? '' : filters.state,
           filters.city === 'all' ? '' : filters.city)
         setSitesResponse(response)
+        setHasMore(response.sites.length === locationsPerPage)
         if (page === 1) {
           setSiteListing(response.sites)
         } else {
@@ -616,16 +166,24 @@ const Locations = () => {
       dispatch(locationsActions.setStatesOptions(finalStates))
     }
     const filters = await getSitesAdvancedFiltersInfo()
-    /* const callTypes = await getLocationCallTypes('id')
-    console.log(callTypes) */
+    const callTypesRes = await getLocationCallTypes('all')
     filters.trades.forEach(trade => {
       trade.id = trade.name
     })
     filters.services.forEach(service => {
       service.id = service.name
     })
+    const callTypes = []
+    callTypesRes.forEach(callType => {
+      if (callType && callType !== '') {
+        callTypes.push({
+          id: callType
+        })
+      }
+    })
     dispatch(locationsActions.setTradesOptions([{ id: 'all' }, ...filters.trades]))
     dispatch(locationsActions.setServicesOptions([{ id: 'all' }, ...filters.services]))
+    dispatch(locationsActions.setCallTypeOptions([{ id: 'all' }, ...callTypes]))
   }
 
   const dateOptions = [
@@ -751,6 +309,10 @@ const Locations = () => {
     dispatch(locationsActions.hideSiteViewPanel())
   }
 
+  const handleClosePanel = () => {
+    dispatch(locationsActions.setSelectedWorkOrder(null))
+  }
+
   const drawerBoxComponent = () => {
     return <Box data-testid={'search_section'} >
       <Box className={classes.leftColumnSites} >
@@ -809,7 +371,7 @@ const Locations = () => {
         {/* RESULTS */}
         <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
-            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} />
+            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} />
           </Grid>
         </Box>
       </Box>
@@ -819,6 +381,7 @@ const Locations = () => {
 
   return (
     <Container className={classes.mainContainer}>
+      <DetailedInfo workOrder={locationsStore.selectedWorkOrder} handleClosePanel={handleClosePanel} />
       <Drawer
         id="left-drawer"
         key="left-drawer"

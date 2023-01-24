@@ -34,6 +34,8 @@ export const WorkOrdersList = (props) => {
   const [keyAutoSizer, setKeyAutoSizer] = useState(0)
   const [page, setPage] = useState(1)
   const [workOrders, setWorkOrders] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
 
   useEffect(() => {
     const timer1 = setTimeout(() => handleGetWorkOrders(), 500)
@@ -45,6 +47,10 @@ export const WorkOrdersList = (props) => {
   useEffect(() => {
     setPage(1)
   }, [searchValue, locationsStore.locationFilters])
+
+  useEffect(() => {
+    setLoading(false)
+  }, [workOrders])
 
   const handleGetWorkOrders = async () => {
     try {
@@ -62,6 +68,7 @@ export const WorkOrdersList = (props) => {
           filters.service === 'all' ? '' : filters.service,
           filters.type === 'all' ? '' : filters.type,
           filters.sortBy === 'none' ? '' : filters.sortBy)
+        setHasMore(response.work_orders.length === locationsPerPage)
         if (page === 1) {
           setWorkOrders(response.work_orders)
         } else {
@@ -79,6 +86,10 @@ export const WorkOrdersList = (props) => {
 
   const woRowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const row = workOrders[index]
+    if ((workOrders.length - 1) === index && isVisible && hasMore && !loading) {
+      setLoading(true)
+      setPage(page + 1)
+    }
     return <WorkOrderCard activeTab={props.activeTab} key={row.id} info={row} style={style} />
   }
 
