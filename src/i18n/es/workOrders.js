@@ -46,7 +46,7 @@ export const workOrders = () => {
       duedate: 'Fecha de Fin',
       wostat: 'Estado WO',
       invoices: 'Estado de Factura',
-      external_id: 'Id Externo'
+      external_id: 'Seguimiento de cliente #'
     },
     advanced_fields: {
       state: 'Estado',
