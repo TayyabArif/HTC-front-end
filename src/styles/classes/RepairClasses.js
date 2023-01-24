@@ -159,8 +159,8 @@ export const photoComponentStyles = makeStyles(theme => ({
     fontWeight: '700'
   },
   thumbContainer: {
-    width: '99px',
-    height: '94px',
+    width: '95px',
+    height: '92px',
     marginBottom: '6px',
     borderRadius: '8px'
   },
