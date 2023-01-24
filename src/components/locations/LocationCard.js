@@ -29,14 +29,16 @@ export const LocationCard = (props) => {
   const classes = locationCardStyles(styleProps)
 
   const handleClickLocation = () => {
-    dispatch(locationsActions.showMapSiteView({
-      coordinates: props.info.coordinates,
-      zoom: 19,
-      hideMarkers: true,
-      selectedMarkerIndex: props.index
-    }))
-    dispatch(locationsActions.setSelectedSite(props.info))
-    dispatch(locationsActions.setActiveInfoWindow(props.info.id))
+    if (props.info?.coordinates) {
+      dispatch(locationsActions.showMapSiteView({
+        coordinates: props.info.coordinates,
+        zoom: 19,
+        hideMarkers: true,
+        selectedMarkerIndex: props.index
+      }))
+      dispatch(locationsActions.setSelectedSite(props.info))
+      dispatch(locationsActions.setActiveInfoWindow(props.info.id))
+    }
   }
 
   const renderLocation = useMemo(() => {
