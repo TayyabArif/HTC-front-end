@@ -122,8 +122,7 @@ const Locations = () => {
       if (!locationsStore.showSiteViewPanel && !locationsStore.selectedSite) {
         const filters = locationsStore.locationFilters
         const response = await getLocations(
-          /* userStore.clientId, */
-          '6387d20204d14b5d5eb80eb9',
+          userStore.clientId,
           page,
           locationsPerPage,
           null,
