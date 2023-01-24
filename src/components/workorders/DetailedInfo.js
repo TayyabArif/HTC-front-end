@@ -283,7 +283,7 @@ export const DetailedInfo = props => {
             </>
           )}
         </div>
-        <Grid style={{ opacity: ready ? 1 : 0.1 }} container spacing={1}>
+        <Grid style={{ opacity: ready ? 1 : 0.1 }} container>
           <Grid item xs={8} classes={{ root: classes.grid }}>
             <FormLabel
               component="legend"
@@ -292,7 +292,8 @@ export const DetailedInfo = props => {
               {(viewMode ? trips[0] : workOrder)?.category}
             </FormLabel>
           </Grid>
-          <Grid item xs={1} />
+        </Grid>
+        <Grid style={{ opacity: ready ? 1 : 0.1 }} container>
           <Grid item xs={12}>
             <FormLabel component="legend" classes={{ root: classes.wonum }}>
               {t('general.labels.wo')}{' '}

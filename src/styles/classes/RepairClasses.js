@@ -406,7 +406,9 @@ export const taskListStyles = makeStyles(theme => ({
   },
   checkIcon: {
     width: '20px',
-    color: theme.colors.workOrders.tab.duedate
+    color: theme.colors.workOrders.tab.duedate,
+    stroke: theme.colors.workOrders.tab.duedate,
+    strokeWidth: 2
   },
   dotIcon: {
     fontSize: '7px',

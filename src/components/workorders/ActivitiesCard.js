@@ -22,7 +22,6 @@ import {
   ExpandMore as ExpandMoreIcon,
   ExpandLess as ExpandLessIcon
 } from '@mui/icons-material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RepairData } from './RepairData'
 import { useSelector } from 'react-redux'
 import { EtaSelect } from './EtaSelect'
@@ -442,7 +441,7 @@ export const ActivitiesCard = props => {
         onClick={type !== 'iframe' ? handleExpandClick : null}
         className={classes.actions}
       >
-        <Grid container style={{ height: '48px' }}>
+        <Grid container style={{ height: '48px' }} alignItems="center">
           <Grid item md={12} className={classes.tripGrid}>
             <FormLabel
               component="legend"
@@ -485,13 +484,6 @@ export const ActivitiesCard = props => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         {
           <CardContent style={{ paddingBottom: '3px' }}>
-            <FormLabel component="legend" classes={{ root: classes.field }}>
-              {t('work_orders.trips.origin')}
-            </FormLabel>
-            <FormLabel component="legend" classes={{ root: classes.fieldData }}>
-              {t('work_orders.trips.mobile') + ' '}
-              <FontAwesomeIcon icon={['far', 'mobile-screen-button']} />
-            </FormLabel>
             {data.status !== 'open' && (
             <EtaSelect
               data={data?.est_service_start}
