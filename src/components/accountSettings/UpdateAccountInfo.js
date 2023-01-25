@@ -86,8 +86,6 @@ export const UpdateAccountInfo = props => {
     if (editDrawer) {
       try {
         setOpen(true)
-        const user = useSelector(state => state.auth.user)
-        console.log(user)
       } catch (err) {
         console.error(err)
       }
@@ -178,8 +176,6 @@ export const UpdateAccountInfo = props => {
     if (currentRoles.length > 0) {
       const updatedRoles = []
       roles.forEach((role) => {
-        console.log(role.name)
-        console.log(role.name === 'Super Admin')
         if (role.name === 'Super Admin' && currentRoles[0].name !== 'Super Admin') {
           updatedRoles.push({ ...role, disabled: true })
         } else {
