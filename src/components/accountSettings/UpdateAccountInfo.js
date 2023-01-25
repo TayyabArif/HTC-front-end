@@ -35,6 +35,7 @@ import {
   enableButtonStyle
 } from '../../styles/mui_custom_theme'
 import { UpdateAccountInfoClasses } from '../../styles/classes/AccountSettingsClasses'
+import { useSelector } from 'react-redux'
 
 export const UpdateAccountInfo = props => {
   const {
@@ -52,6 +53,8 @@ export const UpdateAccountInfo = props => {
   const [open, setOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
   const [enableSave, setEnableSave] = useState()
+  const user = useSelector(state => state.auth.user)
+  const [finalRoles, setFinalRoles] = useState([])
 
   // inline styles
   const styles = {
@@ -83,6 +86,8 @@ export const UpdateAccountInfo = props => {
     if (editDrawer) {
       try {
         setOpen(true)
+        const user = useSelector(state => state.auth.user)
+        console.log(user)
       } catch (err) {
         console.error(err)
       }
@@ -167,6 +172,23 @@ export const UpdateAccountInfo = props => {
 
     setEnableSave(save)
   }, [updatedInfo, errors])
+
+  useEffect(() => {
+    const currentRoles = roles.filter((role) => role.id === user.userInfo.roles)
+    if (currentRoles.length > 0) {
+      const updatedRoles = []
+      roles.forEach((role) => {
+        console.log(role.name)
+        console.log(role.name === 'Super Admin')
+        if (role.name === 'Super Admin' && currentRoles[0].name !== 'Super Admin') {
+          updatedRoles.push({ ...role, disabled: true })
+        } else {
+          updatedRoles.push({ ...role, disabled: false })
+        }
+      })
+      setFinalRoles(updatedRoles)
+    }
+  }, [])
 
   const onSubmit = data => {
     handleChangeUser()
@@ -436,8 +458,8 @@ export const UpdateAccountInfo = props => {
                                 name: t('company_settings.mobile_only')
                               }
                             ]
-                          : roles && roles.length > 0
-                            ? [...roles]
+                          : finalRoles && finalRoles.length > 0
+                            ? [...finalRoles]
                             : []
                       }
                       error={!!errors.roles}

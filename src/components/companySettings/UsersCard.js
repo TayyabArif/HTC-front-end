@@ -60,9 +60,11 @@ export const UsersCard = props => {
     setErrorMessage(null)
     setPanelEvent('new')
     setOpenPanel(true)
+    console.log('OPEN FROM USERSCARD')
   }
 
   const handleEditPanel = obj => {
+    console.log('OPEN FROM USERSCARD 2')
     if (userHasAuthorization('company_settings:write')) {
       setSelectedUser(obj)
       setErrorMessage(null)
