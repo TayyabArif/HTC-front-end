@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 
 /* Utils */
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
-import { mobileBreakpoint/* , locationsPerPage */ } from '../../lib/Constants'
+import { mobileBreakpoint } from '../../lib/Constants'
 
 // Styles
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'

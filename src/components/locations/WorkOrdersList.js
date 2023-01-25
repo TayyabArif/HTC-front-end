@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 
 /** Utils **/
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
-import { mobileBreakpoint, locationsPerPage } from '../../lib/Constants'
+import { mobileBreakpoint, locationWorkOrdersPerPage } from '../../lib/Constants'
 
 /** Styles **/
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
@@ -59,7 +59,7 @@ export const WorkOrdersList = (props) => {
         const response = await getLocationWorkOrders(
           locationsStore.selectedSite.id,
           searchValue,
-          locationsPerPage,
+          locationWorkOrdersPerPage,
           page,
           filters.startDate,
           filters.endDate,
@@ -68,7 +68,7 @@ export const WorkOrdersList = (props) => {
           filters.service === 'all' ? '' : filters.service,
           filters.type === 'all' ? '' : filters.type,
           filters.sortBy === 'none' ? '' : filters.sortBy)
-        setHasMore(response.work_orders.length === locationsPerPage)
+        setHasMore(response.work_orders.length === locationWorkOrdersPerPage)
         if (page === 1) {
           setWorkOrders(response.work_orders)
         } else {

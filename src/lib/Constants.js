@@ -158,7 +158,9 @@ export const woSortOptions = [
   }
 ]
 
-export const locationsPerPage = 25
+export const locationsPerPage = 100
+
+export const locationWorkOrdersPerPage = 25
 
 export const profileCardLimits = {
   top: 1340,
