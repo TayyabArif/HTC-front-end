@@ -172,8 +172,8 @@ export const UpdateAccountInfo = props => {
   }, [updatedInfo, errors])
 
   useEffect(() => {
-    const currentRoles = roles.filter((role) => role.id === user.userInfo.roles)
-    if (currentRoles.length > 0) {
+    const currentRoles = roles?.filter((role) => role.id === user.userInfo.roles)
+    if (currentRoles?.length > 0) {
       const updatedRoles = []
       roles.forEach((role) => {
         if (role.name === 'Super Admin' && currentRoles[0].name !== 'Super Admin') {
@@ -184,7 +184,7 @@ export const UpdateAccountInfo = props => {
       })
       setFinalRoles(updatedRoles)
     }
-  }, [])
+  }, [open])
 
   const onSubmit = data => {
     handleChangeUser()
