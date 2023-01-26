@@ -726,8 +726,8 @@ export const getLocationWorkOrders = async (id, search, limit, page, openDate, e
 }
 
 /**
- * GET Trades list for current user
- * @returns Trades list
+ * GET Call types list for current location
+ * @returns Call types list
  */
 export const getLocationCallTypes = async (siteId) => {
   try {
