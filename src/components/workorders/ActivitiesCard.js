@@ -261,10 +261,10 @@ export const ActivitiesCard = props => {
         }
         case service.includes('signature'):
           if (!serviceForCheck[service].mandatory) continue
-          if (!repair.data[service]?.image) count++
+          if (!repair.data || !repair.data[service]?.image) count++
           if (
             serviceForCheck[service].print_name_mandatory &&
-            !repair.data[service]?.name
+            (!repair.data || !repair.data[service]?.name)
           ) {
             count++
           }
@@ -278,7 +278,7 @@ export const ActivitiesCard = props => {
           }
           if (!serviceForCheck[service].mandatory) continue
           let tasksPending = false
-          if (!repair.data?.services || repair.data.services.length < 1) {
+          if (!repair.data || !repair.data?.services || repair.data.services.length < 1) {
             tasksPending = true
           } else {
             repair.data.services.forEach(repairService => {
@@ -327,14 +327,14 @@ export const ActivitiesCard = props => {
           break
         }
         case service.includes('service_type'):
-          if (!repair.data?.service_type) {
+          if (!repair.data || !repair.data?.service_type) {
             count++
           }
           break
         case service.includes('labor'): {
           for (const laborConfig in serviceForCheck[service]) {
             if (serviceForCheck[service][laborConfig].mandatory) {
-              if (!repair.data.labor || !repair.data.labor[laborConfig]) {
+              if (!repair.data || !repair.data.labor || !repair.data.labor[laborConfig]) {
                 count++
               }
             }
@@ -344,7 +344,7 @@ export const ActivitiesCard = props => {
         case service.includes('picker'):
         case service.includes('numeric'):
         case service.includes('notes'):
-          if (serviceForCheck[service]?.mandatory && !repair?.data[service]) {
+          if (serviceForCheck[service]?.mandatory && (!repair.data || !repair?.data[service])) {
             count++
           }
           break
