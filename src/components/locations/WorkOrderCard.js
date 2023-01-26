@@ -11,6 +11,8 @@ import { locationsActions } from '../../store/locations'
 // Styles
 import { woCardStyles } from '../../styles/classes/LocationsClasses'
 
+import { getWOstatus } from '../../lib/Global'
+
 const moment = require('moment')
 
 export const WorkOrderCard = (props) => {
@@ -75,7 +77,7 @@ export const WorkOrderCard = (props) => {
             </Box>
             <Box flex={3} pr={1}>
               <Typography marginBottom={0.3} className={classes.woStatus} align='left'>
-                {t(`work_orders.wo_states.${info?.status}`)}
+                {t(`work_orders.wo_states.${getWOstatus(info)}`)}
               </Typography>
               <Typography marginBottom={0.3} className={classes.priority} align='left'>
                 {info?.priority}

@@ -81,7 +81,7 @@ export const GMap = (props) => {
             gestureHandling: 'greedy'
           }}
           mapContainerClassName={classes.markers}
-          mapContainerStyle={{ height: wWidth <= mobileBreakpoint ? 'calc(100vh - 78px)' : 'calc(100vh - 60px)', width: '100%', overflowY: 'hidden' }}
+          mapContainerStyle={{ height: wWidth <= mobileBreakpoint ? 'calc(100vh - 78px)' : 'calc(100vh - 100px)', width: '100%', overflowY: 'hidden' }}
           center={locationsStore.map.center}
           zoom={locationsStore.map.zoom}
           onLoad={(map) => getMapInstance(map)}

@@ -29,7 +29,7 @@ export const LocationCard = (props) => {
   const classes = locationCardStyles(styleProps)
 
   const handleClickLocation = () => {
-    if (props.info?.coordinates) {
+    if (props.info.coordinates) {
       dispatch(locationsActions.showMapSiteView({
         coordinates: props.info.coordinates,
         zoom: 19,
