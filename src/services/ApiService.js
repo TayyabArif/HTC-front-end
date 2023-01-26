@@ -10,7 +10,7 @@ import { create } from 'apisauce'
  * @type {ApisauceInstance}
  */
 const locationApi = create({
-  baseURL: 'https://countriesnow.space/api/v0.1/countries',
+  baseURL: process.env.REACT_APP_COUNTRIESNOW_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
