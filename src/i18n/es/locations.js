@@ -102,7 +102,14 @@ export const locations = () => {
       hours: 'Horario',
       departments: 'Departamentos',
       phone: 'Teléfono',
-      order: 'Órden'
+      order: 'Órden',
+      more_hours: 'Más horas',
+      less_hours: 'Menos horas',
+      show_more: 'Mostrar todo',
+      show_less: 'Mostrar menos',
+      photos: 'Fotos',
+      no_data: 'No existe información desde Google para esta locación',
+      no_data_content: 'Los datos de búsqueda de Google inexistentes para una dirección pueden ocurrir por diferentes razones. Por ejemplo en el caso de locaciones recientemente añadidas las cuales no cuentan con una edificación. Por favor comuníquese con el administrador si este mensaje se ha presentado.'
     }
   }
 }

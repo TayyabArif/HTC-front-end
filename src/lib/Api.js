@@ -687,6 +687,14 @@ export const uploadWoLog = async (woLog, iframe = false) => {
 }
 
 /*
+ * GET Location Info
+ * @returns LocationInfo
+ */
+export const getLocationInfo = async id => {
+  return await callAPI('GET', `/locations/${id}`)
+}
+
+/*
  * GET Locations
  * @returns Locations
  */

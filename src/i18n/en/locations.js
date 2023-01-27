@@ -102,7 +102,14 @@ export const locations = () => {
       hours: 'Hours',
       departments: 'Departments',
       phone: 'Phone',
-      order: 'Order'
+      order: 'Order',
+      more_hours: 'More hours',
+      less_hours: 'Less hours',
+      show_more: 'Show all',
+      show_less: 'Show less',
+      photos: 'Photos',
+      no_data: 'There is no google data for this location',
+      no_data_content: 'Google search data not returned for an address can happen for different reasons.  ie. Newly built locations or locations that do not have a physical building may not return google search data.  Please reach out to your administrator if you’ve reached this message in error.'
     }
   }
 }

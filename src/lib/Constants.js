@@ -166,3 +166,5 @@ export const profileCardLimits = {
   top: 1340,
   bottom: 1200
 }
+
+export const whiteImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='

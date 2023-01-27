@@ -25,6 +25,9 @@ import { locationsActions } from '../../../store/locations'
 import { mapActionButtonsStyles } from '../../../styles/classes/LocationsClasses'
 import { MapFilters } from './MapFilters'
 
+// Service
+import { getLocationInfo } from '../../../services/ApiService'
+
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
   const theme = useTheme()
@@ -39,6 +42,22 @@ export const MapActionButtons = (props) => {
   const { t } = useTranslation()
   const mapInstance = props.map
   const [invisibleBadge, setInvisible] = useState(true)
+  const [locationInfo, setLocationInfo] = useState()
+
+  useEffect(() => {
+    getGoogleLocation()
+  }, [locationsStore.selectedSite, locationsStore.showSiteViewPanel])
+
+  const getGoogleLocation = async () => {
+    if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
+      const response = await getLocationInfo(locationsStore.selectedSite.id)
+      if (response.status) {
+        setLocationInfo(response.content)
+      } else {
+        setLocationInfo(null)
+      }
+    }
+  }
 
   const handleMapOptionsMenuOpen = (event) => {
     setAnchorMOEl(event.currentTarget)
@@ -670,7 +689,7 @@ export const MapActionButtons = (props) => {
         </MapButton>
       </Box>
     </Box>
-    <LocationInfoCard />
+    <LocationInfoCard info={locationInfo} />
   </div>
   )
 }
