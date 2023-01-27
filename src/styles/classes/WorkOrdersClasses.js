@@ -628,7 +628,7 @@ export const dateTimeFilterStyles = makeStyles(theme => ({
 
 export const detailedInfoStyles = makeStyles(theme => ({
   presentation: {
-    marginBottom: '0px',
+    margin: 0,
     marginTop: '19px',
     overflowY: 'auto'
   },
