@@ -3,8 +3,8 @@ import { degrees2meters } from '../../../lib/Global'
 import ReactGA from 'react-ga4'
 
 /** Material UI **/
-import { Box, Menu, MenuItem, Typography, Badge } from '@mui/material'
-import { Menu as MenuIcon, Check as CheckIcon } from '@mui/icons-material'
+import { Menu as MenuIcon, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
+import { Box, Menu, MenuItem, Typography, Badge, useTheme } from '@mui/material'
 import { mapStylesGray, mapStylesLight } from '../../../styles/mui_custom_theme'
 
 // Icons
@@ -15,13 +15,24 @@ import { MapLayersIcon } from '../../../assets/icons/MapLayersIcon'
 /** Components **/
 import { MapButton } from '../../../styles/mui_custom_components'
 import { useTranslation } from 'react-i18next'
+import { LocationInfoCard } from './LocationInfoCard'
+
+/** Redux **/
+import { useSelector, useDispatch } from 'react-redux'
+import { locationsActions } from '../../../store/locations'
 
 // Styles
 import { mapActionButtonsStyles } from '../../../styles/classes/LocationsClasses'
 import { MapFilters } from './MapFilters'
 
+// Service
+import { getLocationInfo } from '../../../services/ApiService'
+
 export const MapActionButtons = (props) => {
   const classes = mapActionButtonsStyles()
+  const theme = useTheme()
+  const dispatch = useDispatch()
+  const locationsStore = useSelector((state) => state.locations)
   const [anchorMOEl, setAnchorMOEl] = useState(null)
   const isMenuMapOptionsOpen = Boolean(anchorMOEl)
   const [anchorWEl, setAnchorWEl] = useState(null)
@@ -31,6 +42,22 @@ export const MapActionButtons = (props) => {
   const { t } = useTranslation()
   const mapInstance = props.map
   const [invisibleBadge, setInvisible] = useState(true)
+  const [locationInfo, setLocationInfo] = useState()
+
+  useEffect(() => {
+    getGoogleLocation()
+  }, [locationsStore.selectedSite, locationsStore.showSiteViewPanel])
+
+  const getGoogleLocation = async () => {
+    if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
+      const response = await getLocationInfo(locationsStore.selectedSite.id)
+      if (response.status) {
+        setLocationInfo(response.content)
+      } else {
+        setLocationInfo(null)
+      }
+    }
+  }
 
   const handleMapOptionsMenuOpen = (event) => {
     setAnchorMOEl(event.currentTarget)
@@ -540,17 +567,26 @@ export const MapActionButtons = (props) => {
     props.setWeather(e.currentTarget.dataset.weather)
   }
 
-  return (
-    <Box className={props.hideLeftSection ? classes.hiddenButtonsBox : classes.mapButtonsBox}>
-      {props.hideLeftSection && <Box pb={2}>
+  const handleRecenter = () => {
+    dispatch(locationsActions.resetZoomAndCenter({
+      zoom: 19,
+      center: locationsStore.selectedSite.coordinates
+    }))
+    dispatch(locationsActions.setSelectedSite(locationsStore.selectedSite))
+    dispatch(locationsActions.setActiveInfoWindow(locationsStore.selectedSite.id))
+  }
+
+  return (<div>
+    <Box className={props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.hiddenButtonsBoxSiteLevel : props.hideLeftSection && !locationsStore.showSiteViewPanel ? classes.hiddenButtonsBox : !props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.mapButtonsBoxSiteLevel : classes.mapButtonsBox}>
+      {props.hideLeftSection && <Box pb={2} pr={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
           <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'} />
         </MapButton>
       </Box>}
-      <Box pb={2}>
+      <Box hidden={locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleFiltersOpen}>
           <Badge color="error" variant="dot" invisible={invisibleBadge} className={classes.badge}>
-            <MapFilterIcon color={isMenuFiltersOpen ? '#2F80ED' : '#333333'}/>
+            <MapFilterIcon color={isMenuFiltersOpen ? theme.colors.iconBlue : theme.colors.text} marginTop="10px" />
           </Badge>
         </MapButton>
         <MapFilters
@@ -561,11 +597,10 @@ export const MapActionButtons = (props) => {
           setInvisible={setInvisible}
         />
       </Box>
-      <Box pb={2}>
+      <Box pb={2} pr={2}>
         <MapButton onClick={handleWeatherMenuOpen}>
-          <MapWeatherIcon color={isMenuWeatherOpen ? '#2F80ED' : '#333333'}/>
+          <MapWeatherIcon color={isMenuWeatherOpen ? theme.colors.iconBlue : theme.colors.text}/>
         </MapButton>
-
         <Menu
           open={isMenuWeatherOpen}
           onClose={handleMenuWeatherClose}
@@ -608,9 +643,9 @@ export const MapActionButtons = (props) => {
         </Menu>
       </Box>
 
-      <Box pb={2}>
+      <Box pb={2} pr={2}>
         <MapButton onClick={handleMapOptionsMenuOpen}>
-          <MapLayersIcon color={isMenuMapOptionsOpen ? '#2F80ED' : '#333333'}/>
+          <MapLayersIcon color={isMenuMapOptionsOpen ? theme.colors.iconBlue : theme.colors.text}/>
         </MapButton>
 
         <Menu
@@ -648,6 +683,13 @@ export const MapActionButtons = (props) => {
           </MenuItem>
         </Menu>
       </Box>
+       <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
+        <MapButton onClick={handleRecenter}>
+          <LocationSearchingOutlined color={'inherit'} />
+        </MapButton>
+      </Box>
     </Box>
+    <LocationInfoCard info={locationInfo} />
+  </div>
   )
 }
