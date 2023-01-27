@@ -249,7 +249,8 @@ export const PhoneInputClasses = makeStyles(theme => ({
       fontSize: '25px'
     },
     '&.MuiButtonBase-root': {
-      padding: '0px'
+      padding: '0px',
+      paddingTop: '16px'
     }
   },
   formControl: {
@@ -325,7 +326,8 @@ export const TextInputClasses = makeStyles(theme => ({
       fontSize: '25px'
     },
     '&.MuiButtonBase-root': {
-      padding: '0px'
+      padding: '0px',
+      paddingTop: '16px'
     }
   },
   formControl: {
