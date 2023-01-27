@@ -116,7 +116,7 @@ export const AccountInfoCard = props => {
                     <Grid container>
                         <Grid item xs={4}>
                             <Typography className={classes.field}>{t('account_settings.info_card.phone_number')}</Typography>
-                            <Typography className={classes.info} mt={1}>{`${userInfo?.userInfo?.phone}`}</Typography>
+                            <Typography className={classes.info} mt={1}>{`${userInfo?.userInfo?.phone ?? ''}`}</Typography>
                         </Grid>
                         <Grid item xs={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.username')}</Typography>

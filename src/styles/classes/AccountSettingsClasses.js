@@ -165,7 +165,8 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       color: theme.colors.black,
       marginBottom: '15px',
       wordWrap: 'break-word',
-      padding: '5px 13px'
+      padding: '5px 13px',
+      minHeight: '35px'
     }
   },
   gridImg: {
