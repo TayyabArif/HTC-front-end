@@ -63,6 +63,8 @@ const customTheme = createTheme({
     maskIcon: '#212121',
     inputBorder: '#d8d8d8',
     textButton: '#828282',
+    divBack: '#2B78E4',
+    statusLabel: '#605D5D',
     generalBackground: '#fafafa',
     text: '#333333',
     transparent: 'rgba(0,0,0,0.0)',

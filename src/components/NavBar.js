@@ -28,6 +28,9 @@ import AcmeIcon from '../assets/images/acme_logo.svg'
 import { navBarStyles } from '../styles/classes/CommonClasses'
 import { Typography } from 'antd'
 
+/** Redux **/
+import { locationsActions } from '../store/locations'
+
 export const NavBar = () => {
   const classes = navBarStyles()
   const userStore = useSelector(state => state.auth.user)
@@ -42,6 +45,10 @@ export const NavBar = () => {
   const isMenuOpen = Boolean(anchorEl)
 
   useEffect(() => {
+    // back to site view if navigate between pages
+    dispatch(locationsActions.hideSiteViewPanel())
+    dispatch(locationsActions.setSelectedSite())
+    dispatch(locationsActions.setSelectedWorkOrder(null))
     // set navbar value
     if (location.pathname === '/sign-in') {
       setValue('/work-orders')

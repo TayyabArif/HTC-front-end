@@ -3,13 +3,48 @@ export const locations = () => {
     search_placeholder: 'Buscar por nombre de sitio o dirección',
     locations_active_work: 'órdenes de trabajo activas',
     locations_completed_work: 'completado',
+    locations_open_work: 'abiertas',
     locations_no_activity: 'sin actividad',
     locations_in_progress_work: 'en progreso',
     all_locations: 'Todas las Locaciones',
+    total_locations: 'Total Locaciones',
     open: 'Abiertas',
     in_progress: 'En Progreso',
     completed: 'Completadas',
     no_activity: 'Sin Actividad',
+    no_results: 'No Existen Resultados',
+    update_search: 'Por favor actualice los parámetros de búsqueda',
+    work_orders: {
+      search_placeholder: 'Buscar Órdenes de Trabajo',
+      tracking: 'Seguimiento cliente',
+      start_date: 'Empieza',
+      end_date: 'Termina',
+      start: 'Empieza',
+      end: 'Termina',
+      service_details: 'Detalles de servicio',
+      priority: 'Prioridad',
+      work_orders: 'Órdenes de Trabajo',
+      proposals: 'Propuestas',
+      invoices: 'Facturas',
+      sort_by: 'Ordenar por',
+      status: 'Estado',
+      trade: 'Comercio',
+      type: 'Tipo',
+      service: 'Servicio',
+      reset: 'Limpiar',
+      no_type: 'Órden sin Tipo',
+      sort_options: {
+        work_order_new: 'Orden de Trabajo (Recientes)',
+        work_order_old: 'Orden de Trabajo (Antiguas)',
+        status_a: 'Estado (A - Z)',
+        status_z: 'Estado (Z - A)',
+        priority_a: 'Prioridad (A - Z)',
+        priority_z: 'Prioridad (Z - A)',
+        tracking_a: 'Seguimiento # (A - Z)',
+        tracking_z: 'Seguimiento # (Z - A)',
+        none: 'Ninguno'
+      }
+    },
     map: {
       map_options: 'Opciones del Mapa',
       light: 'Claro',
@@ -21,6 +56,8 @@ export const locations = () => {
       city: 'Ciudad(s)',
       from: 'DESDE',
       to: 'HASTA',
+      all_states: 'Todos',
+      all_cities: 'Todas',
       action_buttons: {
         weather: 'Clima',
         radar: 'Radar',
@@ -59,14 +96,20 @@ export const locations = () => {
       last_30_days: '30 Últimos Días',
       custom: 'Seleccionar Rango'
     },
-    wo_status: {
-      all: 'Todos los Estados',
-      open: 'Abierto',
-      in_progress: 'En Progreso',
-      returning: 'Retornado',
-      completed: 'Completado',
-      canceled: 'Cancelado',
-      dispatched: 'Despachado'
+    info_card: {
+      located: 'Localizado en',
+      address: 'Dirección',
+      hours: 'Horario',
+      departments: 'Departamentos',
+      phone: 'Teléfono',
+      order: 'Órden',
+      more_hours: 'Más horas',
+      less_hours: 'Menos horas',
+      show_more: 'Mostrar todo',
+      show_less: 'Mostrar menos',
+      photos: 'Fotos',
+      no_data: 'No existe información desde Google para esta locación',
+      no_data_content: 'Los datos de búsqueda de Google inexistentes para una dirección pueden ocurrir por diferentes razones. Por ejemplo en el caso de locaciones recientemente añadidas las cuales no cuentan con una edificación. Por favor comuníquese con el administrador si este mensaje se ha presentado.'
     }
   }
 }

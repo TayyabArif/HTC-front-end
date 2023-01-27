@@ -128,7 +128,43 @@ export const AFStateOptions = [
 
 export const navBarHeaderHeight = '100px'
 
+export const woSortOptions = [
+  {
+    id: 'work_order_a'
+  },
+  {
+    id: 'work_order_z'
+  },
+  {
+    id: 'status_a'
+  },
+  {
+    id: 'status_z'
+  },
+  {
+    id: 'priority_a'
+  },
+  {
+    id: 'priority_z'
+  },
+  {
+    id: 'tracking_a'
+  },
+  {
+    id: 'tracking_z'
+  },
+  {
+    id: 'none'
+  }
+]
+
+export const locationsPerPage = 100
+
+export const locationWorkOrdersPerPage = 25
+
 export const profileCardLimits = {
   top: 1340,
   bottom: 1200
 }
+
+export const whiteImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
