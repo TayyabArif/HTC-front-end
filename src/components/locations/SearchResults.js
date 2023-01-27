@@ -21,29 +21,38 @@ import { mobileBreakpoint } from '../../lib/Constants'
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
 
 export const SearchResults = (props) => {
-  const { sites } = props
+  const { sites, actualPage, hasMore } = props
   const classes = searchResultsStyles()
   const wWidth = useWindowWidth()
   const { t } = useTranslation()
   const wHeight = useWindowHeight()
   const locationsStore = useSelector((state) => state.locations)
   const [keyAutoSizer, setKeyAutoSizer] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setKeyAutoSizer(value => value + 1)
   }, [locationsStore.activeTab])
 
+  useEffect(() => {
+    setLoading(false)
+  }, [sites])
+
   const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const row = sites[index]
-    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} style={style}/>
+    if ((sites.length - 1) === index && isVisible && hasMore && !loading) {
+      setLoading(true)
+      props.setTablePage(actualPage + 1)
+    }
+    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} style={style} />
   }
 
   const getRowHeight = ({ index }) => {
     const site = sites[index] ?? {}
     const contentRowLength = site.address?.length +
-        site.city?.length +
-        site.state?.length +
-        site.zipcode?.length
+      site.city?.length +
+      site.state?.length +
+      site.zipcode?.length
 
     switch (props.activeTab) {
       case 'active_work_orders':
@@ -59,13 +68,13 @@ export const SearchResults = (props) => {
     if (sites.length > 0) {
       return <AutoSizer key={keyAutoSizer}>
         {({ width }) => (
-            <List
-                width={width}
-                height={wWidth > mobileBreakpoint ? wHeight - 160 : wHeight - 205}
-                rowCount={sites.length}
-                rowHeight={getRowHeight}
-                rowRenderer={rowRenderer}
-            />
+          <List
+            width={width}
+            height={wWidth > mobileBreakpoint ? wHeight - 160 : wHeight - 205}
+            rowCount={sites.length}
+            rowHeight={getRowHeight}
+            rowRenderer={rowRenderer}
+          />
         )}
       </AutoSizer>
     } else {

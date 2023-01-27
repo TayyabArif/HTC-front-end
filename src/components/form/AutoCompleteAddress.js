@@ -10,7 +10,7 @@ export const AutoCompleteAddress = ({ ...props }) => {
   }
 
   return <ReactGoogleAutocomplete
-    apiKey={process.env.REACT_APP_GOOGLE_PLACES_API_KEY}
+    apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
     options={options}
     {...props}
     onPlaceSelected={(selected) => {

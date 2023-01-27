@@ -36,7 +36,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.total_result ?? 0}
+                  {props.searchResults.meta.total_site_count ?? 0}
                 </Typography>
               </Grid>
               <Grid textAlign="right" xs={6} className={classes.gridCounter} >
@@ -59,7 +59,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.active_sites ?? 0}
+                  {props.searchResults.meta.sites_open_wo ?? 0}
                 </Typography>
               </Grid>
               <Grid xs={6} textAlign="right" className={classes.gridCounter} >
@@ -82,7 +82,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.no_activity_sites ?? 0}
+                  {props.searchResults.meta.sites_in_progress_wo ?? 0}
                 </Typography>
               </Grid>
               <Grid xs={6} textAlign="right" className={classes.gridCounter} >
@@ -105,7 +105,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.completed_work_orders ?? 0}
+                  {props.searchResults.meta.sites_completed_wo ?? 0}
                 </Typography>
               </Grid>
               <Grid xs={6} textAlign="right" className={classes.gridCounter} >
@@ -128,7 +128,7 @@ export const MapCounters = (props) => {
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.completed_work_orders ?? 0}
+                  {props.searchResults.meta.no_activity_sites ?? 0}
                 </Typography>
               </Grid>
               <Grid textAlign="right" xs={6} className={classes.gridCounter} >

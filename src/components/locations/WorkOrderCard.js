@@ -5,16 +5,20 @@ import { useTranslation } from 'react-i18next'
 import { Box, Paper, Typography, useTheme } from '@mui/material'
 
 /** Redux **/
-import { useSelector/* , useDispatch */ } from 'react-redux'
-// import { locationsActions } from '../../store/locations'
+import { useSelector, useDispatch } from 'react-redux'
+import { locationsActions } from '../../store/locations'
 
 // Styles
 import { woCardStyles } from '../../styles/classes/LocationsClasses'
 
+import { getWOstatus } from '../../lib/Global'
+
+const moment = require('moment')
+
 export const WorkOrderCard = (props) => {
   const { info } = props
   const theme = useTheme()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
   const { t } = useTranslation()
 
@@ -29,15 +33,19 @@ export const WorkOrderCard = (props) => {
   const classes = woCardStyles(styleProps)
 
   const handleClickWo = () => {
-    /* TODO: uncomment when connected:
-    dispatch(locationsActions.showMapSiteView({
-      coordinates: props.info.coordinates,
-      zoom: 19,
-      hideMarkers: true,
-      selectedMarkerIndex: props.index
-    }))
-    dispatch(locationsActions.setSelectedSite(props.info))
-    dispatch(locationsActions.setActiveInfoWindow(props.info.id)) */
+    dispatch(locationsActions.setSelectedWorkOrder(info))
+  }
+
+  const getServicesLabel = () => {
+    let label = ''
+    info?.services.forEach((element, index) => {
+      if ((index + 1) === info?.services.length) {
+        label += element.name
+      } else {
+        label += `${element.name}, `
+      }
+    })
+    return label
   }
 
   const renderLocation = useMemo(() => {
@@ -47,35 +55,35 @@ export const WorkOrderCard = (props) => {
           onClick={handleClickWo}
         >
           <Box className={classes.serviceNameDiv}>
-            <Typography className={classes.serviceName} >{info?.trade_name ? (info?.trade_name.length < 17 ? info?.trade_name : info?.trade_name.slice(0, 14) + '...') : ''}</Typography>
+            <Typography className={classes.serviceName} >{info?.category ? (info?.category.length < 17 ? info?.category : info?.category.slice(0, 14) + '...') : ''}</Typography>
           </Box>
           <Box display="flex" width="100%">
             <Box flex={5}>
               <Typography className={classes.woNumber} display="inline" align='left'>
-                WO# {info?.external_id}
+                WO# {info?.customer_po}
               </Typography>
               <Typography marginBottom={0.3} className={classes.clientTracking} align='left'>
-                {t('locations.work_orders.tracking')}# {info?.tracking}
+                {t('locations.work_orders.tracking')}# {info?.client_tracking_number}
               </Typography>
               <Typography marginBottom={0.3} className={classes.woType} align='left'>
-                {info?.call_type}
+                {info?.call_type && info?.call_type !== '' ? info?.call_type : t('locations.work_orders.no_type')}
               </Typography>
               <Typography marginBottom={0.3} className={classes.startLabel} align='left'>
-                {t('locations.work_orders.start')} {info?.start_date}
+                {t('locations.work_orders.start')} {info?.open_date ? moment.unix(info.open_date).format('DD/MM/YY hh:mm a') : ''}
               </Typography>
               <Typography marginBottom={0.3} className={classes.woType} align='left'>
-                {t('locations.work_orders.service_details')}: {info?.service_name}
+                {t('locations.work_orders.service_details')}: {getServicesLabel()}
               </Typography>
             </Box>
             <Box flex={3} pr={1}>
               <Typography marginBottom={0.3} className={classes.woStatus} align='left'>
-                {t(`work_orders.wo_states.${info?.status}`)}
+                {t(`work_orders.wo_states.${getWOstatus(info)}`)}
               </Typography>
               <Typography marginBottom={0.3} className={classes.priority} align='left'>
-                {t('locations.work_orders.priority')} {info?.priority}
+                {info?.priority}
               </Typography>
               <Typography marginBottom={0.3} className={classes.endLabel} align='left'>
-                {t('locations.work_orders.end')} {info?.end_date}
+                {t('locations.work_orders.end')} {info?.expiration_date ? moment.unix(info.expiration_date).format('DD/MM/YY hh:mm a') : ''}
               </Typography>
             </Box>
           </Box>

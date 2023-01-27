@@ -18,77 +18,21 @@ import { mapDateRangeOptions, mapStatusOptions } from '../../../lib/Constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
 
+// Services
+import { callLocationApi } from '../../../services/ApiService'
+
 // Styles
 import { mapFiltersStyles } from '../../../styles/classes/LocationsClasses'
 import { calendarTitleStyle, muiThemeDateFilter, muiThemeHeaderDate, enableButtonStyle, disableButtonStyle } from '../../../styles/mui_custom_theme'
 
 const moment = require('moment')
 
-// hardcoded options
-const mapStateOptions = [
-  {
-    id: 'All States'
-  },
-  {
-    id: 'AL'
-  },
-  {
-    id: 'AK'
-  },
-  {
-    id: 'AR'
-  },
-  {
-    id: 'AZ'
-  },
-  {
-    id: 'CA'
-  },
-  {
-    id: 'CO'
-  },
-  {
-    id: 'CT'
-  },
-  {
-    id: 'DE'
-  }
-]
-const mapCityOptions = [
-  {
-    id: 'All Cities'
-  },
-  {
-    id: 'Abilene'
-  },
-  {
-    id: 'Addison'
-  },
-  {
-    id: 'Albuquerque'
-  },
-  {
-    id: 'Alexandria'
-  },
-  {
-    id: 'Allen'
-  },
-  {
-    id: 'Amarillo'
-  },
-  {
-    id: 'Ames'
-  },
-  {
-    id: 'Anchorage'
-  }
-]
-
 export const MapFilters = (props) => {
   const classes = mapFiltersStyles()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const locationsFilters = useSelector(state => state.locations.locationFilters)
+  const locationStore = useSelector(state => state.locations)
+  const locationsFilters = locationStore.locationFilters
   const [dateRange, setDateRange] = useState('today')
   const [anchorDates, setAnchorDates] = useState(null)
   const isMenuDatesOpen = Boolean(anchorDates)
@@ -97,10 +41,14 @@ export const MapFilters = (props) => {
   const [status, setStatus] = useState('all')
   const [anchorState, setAnchorState] = useState(null)
   const isMenuStateOpen = Boolean(anchorState)
-  const [state, setState] = useState('All States')
+  const [state, setState] = useState('all')
   const [anchorCity, setAnchorCity] = useState(null)
   const isMenuCityOpen = Boolean(anchorCity)
-  const [city, setCity] = useState('All Cities')
+  const [city, setCity] = useState('all')
+
+  const [citiesOptions, setCitiesOptions] = useState([{
+    id: 'all'
+  }])
 
   // calendar
   const [selectedDate, setSelectedDate] = useState('')
@@ -114,6 +62,7 @@ export const MapFilters = (props) => {
   useEffect(() => {
     if (props.isMenuFiltersOpen) {
       setDateRange(locationsFilters.dateRange)
+      setSelectedDate(`${locationsFilters.dateFrom} : ${locationsFilters.dateTo}`)
       setStatus(locationsFilters.status)
       setState(locationsFilters.state)
       setCity(locationsFilters.city)
@@ -152,8 +101,24 @@ export const MapFilters = (props) => {
   const handleStateClose = (event) => {
     setAnchorState(null)
   }
-  const handleChangeState = (value) => {
+  const handleChangeState = async (value, name) => {
     setState(value)
+    const citiesData = await callLocationApi('POST', '/state/cities', {
+      country: 'United States',
+      state: name
+    })
+    const finalCities = []
+    finalCities.push({
+      id: 'all'
+    })
+    if (!citiesData.error) {
+      citiesData.data.forEach(element => {
+        finalCities.push({
+          id: element
+        })
+      })
+    }
+    setCitiesOptions(finalCities)
     setAnchorState(null)
   }
 
@@ -186,13 +151,22 @@ export const MapFilters = (props) => {
   }
 
   const saveFilters = () => {
-    if (dateRange === 'today' && status === 'all' && state === 'All States' && city === 'All Cities') {
+    if (dateRange === 'today' && status === 'all' && state === 'all' && city === 'all') {
       props.setInvisible(true)
     } else {
       props.setInvisible(false)
     }
+    let filterFrom = ''
+    let filterTo = ''
+    if (dateRange === 'custom') {
+      const dates = selectedDate.split(' : ')
+      filterFrom = dates[0]
+      filterTo = dates[1]
+    }
     dispatch(locationsActions.setLocationFilters({
       dateRange,
+      dateFrom: filterFrom,
+      dateTo: filterTo,
       status,
       state,
       city
@@ -207,13 +181,15 @@ export const MapFilters = (props) => {
     setMaxDateFrom(null)
     setDateTo(new Date())
     setStatus('all')
-    setState('All States')
-    setCity('All Cities')
+    setState('all')
+    setCity('all')
     dispatch(locationsActions.setLocationFilters({
       dateRange: 'today',
+      dateFrom: '',
+      dateTo: '',
       status: 'all',
-      state: 'All States',
-      city: 'All Cities'
+      state: 'all',
+      city: 'all'
     }))
     props.setInvisible(true)
     props.handleFiltersClose()
@@ -244,10 +220,10 @@ export const MapFilters = (props) => {
     if (locationsFilters.status !== 'all') {
       response = false
     }
-    if (locationsFilters.state !== 'All States') {
+    if (locationsFilters.state !== 'all') {
       response = false
     }
-    if (locationsFilters.city !== 'All Cities') {
+    if (locationsFilters.city !== 'all') {
       response = false
     }
     return response
@@ -440,7 +416,7 @@ export const MapFilters = (props) => {
     <Box key="state" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.state')}</Typography></Box>
     <Box key="statate_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleStateOpen}>
-        <Typography className={classes.dateLabel} >{state}</Typography>
+        <Typography className={classes.dateLabel} >{state === 'all' ? t('locations.map.all_states') : state}</Typography>
         {isMenuStateOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -457,9 +433,9 @@ export const MapFilters = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapStateOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeState(option.id)} className={classes.menuItem}>
+        {locationStore.statesOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeState(option.id, option.name)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
-            {option.id}
+            {option.id === 'all' ? t('locations.map.all_states') : option.id}
           </Typography>
           {option.id === state && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}
@@ -468,7 +444,7 @@ export const MapFilters = (props) => {
     <Box key="city" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.city')}</Typography></Box>
     <Box key="city_drop" className={classes.filterDrop}>
       <MapFiltersButton onClick={handleCityOpen}>
-        <Typography className={classes.dateLabel} >{city}</Typography>
+        <Typography className={classes.dateLabel} >{city === 'all' ? t('locations.map.all_cities') : city}</Typography>
         {isMenuCityOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>
       <Menu
@@ -485,9 +461,9 @@ export const MapFilters = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapCityOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeCity(option.id)} className={classes.menuItem}>
+        {citiesOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeCity(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
-            {option.id}
+            {option.id === 'all' ? t('locations.map.all_cities') : option.id}
           </Typography>
           {option.id === city && <CheckIcon className={classes.checkIcon} />}
         </MenuItem>)}

@@ -385,6 +385,7 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     }
   },
   infoSiteWindow: {
+    minWidth: '220px',
     width: 'auto',
     minHeight: 70,
     cursor: 'pointer',
@@ -735,6 +736,36 @@ export const locationCardStyles = makeStyles((theme) => ({
   completedWork: {
     position: 'relative',
     top: 4,
+    color: theme.colors.workOrderColors.completed,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  noActivityWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.workOrderColors.declined,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  openWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.workOrderColors.open,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  inProgressWork: {
+    position: 'relative',
+    top: 4,
     color: theme.colors.locations.workOrderColors.completed,
     width: '17px',
     height: '17px',
@@ -810,7 +841,8 @@ export const mapFiltersStyles = makeStyles((theme) => ({
   },
   muiPaper: {
     borderRadius: '12px',
-    marginLeft: '15px'
+    marginLeft: '15px',
+    maxHeight: '400px'
   },
   checkIcon: {
     marginLeft: 'auto',
@@ -960,7 +992,11 @@ export const woCardStyles = makeStyles((theme) => ({
     fontSize: '10px',
     fontWeight: '700',
     color: 'white',
-    marginTop: '8px'
+    marginTop: '8px',
+    width: '120px',
+    position: 'absolute',
+    top: '55px',
+    left: '-40px'
   },
   woNumber: {
     fontSize: 16,

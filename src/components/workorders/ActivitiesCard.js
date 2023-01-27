@@ -260,11 +260,11 @@ export const ActivitiesCard = props => {
           break
         }
         case service.includes('signature'):
-          if (!serviceForCheck[service].mandatory) continue
-          if (!repair.data || !repair.data[service]?.image) count++
+          if (!serviceForCheck[service]?.mandatory) continue
+          if (!repair?.data?.[service]?.image) count++
           if (
-            serviceForCheck[service].print_name_mandatory &&
-            (!repair.data || !repair.data[service]?.name)
+            serviceForCheck?.[service].print_name_mandatory &&
+            !repair?.data?.[service]?.name
           ) {
             count++
           }
