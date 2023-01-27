@@ -82,7 +82,7 @@ export const AccountInfoCard = props => {
                 roles={roles}
             />
             <Card className={classes.card} data-testid={'account_info_card'} elevation={0}>
-                <Grid container justifyContent="space-between">
+                <Grid container justifyContent="space-between" alignItems="center">
                     <Grid item>
                         <Typography className={classes.title}>
                             {t('account_settings.info_card.title')}

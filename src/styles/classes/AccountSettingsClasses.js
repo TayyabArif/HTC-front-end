@@ -137,7 +137,6 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   },
   editButton: {
     '&.MuiButtonBase-root': {
-      marginTop: '5px',
       marginRight: '10px'
     },
     '& .MuiTypography-root': {
@@ -170,7 +169,8 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
     }
   },
   customInfo: {
-    paddingTop: '12px !important'
+    paddingTop: '9px !important',
+    paddingBottom: 'unset !important'
   },
   gridImg: {
     display: 'flex',
