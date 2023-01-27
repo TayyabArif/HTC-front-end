@@ -73,7 +73,6 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
-    employeeId: accountInfo.userInfo.employee_id,
     password: passwordPlaceHolder,
     passwordConfirm: passwordPlaceHolder
   }
@@ -111,10 +110,10 @@ export const UpdateAccountInfo = props => {
       .trim()
       .required(t('account_settings.messages.errors.required'))
       .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
-    employeeId: yup
+    username: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.length_6')),
+      .min(6, t('general.messages.errors.field_length_6')),
     password: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -201,8 +200,7 @@ export const UpdateAccountInfo = props => {
         username: updatedInfo.username,
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
-        role: updatedInfo.role,
-        employee_id: updatedInfo.employeeId
+        role: updatedInfo.role
       }
 
       if (updatedInfo.password !== passwordPlaceHolder) {
@@ -223,7 +221,6 @@ export const UpdateAccountInfo = props => {
       newUserData.userInfo.roles = newData.roles
       newUserData.userInfo.role = newData.role
       newUserData.userInfo.password = newData.password
-      newUserData.userInfo.employee_id = newData.employee_id
 
       store.dispatch(authActions.setUser(newUserData))
       handleClosePanel(newUserData)
@@ -253,7 +250,7 @@ export const UpdateAccountInfo = props => {
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
         updatedInfo.password,
-        updatedInfo.employeeId
+        updatedInfo.username
       )
       updateUsers()
       handleClose()
@@ -276,7 +273,6 @@ export const UpdateAccountInfo = props => {
         photo_url: updatedInfo.photo_url,
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
-        employee_id: updatedInfo.employeeId,
         password:
           updatedInfo.password === passwordPlaceHolder
             ? undefined
@@ -502,15 +498,15 @@ export const UpdateAccountInfo = props => {
                 <Grid container mt={2} >
                   <Grid item xs={12}>
                     <TextInput
-                      value={updatedInfo.employeeId}
-                      id="employeeId"
-                      name="employeeId"
+                      value={updatedInfo.username}
+                      id="username"
+                      name="username"
                       handleChange={handleChangeValues}
-                      label={t('account_settings.info_card.employee_id')}
-                      placeholder={t('account_settings.info_card.placeholder_employee')}
-                      error={!!errors.employeeId}
-                      helperText={errors.employeeId && errors.employeeId.message}
-                      {...register('employeeId')}
+                      label={t('account_settings.info_card.username')}
+                      placeholder={t('account_settings.info_card.placeholder_username')}
+                      error={!!errors.username}
+                      helperText={errors.username && errors.username.message}
+                      {...register('username')}
                       inputStyle={{
                         width: '100%'
                       }}
