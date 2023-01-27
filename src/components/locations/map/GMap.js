@@ -81,7 +81,7 @@ export const GMap = (props) => {
             gestureHandling: 'greedy'
           }}
           mapContainerClassName={classes.markers}
-          mapContainerStyle={{ height: wWidth <= mobileBreakpoint ? 'calc(100vh - 78px)' : 'calc(100vh - 60px)', width: '100%', overflowY: 'hidden' }}
+          mapContainerStyle={{ height: wWidth <= mobileBreakpoint ? 'calc(100vh - 78px)' : 'calc(100vh - 100px)', width: '100%', overflowY: 'hidden' }}
           center={locationsStore.map.center}
           zoom={locationsStore.map.zoom}
           onLoad={(map) => getMapInstance(map)}
@@ -130,7 +130,7 @@ export const GMap = (props) => {
                 </Grid>
             </Grid>
           </Box>
-          {!requestLoading && props.searchResults.sites?.length
+          {!requestLoading && props.siteListing.length
             ? <MarkerClusterer
               styles={[
                 {
@@ -170,7 +170,7 @@ export const GMap = (props) => {
               }}
             >
               {
-                (clusterer) => props.searchResults.sites.map((site, index) => {
+                (clusterer) => props.siteListing.map((site, index) => {
                   // if site level view is active, only show the corresponding marker
                   if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
                     if (locationsStore.selectedSite.id === site.id) {
@@ -180,7 +180,7 @@ export const GMap = (props) => {
                         position={site.coordinates}
                         clusterer={clusterer}
                         site={site}
-                        enableCluster={true}
+                        enableCluster={enableCluster}
                       />
                     } else {
                       return null
@@ -192,13 +192,13 @@ export const GMap = (props) => {
                       position={site.coordinates}
                       clusterer={clusterer}
                       site={site}
-                      enableCluster={true}
+                      enableCluster={enableCluster}
                     />
                   }
                 })
               }
             </MarkerClusterer>
-            : !requestLoading && props.searchResults.sites.map((site, index) => {
+            : !requestLoading && props.siteListing.map((site, index) => {
                 return (
                 <OnlyMarker
                   key={index}
@@ -209,7 +209,7 @@ export const GMap = (props) => {
               }
               )
           }
-          {locationsStore.activeInfoWindow && props.searchResults.sites.find(site => locationsStore.activeInfoWindow === site.id) &&
+          {locationsStore.activeInfoWindow && props.siteListing.find(site => locationsStore.activeInfoWindow === site.id) &&
             (<InfoMarker
               key={props.screen + 'infomarker'}
               index={locationsStore.activeInfoWindow}
@@ -228,7 +228,7 @@ export const GMap = (props) => {
         </GoogleMap>
       </LoadScript>)
     }
-  }, [requestLoading, locationsStore.activeInfoWindow, enableCluster, props.hideLeftSection, props.searchResults, locationsStore.map, map, mapType, weather, props.forceReloadOverlay, loading])
+  }, [requestLoading, locationsStore.activeInfoWindow, enableCluster, props.hideLeftSection, props.searchResults, locationsStore.map, map, mapType, weather, props.forceReloadOverlay, loading, props.siteListing])
 
   return (renderMap ?? null)
 }

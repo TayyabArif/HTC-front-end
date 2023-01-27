@@ -130,10 +130,10 @@ export const navBarHeaderHeight = '100px'
 
 export const woSortOptions = [
   {
-    id: 'work_order_new'
+    id: 'work_order_a'
   },
   {
-    id: 'work_order_old'
+    id: 'work_order_z'
   },
   {
     id: 'status_a'
@@ -157,6 +157,10 @@ export const woSortOptions = [
     id: 'none'
   }
 ]
+
+export const locationsPerPage = 100
+
+export const locationWorkOrdersPerPage = 25
 
 export const profileCardLimits = {
   top: 1340,

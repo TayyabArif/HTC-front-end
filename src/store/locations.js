@@ -17,21 +17,27 @@ const initialState = {
   },
   locationFilters: {
     dateRange: 'today',
+    dateFrom: '',
+    dateTo: '',
     status: 'all',
-    state: 'All States',
-    city: 'All Cities'
+    state: 'all',
+    city: 'all'
   },
   woListFilters: {
     startDate: '',
     endDate: '',
     status: 'all',
-    trade: 'All',
-    type: 'All',
-    service: 'All',
+    trade: 'all',
+    type: 'all',
+    service: 'all',
     sortBy: 'none'
   },
+  statesOptions: [],
+  tradeOptions: [],
+  serviceOptions: [],
+  callTypeOptions: [],
+  selectedWorkOrder: null,
   selectedSite: null,
-  workOrders: null,
   workOrdersMeta: null,
   workOrdersMetaFilters: null,
   proposals: null,
@@ -77,9 +83,6 @@ const slice = createSlice({
     setActiveTab (state, action) {
       state.activeTab = action.payload
     },
-    setWorkOrders (state, action) {
-      state.workOrders = action.payload
-    },
     setWorkOrdersMeta (state, action) {
       state.workOrdersMeta = action.payload
     },
@@ -118,6 +121,21 @@ const slice = createSlice({
     },
     setWoListFilters (state, action) {
       state.woListFilters = action.payload
+    },
+    setStatesOptions (state, action) {
+      state.statesOptions = action.payload
+    },
+    setTradesOptions (state, action) {
+      state.tradeOptions = action.payload
+    },
+    setServicesOptions (state, action) {
+      state.serviceOptions = action.payload
+    },
+    setCallTypeOptions (state, action) {
+      state.callTypeOptions = action.payload
+    },
+    setSelectedWorkOrder (state, action) {
+      state.selectedWorkOrder = action.payload
     }
   }
 })
