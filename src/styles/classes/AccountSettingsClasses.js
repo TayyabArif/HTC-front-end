@@ -223,6 +223,9 @@ export const PhoneInputClasses = makeStyles(theme => ({
     },
     '& .MuiInputBase-input': {
       fontSize: '16px'
+    },
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText
     }
   },
   input: {
@@ -296,7 +299,10 @@ export const TextInputClasses = makeStyles(theme => ({
     },
     marginTop: 'unset',
     marginBottom: '12px',
-    flex: 1
+    flex: 1,
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText
+    }
   },
   label: {
     marginTop: 'unset',
