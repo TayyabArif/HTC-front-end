@@ -73,6 +73,7 @@ export const Selector = React.forwardRef((props, ref) => {
               key={option.id}
               value={option.id}
               className={classes.menuItem}
+              disabled={option.disabled}
               onClick={() => {
                 props.handleChange({
                   target: { name: props.id, value: option.id }

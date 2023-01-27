@@ -42,6 +42,14 @@ export const mainContainerStyles = makeStyles(theme => ({
         display: 'none'
       },
       touchAction: 'pan-y'
+    },
+    [theme.breakpoints.up('md')]: {
+      overflowY: 'auto'
+    }
+  },
+  containerScrollHidden: {
+    [theme.breakpoints.up('md')]: {
+      overflowY: 'hidden'
     }
   },
   backdrop: {

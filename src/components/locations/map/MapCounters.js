@@ -30,16 +30,16 @@ export const MapCounters = (props) => {
           <MapCounter>
             <Grid container >
               <Grid xs={12} >
-                <Typography component={'span'} className={classes.font12}>
-                  {t('locations.all_locations')}
+                <Typography component={'span'} className={classes.font14}>
+                  {t('locations.total_locations')}
                 </Typography>
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.total_result ?? 0}
+                  {props.searchResults.meta.total_site_count ?? 0}
                 </Typography>
               </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
+              <Grid textAlign="right" xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
                   {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
@@ -52,17 +52,17 @@ export const MapCounters = (props) => {
           <MapCounter>
             <Grid container >
               <Grid xs={12} >
-                <Typography component={'span'} className={classes.font12}>
+                <Typography component={'span'} className={classes.font14}>
                   {t('locations.open')}
                   <FiberManualRecord className={classes.activeWork} />
                 </Typography>
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
                 <Typography className={classes.font12}>
-                  {props.searchResults.meta.active_sites ?? 0}
+                  {props.searchResults.meta.sites_open_wo ?? 0}
                 </Typography>
               </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
+              <Grid xs={6} textAlign="right" className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
                   {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>
@@ -75,9 +75,55 @@ export const MapCounters = (props) => {
           <MapCounter>
             <Grid container >
               <Grid xs={12} >
-                <Typography component={'span'} className={classes.font12}>
+                <Typography component={'span'} className={classes.font14}>
                   {t('locations.in_progress')}
                   <FiberManualRecord className={classes.inProgressWork} />
+                </Typography>
+              </Grid>
+              <Grid xs={6} className={classes.gridCounter} >
+                <Typography className={classes.font12}>
+                  {props.searchResults.meta.sites_in_progress_wo ?? 0}
+                </Typography>
+              </Grid>
+              <Grid xs={6} textAlign="right" className={classes.gridCounter} >
+                <Typography className={classes.rangeLabel}>
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
+                </Typography>
+              </Grid>
+            </Grid>
+          </MapCounter>
+        </Grid>
+
+        <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
+          <MapCounter>
+            <Grid container >
+              <Grid xs={12} >
+                <Typography component={'span'} className={classes.font14}>
+                  {t('locations.completed')}
+                  <FiberManualRecord className={classes.completedWork} />
+                </Typography>
+              </Grid>
+              <Grid xs={6} className={classes.gridCounter} >
+                <Typography className={classes.font12}>
+                  {props.searchResults.meta.sites_completed_wo ?? 0}
+                </Typography>
+              </Grid>
+              <Grid xs={6} textAlign="right" className={classes.gridCounter} >
+                <Typography className={classes.rangeLabel}>
+                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
+                </Typography>
+              </Grid>
+            </Grid>
+          </MapCounter>
+        </Grid>
+
+        <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
+          <MapCounter>
+            <Grid container >
+              <Grid xs={12} >
+                <Typography component={'span'} className={classes.font14}>
+                  {t('locations.no_activity')}
+                  <FiberManualRecord className={classes.noActivity} />
                 </Typography>
               </Grid>
               <Grid xs={6} className={classes.gridCounter} >
@@ -85,53 +131,7 @@ export const MapCounters = (props) => {
                   {props.searchResults.meta.no_activity_sites ?? 0}
                 </Typography>
               </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
-                <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
-                </Typography>
-              </Grid>
-            </Grid>
-          </MapCounter>
-        </Grid>
-
-        <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
-          <MapCounter>
-            <Grid container >
-              <Grid xs={12} >
-                <Typography component={'span'} className={classes.font12}>
-                  {t('locations.completed')}
-                  <FiberManualRecord className={classes.completedWork} />
-                </Typography>
-              </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
-                <Typography className={classes.font12}>
-                  {props.searchResults.meta.completed_work_orders ?? 0}
-                </Typography>
-              </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
-                <Typography className={classes.rangeLabel}>
-                  {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
-                </Typography>
-              </Grid>
-            </Grid>
-          </MapCounter>
-        </Grid>
-
-        <Grid item hidden={locationsStore.activeTab === 'all_sites'} classes={{ root: classes.gridItem }}>
-          <MapCounter>
-            <Grid container >
-              <Grid xs={12} >
-                <Typography component={'span'} className={classes.font12}>
-                  {t('locations.no_activity')}
-                  <FiberManualRecord className={classes.noActivity} />
-                </Typography>
-              </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
-                <Typography className={classes.font12}>
-                  {props.searchResults.meta.completed_work_orders ?? 0}
-                </Typography>
-              </Grid>
-              <Grid xs={6} className={classes.gridCounter} >
+              <Grid textAlign="right" xs={6} className={classes.gridCounter} >
                 <Typography className={classes.rangeLabel}>
                   {t(`locations.date_ranges.${locationsStore.locationFilters.dateRange}`)}
                 </Typography>

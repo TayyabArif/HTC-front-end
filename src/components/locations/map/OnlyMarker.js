@@ -17,15 +17,19 @@ import mCanceled from '../../../assets/images/clusters/cancelled.png'
 import mNoService from '../../../assets/images/clusters/no_service.png'
 
 /** Redux **/
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { locationsActions } from '../../../store/locations'
 
 export const OnlyMarker = (props) => {
   const locationsStore = useSelector((state) => state.locations)
+  const dispatch = useDispatch()
 
   const index = props.index
   const site = props.site
 
   const handleClickLocation = (index, location) => {
+    dispatch(locationsActions.setSelectedSite(location))
+    dispatch(locationsActions.setActiveInfoWindow(index))
   }
 
   return (
