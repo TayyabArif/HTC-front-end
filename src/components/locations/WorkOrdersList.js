@@ -46,7 +46,7 @@ export const WorkOrdersList = (props) => {
 
   useEffect(() => {
     setPage(1)
-  }, [searchValue, locationsStore.locationFilters])
+  }, [searchValue, locationsStore.locationFilters, locationsStore.selectedSite])
 
   useEffect(() => {
     setLoading(false)
