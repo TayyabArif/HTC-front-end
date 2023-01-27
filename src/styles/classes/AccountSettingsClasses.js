@@ -169,6 +169,9 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       minHeight: '35px'
     }
   },
+  customInfo: {
+    paddingTop: '12px !important'
+  },
   gridImg: {
     display: 'flex',
     flexDirection: 'column',
