@@ -580,7 +580,7 @@ const CompanySettings = props => {
               >
                 {' '}
               </Avatar>
-              {!company?.logo?.url &&
+              {(!company?.logo?.url || company?.logo?.url === '') &&
                 <label htmlFor="profile-logo" className={classes.labelUpload}>
                   <Button id="profile-logo"
                     component="label" className={classes.uploadButton} >
@@ -593,7 +593,7 @@ const CompanySettings = props => {
                     />
                   </Button>
                 </label>}
-              {company?.logo?.url &&
+              {company?.logo?.url && company?.logo?.url !== '' &&
                 <label htmlFor="profile-logo" className={classes.editButton}>
                   <Button
                     id="profile-logo"
