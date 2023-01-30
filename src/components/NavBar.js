@@ -50,14 +50,15 @@ export const NavBar = () => {
     dispatch(locationsActions.setSelectedSite())
     dispatch(locationsActions.setSelectedWorkOrder(null))
     // set navbar value
-    if (location.pathname === '/') {
-      history.push('/work-orders')
-    } else if (location.pathname === '/sign-in') {
+    if (location.pathname === '/sign-in') {
       setValue('/work-orders')
+      dispatch(authActions.setRedirect('/work-orders'))
     } else if (location.pathname === '/createInvoice') {
       setValue('/invoices')
+      dispatch(authActions.setRedirect('/invoices'))
     } else {
       setValue(location.pathname)
+      dispatch(authActions.setRedirect(location.pathname))
     }
   }, [location.pathname])
 
