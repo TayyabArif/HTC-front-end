@@ -20,6 +20,7 @@ import { getCompanyRoles } from '../../services/ApiService'
 
 /** Styles **/
 import { AccountInfoCardClasses } from '../../styles/classes/AccountSettingsClasses'
+import clsx from 'clsx'
 
 export const AccountInfoCard = props => {
   const classes = AccountInfoCardClasses()
@@ -134,7 +135,7 @@ export const AccountInfoCard = props => {
                         </Grid>
                         <Grid item xs={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.user_title')}</Typography>
-                            <Typography className={classes.info} mt={1}>{t('request_access.user_roles.' + userInfo?.userInfo?.role)}</Typography>
+                            <Typography className={userInfo?.userInfo?.role ? classes.info : clsx(classes.info, classes.disabled)} mt={1}>{userInfo?.userInfo?.role ? t('request_access.user_roles.' + userInfo?.userInfo?.role) : 'Choose Title'}</Typography>
                         </Grid>
                         <Grid item xs={3} ml={2} sx={styles.employeeId}>
                             <Typography classes={{ root: classes.field }}>{t('account_settings.info_card.employee_id')}</Typography>

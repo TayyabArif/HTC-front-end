@@ -168,6 +168,11 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       minHeight: '35px'
     }
   },
+  disabled: {
+    '&.MuiTypography-root': {
+      color: `${theme.colors.textGray} !important`
+    }
+  },
   customInfo: {
     paddingTop: '9px !important',
     paddingBottom: 'unset !important'
