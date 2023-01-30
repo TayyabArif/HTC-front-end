@@ -23,8 +23,13 @@ export const LocationInfoCard = (props) => {
   const [rating, setRating] = useState(0)
 
   useEffect(() => {
-    setRating(props.info?.rating)
-  }, [props.info?.rating])
+    if (props.info) {
+      setRating(props.info?.rating)
+      setExpanded(true)
+    } else {
+      setExpanded(false)
+    }
+  }, [props.info])
 
   const openingHoursPrev = () => {
     if (props.info && props.info.opening_hours && props.info.opening_hours.length > 1) {

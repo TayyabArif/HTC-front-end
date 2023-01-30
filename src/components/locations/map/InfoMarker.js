@@ -27,7 +27,6 @@ import mNoService from '../../../assets/images/clusters/no_service.png'
 /** Redux **/
 import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
-import { filtersActions } from '../../../store/filters'
 
 // Constants
 import { mobileBreakpoint } from '../../../lib/Constants'
@@ -41,27 +40,22 @@ export const InfoMarker = (props) => {
   const dispatch = useDispatch()
   const actualWidth = useWindowWidth()
 
-  const handleClickLocation = (index, location) => {
-    if (window.location.pathname.includes('/work-orders') || window.location.pathname.includes('/proposals')) {
-      dispatch(locationsActions.setActiveInfoWindow(null))
-      dispatch(filtersActions.setWoSiteFilter(location))
-      dispatch(filtersActions.handleMobileDrawer(true))
-    } else if (locationsStore.selectedSite.id !== index || !locationsStore.showSiteViewPanel) {
-      dispatch(locationsActions.setLastState({
-        coordinates: {
-          lat: props.map?.center.lat(),
-          lng: props.map?.center.lng()
-        },
-        zoom: props.map?.zoom
-      }))
-      dispatch(locationsActions.showSiteViewPanel())
-      props.setActualWoTab('work_orders')
-      dispatch(filtersActions.handleMobileDrawer(true))
-    }
-  }
-
   const index = props.index
   const site = props.site
+
+  const handleClickLocation = (index, location) => {
+    if (site.coordinates) {
+      dispatch(locationsActions.showMapSiteView({
+        coordinates: site.coordinates,
+        zoom: 19,
+        hideMarkers: true,
+        selectedMarkerIndex: props.index
+      }))
+      dispatch(locationsActions.setSelectedSite(site))
+      dispatch(locationsActions.setActiveInfoWindow(null))
+      dispatch(locationsActions.showSiteViewPanel())
+    }
+  }
 
   return (<Marker
     visible={false}
