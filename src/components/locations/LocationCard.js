@@ -37,7 +37,8 @@ export const LocationCard = (props) => {
         selectedMarkerIndex: props.index
       }))
       dispatch(locationsActions.setSelectedSite(props.info))
-      dispatch(locationsActions.setActiveInfoWindow(props.info.id))
+      dispatch(locationsActions.setActiveInfoWindow(null))
+      dispatch(locationsActions.showSiteViewPanel())
     }
   }
 
