@@ -165,7 +165,7 @@ const Locations = () => {
       dispatch(locationsActions.setStatesOptions(finalStates))
     }
     const filters = await getSitesAdvancedFiltersInfo()
-    const callTypesRes = await getLocationCallTypes('all')
+    const callTypesRes = await getLocationCallTypes(userStore.userInfo.company_id ?? userStore.userInfo.companyId)
     filters.trades.forEach(trade => {
       trade.id = trade.name
     })
