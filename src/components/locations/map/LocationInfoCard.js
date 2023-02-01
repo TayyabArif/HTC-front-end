@@ -93,10 +93,10 @@ export const LocationInfoCard = (props) => {
             classes={{ root: classes.rating }}
             size='small'
             value={rating}
-            readOnly
             precision={0.5}
             max={5}
             name="unique-rating"
+            readOnly
           />
           <Typography className={classes.ratingLabel} >{`(${props.info?.user_ratings_total})`}</Typography>
         </Box>}

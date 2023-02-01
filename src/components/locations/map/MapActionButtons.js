@@ -53,7 +53,11 @@ export const MapActionButtons = (props) => {
     if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
       const response = await getLocationInfo(locationsStore.selectedSite.id)
       if (response.status) {
-        setLocationInfo(response.content)
+        if (Object.keys(response.content).length === 0) {
+          setLocationInfo(null)
+        } else {
+          setLocationInfo(response.content)
+        }
       } else {
         setLocationInfo(null)
       }
