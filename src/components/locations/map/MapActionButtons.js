@@ -56,7 +56,7 @@ export const MapActionButtons = (props) => {
         const keys = Object.keys(response.content)
         let infoLocated = false
         keys.forEach(key => {
-          if (response.content[key] && response.content[key] !== '' && response.content[key] !== []) {
+          if (response.content[key] && response.content[key].length > 0) {
             infoLocated = true
           }
         })

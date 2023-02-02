@@ -93,6 +93,7 @@ export const LocationInfoCard = (props) => {
             classes={{ root: classes.rating }}
             size='small'
             value={rating}
+            defaultValue={props.info?.rating}
             precision={0.5}
             max={5}
             name="unique-rating"
