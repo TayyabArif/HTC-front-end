@@ -39,6 +39,7 @@ export const LocationCard = (props) => {
       dispatch(locationsActions.setSelectedSite(props.info))
       dispatch(locationsActions.setActiveInfoWindow(null))
       dispatch(locationsActions.showSiteViewPanel())
+      props.setSearch('')
     }
   }
 

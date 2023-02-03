@@ -737,10 +737,10 @@ export const getLocationWorkOrders = async (id, search, limit, page, openDate, e
  * GET Call types list for current location
  * @returns Call types list
  */
-export const getLocationCallTypes = async (siteId) => {
+export const getLocationCallTypes = async (clientId) => {
   try {
     const response = await callAPI('GET', '/sites/call_types', new URLSearchParams({
-      site_id: siteId
+      client_id: clientId
     }))
     return response
   } catch {
