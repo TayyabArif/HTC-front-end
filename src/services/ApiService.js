@@ -603,10 +603,10 @@ export const getLocationInfo = async id => {
   try {
     const response = await Api.getLocationInfo(id)
     store.dispatch(loadingActions.hide())
-    return { status: true, content: response }
+    return response
   } catch (err) {
     store.dispatch(loadingActions.hide())
-    return { status: false, content: err }
+    return err
   }
 }
 
