@@ -87,23 +87,24 @@ export const LocationInfoCard = (props) => {
             ? <ArrowDropDownRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />
             : <ArrowDropUpRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />}
         </Box>
-        {props.info && <Box display="flex">
+        {props.info?.rating && <Box display="flex">
           <Typography className={classes.ratingLabel} >{rating}</Typography>
           <Rating
             classes={{ root: classes.rating }}
             size='small'
             value={rating}
-            readOnly
+            defaultValue={props.info?.rating}
             precision={0.5}
             max={5}
             name="unique-rating"
+            readOnly
           />
           <Typography className={classes.ratingLabel} >{`(${props.info?.user_ratings_total})`}</Typography>
         </Box>}
         <Typography className={classes.locationDescription}>{props.info ? `$ - ${props.info?.name}` : t('locations.info_card.no_data')}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           {props.info && <CardContent className={classes.cardContent}>
-            <PhotoList photos={props.info?.photos ?? []} url={props.info?.url} />
+            {props.info?.photos && props.info?.photos?.length > 0 && <PhotoList photos={props.info?.photos ?? []} url={props.info?.url} />}
             {props.info?.located_in && props.info?.located_in !== '' && <Box mb="6px" display="flex">
               <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info?.located_in}</Typography>
             </Box>}
