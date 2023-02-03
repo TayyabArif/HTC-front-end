@@ -165,7 +165,7 @@ const Locations = () => {
       dispatch(locationsActions.setStatesOptions(finalStates))
     }
     const filters = await getSitesAdvancedFiltersInfo()
-    const callTypesRes = await getLocationCallTypes('all')
+    const callTypesRes = await getLocationCallTypes(userStore.userInfo.company_id ?? userStore.userInfo.companyId)
     filters.trades.forEach(trade => {
       trade.id = trade.name
     })
@@ -370,7 +370,7 @@ const Locations = () => {
         {/* RESULTS */}
         <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
-            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} />
+            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} />
           </Grid>
         </Box>
       </Box>

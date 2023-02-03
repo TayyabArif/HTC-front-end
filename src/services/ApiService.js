@@ -634,10 +634,10 @@ export const getLocationWorkOrders = async (id, search, limit, page, openDate, e
   }
 }
 
-export const getLocationCallTypes = async (siteId) => {
+export const getLocationCallTypes = async (clientId) => {
   store.dispatch(loadingActions.show())
   try {
-    const response = await Api.getLocationCallTypes(siteId)
+    const response = await Api.getLocationCallTypes(clientId)
     store.dispatch(loadingActions.hide())
     return response
   } catch (err) {
