@@ -370,7 +370,7 @@ const Locations = () => {
         {/* RESULTS */}
         <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
-            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} />
+            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} />
           </Grid>
         </Box>
       </Box>
