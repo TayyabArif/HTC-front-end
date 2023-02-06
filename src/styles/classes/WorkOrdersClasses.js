@@ -628,7 +628,7 @@ export const dateTimeFilterStyles = makeStyles(theme => ({
 
 export const detailedInfoStyles = makeStyles(theme => ({
   presentation: {
-    marginBottom: '0px',
+    margin: 0,
     marginTop: '19px',
     overflowY: 'auto'
   },
@@ -1120,6 +1120,11 @@ export const repairDataStyles = makeStyles(theme => ({
 }))
 
 export const slideFilterStyles = makeStyles(theme => ({
+  mainMenu: {
+    '& .MuiPaper-root': {
+      height: '350px'
+    }
+  },
   switch: {
     marginRight: '0px',
     marginLeft: 'auto',
@@ -1173,7 +1178,7 @@ export const slideFilterStyles = makeStyles(theme => ({
   },
   searchInput1: theme.filtersClasses.searchInput1,
   searchInput2: theme.filtersClasses.searchInput2,
-  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px' }
+  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px', whiteSpace: 'initial', wordBreak: 'break-word' }
 }))
 
 export const sortMenuStyles = makeStyles(theme => ({

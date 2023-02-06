@@ -35,6 +35,7 @@ import {
   enableButtonStyle
 } from '../../styles/mui_custom_theme'
 import { UpdateAccountInfoClasses } from '../../styles/classes/AccountSettingsClasses'
+import { useSelector } from 'react-redux'
 
 export const UpdateAccountInfo = props => {
   const {
@@ -45,7 +46,6 @@ export const UpdateAccountInfo = props => {
     event,
     updateUsers,
     affiliateId,
-    accountOwner,
     mobile
   } = props
   const classes = UpdateAccountInfoClasses()
@@ -53,6 +53,8 @@ export const UpdateAccountInfo = props => {
   const [open, setOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
   const [enableSave, setEnableSave] = useState()
+  const user = useSelector(state => state.auth.user)
+  const [finalRoles, setFinalRoles] = useState([])
 
   // inline styles
   const styles = {
@@ -64,7 +66,6 @@ export const UpdateAccountInfo = props => {
     }
   }
 
-  const passwordPlaceHolder = '********'
   const startingInfo = {
     firstName: accountInfo.userInfo.firstName,
     lastName: accountInfo.userInfo.lastName,
@@ -74,9 +75,7 @@ export const UpdateAccountInfo = props => {
     photo_url: accountInfo.userInfo.photo_url,
     roles: accountInfo.userInfo.roles,
     role: accountInfo.userInfo.role,
-    employeeId: accountInfo.userInfo.employee_id,
-    password: passwordPlaceHolder,
-    passwordConfirm: passwordPlaceHolder
+    employeeId: accountInfo.userInfo.employee_id
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
 
@@ -169,6 +168,21 @@ export const UpdateAccountInfo = props => {
     setEnableSave(save)
   }, [updatedInfo, errors])
 
+  useEffect(() => {
+    const currentRoles = roles?.filter((role) => role.id === user.userInfo.roles)
+    if (currentRoles?.length > 0) {
+      const updatedRoles = []
+      roles.forEach((role) => {
+        if (role.name === 'Super Admin' && currentRoles[0].name !== 'Super Admin') {
+          updatedRoles.push({ ...role, disabled: true })
+        } else {
+          updatedRoles.push({ ...role, disabled: false })
+        }
+      })
+      setFinalRoles(updatedRoles)
+    }
+  }, [open])
+
   const onSubmit = data => {
     handleChangeUser()
   }
@@ -206,7 +220,7 @@ export const UpdateAccountInfo = props => {
         employee_id: updatedInfo.employeeId
       }
 
-      if (updatedInfo.password !== passwordPlaceHolder) {
+      if (updatedInfo.password) {
         newData = { ...newData, password: updatedInfo.password }
       }
 
@@ -278,10 +292,7 @@ export const UpdateAccountInfo = props => {
         roles: updatedInfo.roles === 'no_value' ? '' : updatedInfo.roles,
         role: updatedInfo.role,
         employee_id: updatedInfo.employeeId,
-        password:
-          updatedInfo.password === passwordPlaceHolder
-            ? undefined
-            : updatedInfo.password
+        password: updatedInfo.password
       })
       updateUsers()
       handleClose()
@@ -353,7 +364,7 @@ export const UpdateAccountInfo = props => {
                         borderBottomRightRadius: 0,
                         borderColor: '#B8B8B8'
                       }}
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -372,7 +383,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>
@@ -394,7 +405,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>
@@ -414,7 +425,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                       {...register('phone')}
                     />
                   </Grid>
@@ -437,13 +448,12 @@ export const UpdateAccountInfo = props => {
                                 name: t('company_settings.mobile_only')
                               }
                             ]
-                          : roles && roles.length > 0
-                            ? [...roles]
+                          : finalRoles && finalRoles.length > 0
+                            ? [...finalRoles]
                             : []
                       }
                       error={!!errors.roles}
                       helperText={errors.roles && errors.roles.message}
-                      disabled={accountOwner}
                       {...register('roles')}
                     />
                   </Grid>
@@ -516,7 +526,7 @@ export const UpdateAccountInfo = props => {
                       inputStyle={{
                         width: '100%'
                       }}
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>
@@ -534,6 +544,8 @@ export const UpdateAccountInfo = props => {
                       helperText={errors.password && errors.password.message}
                       endAdornment={true}
                       {...register('password')}
+                      InputLabelProps={{ required: true }}
+                      autoComplete="new-password"
                     />
                   </Grid>
                 </Grid>
@@ -553,6 +565,7 @@ export const UpdateAccountInfo = props => {
                         errors.passwordConfirm && errors.passwordConfirm.message
                       }
                       {...register('passwordConfirm')}
+                      InputLabelProps={{ required: true }}
                     />
                   </Grid>
                 </Grid>

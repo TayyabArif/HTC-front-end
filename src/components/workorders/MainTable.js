@@ -68,12 +68,12 @@ function EnhancedTableHead (props) {
   const { t } = useTranslation()
 
   const tradesOptions =
-    filtersCatalog.trades &&
+    filtersCatalog.trades?.length &&
     filtersCatalog.trades.map(item => {
       return { label: titleCase(item.name), value: item.name }
     })
   const servicesOptions =
-    filtersCatalog.services &&
+    filtersCatalog.services?.length &&
     filtersCatalog.services.map(item => {
       return { label: titleCase(item.name), value: item.name }
     })
@@ -101,7 +101,7 @@ function EnhancedTableHead (props) {
   let count = 0
   const checked = rowCount > 0 && numSelected === rowCount
   if (checked) {
-    count = rowCount
+    count = props.chips.totalCount
   } else {
     count = numSelected
   }
@@ -293,6 +293,12 @@ function EnhancedTable (props) {
     },
     [loading, hasMore]
   )
+  useEffect(() => {
+    // check by default all the new items filtered
+    if (!loading && selected.length > 0) {
+      reselectAllItems()
+    }
+  }, [content])
 
   useEffect(() => {
     // Make sure the WO download call has updated the token before this call is made
@@ -335,6 +341,12 @@ function EnhancedTable (props) {
       return
     }
     setSelected([])
+  }
+
+  const reselectAllItems = () => {
+    setSelected([])
+    const newSelecteds = content.map(n => n.id)
+    setSelected(newSelecteds)
   }
 
   const handleClick = (event, name) => {

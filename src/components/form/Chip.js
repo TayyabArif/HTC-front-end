@@ -49,8 +49,8 @@ export default function GlobalChip (props) {
         </Box>
       )}
       <Box role="group" className={classes.chipContainer}>
-        {chips?.map(c => (
-          <Chip
+        {chips?.map(c => {
+          return <Chip
             key={c}
             onClick={event => handleSelectionChanged(c, event)}
             variant="outlined"
@@ -63,7 +63,7 @@ export default function GlobalChip (props) {
               props.selected?.has(c) ? classes.chipSelected : classes.chip
             }
           ></Chip>
-        ))}
+        })}
       </Box>
     </Box>
   )

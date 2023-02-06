@@ -685,3 +685,65 @@ export const uploadWoLog = async (woLog, iframe = false) => {
   }
   return response
 }
+
+/*
+ * GET Location Info
+ * @returns LocationInfo
+ */
+export const getLocationInfo = async id => {
+  return await callAPI('GET', `/locations/${id}`)
+}
+
+/*
+ * GET Locations
+ * @returns Locations
+ */
+export const getLocations = async (clientId, page, limit, id, search, dateRange, woDateFrom, woDateTo, status, state, city) => {
+  return await callAPI('GET', '/sites/listing', new URLSearchParams({
+    client_id: clientId,
+    page,
+    limit,
+    id,
+    search,
+    wo_date_range: dateRange,
+    wo_date_from: woDateFrom,
+    wo_date_to: woDateTo,
+    wo_status: status,
+    state,
+    city
+  }))
+}
+
+/*
+ * GET Location Work Orders
+ * @returns Work Orders
+ */
+export const getLocationWorkOrders = async (id, search, limit, page, openDate, expirationDate, status, category, services, callType, sortBy) => {
+  return await callAPI('GET', `sites/${id}/work-orders`, new URLSearchParams({
+    search,
+    limit,
+    page,
+    open_date: openDate,
+    expiration_date: expirationDate,
+    status,
+    category,
+    services,
+    call_type: callType,
+    sort_by: sortBy
+  }))
+}
+
+/**
+ * GET Call types list for current location
+ * @returns Call types list
+ */
+export const getLocationCallTypes = async (clientId) => {
+  try {
+    const response = await callAPI('GET', '/sites/call_types', new URLSearchParams({
+      client_id: clientId
+    }))
+    return response
+  } catch {
+    return false
+  }
+}

@@ -218,6 +218,11 @@ const CompanySettings = props => {
           })
           .join(', ')
       }
+      if (newProfile?.contacts && newProfile?.contacts.length > 0) {
+        newProfile?.contacts.forEach(element => {
+          delete element.send_email
+        })
+      }
       await updateCompany(userStore.userInfo.company_id, newProfile)
       // get updated object
       const response = await getCompanyProfile(userStore.userInfo.company_id)
@@ -565,7 +570,7 @@ const CompanySettings = props => {
           {t('company_settings.title')}
         </Typography>
       </Box>
-      <Box display="flex" className={classes.cardsContainer}>
+      <Box className={classes.cardsContainer}>
         <Box flex={1}>
           {/* Logo card */}
           <Card data-testid='logo_card' className={classes.card}>

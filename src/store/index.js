@@ -6,6 +6,7 @@ import authReducer from './signIn'
 import filtersReducer from './filters'
 import loadingReducer from './loading'
 import serviceReducer from './requestService'
+import locationsReducer from './locations'
 
 const persistConfig = {
   key: 'root',
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   filters: filtersReducer,
   loading: loadingReducer,
-  services: serviceReducer
+  services: serviceReducer,
+  locations: locationsReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
