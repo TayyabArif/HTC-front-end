@@ -40,7 +40,7 @@ const SortableItem = SortableElement(({ items, setColumns, id, visible }) => {
             <Chip className={visible ? classes.chip : classes.chipVisibleOff}
                 label={<Typography
                     component={'div'}
-                    className={classes.chipText}>{t('company_settings.preferences_card.types.' + id)}<DragHandle visible={visible} /></Typography>}
+                    className={classes.chipText}>{t('company_settings.preferences_card.columns.' + id)}<DragHandle visible={visible} /></Typography>}
                 onDelete={() => {
                   const newcolumns = JSON.parse(JSON.stringify(items))
                   const col = newcolumns.find(col => col.id === id)
@@ -66,23 +66,28 @@ const SortableListContainer = SortableContainer(({ items, setColumns }) => {
         </List>)
 })
 
-const defWorkTypes = [
-  { id: 'maintenance', visible: true },
-  { id: 'enhancement', visible: true },
-  { id: 'seasonal', visible: true },
-  { id: 'complaint', visible: true }
+const defWorkColumns = [
+  { id: 'location', visible: true },
+  { id: 'priority', visible: true },
+  { id: 'trade', visible: true },
+  { id: 'service', visible: true },
+  { id: 'wo_number', visible: true },
+  { id: 'tracking', visible: true },
+  { id: 'open_date', visible: true },
+  { id: 'close_date', visible: true },
+  { id: 'wo_status', visible: true }
 ]
 
 export const PreferencesCard = props => {
   const classes = preferencesCardStyles()
   const { t } = useTranslation()
 
-  const [dbWorkTypes, setDbWorkTypes] = useState(defWorkTypes)
-  const [columns, setColumns] = useState(dbWorkTypes)
+  const [dbWOrkColumns, setDbWorkColumns] = useState(defWorkColumns)
+  const [columns, setColumns] = useState(defWorkColumns)
 
   useEffect(() => {
-    setColumns(dbWorkTypes)
-  }, [dbWorkTypes])
+    setColumns(defWorkColumns)
+  }, [defWorkColumns])
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const newsort = arrayMove(columns, oldIndex, newIndex)
@@ -102,7 +107,8 @@ export const PreferencesCard = props => {
   }
 
   const applyChanges = () => {
-    setDbWorkTypes(columns)
+    console.log(columns)
+    setDbWorkColumns(columns)
   }
 
   return (
@@ -114,7 +120,7 @@ export const PreferencesCard = props => {
             </CardActions>
             <CardContent classes={{ root: classes.content }}>
                 <Typography
-                    classes={{ root: classes.subtitle }}>{t('company_settings.preferences_card.work_types')}
+                    classes={{ root: classes.subtitle }}>{t('company_settings.preferences_card.work_order_columns')}
                 </Typography>
                 <br />
                 <SortableListContainer
@@ -125,9 +131,9 @@ export const PreferencesCard = props => {
                     setColumns={setColumns}
                 />
                 <Typography classes={{ root: classes.description }}>{t('company_settings.preferences_card.description')}</Typography>
-                <Box display="none !important" className={classes.buttonBox} >
+                <Box className={classes.buttonBox} >
 
-                    <Button onClick={() => { setDbWorkTypes(defWorkTypes) }} size="small" >
+                    <Button onClick={() => { setColumns(dbWOrkColumns) }} size="small" >
                         {t('company_settings.preferences_card.clear')}
                     </Button>
 

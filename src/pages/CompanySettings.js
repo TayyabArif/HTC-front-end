@@ -609,7 +609,7 @@ const CompanySettings = props => {
             setOpen={setOpen}
             setComponent={setComponent}
           />
-          <PreferencesCard />
+          <PreferencesCard company={company}/>
           <SupportCard
             company={company}
           />

@@ -183,13 +183,19 @@ export const companySettings = () => {
       description: 'Control which work types are visible.',
       clear: 'Clear',
       apply: 'Apply',
-      types: {
-        maintenance: 'Maintenance',
-        enhancement: 'Enhancement',
-        seasonal: 'Seasonal',
-        complaint: 'Complaint'
+      columns: {
+        location: 'Location',
+        priority: 'Priority',
+        trade: 'Trade',
+        service: 'Service',
+        wo_number: 'WO #',
+        tracking: 'Tracking #',
+        open_date: 'Open Date',
+        close_date: 'Close Date',
+        wo_status: 'WO Status'
       },
-      no_file: 'No document uploaded'
+      no_file: 'No document uploaded',
+      work_order_columns: 'Work Order Columns'
     }
   }
 }
