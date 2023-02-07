@@ -747,3 +747,31 @@ export const getLocationCallTypes = async (siteId) => {
     return false
   }
 }
+
+/**
+ * GET company configs
+ * @returns company configs
+ */
+export const getCompanyConfigs = async (companyId) => {
+  try {
+    const response = await callAPI('GET', `/companies/${companyId}/configs`)
+    return response
+  } catch {
+    return false
+  }
+}
+
+/**
+ * PUT company configs
+ * @returns company profile
+ */
+export const putCompanyConfigs = async (companyId, data) => {
+  try {
+    const response = await callAPI('PUT', `/companies/${companyId}/configs`, {
+      configs: data
+    })
+    return response
+  } catch {
+    return false
+  }
+}

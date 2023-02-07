@@ -504,6 +504,9 @@ export const preferencesCardStyles = makeStyles(theme => ({
     fontSize: '10px',
     color: '#6C7172',
     margin: '0 0 25px 15px'
+  },
+  applyButton: {
+    textTransform: 'none'
   }
 }))
 
@@ -578,7 +581,7 @@ export const supportCardStyles = makeStyles(theme => ({
     color: theme.colors.black,
     lineHeight: '24px',
     letterSpacing: '0.05em',
-    margin: '23px 0px 22px 20px'
+    margin: '23px 0px 26px 20px'
   },
   card: {
     borderRadius: '8px',

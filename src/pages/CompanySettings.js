@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  getCompanyConfigs,
   getCompanyProfile,
   getCompanyUsers,
   updateCompany,
@@ -69,12 +70,19 @@ const CompanySettings = props => {
   const [validHours, setValidHours] = useState(true)
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
+  const [companyConfigs, setCompanyConfigs] = useState([])
 
   useEffect(() => {
     initialMethod()
   }, [])
 
   const initialMethod = async () => {
+    getCompanyInfo()
+    updateRoles()
+    updateUsers()
+  }
+
+  const getCompanyInfo = async () => {
     try {
       setComplianceFields(
         userStore.userInfo?.configurations?.onboarding?.compliance
@@ -88,11 +96,11 @@ const CompanySettings = props => {
         )
         parseDataToMapView(response.service_area[0])
       }
+      const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
+      setCompanyConfigs(configResponse)
     } catch (error) {
       console.error('Error retrieving company profile: ', error)
     }
-    updateRoles()
-    updateUsers()
   }
 
   useEffect(() => {
@@ -187,6 +195,9 @@ const CompanySettings = props => {
       delete newProfile.id
       delete newProfile.external_token
       delete newProfile.client_ids
+      if (newProfile.configs) {
+        delete newProfile.configs
+      }
       newProfile.compliance = calculateCompliance()
         ? parseInt(calculateCompliance().split('%')[0])
         : undefined
@@ -609,7 +620,7 @@ const CompanySettings = props => {
             setOpen={setOpen}
             setComponent={setComponent}
           />
-          <PreferencesCard company={company}/>
+          <PreferencesCard companyConfigs={companyConfigs} getCompanyInfo={getCompanyInfo} />
           <SupportCard
             company={company}
           />

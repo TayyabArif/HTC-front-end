@@ -1,8 +1,9 @@
-// main components
+/** main components **/
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
-// components
+/** components **/
 import {
   Typography,
   Card,
@@ -16,13 +17,19 @@ import {
 } from '@mui/material'
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
 
-// icons
+/** icons **/
 import DragGrid from '../../assets/icons/draggrid.svg'
 import DragGridOff from '../../assets/icons/draggridoff.svg'
 import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material'
 
-// styles
+/**  styles **/
 import { preferencesCardStyles } from '../../styles/classes/CompanySettingsClasses'
+
+/** services **/
+import { putCompanyConfigs } from '../../services/ApiService'
+
+/** Constants **/
+import { defWorkColumns } from '../../lib/Constants'
 
 const DragHandle = SortableHandle(({ visible }) => {
   const classes = preferencesCardStyles()
@@ -66,28 +73,30 @@ const SortableListContainer = SortableContainer(({ items, setColumns }) => {
         </List>)
 })
 
-const defWorkColumns = [
-  { id: 'location', visible: true },
-  { id: 'priority', visible: true },
-  { id: 'trade', visible: true },
-  { id: 'service', visible: true },
-  { id: 'wo_number', visible: true },
-  { id: 'tracking', visible: true },
-  { id: 'open_date', visible: true },
-  { id: 'close_date', visible: true },
-  { id: 'wo_status', visible: true }
-]
-
 export const PreferencesCard = props => {
+  const { companyConfigs, getCompanyInfo } = props
   const classes = preferencesCardStyles()
   const { t } = useTranslation()
-
-  const [dbWOrkColumns, setDbWorkColumns] = useState(defWorkColumns)
-  const [columns, setColumns] = useState(defWorkColumns)
+  const userStore = useSelector(state => state.auth.user)
+  const [columns, setColumns] = useState([])
+  const [disableSave, setDisable] = useState(false)
 
   useEffect(() => {
-    setColumns(defWorkColumns)
-  }, [defWorkColumns])
+    setColumns(getColumnsConfig())
+  }, [companyConfigs])
+
+  const getColumnsConfig = () => {
+    if (companyConfigs && companyConfigs?.length > 0) {
+      const columnsConfig = companyConfigs.find(config => config.type === 'columns')
+      if (columnsConfig) {
+        return columnsConfig.data
+      } else {
+        return defWorkColumns
+      }
+    } else {
+      return defWorkColumns
+    }
+  }
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const newsort = arrayMove(columns, oldIndex, newIndex)
@@ -106,10 +115,44 @@ export const PreferencesCard = props => {
     return arr
   }
 
-  const applyChanges = () => {
-    console.log(columns)
-    setDbWorkColumns(columns)
+  const applyChanges = async () => {
+    const actualConfigs = companyConfigs ?? []
+    const newConfigs = []
+    actualConfigs.forEach(config => {
+      if (config.type !== 'columns') {
+        newConfigs.push(config)
+      }
+    })
+    newConfigs.push({
+      type: 'columns',
+      data: columns
+    })
+    await putCompanyConfigs(userStore.userInfo.company_id, newConfigs)
+    await getCompanyInfo()
   }
+
+  const objectsEqual = (o1, o2) =>
+    typeof o1 === 'object' && Object.keys(o1).length > 0
+      ? Object.keys(o1).length === Object.keys(o2).length &&
+            Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
+      : o1 === o2
+
+  const handleDisable = () => {
+    let disable = true
+    const actualConfig = getColumnsConfig()
+    if (actualConfig.length > 0 && columns.length > 0) {
+      actualConfig.forEach((element, index) => {
+        if (!objectsEqual(element, columns[index])) {
+          disable = false
+        }
+      })
+    }
+    setDisable(disable)
+  }
+
+  useEffect(() => {
+    handleDisable()
+  }, [companyConfigs, columns])
 
   return (
         <Card className={classes.card} data-testid='preferences_card' >
@@ -132,12 +175,7 @@ export const PreferencesCard = props => {
                 />
                 <Typography classes={{ root: classes.description }}>{t('company_settings.preferences_card.description')}</Typography>
                 <Box className={classes.buttonBox} >
-
-                    <Button onClick={() => { setColumns(dbWOrkColumns) }} size="small" >
-                        {t('company_settings.preferences_card.clear')}
-                    </Button>
-
-                    <Button onClick={applyChanges} size="small" >
+                    <Button disabled={disableSave} onClick={applyChanges} size="small" className={classes.applyButton} >
                         {t('company_settings.preferences_card.apply')}
                     </Button>
                 </Box>

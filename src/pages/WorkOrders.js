@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import { workOrderStyles } from '../styles/classes/WorkOrdersClasses'
-/** Material UI **/
+
+/** Components **/
 import { Container, FormControl, InputAdornment, IconButton, Button, Icon as ClearIcon } from '@mui/material'
 import { CustomOutlinedInput } from '../styles/mui_custom_components'
-
 import { useWoSearch } from '../components/workorders/useWoSearch'
 import { MainTable } from '../components/workorders/MainTable'
-
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
+/** Services **/
+import { defWorkColumns } from '../lib/Constants'
+import { getCompanyConfigs } from '../services/ApiService'
+
+/** Styles **/
+import { workOrderStyles } from '../styles/classes/WorkOrdersClasses'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const initFilters = {
-  sites: '',
+  location: '',
   trade: '',
   service: '',
-  wostat: '',
-  won: '',
+  wo_status: '',
+  wo_number: '',
   pon: '',
   eta: '',
-  opendate: '',
-  duedate: '',
+  open_date: '',
+  close_date: '',
   state: '',
   city: '',
   pastdue: '',
@@ -30,12 +35,13 @@ const initFilters = {
   desc_sort: '',
   invoices: '',
   priority: '',
-  external_id: ''
+  tracking: ''
 }
 
 const WorkOrders = (props) => {
   const { t } = useTranslation()
   const searchParams = window.location.hash.replace('#', '?')
+  const userStore = useSelector(state => state.auth.user)
 
   const classes = workOrderStyles()
   const [searchValue, setSearchValue] = useState('')
@@ -52,13 +58,14 @@ const WorkOrders = (props) => {
   const [selected, setSelected] = useState([])
   const [openAdvanced, setOpenAdvanced] = useState(false)
   const [tablePage, setTablePage] = useState(1)
+  const [columnsConfig, setColumnsConfig] = useState([])
 
   const [filters, setFilters] = useState({
     ...initFilters,
-    won: queryWon,
-    sites: querySites,
+    wo_number: queryWon,
+    location: querySites,
     trade: queryTrades,
-    wostat: queryStatus
+    wo_status: queryStatus
   })
 
   history.replaceState(null, null, ' ')
@@ -67,16 +74,16 @@ const WorkOrders = (props) => {
     false,
     searchSendValue,
     filters.client_name,
-    filters.site_name,
+    filters.location,
     filters.trade,
     filters.service,
-    filters.won,
-    filters.opendate,
-    filters.duedate,
-    filters.wostat,
+    filters.wo_number,
+    filters.open_date,
+    filters.close_date,
+    filters.wo_status,
     filters.invoices,
     filters.priority,
-    filters.external_id,
+    filters.tracking,
     filters.asc_sort,
     filters.desc_sort,
     30,
@@ -105,6 +112,24 @@ const WorkOrders = (props) => {
     }, 1500)
     return () => clearTimeout(timer)
   }, [searchValue])
+
+  useEffect(() => {
+    getColumnsConfig()
+  }, [])
+
+  const getColumnsConfig = async () => {
+    const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
+    if (configResponse && configResponse?.length > 0) {
+      const columnsConfig = configResponse.find(config => config.type === 'columns')
+      if (columnsConfig) {
+        setColumnsConfig(columnsConfig.data)
+      } else {
+        return setColumnsConfig(defWorkColumns)
+      }
+    } else {
+      return setColumnsConfig(defWorkColumns)
+    }
+  }
 
   const handleChangeSearch = event => {
     const value = event.target.value
@@ -221,6 +246,7 @@ const WorkOrders = (props) => {
           handleCleanFilters={handleCleanFilters}
           validateFilters={validateFilters}
           setSearchEnabled={setSearchEnabled}
+          columnsConfig={columnsConfig}
         />
       </Container>
 

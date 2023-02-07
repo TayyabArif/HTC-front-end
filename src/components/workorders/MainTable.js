@@ -8,14 +8,15 @@ import React, {
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
-// main components
+/** main components **/
 import { InputFieldFilter } from './InputFieldFilter'
 import { DateFilter } from './DateFilter'
 import { DetailedInfo } from './DetailedInfo'
 import { SlideFilter } from './SlideFilter'
 import { SortMenu } from './SortMenu'
 import { useSelector } from 'react-redux'
-// mui components
+
+/** mui components **/
 import {
   Checkbox,
   Table,
@@ -32,7 +33,7 @@ import {
 } from '@mui/material'
 import { FiberManualRecord as PointIcon } from '@mui/icons-material'
 
-// service
+/** service **/
 import {
   invoiceStatusOptionsWOList,
   woStatusOptions
@@ -86,17 +87,15 @@ function EnhancedTableHead (props) {
   })
 
   const filterComponents = [
-    // { id: 'client_name', type: 'InputFieldFilter' },
-    { id: 'site_name', type: 'InputFieldFilter' },
+    { id: 'location', type: 'InputFieldFilter' },
     { id: 'priority', type: 'InputFieldFilter' },
     { id: 'trade', type: 'SlideFilter', options: tradesOptions },
     { id: 'service', type: 'SlideFilter', options: servicesOptions },
-    { id: 'won', type: 'InputFieldFilter' },
-    { id: 'external_id', type: 'InputFieldFilter' },
-    { id: 'opendate', type: 'DateFilter' },
-    { id: 'duedate', type: 'DateFilter' },
-    { id: 'wostat', type: 'SlideFilter', options: woStatusOptions }
-    // { id: 'invoices', type: 'SlideFilter', options: inStatusOptions }
+    { id: 'wo_number', type: 'InputFieldFilter' },
+    { id: 'tracking', type: 'InputFieldFilter' },
+    { id: 'open_date', type: 'DateFilter' },
+    { id: 'close_date', type: 'DateFilter' },
+    { id: 'wo_status', type: 'SlideFilter', options: woStatusOptions }
   ]
   let count = 0
   const checked = rowCount > 0 && numSelected === rowCount
@@ -151,13 +150,13 @@ function EnhancedTableHead (props) {
                     {headCell.type !== 'Button'
                       ? t('work_orders.column_names.' + headCell.id)
                       : ''}
-                    {(headCell.id === 'opendate' ||
-                      headCell.id === 'duedate' ||
-                      headCell.id === 'wostat' ||
+                    {(headCell.id === 'open_date' ||
+                      headCell.id === 'close_date' ||
+                      headCell.id === 'wo_status' ||
                       headCell.id === 'invoices' ||
-                      headCell.id === 'won' ||
+                      headCell.id === 'wo_number' ||
                       headCell.id === 'trade' ||
-                      headCell.id === 'site_name' ||
+                      headCell.id === 'location' ||
                       headCell.id === 'client_name') && (
                       <SortMenu
                         id={headCell.id}
@@ -245,7 +244,8 @@ function EnhancedTable (props) {
     filters,
     setFilters,
     validateFilters,
-    setSearchEnabled
+    setSearchEnabled,
+    columnsConfig
   } = props
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('calories')
@@ -258,20 +258,6 @@ function EnhancedTable (props) {
     services: [],
     invoices: []
   })
-
-  const columns = [
-    // { id: 'client_name', visible: true },
-    { id: 'site_name', visible: true },
-    { id: 'priority', visible: true },
-    { id: 'trade', visible: true },
-    { id: 'service', visible: true },
-    { id: 'won', visible: true },
-    { id: 'external_id', visible: true },
-    { id: 'opendate', visible: true },
-    { id: 'duedate', visible: true },
-    { id: 'wostat', visible: true }
-    // { id: 'invoices', visible: true }
-  ]
 
   const companyName = useSelector(state => state.auth.user.userInfo.company_name)
 
@@ -479,7 +465,7 @@ function EnhancedTable (props) {
             filtersCatalog={filtersCatalog}
             filters={filters}
             setFilters={setFilters}
-            columns={columns}
+            columns={columnsConfig}
           />
         </Table>
         <TableContainer
@@ -532,7 +518,7 @@ function EnhancedTable (props) {
                           />
                         </ThemeProvider>
                       </TableCell>
-                      {columns.map((column, index) => {
+                      {columnsConfig.map((column, index) => {
                         if (!column.visible) return null
                         switch (column.id) {
                           case 'client_name':
@@ -545,7 +531,7 @@ function EnhancedTable (props) {
                                 {row.client_name ?? ''}
                               </TableCell>
                             )
-                          case 'site_name':
+                          case 'location':
                             return (
                               <TableCell
                                 key={column.id + index}
@@ -571,7 +557,7 @@ function EnhancedTable (props) {
                                 {row.priority}
                               </TableCell>
                             )
-                          case 'external_id':
+                          case 'tracking':
                             return (
                               <TableCell
                                 key={column.id + index}
@@ -609,7 +595,7 @@ function EnhancedTable (props) {
                                 </Typography>
                               </TableCell>
                             )
-                          case 'won':
+                          case 'wo_number':
                             return (
                               <TableCell
                                 key={column.id + index}
@@ -619,7 +605,7 @@ function EnhancedTable (props) {
                                 {row.customer_po ?? row.external_id}
                               </TableCell>
                             )
-                          case 'opendate':
+                          case 'open_date':
                             return (
                               <TableCell
                                 key={column.id + index}
@@ -633,7 +619,7 @@ function EnhancedTable (props) {
                                   : ''}
                               </TableCell>
                             )
-                          case 'duedate':
+                          case 'close_date':
                             return (
                               <TableCell
                                 key={column.id + index}
@@ -647,7 +633,7 @@ function EnhancedTable (props) {
                                   : ''}
                               </TableCell>
                             )
-                          case 'wostat':
+                          case 'wo_status':
                             return (
                               <TableCell
                                 key={column.id + index}
@@ -704,12 +690,12 @@ function EnhancedTable (props) {
                     </TableRow>
                   )
                 })}
-                {content.length > 0 && loading && progressRow(columns, 1)}
+                {content.length > 0 && loading && progressRow(columnsConfig, 1)}
               </TableBody>
                 )
               : loading
                 ? (
-                    progressComponent(columns)
+                    progressComponent(columnsConfig)
                   )
                 : (
                     emptyComponent()
@@ -733,7 +719,8 @@ export const MainTable = props => {
     filters,
     setFilters,
     validateFilters,
-    setSearchEnabled
+    setSearchEnabled,
+    columnsConfig
   } = props
 
   return (
@@ -752,6 +739,7 @@ export const MainTable = props => {
         setFilters={setFilters}
         validateFilters={validateFilters}
         setSearchEnabled={setSearchEnabled}
+        columnsConfig={columnsConfig}
       />
     </div>
   )
