@@ -49,10 +49,22 @@ export const MapActionButtons = (props) => {
   }, [locationsStore.selectedSite, locationsStore.showSiteViewPanel])
 
   const getGoogleLocation = async () => {
+    setLocationInfo(null)
     if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
       const response = await getLocationInfo(locationsStore.selectedSite.id)
       if (response.status) {
-        setLocationInfo(response.content)
+        const keys = Object.keys(response.content)
+        let infoLocated = false
+        keys.forEach(key => {
+          if (response.content[key] && response.content[key].length > 0) {
+            infoLocated = true
+          }
+        })
+        if (Object.keys(response.content).length === 0 || !infoLocated) {
+          setLocationInfo(null)
+        } else {
+          setLocationInfo(response.content)
+        }
       } else {
         setLocationInfo(null)
       }
