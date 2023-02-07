@@ -594,6 +594,7 @@ export const supportCardStyles = makeStyles(theme => ({
     padding: '0px 0px'
   },
   content: {
+    display: 'inline-grid',
     padding: '0px 20px 30px 20px'
   },
   versionLabel: {
@@ -607,13 +608,14 @@ export const supportCardStyles = makeStyles(theme => ({
     color: theme.palette.primary.light,
     width: '100%',
     cursor: 'pointer',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    marginBottom: '29px'
   },
   contacts: {
     fontSize: '15px',
     fontWeight: '400',
     color: theme.colors.stepperGray,
-    marginBottom: '25px'
+    marginBottom: '29px'
   }
 }))
 

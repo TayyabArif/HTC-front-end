@@ -111,6 +111,10 @@ export const UpdateAccountInfo = props => {
       .trim()
       .required(t('account_settings.messages.errors.required'))
       .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
+    username: yup
+      .string()
+      .required(t('account_settings.messages.errors.required'))
+      .min(6, t('general.messages.errors.length_6')),
     employeeId: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -151,10 +155,12 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.lastName ||
       !updatedInfo.email ||
       !updatedInfo.phone ||
+      !updatedInfo.username ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
+      errors?.username?.message ||
       errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message ||
@@ -263,7 +269,7 @@ export const UpdateAccountInfo = props => {
         updatedInfo.lastName,
         updatedInfo.email,
         updatedInfo.phone,
-        updatedInfo.email,
+        updatedInfo.username,
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
@@ -508,6 +514,25 @@ export const UpdateAccountInfo = props => {
                         }
                       })}
                       {...register('emailNotifications')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2} >
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.username}
+                      id="username"
+                      name="username"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.username')}
+                      placeholder={t('account_settings.info_card.placeholder_username')}
+                      error={!!errors.username}
+                      helperText={errors.username && errors.username.message}
+                      {...register('username')}
+                      inputStyle={{
+                        width: '100%'
+                      }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>
