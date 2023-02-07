@@ -154,14 +154,12 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.phone ||
       !updatedInfo.username ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
       errors?.username?.message ||
-      errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message ||
       (updatedInfo.password !== updatedInfo.passwordConfirm)
@@ -431,7 +429,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
-                      InputLabelProps={{ shrink: true, required: true }}
+                      InputLabelProps={{ shrink: true }}
                       {...register('phone')}
                     />
                   </Grid>
@@ -458,6 +456,7 @@ export const UpdateAccountInfo = props => {
                             ? [...finalRoles]
                             : []
                       }
+                      placeholder={t('account_settings.info_card.placeholder_select')}
                       error={!!errors.roles}
                       helperText={errors.roles && errors.roles.message}
                       {...register('roles')}
@@ -543,15 +542,18 @@ export const UpdateAccountInfo = props => {
                       id="employeeId"
                       name="employeeId"
                       handleChange={handleChangeValues}
-                      label={t('account_settings.info_card.employee_id')}
                       placeholder={t('account_settings.info_card.placeholder_employee')}
+                      label={t('account_settings.info_card.employee_id')}
                       error={!!errors.employeeId}
                       helperText={errors.employeeId && errors.employeeId.message}
                       {...register('employeeId')}
+                      endAdornment={true}
                       inputStyle={{
-                        width: '100%'
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
                       }}
-                      InputLabelProps={{ shrink: true, required: true }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                 </Grid>
@@ -562,14 +564,14 @@ export const UpdateAccountInfo = props => {
                       id="password"
                       name="password"
                       type="password"
-                      placeholder={'********'}
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.password')}
+                      placeholder={t('account_settings.info_card.placeholder_password')}
                       error={!!errors.password}
                       helperText={errors.password && errors.password.message}
                       endAdornment={true}
                       {...register('password')}
-                      InputLabelProps={{ required: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                       autoComplete="new-password"
                     />
                   </Grid>
@@ -582,15 +584,15 @@ export const UpdateAccountInfo = props => {
                       name="passwordConfirm"
                       type="password"
                       handleChange={handleChangeValues}
-                      placeholder={'********'}
-                      label={t('account_settings.info_card.password_confirm')}
+                      placeholder={t('account_settings.info_card.placeholder_confirm')}
+                      label={t('account_settings.info_card.password')}
                       error={!!errors.passwordConfirm}
                       endAdornment={true}
                       helperText={
                         errors.passwordConfirm && errors.passwordConfirm.message
                       }
                       {...register('passwordConfirm')}
-                      InputLabelProps={{ required: true }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>

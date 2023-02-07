@@ -84,7 +84,8 @@ export const companySettings = () => {
       user_company_role_placeholder: 'Rol en la Empresa',
       pending: 'pendiente',
       user_already_exists: 'Usuario ya existente',
-      search: 'Buscar usuario'
+      search: 'Buscar usuario',
+      view_only: 'Solo Ver'
     },
     reports_card: {
       title: 'Reportes Programados',

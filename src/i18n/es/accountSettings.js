@@ -29,7 +29,9 @@ export const accountSettings = () => {
       placeholder_repass: 'Reingresar contraseña',
       placeholder_employee: 'Ingrese ID',
       placeholder_select: 'Seleccione',
-      edit_button: 'Editar'
+      edit_button: 'Editar',
+      placeholder_password: 'Crear Contraseña',
+      placeholder_confirm: 'Reingrese la Contraseña'
     },
     form: {
       save: 'Guardar',

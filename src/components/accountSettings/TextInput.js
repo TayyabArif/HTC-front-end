@@ -75,7 +75,7 @@ export const TextInput = React.forwardRef(
                 className: classes.label
               }}
               placeholder={
-                  placeholder ? t('account_settings.form.enter') + ' ' + label : ''
+                  id === 'employeeId' || id === 'password' || id === 'passwordConfirm' ? placeholder : placeholder ? t('account_settings.form.enter') + ' ' + label : ''
               }
               classes={{ root: classes.root }}
               autoComplete="off"

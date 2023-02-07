@@ -173,7 +173,6 @@ export const PreferencesCard = props => {
                     axis="xy"
                     setColumns={setColumns}
                 />
-                <Typography classes={{ root: classes.description }}>{t('company_settings.preferences_card.description')}</Typography>
                 <Box className={classes.buttonBox} >
                     <Button disabled={disableSave} onClick={applyChanges} size="small" className={classes.applyButton} >
                         {t('company_settings.preferences_card.apply')}

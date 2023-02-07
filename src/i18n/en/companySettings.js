@@ -85,7 +85,8 @@ export const companySettings = () => {
       pending: 'pending',
       user_already_exists: 'User already exists',
       search: 'Search user',
-      notifications: 'Notifications'
+      notifications: 'Notifications',
+      view_only: 'View Only'
     },
     reports_card: {
       title: 'Scheduled Reports',
