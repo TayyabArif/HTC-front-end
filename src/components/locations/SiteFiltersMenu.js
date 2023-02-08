@@ -513,7 +513,8 @@ export const SiteFiltersMenu = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapStatusOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeStatus(option.id)} className={classes.menuItem}>
+        {/* Temporary filtering */}
+        {mapStatusOptions.filter(option => (option.id === 'all' || option.id === 'open' || option.id === 'in_progress' || option.id === 'completed')).map(option => <MenuItem key={option.id} onClick={() => handleChangeStatus(option.id)} className={classes.menuItem}>
           <Typography className={classes.menuLabel}>
             {option.id === 'all' ? t('work_orders.wo_states.all_label') : t(`work_orders.wo_states.${option.id}`)}
           </Typography>
