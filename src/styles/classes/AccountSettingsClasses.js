@@ -137,7 +137,6 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   },
   editButton: {
     '&.MuiButtonBase-root': {
-      marginTop: '5px',
       marginRight: '10px'
     },
     '& .MuiTypography-root': {
@@ -165,8 +164,18 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       color: theme.colors.black,
       marginBottom: '15px',
       wordWrap: 'break-word',
-      padding: '5px 13px'
+      padding: '5px 13px',
+      minHeight: '35px'
     }
+  },
+  disabled: {
+    '&.MuiTypography-root': {
+      color: `${theme.colors.textGray} !important`
+    }
+  },
+  customInfo: {
+    paddingTop: '9px !important',
+    paddingBottom: 'unset !important'
   },
   gridImg: {
     display: 'flex',
@@ -248,7 +257,8 @@ export const PhoneInputClasses = makeStyles(theme => ({
       fontSize: '25px'
     },
     '&.MuiButtonBase-root': {
-      padding: '0px'
+      padding: '0px',
+      paddingTop: '16px'
     }
   },
   formControl: {
@@ -327,7 +337,8 @@ export const TextInputClasses = makeStyles(theme => ({
       fontSize: '25px'
     },
     '&.MuiButtonBase-root': {
-      padding: '0px'
+      padding: '0px',
+      paddingTop: '16px'
     }
   },
   formControl: {
