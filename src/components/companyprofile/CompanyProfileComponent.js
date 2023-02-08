@@ -35,13 +35,13 @@ export const CompanyProfileComponent = props => {
     handleChange(address, 'address')
   }, [address])
 
-  useEffect(() => {
+  /* useEffect(() => {
     setErrorEmail(null)
   }, [profile?.email])
 
   useEffect(() => {
     setErrorInvoice(null)
-  }, [profile?.invoice_email])
+  }, [profile?.invoice_email]) */
 
   const countries = [
     { value: 'United States', label: 'United States (US)' },
@@ -84,6 +84,14 @@ export const CompanyProfileComponent = props => {
     if (!profile?.invoice_email || profile?.invoice_email === '' || !validateEmail(profile?.invoice_email)) {
       setErrorInvoice(t('company_profile.error.email'))
     }
+  }
+
+  const handleFocusEmail = () => {
+    setErrorEmail(null)
+  }
+
+  const handleFocusInvoice = () => {
+    setErrorInvoice(null)
   }
 
   return (
@@ -203,6 +211,7 @@ export const CompanyProfileComponent = props => {
           value={profile?.email}
           label={t('company_profile.labels.email')}
           onBlur={handleBlurEmail}
+          onFocus={handleFocusEmail}
           error={errorEmail}
           helperText={errorEmail}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
@@ -214,6 +223,7 @@ export const CompanyProfileComponent = props => {
           value={profile?.invoice_email}
           label={t('company_profile.labels.invoice_email')}
           onBlur={handleBlurInvoice}
+          onFocus={handleFocusInvoice}
           error={errorInvoice}
           helperText={errorInvoice}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'invoice_email')}

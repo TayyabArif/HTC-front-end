@@ -110,16 +110,13 @@ export const UpdateAccountInfo = props => {
     phone: yup
       .string()
       .trim()
-      .required(t('account_settings.messages.errors.required'))
       .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
     username: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6')),
     employeeId: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.field_length_6')),
+      .string(),
     password: yup
       .string()
       .required(t('account_settings.messages.errors.required'))
@@ -521,25 +518,6 @@ export const UpdateAccountInfo = props => {
                 <Grid container mt={2} >
                   <Grid item xs={12}>
                     <TextInput
-                      value={updatedInfo.username}
-                      id="username"
-                      name="username"
-                      handleChange={handleChangeValues}
-                      label={t('account_settings.info_card.username')}
-                      placeholder={t('account_settings.info_card.placeholder_username')}
-                      error={!!errors.username}
-                      helperText={errors.username && errors.username.message}
-                      {...register('username')}
-                      inputStyle={{
-                        width: '100%'
-                      }}
-                      InputLabelProps={{ shrink: true, required: true }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container mt={2} >
-                  <Grid item xs={12}>
-                    <TextInput
                       value={updatedInfo.employeeId}
                       id="employeeId"
                       name="employeeId"
@@ -556,6 +534,25 @@ export const UpdateAccountInfo = props => {
                         borderBottomLeftRadius: 0
                       }}
                       InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2} >
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.username}
+                      id="username"
+                      name="username"
+                      handleChange={handleChangeValues}
+                      label={t('account_settings.info_card.username')}
+                      placeholder={t('account_settings.info_card.placeholder_username')}
+                      error={!!errors.username}
+                      helperText={errors.username && errors.username.message}
+                      {...register('username')}
+                      inputStyle={{
+                        width: '100%'
+                      }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>

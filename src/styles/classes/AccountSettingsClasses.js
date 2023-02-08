@@ -475,7 +475,8 @@ export const SelectorClasses = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '5px'
+    marginRight: '5px',
+    marginTop: '13px'
   },
   menuItem: theme.filtersClasses.menuItem,
   formControl: {
