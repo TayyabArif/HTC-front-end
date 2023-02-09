@@ -22,7 +22,6 @@ import { removeAuthorizationHeader } from '../lib/Api'
 
 /** Icons */
 import GridIcon from '../assets/icons/grid_icon.svg'
-import AcmeIcon from '../assets/images/acme_logo.svg'
 
 /** Styles */
 import { navBarStyles } from '../styles/classes/CommonClasses'
@@ -100,7 +99,7 @@ export const NavBar = () => {
           >
             <Box className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
               <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
-                <img className={classes.logo} src={AcmeIcon} />
+                <img className={classes.logo} src={userStore.userInfo.logo?.url} />
               </Link>
             </Box>
             <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>
