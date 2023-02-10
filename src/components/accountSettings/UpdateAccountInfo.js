@@ -151,11 +151,13 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
+      !updatedInfo.username ||
       !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
+      errors?.username?.message ||
       errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message ||
