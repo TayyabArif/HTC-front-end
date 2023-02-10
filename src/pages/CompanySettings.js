@@ -163,6 +163,7 @@ const CompanySettings = props => {
   }
 
   const handleClose = () => {
+    setUpdatedCompany(company)
     setOpen(false)
     setOpenConfirm(false)
   }
