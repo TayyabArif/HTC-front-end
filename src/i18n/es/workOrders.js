@@ -31,6 +31,7 @@ export const workOrders = () => {
       completed: 'Completado',
       in_progress: 'En Progreso',
       canceled: 'Cancelado',
+      cancelled: 'Cancelado',
       expired: 'Expirado',
       no_status: 'Sin estado',
       incomplete: 'Incompleto',
