@@ -481,12 +481,12 @@ const CompanySettings = props => {
     if (!data.name) {
       return false
     }
-    if (!data?.email || !validateEmail(data?.email)) {
-      setDispatchError(true)
-      return false
-    }
     if (!data?.invoice_email || !validateEmail(data?.invoice_email)) {
       setInvoiceError(true)
+      return false
+    }
+    if (!data?.email || !validateEmail(data?.email)) {
+      setDispatchError(true)
       return false
     }
     setDispatchError(false)
