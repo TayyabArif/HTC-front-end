@@ -76,6 +76,7 @@ export const PhoneInput = React.forwardRef(
                 {value && (
                   <IconButton
                     aria-label="Clear contents"
+                    tabIndex="-1"
                     onClick={() => {
                       handleChange({ target: { name: name, value: '' } }, id)
                     }}

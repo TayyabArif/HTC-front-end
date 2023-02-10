@@ -126,7 +126,7 @@ export const MapButton = withStyles({
 export const MapCounter = withStyles({
   root: {
     background: '#FFFFFF',
-    minWidth: 'fit-content',
+    minWidth: '140px',
     width: 'fit-content',
     paddingLeft: '12px',
     paddingRight: '12px',
