@@ -1178,7 +1178,7 @@ export const slideFilterStyles = makeStyles(theme => ({
   },
   searchInput1: theme.filtersClasses.searchInput1,
   searchInput2: theme.filtersClasses.searchInput2,
-  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px', whiteSpace: 'initial', wordBreak: 'break-word' }
+  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '220px', whiteSpace: 'initial', wordBreak: 'break-word' }
 }))
 
 export const sortMenuStyles = makeStyles(theme => ({
