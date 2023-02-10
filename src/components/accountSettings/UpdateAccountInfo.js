@@ -546,7 +546,12 @@ export const UpdateAccountInfo = props => {
                       helperText={errors.password && errors.password.message}
                       endAdornment={true}
                       {...register('password')}
-                      InputLabelProps={{ required: true }}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                      InputLabelProps={{ shrink: true, required: true }}
                       autoComplete="new-password"
                     />
                   </Grid>
@@ -567,7 +572,12 @@ export const UpdateAccountInfo = props => {
                         errors.passwordConfirm && errors.passwordConfirm.message
                       }
                       {...register('passwordConfirm')}
-                      InputLabelProps={{ required: true }}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                      InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
                 </Grid>
