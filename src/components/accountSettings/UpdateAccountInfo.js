@@ -79,6 +79,10 @@ export const UpdateAccountInfo = props => {
     passwordConfirm: passwordPlaceHolder
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
+  const saveButtonStyle = {
+    width: '100%',
+    margin: 0
+  }
 
   useEffect(() => {
     if (editDrawer) {
@@ -593,22 +597,25 @@ export const UpdateAccountInfo = props => {
               </Grid>
             </Grid>
 
-            <div className={classes.footer}>
-              <ThemeProvider theme={buttonSettingsDisabled}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="primary"
-                  type="submit"
-                  disabled={!enableSave}
-                  style={!enableSave ? disableButtonStyle : enableButtonStyle}
-                >
-                  {event === 'new'
-                    ? t('company_settings.bes_notifications_panel.create')
-                    : t('account_settings.form.save')}
-                </Button>
-              </ThemeProvider>
-            </div>
+            <Grid container p={3} pt={0}>
+              <Grid item xs={7}></Grid>
+              <Grid item xs={5}>
+                <ThemeProvider theme={buttonSettingsDisabled}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    type="submit"
+                    disabled={!enableSave}
+                    style={!enableSave ? { ...disableButtonStyle, ...saveButtonStyle } : { ...enableButtonStyle, ...saveButtonStyle }}
+                  >
+                    {event === 'new'
+                      ? t('company_settings.bes_notifications_panel.create')
+                      : t('account_settings.form.save')}
+                  </Button>
+                </ThemeProvider>
+              </Grid>
+            </Grid>
           </div>
         </form>
       </Drawer>
