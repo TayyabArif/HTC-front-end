@@ -65,7 +65,7 @@ export const UpdateAccountInfo = props => {
       display: 'none'
     }
   }
-  const passwordPlaceHolder = '********'
+  const passwordPlaceHolder = ''
   const startingInfo = {
     firstName: accountInfo.userInfo.firstName,
     lastName: accountInfo.userInfo.lastName,
@@ -119,11 +119,9 @@ export const UpdateAccountInfo = props => {
       .string(),
     password: yup
       .string()
-      .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6')),
     passwordConfirm: yup
       .string()
-      .required(t('account_settings.messages.errors.required'))
       .min(6, t('general.messages.errors.length_6'))
       .oneOf(
         [yup.ref('password')],
@@ -155,7 +153,6 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.username ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
-      (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       errors?.email?.message ||
       errors?.username?.message ||
       errors?.password?.message ||
