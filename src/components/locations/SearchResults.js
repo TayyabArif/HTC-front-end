@@ -44,7 +44,7 @@ export const SearchResults = (props) => {
       setLoading(true)
       props.setTablePage(actualPage + 1)
     }
-    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} style={style} setSearch={props.setSearch}/>
+    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} setSearch={props.setSearch}/>
   }
 
   const getRowHeight = ({ index }) => {

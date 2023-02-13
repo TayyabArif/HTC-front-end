@@ -46,6 +46,17 @@ export const NavBar = () => {
 
   useEffect(() => {
     // back to site view if navigate between pages
+    dispatch(locationsActions.showMapSiteView({
+      coordinates: {
+        lat: 40.175472,
+        lng: -101.466083
+      },
+      zoom: 5,
+      hideMarkers: false,
+      selectedMarkerIndex: null
+    }))
+    dispatch(locationsActions.setActiveInfoWindow(null))
+    dispatch(locationsActions.hideSiteViewPanel())
     dispatch(locationsActions.hideSiteViewPanel())
     dispatch(locationsActions.setSelectedSite())
     dispatch(locationsActions.setSelectedWorkOrder(null))
