@@ -128,7 +128,6 @@ const CreateAccount = () => {
   }
 
   const handleBlurPass = () => {
-    console.log('blur!!')
     if (password.length < 6) {
       setErrorPass(t('general.messages.errors.length_6'))
     }
