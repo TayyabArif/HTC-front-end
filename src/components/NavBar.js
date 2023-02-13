@@ -93,12 +93,12 @@ export const NavBar = () => {
       <Grid container className={classes.header}>
         <Grid item xs={8} md={9} className={classes.header}>
           <Grid container display={'inline-flex'} fullWidth>
-            <Grid item xs={12} className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
+            <Grid item xs={12} md={'auto'} className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
               <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
                 <img className={classes.logo} src={AcmeIcon} />
               </Link>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={'auto'}>
               <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>
                 <StyledNavTab style={{ display: 'none' }} value={''} />
                 <StyledNavTab
