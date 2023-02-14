@@ -165,7 +165,7 @@ export const PhotoReel = props => {
           ref={dialogTitleComponent}
         >
           <FormLabel classes={{ root: classes.title }}>
-            {`${t('general.labels.wo')} ${props.woInfo.external_id} - ${t(
+            {`${t('general.labels.wo')} ${props.woInfo.customer_po} - ${t(
               'work_orders.service_appointment'
             )} ${props.woInfo.trip}`}
           </FormLabel>

@@ -237,7 +237,7 @@ export const DetailedInfo = props => {
           photos={photos}
           index={photoIndex}
           cleanClose={cleanClose}
-          woInfo={workOrder}
+          woInfo={trips[0] ?? workOrder}
           style={{ zIndex: 1500 }}
         />
       )}

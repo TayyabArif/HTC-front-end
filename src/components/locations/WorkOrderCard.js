@@ -33,7 +33,7 @@ export const WorkOrderCard = (props) => {
   const classes = woCardStyles(styleProps)
 
   const handleClickWo = () => {
-    dispatch(locationsActions.setSelectedWorkOrder(info))
+    dispatch(locationsActions.setSelectedWorkOrder({ ...info, store_name: locationsStore?.selectedSite?.name, address: locationsStore?.selectedSite?.address }))
   }
 
   const getServicesLabel = () => {
