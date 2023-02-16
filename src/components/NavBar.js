@@ -166,46 +166,46 @@ export const NavBar = () => {
       >
         {/* TODO: un hide dropdown options when needed */}
         <MenuItem
-            className={classes.menuItemMobile}
+            className={value === '/work-orders' ? classes.selectedMobile : classes.menuItemMobile}
             value={'/work-orders'}
           >
             {t('nav_bar.work_orders')}
           </MenuItem>
           <MenuItem
-            className={classes.menuItemMobile}
+            className={value === '/locations' ? classes.selectedMobile : classes.menuItemMobile}
             onClick={() => handleChangeMenu('/locations')}
           >
             {t('nav_bar.locations')}
           </MenuItem>
         <MenuItem
           style={{ display: 'none' }}
-          className={classes.menuItem}
+          className={value === '/manage-account' ? classes.selectedItem : classes.menuItem}
           value={'/manage-account'}
         >
           {t('nav_bar.manage_account')}
         </MenuItem>
         <MenuItem
-          className={classes.menuItem}
+          className={value === '/account-settings' ? classes.selectedItem : classes.menuItem}
           onClick={() => handleChangeMenu('/account-settings')}
         >
           {t('nav_bar.account_settings')}
         </MenuItem>
         <MenuItem
-          className={classes.menuItem}
+          className={value === '/company-settings' ? classes.selectedItem : classes.menuItem}
           onClick={() => handleChangeMenu('/company-settings')}
         >
           {t('nav_bar.company_settings')}
         </MenuItem>
         <MenuItem
           style={{ display: 'none' }}
-          className={classes.menuItem}
+          className={value === '/help' ? classes.selectedItem : classes.menuItem}
           value={'/help'}
         >
           {t('nav_bar.help')}
         </MenuItem>
         <MenuItem
           style={{ display: 'none' }}
-          className={classes.menuItem}
+          className={value === '/send-feedback' ? classes.selectedItem : classes.menuItem}
           value={'/send-feedback'}
         >
           {t('nav_bar.send_feedback')}

@@ -78,7 +78,8 @@ export const navBarStyles = makeStyles(theme => ({
     height: navBarHeaderHeight,
     '&:hover': {
       backgroundColor: 'transparent'
-    }
+    },
+    margin: 'auto 0px'
   },
   title: {
     fontSize: '18px',
@@ -88,8 +89,22 @@ export const navBarStyles = makeStyles(theme => ({
   menuItem: {
     fontSize: '12px'
   },
+  selectedItem: {
+    fontSize: '12px',
+    color: theme.palette.primary.light
+  },
   menuItemMobile: {
     fontSize: '12px',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  selectedMobile: {
+    fontSize: '12px',
+    color: theme.palette.primary.light,
     [theme.breakpoints.up('md')]: {
       display: 'none'
     },
