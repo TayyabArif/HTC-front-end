@@ -20,7 +20,7 @@ import { StyledNavTab, StyledNavTabs } from '../styles/mui_custom_components'
 /** Services **/
 import { removeAuthorizationHeader } from '../lib/Api'
 
-/** Icons */
+/** Icons **/
 import GridIcon from '../assets/icons/grid_icon.svg'
 import AcmeIcon from '../assets/images/acme_logo.svg'
 
@@ -91,13 +91,9 @@ export const NavBar = () => {
   return (
     <Box pl={3} pr={3} className={classes.navBar}>
       <Grid container className={classes.header}>
-        <Grid item xs={9} className={classes.header}>
-          <Box
-            sx={{
-              display: { xs: 'none', md: 'inline-flex' }
-            }}
-            display={'inline-flex'}
-          >
+        {/** Browser navigation tabs */}
+        <Grid item xs={9} className={classes.gridBrowser}>
+          <Box display="flex">
             <Box className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
               <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
                 <img className={classes.logo} src={AcmeIcon} />
@@ -134,7 +130,7 @@ export const NavBar = () => {
             </StyledNavTabs>
           </Box>
         </Grid>
-        <Grid align="right" item xs={3} className={classes.finalGrid}>
+        <Grid align="right" item xs={11} md={3} className={classes.finalGrid}>
           {userStore?.userInfo?.company_name && (
             <Typography className={classes.companyName} >
               {userStore.userInfo.company_name}
@@ -169,6 +165,18 @@ export const NavBar = () => {
         }}
       >
         {/* TODO: un hide dropdown options when needed */}
+        <MenuItem
+            className={classes.menuItemMobile}
+            value={'/work-orders'}
+          >
+            {t('nav_bar.work_orders')}
+          </MenuItem>
+          <MenuItem
+            className={classes.menuItemMobile}
+            onClick={() => handleChangeMenu('/locations')}
+          >
+            {t('nav_bar.locations')}
+          </MenuItem>
         <MenuItem
           style={{ display: 'none' }}
           className={classes.menuItem}

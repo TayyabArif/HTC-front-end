@@ -18,6 +18,7 @@ import { WorkOrdersList } from '../components/locations/WorkOrdersList'
 import { SiteSortMenu } from '../components/locations/SiteSortMenu'
 import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
 import { DetailedInfo } from '../components/workorders/DetailedInfo'
+import { PanelCountsMobile } from '../components/locations/PanelCountsMobile'
 
 /** Services **/
 import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo, getLocationCallTypes } from '../services/ApiService'
@@ -370,6 +371,9 @@ const Locations = () => {
         {/* RESULTS */}
         <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
+            <Box className={classes.mobileCountsBox}>
+              <PanelCountsMobile searchResults={sitesResponse}/>
+            </Box>
             <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} />
           </Grid>
         </Box>

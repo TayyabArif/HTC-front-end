@@ -58,7 +58,7 @@ export const legalEntities = [
 ]
 
 export const phoneRegex = /^((\([0-9]{3}\)[ -]?))*?[0-9]{3}[ -]?[0-9]{4}$/
-export const mobileBreakpoint = 1150
+export const mobileBreakpoint = 900
 export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
 

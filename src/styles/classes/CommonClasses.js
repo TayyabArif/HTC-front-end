@@ -88,6 +88,15 @@ export const navBarStyles = makeStyles(theme => ({
   menuItem: {
     fontSize: '12px'
   },
+  menuItemMobile: {
+    fontSize: '12px',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
   menuIcon: {
     height: '23px',
     color: theme.colors.text
@@ -159,7 +168,12 @@ export const navBarStyles = makeStyles(theme => ({
     flexDirection: 'row'
   },
   boxLogo: {
-    display: 'flex'
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
   },
   logoLink: {
     margin: '27px auto'
@@ -175,5 +189,21 @@ export const navBarStyles = makeStyles(theme => ({
   },
   tabs: {
     marginTop: '32px'
+  },
+  mobileGrid: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  gridBrowser: {
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
   }
 }))
