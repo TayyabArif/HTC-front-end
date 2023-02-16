@@ -203,12 +203,7 @@ export const MapFilters = (props) => {
     if (dateRange === 'custom') {
       const dates = selectedDate.split(' : ')
       if (dates.length === 2) {
-        if (locationsFilters.dateFrom !== dates[0]) {
-          response = false
-        }
-        if (locationsFilters.dateTo !== dates[1]) {
-          response = false
-        }
+        response = !(locationsFilters.dateFrom !== dates[0] || locationsFilters.dateTo !== dates[1])
       }
     }
     if (locationsFilters.status !== status) {
