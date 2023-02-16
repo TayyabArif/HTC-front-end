@@ -30,6 +30,7 @@ export const workOrders = () => {
       complete: 'Completed',
       completed: 'Completed',
       canceled: 'Canceled',
+      cancelled: 'Canceled',
       expired: 'Expired',
       no_status: 'No Status',
       incomplete: 'Incomplete',
