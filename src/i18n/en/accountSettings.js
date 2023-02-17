@@ -30,8 +30,8 @@ export const accountSettings = () => {
       placeholder_employee: 'Enter id',
       placeholder_select: 'Select',
       edit_button: 'Edit',
-      placeholder_password: 'Create Password',
-      placeholder_confirm: 'Re-enter Password'
+      placeholder_password: 'Create password',
+      placeholder_confirm: 'Re-enter password'
     },
     form: {
       save: 'Save',

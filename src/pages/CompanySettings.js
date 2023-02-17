@@ -487,10 +487,10 @@ const CompanySettings = props => {
     if (!data.name) {
       return false
     }
-    if (!data?.email || !validateEmail(data?.email)) {
+    if (data?.email && data?.email !== '' && !validateEmail(data?.email)) {
       return false
     }
-    if (!data?.invoice_email || !validateEmail(data?.invoice_email)) {
+    if (data?.invoice_email && data?.invoice_email !== '' && !validateEmail(data?.invoice_email)) {
       return false
     }
     return true

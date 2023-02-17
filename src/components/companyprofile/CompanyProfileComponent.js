@@ -35,14 +35,6 @@ export const CompanyProfileComponent = props => {
     handleChange(address, 'address')
   }, [address])
 
-  /* useEffect(() => {
-    setErrorEmail(null)
-  }, [profile?.email])
-
-  useEffect(() => {
-    setErrorInvoice(null)
-  }, [profile?.invoice_email]) */
-
   const countries = [
     { value: 'United States', label: 'United States (US)' },
     { value: 'Canada', label: 'Canada' },
@@ -75,22 +67,26 @@ export const CompanyProfileComponent = props => {
   const handleFocus = event => event.target.select()
 
   const handleBlurEmail = () => {
-    if (!profile?.email || profile?.email === '' || !validateEmail(profile?.email)) {
+    console.log('blur email!')
+    if (profile?.email && profile?.email !== '' && !validateEmail(profile?.email)) {
       setErrorEmail(t('company_profile.error.email'))
     }
   }
 
   const handleBlurInvoice = () => {
-    if (!profile?.invoice_email || profile?.invoice_email === '' || !validateEmail(profile?.invoice_email)) {
+    console.log('blur invoice!')
+    if (profile?.invoice_email && profile?.invoice_email !== '' && !validateEmail(profile?.invoice_email)) {
       setErrorInvoice(t('company_profile.error.email'))
     }
   }
 
   const handleFocusEmail = () => {
+    console.log('focus mail!')
     setErrorEmail(null)
   }
 
   const handleFocusInvoice = () => {
+    console.log('focus invoice!')
     setErrorInvoice(null)
   }
 
@@ -205,6 +201,7 @@ export const CompanyProfileComponent = props => {
           </Box>
         </Box>
         <GlobalInput
+          id="email"
           onChange={handleChange}
           field="email"
           placeholder={t('company_profile.placeholder.dispatch')}
@@ -212,11 +209,12 @@ export const CompanyProfileComponent = props => {
           label={t('company_profile.labels.email')}
           onBlur={handleBlurEmail}
           onFocus={handleFocusEmail}
-          error={errorEmail}
+          error={!!errorEmail}
           helperText={errorEmail}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
         />
         <GlobalInput
+          id="invoice_email"
           onChange={handleChange}
           field="invoice_email"
           placeholder={t('company_profile.placeholder.invoice_email')}
@@ -224,7 +222,7 @@ export const CompanyProfileComponent = props => {
           label={t('company_profile.labels.invoice_email')}
           onBlur={handleBlurInvoice}
           onFocus={handleFocusInvoice}
-          error={errorInvoice}
+          error={!!errorInvoice}
           helperText={errorInvoice}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'invoice_email')}
         />
