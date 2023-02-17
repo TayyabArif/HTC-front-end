@@ -343,6 +343,9 @@ export const mainTableStyles = makeStyles(theme => ({
   checkboxTablecell: {
     width: '48px'
   },
+  dateTablecell: {
+    width: '200px'
+  },
   emptyTableCell: {
     borderBottom: 'none'
   },
