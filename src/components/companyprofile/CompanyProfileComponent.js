@@ -86,7 +86,7 @@ export const CompanyProfileComponent = props => {
   }
 
   const handleFocusInvoice = () => {
-    console.log('focus invoice!')
+    console.log('focus invoice!', errorInvoice)
     setErrorInvoice(null)
   }
 

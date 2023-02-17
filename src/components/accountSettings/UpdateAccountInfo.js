@@ -109,9 +109,7 @@ export const UpdateAccountInfo = props => {
         .required(t('account_settings.messages.errors.required'))
         .email(t('account_settings.messages.errors.email')),
       phone: yup
-        .string()
-        .trim()
-        .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
+        .string(),
       username: yup
         .string()
         .required(t('account_settings.messages.errors.required'))
@@ -141,9 +139,7 @@ export const UpdateAccountInfo = props => {
         .required(t('account_settings.messages.errors.required'))
         .email(t('account_settings.messages.errors.email')),
       phone: yup
-        .string()
-        .trim()
-        .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
+        .string(),
       username: yup
         .string()
         .required(t('account_settings.messages.errors.required'))
