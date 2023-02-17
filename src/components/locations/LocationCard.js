@@ -51,7 +51,7 @@ export const LocationCard = (props) => {
             <Typography className={classes.font16} align='left'>
               {props.info.name}
             </Typography>
-            <Typography className={classes.font12} align='left'>
+            <Typography className={classes.locationName} align='left'>
               {props.info.address}, {props.info.city} {props.info.state} {props.info.zipcode}
             </Typography>
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>

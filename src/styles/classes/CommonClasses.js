@@ -194,7 +194,8 @@ export const navBarStyles = makeStyles(theme => ({
     margin: '27px auto'
   },
   logo: {
-    width: '170px'
+    width: '170px',
+    maxHeight: '42px'
   },
   companyName: {
     fontSize: '24px',

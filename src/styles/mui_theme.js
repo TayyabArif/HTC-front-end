@@ -73,6 +73,7 @@ const customTheme = createTheme({
     errorText: '#F44337',
     checkDomain: '#8CD38B',
     backdropColor: '#FFFFFF',
+    opaqueBackground: 'rgba(53, 53, 53, 0.8)',
     navBarColor: '#FFFFFF',
     highlightButtonText: '#FFFFFF',
     basicButtonBackground: '#FFFFFF',
