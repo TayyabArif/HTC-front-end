@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   InputAdornment,
   IconButton,
@@ -13,6 +13,7 @@ import { inputFieldFilterStyles } from '../../styles/classes/WorkOrdersClasses'
 export const InputFieldFilter = props => {
   const classes = inputFieldFilterStyles()
   const [search, setSearch] = useState('')
+  const inputRef = useRef()
 
   useEffect(() => {
     if (props.values[props.id] === '') {
@@ -33,6 +34,7 @@ export const InputFieldFilter = props => {
         ...prevState,
         [props.id]: search
       }))
+      inputRef.current.blur()
     }
   }
 
@@ -64,6 +66,7 @@ export const InputFieldFilter = props => {
         onChange={handleChange}
         onKeyDown={handleEnter}
         onBlur={handleBlurSearch}
+        inputRef={inputRef}
         endAdornment={
           <InputAdornment position="end">
             <IconButton onClick={handleClearSearch}>
