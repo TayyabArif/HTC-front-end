@@ -416,7 +416,7 @@ const SignIn = () => {
                 </BasicButton>
               </Grid>
               <Grid item xs={5} textAlign={'end'}>
-                <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
+                <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type="submit" variant='contained' >
                   {t('sign_in.sign_in')}
                 </HighlightButton>
               </Grid>

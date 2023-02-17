@@ -76,7 +76,7 @@ export const WorkOrderCard = (props) => {
               </Typography>
             </Box>
             <Box flex={3} pr={1}>
-              <Typography marginBottom={0.3} className={classes.woStatus} align='left'>
+              <Typography marginBottom={0.3} className={classes.woStatus} align='left' color={`${theme.colors.workOrderColors[getWOstatus(info)]}`}>
                 {t(`work_orders.wo_states.${getWOstatus(info)}`)}
               </Typography>
               <Typography marginBottom={0.3} className={classes.priority} align='left'>

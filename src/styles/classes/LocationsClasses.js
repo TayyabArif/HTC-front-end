@@ -468,7 +468,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   mapButtonsBox: {
     width: '20px',
     position: 'relative',
-    top: '73px',
+    top: '80px',
     left: '15px',
     [theme.breakpoints.down('md')]: {
       display: 'none'
@@ -555,7 +555,8 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
       width: '11px',
       height: '11px',
       right: '-6px',
-      top: '-2px'
+      top: '-2px',
+      borderRadius: '50px'
     }
   }
 }))
@@ -720,6 +721,11 @@ export const locationCardStyles = makeStyles((theme) => ({
   },
   font12: {
     fontSize: 12,
+    fontWeight: '400',
+    color: theme.colors.locations.locationAddress
+  },
+  locationName: {
+    fontSize: 13,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress
   },
@@ -1053,7 +1059,6 @@ export const woCardStyles = makeStyles((theme) => ({
   woStatus: {
     fontSize: '13px',
     fontWeight: '600',
-    color: theme.colors.statusLabel,
     margin: '8px 0px 21px 0px',
     textAlign: 'end'
   },
