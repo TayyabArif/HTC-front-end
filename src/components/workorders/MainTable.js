@@ -135,6 +135,7 @@ function EnhancedTableHead (props) {
                   key={headCell.id}
                   align={headCell.numeric ? 'right' : 'left'}
                   sortDirection={orderBy === headCell.id ? order : false}
+                  className={(headCell.id === 'opendate' || headCell.id === 'duedate') ? classes.dateTablecell : ''}
                   classes={
                     index + 1 !== columns.length
                       ? { root: classes.headCell }

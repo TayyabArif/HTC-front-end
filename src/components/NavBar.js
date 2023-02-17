@@ -22,7 +22,7 @@ import { removeAuthorizationHeader } from '../lib/Api'
 
 /** Icons */
 import GridIcon from '../assets/icons/grid_icon.svg'
-import AcmeIcon from '../assets/images/acme_logo.svg'
+import ADLogo from '../assets/images/ADLogo.svg'
 
 /** Styles */
 import { navBarStyles } from '../styles/classes/CommonClasses'
@@ -46,6 +46,17 @@ export const NavBar = () => {
 
   useEffect(() => {
     // back to site view if navigate between pages
+    dispatch(locationsActions.showMapSiteView({
+      coordinates: {
+        lat: 40.175472,
+        lng: -101.466083
+      },
+      zoom: 5,
+      hideMarkers: false,
+      selectedMarkerIndex: null
+    }))
+    dispatch(locationsActions.setActiveInfoWindow(null))
+    dispatch(locationsActions.hideSiteViewPanel())
     dispatch(locationsActions.hideSiteViewPanel())
     dispatch(locationsActions.setSelectedSite())
     dispatch(locationsActions.setSelectedWorkOrder(null))
@@ -89,6 +100,13 @@ export const NavBar = () => {
     return location.pathname === '/company-settings' || location.pathname === '/account-settings' ? 'textGray' : 'text'
   }
 
+  const getCompanyLogo = () => {
+    if (!userStore.userInfo.logo?.url) {
+      return ADLogo
+    }
+    return userStore.userInfo.logo?.url
+  }
+
   return (
     <Box pl={3} pr={3} className={classes.navBar}>
       <Grid container className={classes.header}>
@@ -101,7 +119,7 @@ export const NavBar = () => {
           >
             <Box className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
               <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
-                <img className={classes.logo} src={AcmeIcon} />
+                <img className={classes.logo} src={getCompanyLogo()} />
               </Link>
             </Box>
             <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>

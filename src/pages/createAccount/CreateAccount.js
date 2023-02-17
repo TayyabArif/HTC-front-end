@@ -77,7 +77,7 @@ const CreateAccount = () => {
     if (
       !firstName ||
       !lastName ||
-      !password
+      password.length < 6
     ) {
       save = false
     }
@@ -94,28 +94,24 @@ const CreateAccount = () => {
   }, [])
 
   const onSubmit = async (data) => {
-    if (password.length >= 6) {
-      setLoading(true)
-      try {
-        await createUser(
-          accessCode,
-          firstName,
-          lastName,
-          email,
-          'manager',
-          email,
-          password
-        )
-      } catch (error) {
-        switch (error.type) {
-          case 'email':
-            setEmailError(error.message)
-            break
-        }
-        setLoading(false)
+    setLoading(true)
+    try {
+      await createUser(
+        accessCode,
+        firstName,
+        lastName,
+        email,
+        'manager',
+        email,
+        password
+      )
+    } catch (error) {
+      switch (error.type) {
+        case 'email':
+          setEmailError(error.message)
+          break
       }
-    } else {
-      setErrorPass(t('general.messages.errors.length_6'))
+      setLoading(false)
     }
   }
 
@@ -129,6 +125,12 @@ const CreateAccount = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value)
+  }
+
+  const handleBlurPass = () => {
+    if (password.length < 6) {
+      setErrorPass(t('general.messages.errors.length_6'))
+    }
   }
 
   return loading
@@ -256,6 +258,9 @@ const CreateAccount = () => {
                               classes: {
                                 notchedOutline: classes.fieldsOutlined
                               }
+                            }}
+                            inputProps={{
+                              onBlur: () => handleBlurPass()
                             }}
                             onKeyUp={handlePasswordChange}
                           />

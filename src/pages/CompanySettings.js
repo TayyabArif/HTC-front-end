@@ -171,6 +171,7 @@ const CompanySettings = props => {
   const handleClose = () => {
     setOpen(false)
     setOpenConfirm(false)
+    setUpdatedCompany({ ...company })
   }
   const parseAreaServiceToApi = serviceAreaList => {
     const newServiceAreaArray = []

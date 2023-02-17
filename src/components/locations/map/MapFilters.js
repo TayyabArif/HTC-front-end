@@ -200,6 +200,12 @@ export const MapFilters = (props) => {
     if (locationsFilters.dateRange !== dateRange) {
       response = false
     }
+    if (dateRange === 'custom') {
+      const dates = selectedDate.split(' : ')
+      if (dates.length === 2) {
+        response = !(locationsFilters.dateFrom !== dates[0] || locationsFilters.dateTo !== dates[1])
+      }
+    }
     if (locationsFilters.status !== status) {
       response = false
     }
