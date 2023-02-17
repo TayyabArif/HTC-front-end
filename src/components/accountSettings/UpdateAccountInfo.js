@@ -96,38 +96,69 @@ export const UpdateAccountInfo = props => {
   }
 
   /** VALIDATIONS **/
-  const validationSchema = yup.object().shape({
-    firstName: yup
-      .string()
-      .required(t('account_settings.messages.errors.required')),
-    lastName: yup
-      .string()
-      .required(t('account_settings.messages.errors.required')),
-    email: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .email(t('account_settings.messages.errors.email')),
-    phone: yup
-      .string()
-      .trim()
-      .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
-    username: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.length_6')),
-    employeeId: yup
-      .string(),
-    password: yup
-      .string()
-      .min(6, t('general.messages.errors.length_6')),
-    passwordConfirm: yup
-      .string()
-      .min(6, t('general.messages.errors.length_6'))
-      .oneOf(
-        [yup.ref('password')],
-        t('account_settings.messages.errors.password_match')
-      )
-  })
+  const validationSchema = event === 'new'
+    ? yup.object().shape({
+      firstName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      lastName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      email: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .email(t('account_settings.messages.errors.email')),
+      phone: yup
+        .string()
+        .trim()
+        .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
+      username: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .min(6, t('general.messages.errors.length_6')),
+      employeeId: yup
+        .string(),
+      password: yup
+        .string()
+        .min(6, t('general.messages.errors.length_6')),
+      passwordConfirm: yup
+        .string()
+        .min(6, t('general.messages.errors.length_6'))
+        .oneOf(
+          [yup.ref('password')],
+          t('account_settings.messages.errors.password_match')
+        )
+    })
+    : yup.object().shape({
+      firstName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      lastName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      email: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .email(t('account_settings.messages.errors.email')),
+      phone: yup
+        .string()
+        .trim()
+        .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
+      username: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .min(6, t('general.messages.errors.length_6')),
+      employeeId: yup
+        .string(),
+      password: yup
+        .string(),
+      passwordConfirm: yup
+        .string()
+        .oneOf(
+          [yup.ref('password')],
+          t('account_settings.messages.errors.password_match')
+        )
+    })
 
   /** End VALIDATIONS **/
 
@@ -151,13 +182,12 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.lastName ||
       !updatedInfo.email ||
       !updatedInfo.username ||
-      (updatedInfo.password && !updatedInfo.passwordConfirm) ||
-      (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+      !updatedInfo.roles ||
+      (event === 'new' && (updatedInfo.password?.length < 6 || updatedInfo.passwordConfirm?.length < 6 || (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
       errors?.password?.message ||
-      errors?.passwordConfirm?.message ||
-      (updatedInfo.password !== updatedInfo.passwordConfirm)
+      errors?.passwordConfirm?.message
     ) {
       save = false
     }
@@ -455,6 +485,7 @@ export const UpdateAccountInfo = props => {
                       placeholder={t('account_settings.info_card.placeholder_select')}
                       error={!!errors.roles}
                       helperText={errors.roles && errors.roles.message}
+                      required={true}
                       {...register('roles')}
                     />
                   </Grid>

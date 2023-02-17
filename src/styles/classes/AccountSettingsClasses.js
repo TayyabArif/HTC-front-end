@@ -467,6 +467,9 @@ export const SelectorClasses = makeStyles(theme => ({
     '& .MuiInputBase-input': {
       fontSize: '16px'
     },
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText
+    },
     marginBottom: '12px'
   },
   input: {
