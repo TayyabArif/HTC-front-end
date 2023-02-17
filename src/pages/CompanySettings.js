@@ -59,8 +59,6 @@ const CompanySettings = props => {
   const [logoData, setLogoData] = useState()
   const [component, setComponent] = useState('')
   const [states, setStates] = useState()
-  const [dispatchError, setDispatchError] = useState(false)
-  const [invoiceError, setInvoiceError] = useState(false)
   const [fileError, setFileError] = useState({
     w9: false,
     coi: false,
@@ -165,6 +163,7 @@ const CompanySettings = props => {
   const handleClose = () => {
     setOpen(false)
     setOpenConfirm(false)
+    setUpdatedCompany({ ...company })
   }
   const parseAreaServiceToApi = serviceAreaList => {
     const newServiceAreaArray = []
@@ -242,8 +241,6 @@ const CompanySettings = props => {
             profile={updatedCompany}
             handleChange={handleChange}
             showLogo={false}
-            dispatchError={dispatchError}
-            invoiceError={invoiceError}
             setValidHours={setValidHours}
             requiredFields={complianceFields?.information?.fields}
             afterHoursPhone={afterHoursPhone}
@@ -481,15 +478,11 @@ const CompanySettings = props => {
       return false
     }
     if (!data?.email || !validateEmail(data?.email)) {
-      setDispatchError(true)
       return false
     }
     if (!data?.invoice_email || !validateEmail(data?.invoice_email)) {
-      setInvoiceError(true)
       return false
     }
-    setDispatchError(false)
-    setInvoiceError(false)
     return true
   }
 
