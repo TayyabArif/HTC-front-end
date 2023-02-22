@@ -9,7 +9,7 @@ export const accountSettings = () => {
       first_name: 'Nombre',
       last_name: 'Apellido',
       email: 'Correo Electrónico',
-      username: 'Nombre de Usuario',
+      username: 'Nombre de Usuario (6 caracteres mínimo)',
       company_role: 'Rol',
       employee_id: 'ID Empleado',
       phone_number: 'Número de Teléfono',

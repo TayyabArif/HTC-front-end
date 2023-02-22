@@ -67,26 +67,22 @@ export const CompanyProfileComponent = props => {
   const handleFocus = event => event.target.select()
 
   const handleBlurEmail = () => {
-    console.log('blur email!')
     if (profile?.email && profile?.email !== '' && !validateEmail(profile?.email)) {
       setErrorEmail(t('company_profile.error.email'))
     }
   }
 
   const handleBlurInvoice = () => {
-    console.log('blur invoice!')
     if (profile?.invoice_email && profile?.invoice_email !== '' && !validateEmail(profile?.invoice_email)) {
       setErrorInvoice(t('company_profile.error.email'))
     }
   }
 
   const handleFocusEmail = () => {
-    console.log('focus mail!')
     setErrorEmail(null)
   }
 
   const handleFocusInvoice = () => {
-    console.log('focus invoice!', errorInvoice)
     setErrorInvoice(null)
   }
 

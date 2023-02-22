@@ -78,8 +78,8 @@ export const companySettingsStyles = makeStyles(theme => ({
     width: '160px',
     alignSelf: 'flex-end',
     marginRight: '84px',
-    marginBottom: '37px',
-    marginTop: '48px'
+    marginBottom: '18px',
+    marginTop: '18px'
   },
   editComponent: {
     '& .MuiDialog-paperWidthSm': {

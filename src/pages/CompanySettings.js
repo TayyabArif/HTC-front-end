@@ -651,7 +651,7 @@ const CompanySettings = props => {
         scroll="paper"
         className={classes.editComponent}
       >
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogContent style={{ overflowY: 'none' }}>
           {editComponent(component)}
         </DialogContent>
         <DialogActions>
