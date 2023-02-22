@@ -73,7 +73,8 @@ export const HighlightButton = withStyles((theme) => ({
     fontSize: '18px !important',
     fontWeight: '700 !important',
     height: '58px !important',
-    width: '135px !important'
+    width: '135px !important',
+    zIndex: 999
   },
   contained: {
     boxShadow: '0 0 0 0'

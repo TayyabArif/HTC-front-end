@@ -170,7 +170,8 @@ export const navBarStyles = makeStyles(theme => ({
     }
   },
   logo: {
-    width: '170px'
+    width: '170px',
+    maxHeight: '42px'
   },
   companyName: {
     fontSize: '24px',
