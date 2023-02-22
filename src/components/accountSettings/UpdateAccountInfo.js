@@ -545,7 +545,7 @@ export const UpdateAccountInfo = props => {
                       id="password"
                       name="password"
                       type="password"
-                      placeholder={'********'}
+                      placeholder={t('account_settings.info_card.placeholder_pass')}
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.password')}
                       error={!!errors.password}
@@ -569,8 +569,8 @@ export const UpdateAccountInfo = props => {
                       id="passwordConfirm"
                       name="passwordConfirm"
                       type="password"
+                      placeholder={t('account_settings.info_card.placeholder_repass')}
                       handleChange={handleChangeValues}
-                      placeholder={'********'}
                       label={t('account_settings.info_card.password_confirm')}
                       error={!!errors.passwordConfirm}
                       endAdornment={true}

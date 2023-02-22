@@ -36,6 +36,7 @@ export const TextInput = React.forwardRef(
     const handleChangeInt = event => {
       handleChange(event, id)
     }
+    console.log(placeholder)
 
     return (
       <FormControl fullWidth className={classes.formControl}>
@@ -76,7 +77,7 @@ export const TextInput = React.forwardRef(
                 className: classes.label
               }}
               placeholder={
-                  placeholder ? t('account_settings.form.enter') + ' ' + label : ''
+                  placeholder ?? t('account_settings.form.enter') + ' ' + label
               }
               classes={{ root: classes.root }}
               autoComplete="off"
