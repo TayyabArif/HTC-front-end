@@ -186,7 +186,7 @@ export const NavBar = () => {
         {/* TODO: un hide dropdown options when needed */}
         <MenuItem
             className={value === '/work-orders' ? classes.selectedMobile : classes.menuItemMobile}
-            value={'/work-orders'}
+            onClick={() => handleChangeMenu('/work-orders')}
           >
             {t('nav_bar.work_orders')}
           </MenuItem>
