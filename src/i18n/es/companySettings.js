@@ -190,7 +190,7 @@ export const companySettings = () => {
         trade: 'Comercio(s)',
         service: 'Servicio',
         wo_number: 'OT #',
-        tracking: 'Seguimineto #',
+        tracking: 'Seguimiento #',
         open_date: 'Fecha Apertura',
         close_date: 'Fecha Cierre',
         wo_status: 'OT Estado'
