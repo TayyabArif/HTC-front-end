@@ -314,7 +314,14 @@ export const UpdateAccountInfo = props => {
             : error.path.substr(1, error.path.length - 1)
         setErrorMessage(name + ' ' + error.message)
       } else if (e.message) {
-        setErrorMessage(t('company_profile.error.general_error'))
+        switch (e.details.code) {
+          case 1006:
+            setErrorMessage(e.message)
+            break
+          default:
+            setErrorMessage(t('company_profile.error.general_error'))
+            break
+        }
       } else setErrorMessage(e)
     }
   }
