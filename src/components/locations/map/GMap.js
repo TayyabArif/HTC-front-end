@@ -12,9 +12,7 @@ import { MapActionButtons } from './MapActionButtons'
 import { WeatherLegends } from './WeatherLegends'
 import { WeatherPlayer } from './WeatherPlayer'
 
-/* COMMENTED FOR FUTURE USE */
 import { MapCounters } from './MapCounters'
-
 import { OnlyMarker } from './OnlyMarker'
 import { InfoMarker } from './InfoMarker'
 
@@ -22,14 +20,12 @@ import { InfoMarker } from './InfoMarker'
 import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
 import { filtersActions } from '../../../store/filters'
-// TODO: create api endpoints for the page
-// import { getSiteWorkOrders, getSiteProposals } from '../../../services/ApiService'
 
 // Styles
 import { mapStyles } from '../../../styles/classes/LocationsClasses'
 
 /* Utils */
-import { mobileBreakpoint } from '../../../lib/Constants'
+import { mobileBreakpoint, navBarHeaderHeight, navBarHeaderHeightMobile } from '../../../lib/Constants'
 import { useWindowWidth } from '@react-hook/window-size'
 
 export const GMap = (props) => {
@@ -81,7 +77,13 @@ export const GMap = (props) => {
             gestureHandling: 'greedy'
           }}
           mapContainerClassName={classes.markers}
-          mapContainerStyle={{ height: wWidth <= mobileBreakpoint ? 'calc(100vh - 78px)' : 'calc(100vh - 100px)', width: '100%', overflowY: 'hidden' }}
+          mapContainerStyle={{
+            height: wWidth <= mobileBreakpoint
+              ? `calc(100vh - ${navBarHeaderHeightMobile})`
+              : `calc(100vh - ${navBarHeaderHeight})`,
+            width: '100%',
+            overflowY: 'hidden'
+          }}
           center={locationsStore.map.center}
           zoom={locationsStore.map.zoom}
           onLoad={(map) => getMapInstance(map)}
@@ -109,7 +111,7 @@ export const GMap = (props) => {
           }}>
             <CircularProgress color="inherit" />
           </Box>
-          <Box display={'flex'}>
+          <Box className={classes.actionButtonsBox}>
             <MapActionButtons
               handlerSearchBtnClick={handlerSearchBtnClick}
               hideLeftSection={props.hideLeftSection}

@@ -128,6 +128,8 @@ export const AFStateOptions = [
 
 export const navBarHeaderHeight = '100px'
 
+export const navBarHeaderHeightMobile = '75px'
+
 export const woSortOptions = [
   {
     id: 'work_order_a'

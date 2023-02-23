@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles'
+import { navBarHeaderHeight, navBarHeaderHeightMobile } from '../../lib/Constants'
 
 export const locationsStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -41,13 +42,18 @@ export const locationsStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       display: 'none'
     },
-    height: 'calc(100vh - 100px)',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeight})`
+    },
+    [theme.breakpoints.down('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeightMobile})`
+    },
     overflowY: 'overlay',
     backgroundColor: theme.colors.profile.borders,
     padding: '0px'
   },
   searchBox: {
-    width: '345px',
+    width: '100%',
     marginLeft: '20px',
     '& input::placeholder': {
       fontSize: 16,
@@ -92,14 +98,14 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
-    marginTop: '100px',
-    width: '430px',
     border: 'none',
     [theme.breakpoints.up('md')]: {
-      width: '430px'
+      width: '430px',
+      marginTop: navBarHeaderHeight
     },
     [theme.breakpoints.down('md')]: {
-      width: '100%'
+      width: '100%',
+      marginTop: navBarHeaderHeightMobile
     }
   },
   gridFilters: {
@@ -129,7 +135,12 @@ export const locationsStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   gmapBox: {
-    height: 'calc(100vh - 100px)'
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeight})`
+    },
+    [theme.breakpoints.down('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeightMobile})`
+    }
   },
   siteTab: {
     fontSize: '12px',
@@ -356,6 +367,9 @@ export const mapStyles = makeStyles((theme) => ({
     textTransform: 'none',
     color: theme.palette.primary.light,
     backgroundColor: theme.palette.primary.contrastText
+  },
+  actionButtonsBox: {
+    display: 'flex'
   }
 }))
 
@@ -1238,5 +1252,12 @@ export const panelCountsMobileStyles = makeStyles((theme) => ({
     fontSize: '12px',
     backgroundColor: 'white',
     margin: 2
+  },
+  labelTypo: {
+    fontSize: '12px'
+  },
+  labelTypoBold: {
+    fontSize: '12px',
+    fontWeight: 'bold'
   }
 }))
