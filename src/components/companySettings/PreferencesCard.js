@@ -116,6 +116,7 @@ export const PreferencesCard = props => {
   }
 
   const applyChanges = async () => {
+    setDisable(true)
     const actualConfigs = companyConfigs ?? []
     const newConfigs = []
     actualConfigs.forEach(config => {
@@ -129,6 +130,7 @@ export const PreferencesCard = props => {
     })
     await putCompanyConfigs(userStore.userInfo.company_id, newConfigs)
     await getCompanyInfo()
+    setDisable(false)
   }
 
   const objectsEqual = (o1, o2) =>
@@ -174,7 +176,7 @@ export const PreferencesCard = props => {
                     setColumns={setColumns}
                 />
                 <Box className={classes.buttonBox} >
-                    <Button disabled={disableSave} onClick={applyChanges} size="small" className={classes.applyButton} >
+                    <Button disabled={disableSave} onClick={async () => await applyChanges()} size="small" className={classes.applyButton} >
                         {t('company_settings.preferences_card.apply')}
                     </Button>
                 </Box>
