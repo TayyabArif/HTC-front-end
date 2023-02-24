@@ -422,7 +422,7 @@ export const MapFilters = (props) => {
     </Box>
     <Box key="state" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.state')}</Typography></Box>
     <Box key="statate_drop" className={classes.filterDrop}>
-      <MapFiltersButton onClick={handleStateOpen}>
+      <MapFiltersButton onClick={handleStateOpen} disableFocusRipple={true}>
         <Typography className={classes.dateLabel} >{state === 'all' ? t('locations.map.all_states') : state}</Typography>
         {isMenuStateOpen ? <ArrowRightTwoTone className={classes.arrowIcon} /> : <ArrowDropDownTwoTone className={classes.arrowIcon} />}
       </MapFiltersButton>

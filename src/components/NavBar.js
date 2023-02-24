@@ -110,52 +110,49 @@ export const NavBar = () => {
   return (
     <Box pl={3} pr={3} className={classes.navBar}>
       <Grid container className={classes.header}>
-        <Grid item xs={9} className={classes.header}>
-          <Box
-            sx={{
-              display: { xs: 'none', md: 'inline-flex' }
-            }}
-            display={'inline-flex'}
-          >
-            <Box className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
+        <Grid item xs={8} md={9} className={classes.header}>
+          <Grid container display={'inline-flex'} fullWidth>
+            <Grid item xs={12} md={'auto'} className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
               <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
                 <img className={classes.logo} src={getCompanyLogo()} />
               </Link>
-            </Box>
-            <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>
-              <StyledNavTab style={{ display: 'none' }} value={''} />
-              <StyledNavTab
-                value={'/work-orders'}
-                label={t('nav_bar.work_orders')}
-                iconPosition="end"
-                color={currentTextColor()}
-              />
-              <StyledNavTab
-                value={'/locations'}
-                label={t('nav_bar.locations')}
-                color={currentTextColor()}
-              />
-              <StyledNavTab
-                style={{ display: 'none' }}
-                value={'/account-settings'}
-                color={currentTextColor()}
-              />
-              <StyledNavTab
-                style={{ display: 'none' }}
-                value={'/company-settings'}
-                color={currentTextColor()}
-              />
-              <StyledNavTab
-                style={{ display: 'none' }}
-                value={'/company-profile'}
-                color={currentTextColor()}
-              />
-            </StyledNavTabs>
-          </Box>
+            </Grid>
+            <Grid item xs={12} md={'auto'}>
+              <StyledNavTabs value={value} onChange={handleChangeNavBar} className={classes.tabs}>
+                <StyledNavTab style={{ display: 'none' }} value={''} />
+                <StyledNavTab
+                  value={'/work-orders'}
+                  label={t('nav_bar.work_orders')}
+                  iconPosition="end"
+                  color={currentTextColor()}
+                />
+                <StyledNavTab
+                  value={'/locations'}
+                  label={t('nav_bar.locations')}
+                  color={currentTextColor()}
+                />
+                <StyledNavTab
+                  style={{ display: 'none' }}
+                  value={'/account-settings'}
+                  color={currentTextColor()}
+                />
+                <StyledNavTab
+                  style={{ display: 'none' }}
+                  value={'/company-settings'}
+                  color={currentTextColor()}
+                />
+                <StyledNavTab
+                  style={{ display: 'none' }}
+                  value={'/company-profile'}
+                  color={currentTextColor()}
+                />
+              </StyledNavTabs>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid align="right" item xs={3} className={classes.finalGrid}>
+        <Grid align="right" item xs={4} md={3} className={classes.finalGrid}>
           {userStore?.userInfo?.company_name && (
-            <Typography className={classes.companyName} >
+            <Typography className={classes.companyName}>
               {userStore.userInfo.company_name}
             </Typography>
           )}

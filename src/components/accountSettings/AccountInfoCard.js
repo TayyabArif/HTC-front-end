@@ -109,7 +109,7 @@ export const AccountInfoCard = props => {
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={8}>
+                        <Grid item xs={8.3}>
                             <Typography className={classes.field}>{t('account_settings.info_card.email')}</Typography>
                             <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.email}</Typography>
                         </Grid>
@@ -120,10 +120,6 @@ export const AccountInfoCard = props => {
                             <Typography className={classes.info} mt={1}>{`${userInfo?.userInfo?.phone ?? ''}`}</Typography>
                         </Grid>
                         <Grid item xs={4} ml={2}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.username')}</Typography>
-                            <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.username}</Typography>
-                        </Grid>
-                        <Grid item xs={3} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.password')}</Typography>
                             <Typography className={`${classes.info} ${classes.customInfo}`} mt={1}>{'***********'}</Typography>
                         </Grid>

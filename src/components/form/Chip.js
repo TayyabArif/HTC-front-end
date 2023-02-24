@@ -54,6 +54,7 @@ export default function GlobalChip (props) {
             key={c}
             onClick={event => handleSelectionChanged(c, event)}
             variant="outlined"
+            {...props}
             label={
               props.skipTranslate
                 ? c
