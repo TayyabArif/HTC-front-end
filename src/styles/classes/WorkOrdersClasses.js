@@ -1180,7 +1180,14 @@ export const slideFilterStyles = makeStyles(theme => ({
   },
   searchInput1: theme.filtersClasses.searchInput1,
   searchInput2: theme.filtersClasses.searchInput2,
-  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px', whiteSpace: 'initial', wordBreak: 'break-word' }
+  menuItem: { ...theme.filtersClasses.menuItem, width: '220px !important', whiteSpace: 'initial', wordBreak: 'break-word' },
+  itemLabel: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
+  }
 }))
 
 export const sortMenuStyles = makeStyles(theme => ({
