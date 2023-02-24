@@ -35,14 +35,6 @@ export const CompanyProfileComponent = props => {
     handleChange(address, 'address')
   }, [address])
 
-  useEffect(() => {
-    setErrorEmail(null)
-  }, [profile?.email])
-
-  useEffect(() => {
-    setErrorInvoice(null)
-  }, [profile?.invoice_email])
-
   const countries = [
     { value: 'United States', label: 'United States (US)' },
     { value: 'Canada', label: 'Canada' },
@@ -75,15 +67,23 @@ export const CompanyProfileComponent = props => {
   const handleFocus = event => event.target.select()
 
   const handleBlurEmail = () => {
-    if (!profile?.email || profile?.email === '' || !validateEmail(profile?.email)) {
+    if (profile?.email && profile?.email !== '' && !validateEmail(profile?.email)) {
       setErrorEmail(t('company_profile.error.email'))
     }
   }
 
   const handleBlurInvoice = () => {
-    if (!profile?.invoice_email || profile?.invoice_email === '' || !validateEmail(profile?.invoice_email)) {
+    if (profile?.invoice_email && profile?.invoice_email !== '' && !validateEmail(profile?.invoice_email)) {
       setErrorInvoice(t('company_profile.error.email'))
     }
+  }
+
+  const handleFocusEmail = () => {
+    setErrorEmail(null)
+  }
+
+  const handleFocusInvoice = () => {
+    setErrorInvoice(null)
   }
 
   return (
@@ -197,24 +197,28 @@ export const CompanyProfileComponent = props => {
           </Box>
         </Box>
         <GlobalInput
+          id="email"
           onChange={handleChange}
           field="email"
           placeholder={t('company_profile.placeholder.dispatch')}
           value={profile?.email}
           label={t('company_profile.labels.email')}
           onBlur={handleBlurEmail}
-          error={errorEmail}
+          onFocus={handleFocusEmail}
+          error={!!errorEmail}
           helperText={errorEmail}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
         />
         <GlobalInput
+          id="invoice_email"
           onChange={handleChange}
           field="invoice_email"
           placeholder={t('company_profile.placeholder.invoice_email')}
           value={profile?.invoice_email}
           label={t('company_profile.labels.invoice_email')}
           onBlur={handleBlurInvoice}
-          error={errorInvoice}
+          onFocus={handleFocusInvoice}
+          error={!!errorInvoice}
           helperText={errorInvoice}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'invoice_email')}
         />

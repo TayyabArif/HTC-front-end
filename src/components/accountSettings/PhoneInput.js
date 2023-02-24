@@ -6,8 +6,6 @@ import {
   TextField
 } from '@mui/material'
 
-import { useTranslation } from 'react-i18next'
-
 import { PatternFormat as NumberFormat } from 'react-number-format'
 import { HighlightOff } from '@mui/icons-material'
 import { PhoneInputClasses } from '../../styles/classes/AccountSettingsClasses'
@@ -51,7 +49,6 @@ export const PhoneInput = React.forwardRef(
   ) => {
     const classes = PhoneInputClasses()
     const inputRef = useRef()
-    const { t } = useTranslation()
 
     return (
       <FormControl fullWidth className={classes.formControl}>
@@ -92,9 +89,7 @@ export const PhoneInput = React.forwardRef(
           InputLabelProps={{
             className: classes.label
           }}
-          placeholder={
-            placeholder ? t('account_settings.form.enter') + ' ' + label : ''
-          }
+          placeholder={placeholder}
           className={classes.root}
           autoComplete="off"
           error={error}
