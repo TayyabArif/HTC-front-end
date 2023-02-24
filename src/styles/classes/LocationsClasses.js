@@ -1085,7 +1085,11 @@ export const woCardStyles = makeStyles((theme) => ({
 export const locationInfoCardStyles = makeStyles((theme) => ({
   nameLabel: {
     fontSize: '22px',
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingRight: '26px'
   },
   mainCard: {
     width: '560px',
