@@ -108,18 +108,26 @@ export const UsersCard = props => {
   return (
     <Card className={classes.card} data-testid={'users_card'}>
       <CardActions disableSpacing classes={{ root: classes.actions }}>
-        <Typography classes={{ root: classes.cardTitle }}>
-          {props.cardtitle}
-        </Typography>
-        <GlobalInput
-          className={classes.searchBar}
-          placeholder={t('company_settings.users_card.search')}
-          onChange={handleFilterChange}
-        />
-        <EditButton
-          label={t('company_settings.buttons.add')}
-          onClick={handleNewPanel}
-        />
+        <Grid container>
+          <Grid item xs={0} sm={6} xl={4}>
+            <Typography classes={{ root: classes.cardTitle }}>
+              {props.cardtitle}
+            </Typography>
+          </Grid>
+          <Grid item xs={10} sm={4} xl={6}>
+            <GlobalInput
+              className={classes.searchBar}
+              placeholder={t('company_settings.users_card.search')}
+              onChange={handleFilterChange}
+            />
+          </Grid>
+          <Grid item xs={2} xl={2} textAlign="right">
+            <EditButton
+              label={t('company_settings.buttons.add')}
+              onClick={handleNewPanel}
+            />
+          </Grid>
+        </Grid>
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box
