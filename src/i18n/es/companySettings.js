@@ -84,7 +84,8 @@ export const companySettings = () => {
       user_company_role_placeholder: 'Rol en la Empresa',
       pending: 'pendiente',
       user_already_exists: 'Usuario ya existente',
-      search: 'Buscar usuario'
+      search: 'Buscar usuario',
+      view_only: 'Solo Ver'
     },
     reports_card: {
       title: 'Reportes Programados',
@@ -183,13 +184,19 @@ export const companySettings = () => {
       description: 'Controla qué tipos de trabajo son visibles.',
       clear: 'Limpiar',
       apply: 'Aplicar',
-      types: {
-        maintenance: 'Mantenimiento',
-        enhancement: 'Mejora',
-        seasonal: 'Temporada',
-        complaint: 'Reclamo'
+      columns: {
+        location: 'Locación',
+        priority: 'Prioridad',
+        trade: 'Comercio(s)',
+        service: 'Servicio',
+        wo_number: 'OT #',
+        tracking: 'Seguimiento #',
+        open_date: 'Fecha Apertura',
+        close_date: 'Fecha Cierre',
+        wo_status: 'OT Estado'
       },
-      no_file: 'Ningún documento cargado'
+      no_file: 'Ningún documento cargado',
+      work_order_columns: 'Columnas Órdenes de Trabajo'
     }
   }
 }

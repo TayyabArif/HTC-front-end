@@ -40,16 +40,16 @@ export const workOrders = () => {
     },
     column_names: {
       client_name: 'Nombre del Cliente',
-      site_name: 'Nombre del Sitio',
+      location: 'Nombre del Sitio',
       priority: 'Prioridad',
       trade: 'Comercio',
       service: 'Servicio',
-      won: 'WO #',
-      opendate: 'Fecha de Inicio',
-      duedate: 'Fecha de Fin',
-      wostat: 'Estado WO',
+      wo_number: 'WO #',
+      open_date: 'Fecha de Inicio',
+      close_date: 'Fecha de Fin',
+      wo_status: 'Estado WO',
       invoices: 'Estado de Factura',
-      external_id: 'Id Externo'
+      tracking: 'Id Externo'
     },
     advanced_fields: {
       state: 'Estado',

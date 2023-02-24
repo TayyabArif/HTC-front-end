@@ -645,3 +645,27 @@ export const getLocationCallTypes = async (clientId) => {
     throw err
   }
 }
+
+export const getCompanyConfigs = async (companyId) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getCompanyConfigs(companyId)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const putCompanyConfigs = async (companyId, data) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.putCompanyConfigs(companyId, data)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
