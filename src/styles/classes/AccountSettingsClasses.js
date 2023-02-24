@@ -296,7 +296,8 @@ export const TextInputClasses = makeStyles(theme => ({
       top: '4px',
       fontSize: '10.7px',
       fontWeight: '400',
-      letterSpacing: '0.53px'
+      letterSpacing: '0.53px',
+      paddingLeft: '8px'
     },
     '& .Mui-focused': {
       color: theme.colors.tab.duedate
@@ -311,7 +312,9 @@ export const TextInputClasses = makeStyles(theme => ({
     marginBottom: '12px',
     flex: 1,
     '& .MuiFormLabel-asterisk': {
-      color: theme.colors.errorText
+      color: theme.colors.errorText,
+      position: 'absolute',
+      left: '-2px'
     }
   },
   label: {
@@ -462,10 +465,16 @@ export const SelectorClasses = makeStyles(theme => ({
       top: '4px',
       fontSize: '10.7px',
       fontWeight: '400',
-      letterSpacing: '0.53px'
+      letterSpacing: '0.53px',
+      paddingLeft: '8px'
     },
     '& .MuiInputBase-input': {
       fontSize: '16px'
+    },
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText,
+      position: 'absolute',
+      left: '-2px'
     },
     marginBottom: '12px'
   },
@@ -475,7 +484,8 @@ export const SelectorClasses = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '5px'
+    marginRight: '5px',
+    marginTop: '13px'
   },
   menuItem: theme.filtersClasses.menuItem,
   formControl: {
