@@ -149,7 +149,10 @@ export const NavBar = () => {
             </StyledNavTabs>
           </Box>
         </Grid>
-        <Grid align="right" item xs={11} md={3} className={classes.finalGrid}>
+        <Grid item xs={12} md={3} className={classes.finalGrid}>
+          <Link data-testid='bv-logo' to='/' className={classes.logoLinkMobile} >
+            <img className={classes.logoMobile} src={getCompanyLogo()} />
+          </Link>
           {userStore?.userInfo?.company_name && (
             <Typography className={classes.companyName} >
               {userStore.userInfo.company_name}

@@ -229,8 +229,26 @@ export const navBarStyles = makeStyles(theme => ({
     width: '170px',
     maxHeight: '42px'
   },
+  logoLinkMobile: {
+    margin: 'auto auto auto 0px',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  logoMobile: {
+    maxWidth: '80px',
+    maxHeight: '30px'
+  },
   companyName: {
-    fontSize: '24px',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '24px'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '20px'
+    },
     fontWeight: '600',
     color: theme.colors.text,
     margin: 'auto 15px auto 0px'

@@ -1159,7 +1159,7 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
       overflowY: 'unset'
     },
     [theme.breakpoints.down('md')]: {
-      maxHeight: '360px',
+      maxHeight: 'calc(100vh - 300px)',
       overflowY: 'auto'
     },
     overflowX: 'hidden'
