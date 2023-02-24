@@ -717,7 +717,10 @@ export const searchResultsStyles = makeStyles((theme) => ({
 export const locationCardStyles = makeStyles((theme) => ({
   font16: {
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   font12: {
     fontSize: 12,
@@ -727,7 +730,12 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationName: {
     fontSize: 13,
     fontWeight: '400',
-    color: theme.colors.locations.locationAddress
+    color: theme.colors.locations.locationAddress,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -782,7 +790,11 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationTile: {
     cursor: 'pointer',
     height: '100%',
-    margin: '3px 11px'
+    margin: '5px 11px'
+  },
+  locationStatus: {
+    position: 'absolute',
+    bottom: '5px'
   }
 }))
 
@@ -1073,7 +1085,11 @@ export const woCardStyles = makeStyles((theme) => ({
 export const locationInfoCardStyles = makeStyles((theme) => ({
   nameLabel: {
     fontSize: '22px',
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingRight: '26px'
   },
   mainCard: {
     width: '560px',
