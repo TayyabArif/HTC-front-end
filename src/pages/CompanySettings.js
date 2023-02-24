@@ -71,6 +71,18 @@ const CompanySettings = props => {
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
   const [companyConfigs, setCompanyConfigs] = useState([])
+  const paperProps = {
+    sx: {
+      minWidth: {
+        xs: '100% !important',
+        sm: '70% !important'
+      },
+      maxWidth: {
+        xs: '100% !important',
+        sm: '70% !important'
+      }
+    }
+  }
 
   useEffect(() => {
     initialMethod()
@@ -650,6 +662,7 @@ const CompanySettings = props => {
         onClose={handleClose}
         scroll="paper"
         className={classes.editComponent}
+        PaperProps={paperProps}
       >
         <DialogContent style={{ overflowY: 'none' }}>
           {editComponent(component)}
