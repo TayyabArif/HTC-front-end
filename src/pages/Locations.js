@@ -247,8 +247,7 @@ const Locations = () => {
               background: theme.colors.iconBlue,
               height: '3px',
               borderRadius: '4px',
-              marginRight: '50%',
-              width: '100px'
+              maxWidth: '30%'
             }
           }}
           style={{ zIndex: 1000 }} >

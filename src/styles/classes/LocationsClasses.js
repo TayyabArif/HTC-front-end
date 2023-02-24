@@ -167,9 +167,8 @@ export const locationsStyles = makeStyles((theme) => ({
     fontWeight: '400'
   },
   tab: {
-    minWidth: '50px',
+    minWidth: '100px',
     padding: 0,
-    width: '82px',
     minHeight: 20,
     maxHeight: '30px',
     height: 'auto',
@@ -182,7 +181,7 @@ export const locationsStyles = makeStyles((theme) => ({
       marginRight: '230px' // TODO: remove when the rest of tabs appear
     },
     [theme.breakpoints.down('md')]: {
-      marginRight: '50%' // TODO: remove when the rest of tabs appear
+      marginRight: '100%' // TODO: remove when the rest of tabs appear
     }
   },
   tabs: {
