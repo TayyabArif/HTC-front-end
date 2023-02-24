@@ -8,11 +8,11 @@ export const accountSettings = () => {
       name: 'Name',
       first_name: 'First name',
       last_name: 'Last name',
-      email: 'Email Address',
-      username: 'Username',
+      email: 'Email address',
+      username: 'Username (at least 6 characters)',
       company_role: 'Role',
       employee_id: 'Employee ID',
-      phone_number: 'Phone Number',
+      phone_number: 'Phone number',
       portal_access_level: 'Portal Access Level',
       password: 'Password',
       password_confirm: 'Password Confirm',
@@ -27,9 +27,11 @@ export const accountSettings = () => {
       placeholder_username: 'Create username',
       placeholder_pass: 'Create password',
       placeholder_repass: 'Re-enter password',
-      placeholder_employee: 'Enter ID',
+      placeholder_employee: 'Enter id',
       placeholder_select: 'Select',
-      edit_button: 'Edit'
+      edit_button: 'Edit',
+      placeholder_password: 'Create password',
+      placeholder_confirm: 'Re-enter password'
     },
     form: {
       save: 'Save',

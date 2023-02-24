@@ -36,7 +36,6 @@ export const TextInput = React.forwardRef(
     const handleChangeInt = event => {
       handleChange(event, id)
     }
-    console.log(placeholder)
 
     return (
       <FormControl fullWidth className={classes.formControl}>

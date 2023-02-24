@@ -65,7 +65,7 @@ export const UpdateAccountInfo = props => {
       display: 'none'
     }
   }
-  const passwordPlaceHolder = '********'
+  const passwordPlaceHolder = ''
   const startingInfo = {
     firstName: accountInfo.userInfo.firstName,
     lastName: accountInfo.userInfo.lastName,
@@ -100,39 +100,65 @@ export const UpdateAccountInfo = props => {
   }
 
   /** VALIDATIONS **/
-  const validationSchema = yup.object().shape({
-    firstName: yup
-      .string()
-      .required(t('account_settings.messages.errors.required')),
-    lastName: yup
-      .string()
-      .required(t('account_settings.messages.errors.required')),
-    email: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .email(t('account_settings.messages.errors.email')),
-    phone: yup
-      .string()
-      .trim()
-      .required(t('account_settings.messages.errors.required'))
-      .matches(/\([0-9]{3}\) [0-9]{3} [0-9]{4}\b$/, t('general.messages.errors.phone')),
-    username: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.field_length_6')),
-    password: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.length_6')),
-    passwordConfirm: yup
-      .string()
-      .required(t('account_settings.messages.errors.required'))
-      .min(6, t('general.messages.errors.length_6'))
-      .oneOf(
-        [yup.ref('password')],
-        t('account_settings.messages.errors.password_match')
-      )
-  })
+  const validationSchema = event === 'new'
+    ? yup.object().shape({
+      firstName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      lastName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      email: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .email(t('account_settings.messages.errors.email')),
+      phone: yup
+        .string(),
+      username: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .min(6, t('general.messages.errors.length_6')),
+      employeeId: yup
+        .string(),
+      password: yup
+        .string()
+        .min(6, t('general.messages.errors.length_6')),
+      passwordConfirm: yup
+        .string()
+        .min(6, t('general.messages.errors.length_6'))
+        .oneOf(
+          [yup.ref('password')],
+          t('account_settings.messages.errors.password_match')
+        )
+    })
+    : yup.object().shape({
+      firstName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      lastName: yup
+        .string()
+        .required(t('account_settings.messages.errors.required')),
+      email: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .email(t('account_settings.messages.errors.email')),
+      phone: yup
+        .string(),
+      username: yup
+        .string()
+        .required(t('account_settings.messages.errors.required'))
+        .min(6, t('general.messages.errors.length_6')),
+      employeeId: yup
+        .string(),
+      password: yup
+        .string(),
+      passwordConfirm: yup
+        .string()
+        .oneOf(
+          [yup.ref('password')],
+          t('account_settings.messages.errors.password_match')
+        )
+    })
 
   /** End VALIDATIONS **/
 
@@ -155,17 +181,18 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.username ||
       !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      !updatedInfo.username ||
+      !updatedInfo.roles ||
+      (event === 'new' && (updatedInfo.password?.length < 6 || updatedInfo.passwordConfirm?.length < 6 || (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
       errors?.phone?.message ||
       errors?.password?.message ||
-      errors?.passwordConfirm?.message ||
-      (updatedInfo.password !== updatedInfo.passwordConfirm)
+      errors?.passwordConfirm?.message
     ) {
       save = false
     }
@@ -440,7 +467,7 @@ export const UpdateAccountInfo = props => {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0
                       }}
-                      InputLabelProps={{ shrink: true, required: true }}
+                      InputLabelProps={{ shrink: true }}
                       {...register('phone')}
                     />
                   </Grid>
@@ -467,8 +494,10 @@ export const UpdateAccountInfo = props => {
                             ? [...finalRoles]
                             : []
                       }
+                      placeholder={t('account_settings.info_card.placeholder_select')}
                       error={!!errors.roles}
                       helperText={errors.roles && errors.roles.message}
+                      required={true}
                       {...register('roles')}
                     />
                   </Grid>
@@ -523,6 +552,28 @@ export const UpdateAccountInfo = props => {
                         }
                       })}
                       {...register('emailNotifications')}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container mt={2} >
+                  <Grid item xs={12}>
+                    <TextInput
+                      value={updatedInfo.employeeId}
+                      id="employeeId"
+                      name="employeeId"
+                      handleChange={handleChangeValues}
+                      placeholder={t('account_settings.info_card.placeholder_employee')}
+                      label={t('account_settings.info_card.employee_id')}
+                      error={!!errors.employeeId}
+                      helperText={errors.employeeId && errors.employeeId.message}
+                      {...register('employeeId')}
+                      endAdornment={true}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                 </Grid>
