@@ -168,3 +168,15 @@ export const profileCardLimits = {
 }
 
 export const whiteImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+
+export const defWorkColumns = [
+  { id: 'location', visible: true },
+  { id: 'priority', visible: true },
+  { id: 'trade', visible: true },
+  { id: 'service', visible: true },
+  { id: 'wo_number', visible: true },
+  { id: 'tracking', visible: true },
+  { id: 'open_date', visible: true },
+  { id: 'close_date', visible: true },
+  { id: 'wo_status', visible: true }
+]

@@ -7,7 +7,6 @@ import {
 } from '@mui/material'
 import { HighlightOff } from '@mui/icons-material/'
 
-import { useTranslation } from 'react-i18next'
 import { TextInputClasses } from '../../styles/classes/AccountSettingsClasses'
 
 // eslint-disable-next-line react/display-name
@@ -31,7 +30,6 @@ export const TextInput = React.forwardRef(
   ) => {
     const classes = TextInputClasses()
     const inputRef = useRef()
-    const { t } = useTranslation()
 
     const handleChangeInt = event => {
       handleChange(event, id)
@@ -75,9 +73,7 @@ export const TextInput = React.forwardRef(
               InputLabelProps={{
                 className: classes.label
               }}
-              placeholder={
-                  placeholder ? t('account_settings.form.enter') + ' ' + label : ''
-              }
+              placeholder={placeholder}
               classes={{ root: classes.root }}
               autoComplete="off"
               error={error}

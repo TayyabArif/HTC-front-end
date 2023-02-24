@@ -343,6 +343,9 @@ export const mainTableStyles = makeStyles(theme => ({
   checkboxTablecell: {
     width: '48px'
   },
+  dateTablecell: {
+    width: '200px'
+  },
   emptyTableCell: {
     borderBottom: 'none'
   },
@@ -629,8 +632,7 @@ export const dateTimeFilterStyles = makeStyles(theme => ({
 export const detailedInfoStyles = makeStyles(theme => ({
   presentation: {
     margin: 0,
-    marginTop: '19px',
-    overflowY: 'auto'
+    marginTop: '19px'
   },
   loading: {
     justifyItems: 'center',
@@ -641,16 +643,14 @@ export const detailedInfoStyles = makeStyles(theme => ({
     fontSize: '16px'
   },
   drawerPaper: {
-    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
+    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 1px'}))`,
     marginTop: navBarHeaderHeight,
     width: '360px',
     borderRadius: '8px',
-    overflow: 'auto',
     overflowX: 'hidden',
+    overflowY: 'hidden',
     zIndex: 1500,
     boxSizing: 'content-box',
-    marginRight: '19px',
-    marginBottom: '20px',
     display: 'flex'
   },
   midTab: {
@@ -693,7 +693,9 @@ export const detailedInfoStyles = makeStyles(theme => ({
       padding: '0px'
     },
     padding: '0px 0px',
-    marginTop: '10px'
+    marginTop: '10px',
+    maxHeight: '56vh',
+    overflowY: 'auto'
   },
   title: {
     padding: '12px 0px',

@@ -38,7 +38,11 @@ const useStyles = makeStyles((theme) => ({
   },
   contactText: {
     fontWeight: '400',
-    fontSize: '14px'
+    fontSize: '14px',
+    '&:hover': {
+      textDecoration: 'underline'
+    },
+    cursor: 'pointer'
   },
   footerContainer: {
     bottom: 30,
@@ -76,12 +80,13 @@ export const SignInContainer = (props) => {
             <Grid item xs={8} sm={2} md={2} lg={2}>
               <img src={conectadLogo} alt="Connectad Logo"/>
             </Grid>
-            <Grid item sm={4} md={4} lg={4} alignSelf="flex-end" textAlign="right">
-              <Typography variant={'p'} className={ classes.contactText } hidden>
+            <Grid item sm={5} md={5} lg={5} />
+            <Grid item sm={2} md={2} lg={2} alignSelf="flex-end" textAlign="right">
+              <Typography variant={'p'} className={ classes.contactText }>
                 Contact us
               </Typography>
             </Grid>
-            <Grid item sm={4} md={4} lg={4} alignSelf="flex-end" textAlign="right">
+            <Grid item sm={0.7} md={0.7} lg={0.7} alignSelf="flex-end" textAlign="right">
               <Typography variant={'p'} align={'center'} className={classes.versionText}>
                 &nbsp;v{pjson.version}
               </Typography>

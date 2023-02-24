@@ -1,25 +1,23 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, forwardRef } from 'react'
 
 /** Material UI **/
 import { styled } from '@mui/system'
-import { FormLabel, Typography } from '@mui/material'
+import { FormLabel, Typography, TextField } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
-import { NumericFormat } from 'react-number-format'
+import { PatternFormat as NumberFormat } from 'react-number-format'
 import customTheme from '../../styles/mui_theme'
 import { numberInputStyles } from '../../styles/classes/FormClasses'
 
-const BootstrapInput = styled(NumericFormat)(({ theme }) => ({
+const BootstrapInput = styled(TextField)(({ theme }) => ({
   'label + &': {
     marginTop: theme.spacing(3)
   },
   borderRadius: 45,
   position: 'relative',
   backgroundColor: customTheme.colors.white,
-  border: '1px solid ' + customTheme.colors.profile.border_input,
-  fontSize: 15,
+  fontSize: '15px',
   width: '100%',
-  padding: '10px 12px',
   transition: theme.transitions.create([
     'border-color',
     'background-color',
@@ -38,6 +36,7 @@ const BootstrapInput = styled(NumericFormat)(({ theme }) => ({
     '"Segoe UI Symbol"'
   ].join(','),
   '&:focus': {
+    borderRadius: 45,
     border: '1px solid ' + theme.palette.primary.main,
     boxShadow: '0 0 0 0.2rem ' + customTheme.colors.profile.box_shadow,
     outline: 'none'
@@ -48,12 +47,43 @@ const BootstrapInput = styled(NumericFormat)(({ theme }) => ({
     opacity: '1'
   },
   '&:disabled': {
+    borderRadius: 45,
     color: 'rgba(0, 0, 0, 0.25)'
   },
   '&:invalid': {
+    borderRadius: 45,
     borderColor: customTheme.colors.errorText
+  },
+  input: {
+    padding: '10px 12px',
+    borderRadius: '45px',
+    fontSize: '15px'
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderRadius: '45px !important'
+    }
   }
 }))
+
+const NumberFormatCustom = forwardRef(function NumberFormatCustom (props, ref) {
+  const { onChange, ...other } = props
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={values => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.formattedValue
+          }
+        })
+      }}
+      format="(###) ### ####"
+    />
+  )
+})
 
 export default function GlobalNumberInput (props) {
   const classes = numberInputStyles()
@@ -87,6 +117,11 @@ export default function GlobalNumberInput (props) {
           )}
       <BootstrapInput
         {...rest}
+        InputProps={{
+          className: classes.inputText,
+          inputComponent: NumberFormatCustom,
+          disableUnderline: true
+        }}
         value={value}
         onChange={handleChange}
         className={props.error ? classes.borderError : props?.className}

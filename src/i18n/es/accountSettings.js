@@ -9,7 +9,7 @@ export const accountSettings = () => {
       first_name: 'Nombre',
       last_name: 'Apellido',
       email: 'Correo Electrónico',
-      username: 'Nombre de Usuario',
+      username: 'Nombre de Usuario (6 caracteres mínimo)',
       company_role: 'Rol',
       employee_id: 'ID Empleado',
       phone_number: 'Número de Teléfono',
@@ -29,7 +29,9 @@ export const accountSettings = () => {
       placeholder_repass: 'Reingresar contraseña',
       placeholder_employee: 'Ingrese ID',
       placeholder_select: 'Seleccione',
-      edit_button: 'Editar'
+      edit_button: 'Editar',
+      placeholder_password: 'Crear Contraseña',
+      placeholder_confirm: 'Reingrese la Contraseña'
     },
     form: {
       save: 'Guardar',
