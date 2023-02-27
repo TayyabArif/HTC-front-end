@@ -130,7 +130,7 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   card: {
     '&.MuiCard-root': {
       borderRadius: '10px',
-      margin: '15px',
+      margin: '15px 15px 150px 15px',
       boxShadow: 'none',
       border: 'none',
       [theme.breakpoints.up('md')]: {
