@@ -70,7 +70,12 @@ export const HighlightButton = withStyles((theme) => ({
     paddingLeft: '35px',
     paddingRight: '35px',
     borderRadius: '36px !important',
-    fontSize: '18px !important',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '16px !important'
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '18px !important'
+    },
     fontWeight: '700 !important',
     height: '58px !important',
     width: '135px !important',
