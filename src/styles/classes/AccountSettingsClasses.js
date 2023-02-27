@@ -176,7 +176,12 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       marginBottom: '15px',
       wordWrap: 'break-word',
       padding: '5px 13px',
-      minHeight: '35px'
+      minHeight: '35px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      '-webkit-line-clamp': 2,
+      '-webkit-box-orient': 'vertical'
     }
   },
   disabled: {
