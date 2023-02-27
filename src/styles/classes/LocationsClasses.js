@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles'
+import { navBarHeaderHeight, navBarHeaderHeightMobile } from '../../lib/Constants'
 
 export const locationsStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -41,13 +42,18 @@ export const locationsStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       display: 'none'
     },
-    height: 'calc(100vh - 100px)',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeight})`
+    },
+    [theme.breakpoints.down('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeightMobile})`
+    },
     overflowY: 'overlay',
     backgroundColor: theme.colors.profile.borders,
     padding: '0px'
   },
   searchBox: {
-    width: '345px',
+    width: '100%',
     marginLeft: '20px',
     '& input::placeholder': {
       fontSize: 16,
@@ -92,14 +98,14 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
-    marginTop: '100px',
-    width: '430px',
     border: 'none',
     [theme.breakpoints.up('md')]: {
-      width: '430px'
+      width: '430px',
+      marginTop: navBarHeaderHeight
     },
     [theme.breakpoints.down('md')]: {
-      width: '100%'
+      width: '100%',
+      marginTop: navBarHeaderHeightMobile
     }
   },
   gridFilters: {
@@ -129,7 +135,12 @@ export const locationsStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   gmapBox: {
-    height: 'calc(100vh - 100px)'
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeight})`
+    },
+    [theme.breakpoints.down('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeightMobile})`
+    }
   },
   siteTab: {
     fontSize: '12px',
@@ -156,9 +167,8 @@ export const locationsStyles = makeStyles((theme) => ({
     fontWeight: '400'
   },
   tab: {
-    minWidth: '50px',
+    minWidth: '100px',
     padding: 0,
-    width: '82px',
     minHeight: 20,
     maxHeight: '30px',
     height: 'auto',
@@ -171,7 +181,7 @@ export const locationsStyles = makeStyles((theme) => ({
       marginRight: '230px' // TODO: remove when the rest of tabs appear
     },
     [theme.breakpoints.down('md')]: {
-      marginRight: '50%' // TODO: remove when the rest of tabs appear
+      marginRight: '100%' // TODO: remove when the rest of tabs appear
     }
   },
   tabs: {
@@ -356,6 +366,9 @@ export const mapStyles = makeStyles((theme) => ({
     textTransform: 'none',
     color: theme.palette.primary.light,
     backgroundColor: theme.palette.primary.contrastText
+  },
+  actionButtonsBox: {
+    display: 'flex'
   }
 }))
 
@@ -732,7 +745,10 @@ export const searchResultsStyles = makeStyles((theme) => ({
 export const locationCardStyles = makeStyles((theme) => ({
   font16: {
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   font12: {
     fontSize: 12,
@@ -742,7 +758,12 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationName: {
     fontSize: 13,
     fontWeight: '400',
-    color: theme.colors.locations.locationAddress
+    color: theme.colors.locations.locationAddress,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -797,7 +818,11 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationTile: {
     cursor: 'pointer',
     height: '100%',
-    margin: '3px 11px'
+    margin: '5px 11px'
+  },
+  locationStatus: {
+    position: 'absolute',
+    bottom: '5px'
   }
 }))
 
@@ -1088,7 +1113,11 @@ export const woCardStyles = makeStyles((theme) => ({
 export const locationInfoCardStyles = makeStyles((theme) => ({
   nameLabel: {
     fontSize: '22px',
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingRight: '26px'
   },
   mainCard: {
     maxWidth: '560px',
@@ -1145,7 +1174,7 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
       overflowY: 'unset'
     },
     [theme.breakpoints.down('md')]: {
-      maxHeight: '360px',
+      maxHeight: 'calc(100vh - 300px)',
       overflowY: 'auto'
     },
     overflowX: 'hidden'
@@ -1238,5 +1267,12 @@ export const panelCountsMobileStyles = makeStyles((theme) => ({
     fontSize: '12px',
     backgroundColor: 'white',
     margin: 2
+  },
+  labelTypo: {
+    fontSize: '12px'
+  },
+  labelTypoBold: {
+    fontSize: '12px',
+    fontWeight: 'bold'
   }
 }))

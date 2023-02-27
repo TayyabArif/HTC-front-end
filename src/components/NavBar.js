@@ -114,7 +114,7 @@ export const NavBar = () => {
         <Grid item xs={9} className={classes.gridBrowser}>
           <Box display="flex">
             <Box className={classes.boxLogo} pt={1} pr={2} display={'inline-flex'}>
-              <Link data-testid='bv-logo' to='/' className={classes.logoLink} >
+              <Link data-testid='bv-logo' to='/' className={classes.logoLink}>
                 <img className={classes.logo} src={getCompanyLogo()} />
               </Link>
             </Box>
@@ -124,34 +124,32 @@ export const NavBar = () => {
                 value={'/work-orders'}
                 label={t('nav_bar.work_orders')}
                 iconPosition="end"
-                color={currentTextColor()}
-              />
+                color={currentTextColor()} />
               <StyledNavTab
                 value={'/locations'}
                 label={t('nav_bar.locations')}
-                color={currentTextColor()}
-              />
+                color={currentTextColor()} />
               <StyledNavTab
                 style={{ display: 'none' }}
                 value={'/account-settings'}
-                color={currentTextColor()}
-              />
+                color={currentTextColor()} />
               <StyledNavTab
                 style={{ display: 'none' }}
                 value={'/company-settings'}
-                color={currentTextColor()}
-              />
+                color={currentTextColor()} />
               <StyledNavTab
                 style={{ display: 'none' }}
                 value={'/company-profile'}
-                color={currentTextColor()}
-              />
+                color={currentTextColor()} />
             </StyledNavTabs>
           </Box>
         </Grid>
-        <Grid align="right" item xs={11} md={3} className={classes.finalGrid}>
+        <Grid item xs={12} md={3} className={classes.finalGrid}>
+          <Link data-testid='bv-logo' to='/' className={classes.logoLinkMobile}>
+            <img className={classes.logoMobile} src={getCompanyLogo()} />
+          </Link>
           {userStore?.userInfo?.company_name && (
-            <Typography className={classes.companyName} >
+            <Typography className={classes.companyName}>
               {userStore.userInfo.company_name}
             </Typography>
           )}
@@ -185,17 +183,17 @@ export const NavBar = () => {
       >
         {/* TODO: un hide dropdown options when needed */}
         <MenuItem
-            className={value === '/work-orders' ? classes.selectedMobile : classes.menuItemMobile}
-            value={'/work-orders'}
-          >
-            {t('nav_bar.work_orders')}
-          </MenuItem>
-          <MenuItem
-            className={value === '/locations' ? classes.selectedMobile : classes.menuItemMobile}
-            onClick={() => handleChangeMenu('/locations')}
-          >
-            {t('nav_bar.locations')}
-          </MenuItem>
+          className={value === '/work-orders' ? classes.selectedMobile : classes.menuItemMobile}
+          onClick={() => handleChangeMenu('/work-orders')}
+        >
+          {t('nav_bar.work_orders')}
+        </MenuItem>
+        <MenuItem
+          className={value === '/locations' ? classes.selectedMobile : classes.menuItemMobile}
+          onClick={() => handleChangeMenu('/locations')}
+        >
+          {t('nav_bar.locations')}
+        </MenuItem>
         <MenuItem
           style={{ display: 'none' }}
           className={value === '/manage-account' ? classes.selectedItem : classes.menuItem}
@@ -233,6 +231,6 @@ export const NavBar = () => {
           {t('nav_bar.log_out')}
         </MenuItem>
       </Menu>
-    </Box>
+    </Box >
   )
 }

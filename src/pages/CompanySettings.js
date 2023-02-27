@@ -506,6 +506,9 @@ const CompanySettings = props => {
     if (data?.invoice_email && data?.invoice_email !== '' && !validateEmail(data?.invoice_email)) {
       return false
     }
+    if (!data?.email || !validateEmail(data?.email)) {
+      return false
+    }
     return true
   }
 

@@ -1,6 +1,6 @@
 
 import { makeStyles } from '@mui/styles'
-import { navBarHeaderHeight } from '../../lib/Constants'
+import { navBarHeaderHeight, navBarHeaderHeightMobile } from '../../lib/Constants'
 
 export const addButtonStyles = makeStyles(theme => ({
   icon: {
@@ -23,7 +23,7 @@ export const mainContainerStyles = makeStyles(theme => ({
     padding: '0px !important',
     maxWidth: '100%',
     maxHeight: '100%',
-    overflowY: 'auto'
+    position: 'fixed'
   },
   container: {
     height: '100vh',
@@ -37,19 +37,24 @@ export const mainContainerStyles = makeStyles(theme => ({
       overflowY: 'auto'
     },
     [theme.breakpoints.down('md')]: {
-      overflowY: 'auto',
+      overflowY: 'hidden',
       '&::-webkit-scrollbar': {
         display: 'none'
       },
       touchAction: 'pan-y'
-    },
-    [theme.breakpoints.up('md')]: {
-      overflowY: 'auto'
     }
   },
   containerScrollHidden: {
+    height: '100vh',
     [theme.breakpoints.up('md')]: {
       overflowY: 'hidden'
+    },
+    [theme.breakpoints.down('md')]: {
+      overflowY: 'hidden',
+      '&::-webkit-scrollbar': {
+        display: 'none'
+      },
+      touchAction: 'pan-y'
     }
   },
   backdrop: {
@@ -57,10 +62,17 @@ export const mainContainerStyles = makeStyles(theme => ({
     color: theme.colors.backdropColor
   },
   navBarOffset: {
-    height: navBarHeaderHeight
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    }
   },
   contentBox: {
-    height: 'fit-content'
+    height: 'fit-content',
+    overflowY: 'hidden',
+    touchAction: 'pan-y'
   }
 }))
 
@@ -75,7 +87,12 @@ export const navBarStyles = makeStyles(theme => ({
   },
   menu: {
     borderRadius: '0px',
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     '&:hover': {
       backgroundColor: 'transparent'
     },
@@ -118,7 +135,12 @@ export const navBarStyles = makeStyles(theme => ({
   },
   navBar: {
     backgroundColor: theme.colors.navBarColor,
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     position: 'fixed',
     top: '0px',
     left: '0px',
@@ -169,7 +191,12 @@ export const navBarStyles = makeStyles(theme => ({
   },
   logoImage: {
     width: '170px',
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     padding: '12px 0',
     objectFit: 'contain'
   },
@@ -178,7 +205,12 @@ export const navBarStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   header: {
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     display: 'flex',
     flexDirection: 'row'
   },
@@ -191,17 +223,43 @@ export const navBarStyles = makeStyles(theme => ({
     }
   },
   logoLink: {
-    margin: '27px auto'
+    [theme.breakpoints.up('xs')]: {
+      margin: '15px auto 0px auto'
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: '27px auto'
+    }
   },
   logo: {
     width: '170px',
     maxHeight: '42px'
   },
+  logoLinkMobile: {
+    margin: 'auto auto auto 0px',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  logoMobile: {
+    maxWidth: '80px',
+    maxHeight: '30px'
+  },
   companyName: {
-    fontSize: '24px',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '24px'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '20px'
+    },
     fontWeight: '600',
     color: theme.colors.text,
-    margin: 'auto 15px auto 0px'
+    margin: 'auto 15px auto 0px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
   },
   tabs: {
     marginTop: '32px'
@@ -216,10 +274,12 @@ export const navBarStyles = makeStyles(theme => ({
   },
   gridBrowser: {
     [theme.breakpoints.up('md')]: {
-      display: 'flex'
+      display: 'flex',
+      marginTop: '0px'
     },
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'none',
+      marginTop: '32px'
     }
   }
 }))

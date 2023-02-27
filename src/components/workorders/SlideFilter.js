@@ -141,10 +141,10 @@ export const SlideFilter = props => {
               onClick={event => handleChangeSwitch(obj.value, event)}
             >
               <Grid container justifyContent="space-between" alignItems="center">
-                <Grid item xs={11}>
+                <Grid item xs={11} className={classes.itemLabel}>
                   {obj.label}
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={1} >
                   {((values !== '' &&
                       values.split('|').length === props.options.length) ||
                     values.split('|').includes(obj.value)) && (

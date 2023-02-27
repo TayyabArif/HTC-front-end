@@ -44,7 +44,9 @@ export const SearchResults = (props) => {
       setLoading(true)
       props.setTablePage(actualPage + 1)
     }
-    return <LocationCard activeTab={props.activeTab} key={row.id} info={row} setSearch={props.setSearch}/>
+    if (row) {
+      return <LocationCard activeTab={props.activeTab} key={row.id} info={row} setSearch={props.setSearch} style={style}/>
+    }
   }
 
   const getRowHeight = ({ index }) => {
@@ -56,7 +58,7 @@ export const SearchResults = (props) => {
 
     switch (props.activeTab) {
       case 'active_work_orders':
-        return 108
+        return 120
       case 'all_sites':
         return contentRowLength > 55 ? 95 : 78
       default:
@@ -70,8 +72,8 @@ export const SearchResults = (props) => {
         {({ width }) => (
           <List
             width={width}
-            height={wWidth > mobileBreakpoint ? wHeight - 160 : wHeight - 205}
-            rowCount={sites.length}
+            height={wWidth > mobileBreakpoint ? wHeight - 180 : wHeight - 205}
+            rowCount={sites.length + 1}
             rowHeight={getRowHeight}
             rowRenderer={rowRenderer}
           />

@@ -41,12 +41,14 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       duration: theme.transitions.duration.leavingScreen
     }),
     marginLeft: 430,
+    overflowY: 'hidden',
     ...(!open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
       }),
-      marginLeft: 0
+      marginLeft: 0,
+      overflowY: 'hidden'
     })
   })
 )
@@ -115,6 +117,14 @@ const Locations = () => {
   }, [searchValue, locationsStore.locationFilters])
 
   useEffect(() => {
+    dispatch(locationsActions.setLocationFilters({
+      dateRange: 'today',
+      dateFrom: '',
+      dateTo: '',
+      status: 'all',
+      state: 'all',
+      city: 'all'
+    }))
     handleGetCatalogs()
   }, [])
 
@@ -245,8 +255,7 @@ const Locations = () => {
               background: theme.colors.iconBlue,
               height: '3px',
               borderRadius: '4px',
-              width: 'calc(100% / 3 - 100% / 6)',
-              marginLeft: 'calc(100% / 19)'
+              maxWidth: '30%'
             }
           }}
           style={{ zIndex: 1000 }} >
