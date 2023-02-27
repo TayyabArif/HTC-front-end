@@ -48,7 +48,7 @@ export const MainContainer = props => {
               ? clsx(classes.navBarOffset, classes.navBarOffsetSmall)
               : classes.navBarOffset
           }></Box>
-          <Box >{props.children}</Box>
+          <Box className={classes.childContainer}>{props.children}</Box>
         </Container>
       </Container>
     </div>
