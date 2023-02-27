@@ -32,17 +32,7 @@ export const mainContainerStyles = makeStyles(theme => ({
     paddingRight: '0px',
     margin: '0px',
     maxWidth: '100%',
-    [theme.breakpoints.up('md')]: {
-      minWidth: '800px',
-      overflowY: 'auto'
-    },
-    [theme.breakpoints.down('md')]: {
-      overflowY: 'hidden',
-      '&::-webkit-scrollbar': {
-        display: 'none'
-      },
-      touchAction: 'pan-y'
-    }
+    overflow: 'auto'
   },
   containerScrollHidden: {
     height: '100vh',
@@ -71,17 +61,13 @@ export const mainContainerStyles = makeStyles(theme => ({
   },
   navBarOffsetSmall: {
     [theme.breakpoints.down('md')]: {
-      height: '35px'
+      height: '50px'
     }
   },
   contentBox: {
     height: 'fit-content',
     overflowY: 'scroll',
     touchAction: 'pan-y'
-  },
-  childContainer: {
-    overflow: 'auto',
-    height: '100%'
   }
 }))
 

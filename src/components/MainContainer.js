@@ -37,7 +37,7 @@ export const MainContainer = props => {
           overflowY: 'hidden'
         }}
       >
-        <Container className={window.location.pathname.includes('/work-orders') ? clsx(classes.container, classes.containerScrollHidden) : classes.container}>
+        <Container className={window.location.pathname.includes(Routes.WORK_ORDERS.path) ? clsx(classes.container, classes.containerScrollHidden) : classes.container}>
           <Backdrop className={classes.backdrop} open={loading}>
             <CircularProgress color="inherit" />
           </Backdrop>
@@ -48,7 +48,7 @@ export const MainContainer = props => {
               ? clsx(classes.navBarOffset, classes.navBarOffsetSmall)
               : classes.navBarOffset
           }></Box>
-          <Box className={classes.childContainer}>{props.children}</Box>
+          <Box >{props.children}</Box>
         </Container>
       </Container>
     </div>
