@@ -223,7 +223,12 @@ export const navBarStyles = makeStyles(theme => ({
     }
   },
   logoLink: {
-    margin: '27px auto'
+    [theme.breakpoints.up('xs')]: {
+      margin: '15px auto 0px auto'
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: '27px auto'
+    }
   },
   logo: {
     width: '170px',
@@ -251,7 +256,10 @@ export const navBarStyles = makeStyles(theme => ({
     },
     fontWeight: '600',
     color: theme.colors.text,
-    margin: 'auto 15px auto 0px'
+    margin: 'auto 15px auto 0px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
   },
   tabs: {
     marginTop: '32px'
@@ -266,10 +274,12 @@ export const navBarStyles = makeStyles(theme => ({
   },
   gridBrowser: {
     [theme.breakpoints.up('md')]: {
-      display: 'flex'
+      display: 'flex',
+      marginTop: '0px'
     },
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'none',
+      marginTop: '32px'
     }
   }
 }))

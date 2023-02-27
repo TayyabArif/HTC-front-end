@@ -79,6 +79,10 @@ export const UpdateAccountInfo = props => {
     passwordConfirm: passwordPlaceHolder
   }
   const [updatedInfo, setUpdatedInfo] = useState({ ...startingInfo })
+  const saveButtonStyle = {
+    width: '100%',
+    margin: 0
+  }
 
   useEffect(() => {
     if (editDrawer) {
@@ -177,11 +181,16 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
+      !updatedInfo.phone ||
+      (updatedInfo.password && !updatedInfo.passwordConfirm) ||
+      (!updatedInfo.password && updatedInfo.passwordConfirm) ||
+      (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       !updatedInfo.username ||
       !updatedInfo.roles ||
       (event === 'new' && (updatedInfo.password?.length < 6 || updatedInfo.passwordConfirm?.length < 6 || (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
+      errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message
     ) {
@@ -286,7 +295,7 @@ export const UpdateAccountInfo = props => {
         updatedInfo.lastName,
         updatedInfo.email,
         updatedInfo.phone,
-        updatedInfo.username,
+        updatedInfo.email,
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
@@ -332,7 +341,14 @@ export const UpdateAccountInfo = props => {
             : error.path.substr(1, error.path.length - 1)
         setErrorMessage(name + ' ' + error.message)
       } else if (e.message) {
-        setErrorMessage(t('company_profile.error.general_error'))
+        switch (e.details.code) {
+          case 1006:
+            setErrorMessage(e.message)
+            break
+          default:
+            setErrorMessage(t('company_profile.error.general_error'))
+            break
+        }
       } else setErrorMessage(e)
     }
   }
@@ -587,13 +603,18 @@ export const UpdateAccountInfo = props => {
                       id="password"
                       name="password"
                       type="password"
+                      placeholder={t('account_settings.info_card.placeholder_pass')}
                       handleChange={handleChangeValues}
                       label={t('account_settings.info_card.password')}
-                      placeholder={t('account_settings.info_card.placeholder_password')}
                       error={!!errors.password}
                       helperText={errors.password && errors.password.message}
                       endAdornment={true}
                       {...register('password')}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
                       InputLabelProps={{ shrink: true, required: true }}
                       autoComplete="new-password"
                     />
@@ -606,15 +627,20 @@ export const UpdateAccountInfo = props => {
                       id="passwordConfirm"
                       name="passwordConfirm"
                       type="password"
+                      placeholder={t('account_settings.info_card.placeholder_repass')}
                       handleChange={handleChangeValues}
-                      placeholder={t('account_settings.info_card.placeholder_confirm')}
-                      label={t('account_settings.info_card.password')}
+                      label={t('account_settings.info_card.password_confirm')}
                       error={!!errors.passwordConfirm}
                       endAdornment={true}
                       helperText={
                         errors.passwordConfirm && errors.passwordConfirm.message
                       }
                       {...register('passwordConfirm')}
+                      inputStyle={{
+                        width: '100%',
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0
+                      }}
                       InputLabelProps={{ shrink: true, required: true }}
                     />
                   </Grid>
@@ -629,22 +655,25 @@ export const UpdateAccountInfo = props => {
               </Grid>
             </Grid>
 
-            <div className={classes.footer}>
-              <ThemeProvider theme={buttonSettingsDisabled}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="primary"
-                  type="submit"
-                  disabled={!enableSave}
-                  style={!enableSave ? disableButtonStyle : enableButtonStyle}
-                >
-                  {event === 'new'
-                    ? t('company_settings.bes_notifications_panel.create')
-                    : t('account_settings.form.save')}
-                </Button>
-              </ThemeProvider>
-            </div>
+            <Grid container p={3} pt={0}>
+              <Grid item xs={7}></Grid>
+              <Grid item xs={5}>
+                <ThemeProvider theme={buttonSettingsDisabled}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    type="submit"
+                    disabled={!enableSave}
+                    style={!enableSave ? { ...disableButtonStyle, ...saveButtonStyle } : { ...enableButtonStyle, ...saveButtonStyle }}
+                  >
+                    {event === 'new'
+                      ? t('company_settings.bes_notifications_panel.create')
+                      : t('account_settings.form.save')}
+                  </Button>
+                </ThemeProvider>
+              </Grid>
+            </Grid>
           </div>
         </form>
       </Drawer>

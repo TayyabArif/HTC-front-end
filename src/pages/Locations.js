@@ -117,6 +117,14 @@ const Locations = () => {
   }, [searchValue, locationsStore.locationFilters])
 
   useEffect(() => {
+    dispatch(locationsActions.setLocationFilters({
+      dateRange: 'today',
+      dateFrom: '',
+      dateTo: '',
+      status: 'all',
+      state: 'all',
+      city: 'all'
+    }))
     handleGetCatalogs()
   }, [])
 
