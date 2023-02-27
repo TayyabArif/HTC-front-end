@@ -1,8 +1,4 @@
 import React from 'react'
-// import { useTranslation } from 'react-i18next'
-
-/** Components **/
-import { useWindowWidth } from '@react-hook/window-size'
 
 /** Material UI **/
 import { Box, Typography } from '@mui/material'
@@ -28,17 +24,13 @@ import mNoService from '../../../assets/images/clusters/no_service.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { locationsActions } from '../../../store/locations'
 
-// Constants
-import { mobileBreakpoint } from '../../../lib/Constants'
-
-// Styles
+/** Styles **/
 import { infoMarkerStyles } from '../../../styles/classes/LocationsClasses'
 
 export const InfoMarker = (props) => {
   const classes = infoMarkerStyles()
   const locationsStore = useSelector((state) => state.locations)
   const dispatch = useDispatch()
-  const actualWidth = useWindowWidth()
 
   const index = props.index
   const site = props.site
@@ -87,7 +79,7 @@ export const InfoMarker = (props) => {
       position={site.coordinates}
       options={{
         disableAutoPan: false,
-        pixelOffset: new window.google.maps.Size(actualWidth > mobileBreakpoint ? 107 : 0, -25),
+        pixelOffset: new window.google.maps.Size(107, -25),
         closeBoxURL: '',
         visible: true,
         enableEventPropagation: false

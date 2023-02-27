@@ -588,8 +588,14 @@ export const MapActionButtons = (props) => {
     dispatch(locationsActions.setActiveInfoWindow(locationsStore.selectedSite.id))
   }
 
-  return (<div>
-    <Box className={props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.hiddenButtonsBoxSiteLevel : props.hideLeftSection && !locationsStore.showSiteViewPanel ? classes.hiddenButtonsBox : !props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.mapButtonsBoxSiteLevel : classes.mapButtonsBox}>
+  return (<div >
+    <Box className={props.hideLeftSection && locationsStore.showSiteViewPanel
+      ? classes.hiddenButtonsBoxSiteLevel
+      : props.hideLeftSection && !locationsStore.showSiteViewPanel
+        ? classes.hiddenButtonsBox
+        : !props.hideLeftSection && locationsStore.showSiteViewPanel
+            ? classes.mapButtonsBoxSiteLevel
+            : classes.mapButtonsBox}>
       {props.hideLeftSection && <Box pb={2} pr={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
           <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'} />

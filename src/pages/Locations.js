@@ -18,6 +18,7 @@ import { WorkOrdersList } from '../components/locations/WorkOrdersList'
 import { SiteSortMenu } from '../components/locations/SiteSortMenu'
 import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
 import { DetailedInfo } from '../components/workorders/DetailedInfo'
+import { PanelCountsMobile } from '../components/locations/PanelCountsMobile'
 
 /** Services **/
 import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo, getLocationCallTypes } from '../services/ApiService'
@@ -40,12 +41,14 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       duration: theme.transitions.duration.leavingScreen
     }),
     marginLeft: 430,
+    overflowY: 'hidden',
     ...(!open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
       }),
-      marginLeft: 0
+      marginLeft: 0,
+      overflowY: 'hidden'
     })
   })
 )
@@ -252,8 +255,7 @@ const Locations = () => {
               background: theme.colors.iconBlue,
               height: '3px',
               borderRadius: '4px',
-              width: 'calc(100% / 3 - 100% / 6)',
-              marginLeft: 'calc(100% / 19)'
+              maxWidth: '30%'
             }
           }}
           style={{ zIndex: 1000 }} >
@@ -378,6 +380,9 @@ const Locations = () => {
         {/* RESULTS */}
         <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
+            <Box className={classes.mobileCountsBox}>
+              <PanelCountsMobile searchResults={sitesResponse}/>
+            </Box>
             <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} />
           </Grid>
         </Box>
