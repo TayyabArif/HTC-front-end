@@ -99,41 +99,41 @@ export const AccountInfoCard = props => {
                 </Grid>
                 <CardContent className={classes.content}>
                     <Grid container>
-                        <Grid item xs={4}>
+                        <Grid item xs={5} md={4}>
                             <Typography className={classes.field}>{t('account_settings.info_card.first_name')}</Typography>
                             <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.firstName}</Typography>
                         </Grid>
-                        <Grid item xs={4} ml={2}>
+                        <Grid item xs={5} md={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.last_name')}</Typography>
                             <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.lastName ?? '--'}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={8.3}>
+                        <Grid item xs={10.5} md={8.3}>
                             <Typography className={classes.field}>{t('account_settings.info_card.email')}</Typography>
                             <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.email}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={4}>
+                        <Grid item xs={5} md={4}>
                             <Typography className={classes.field}>{t('account_settings.info_card.phone_number')}</Typography>
                             <Typography className={classes.info} mt={1}>{`${userInfo?.userInfo?.phone ?? ''}`}</Typography>
                         </Grid>
-                        <Grid item xs={4} ml={2}>
+                        <Grid item xs={5} md={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.password')}</Typography>
                             <Typography className={`${classes.info} ${classes.customInfo}`} mt={1}>{'***********'}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={4}>
+                        <Grid item xs={5} md={4}>
                             <Typography className={classes.field}>{t('account_settings.info_card.company_role')}</Typography>
                             <Typography className={classes.info} mt={1}>{roles?.find(x => x.id === userInfo.userInfo.roles)?.name ?? '--'}</Typography>
                         </Grid>
-                        <Grid item xs={4} ml={2}>
+                        <Grid item xs={5} md={4} ml={2}>
                             <Typography className={classes.field}>{t('account_settings.info_card.user_title')}</Typography>
                             <Typography className={userInfo?.userInfo?.role ? classes.info : clsx(classes.info, classes.disabled)} mt={1}>{userInfo?.userInfo?.role ? t('request_access.user_roles.' + userInfo?.userInfo?.role) : 'Choose Title'}</Typography>
                         </Grid>
-                        <Grid item xs={3} ml={2} sx={styles.employeeId}>
+                        <Grid item xs={2} md={3} ml={2} sx={styles.employeeId}>
                             <Typography classes={{ root: classes.field }}>{t('account_settings.info_card.employee_id')}</Typography>
                             <Typography classes={{ root: classes.info }} mt={1}>{userInfo?.userInfo?.employee_id ?? '--'}</Typography>
                         </Grid>

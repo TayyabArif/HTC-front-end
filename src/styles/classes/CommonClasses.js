@@ -69,10 +69,19 @@ export const mainContainerStyles = makeStyles(theme => ({
       height: navBarHeaderHeightMobile
     }
   },
+  navBarOffsetSmall: {
+    [theme.breakpoints.down('md')]: {
+      height: '35px'
+    }
+  },
   contentBox: {
     height: 'fit-content',
-    overflowY: 'hidden',
+    overflowY: 'scroll',
     touchAction: 'pan-y'
+  },
+  childContainer: {
+    overflow: 'auto',
+    height: '100%'
   }
 }))
 

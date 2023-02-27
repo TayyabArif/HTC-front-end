@@ -13,9 +13,12 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
       fontFamily: 'Rubik Bold',
       display: 'flex',
       color: theme.colors.white,
-      padding: '24px 0px 32px 62px',
+      padding: '15px',
       fontWeight: 700,
-      fontSize: '28px'
+      fontSize: '28px',
+      [theme.breakpoints.up('md')]: {
+        padding: '24px 0px 32px 62px'
+      }
     }
 
   },
@@ -29,6 +32,11 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
     maxWidth: '100%'
   },
   frontBoxes: {
+    [theme.breakpoints.down('md')]: {
+      '& .MuiGrid-root': {
+        flexGrow: 1
+      }
+    },
     position: 'relative'
   }
 }))
@@ -122,9 +130,12 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   card: {
     '&.MuiCard-root': {
       borderRadius: '10px',
-      margin: '0px 15px 13px 62px',
+      margin: '15px',
       boxShadow: 'none',
-      border: 'none'
+      border: 'none',
+      [theme.breakpoints.up('md')]: {
+        margin: '0px 15px 13px 62px'
+      }
     }
   },
   title: {

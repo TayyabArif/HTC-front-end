@@ -22,6 +22,9 @@ import CompanySettings from './pages/CompanySettings'
 /** Settings */
 import AccountSettings from './pages/AccountSettings'
 
+/** Utils */
+import { Routes as MainRoutes } from './lib/Constants'
+
 const Routes = () => {
   const token = useSelector(state => state.auth.token)
   const user = useSelector(state => state.auth.user)
@@ -39,19 +42,19 @@ const Routes = () => {
             <Route exact path="/">
               {redirect()}
             </Route>
-            <Route exact path="/dashboard">
+            <Route exact path={MainRoutes.DASHBOARD.path}>
               <Dashboard />
             </Route>
-            <Route exact path="/work-orders">
+            <Route exact path={MainRoutes.WORK_ORDERS.path}>
               <WorkOrders />
             </Route>
-            <Route exact path="/locations">
+            <Route exact path={MainRoutes.LOCATIONS.path}>
               <Locations />
             </Route>
-            <Route exact path="/company-settings">
+            <Route exact path={MainRoutes.COMPANY_SETTINGS.path}>
               <CompanySettings />
             </Route>
-            <Route exact path="/account-settings">
+            <Route exact path={MainRoutes.ACCOUNT_SETTINGS.path}>
               <AccountSettings />
             </Route>
             <Route path='*'>
@@ -66,24 +69,24 @@ const Routes = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Redirect to={'/sign-in'} />
+            <Redirect to={MainRoutes.SIGN_IN.path} />
           </Route>
-          <Route exact path="/sign-in">
+          <Route exact path={MainRoutes.SIGN_IN.path}>
             <SignIn />
           </Route>
-          <Route exact path="/forgot-password">
+          <Route exact path={MainRoutes.FORGOT_PASSWORD.path}>
             <ForgotPassword />
           </Route>
-          <Route path='/forgot-password/sent'>
+          <Route path={MainRoutes.FORGOT_PASSWORD.SENT.path}>
             <ForgotPasswordEmailSent />
           </Route>
-          <Route path="/forgot-password/code">
+          <Route path={MainRoutes.FORGOT_PASSWORD.CODE.path}>
             <ForgotPasswordCode />
           </Route>
-          <Route exact path="/sign-in">
+          <Route exact path={MainRoutes.SIGN_IN.path}>
             <SignIn />
           </Route>
-          <Route exact path="/create-account">
+          <Route exact path={MainRoutes.CREATE_ACCOUNT.path}>
             <CreateAccount />
           </Route>
           <Route path='*'>
