@@ -10,7 +10,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
-
 import { useTranslation } from 'react-i18next'
 import { PersonOutline as PersonOutlineIcon } from '@mui/icons-material'
 import { RoundedButton } from '../../styles/mui_custom_components'
@@ -22,6 +21,10 @@ import { useLocation } from 'react-router-dom'
 
 /** Styles **/
 import { createAccountStyles } from '../../styles/classes/CreateAccountClasses'
+
+/** Utils **/
+import { mobileBreakpoint } from '../../lib/Constants'
+import { useWindowSize } from '@react-hook/window-size'
 
 const CreateAccount = () => {
   const classes = createAccountStyles()
@@ -36,6 +39,9 @@ const CreateAccount = () => {
   const [accessCode, setAccessCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [errorPass, setErrorPass] = useState(null)
+
+  const [wWidth] = useWindowSize()
+  const isMobile = wWidth <= mobileBreakpoint
 
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -194,9 +200,9 @@ const CreateAccount = () => {
                       </Grid>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <Grid container>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={11}>
+                      <Grid className={classes.lastGrid} container>
+                        {!isMobile && <Grid item xs={1}></Grid>}
+                        <Grid item xs={12} md={11}>
                           <TextField
                             label={t('create_account.label.lastName')}
                             sx={labelStyle}

@@ -84,9 +84,9 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   sendButtonBox: {
+    marginTop: '21px',
     [theme.breakpoints.down('md')]: {
       marginLeft: 0,
-      marginTop: '0px',
       width: '100%'
     },
     [theme.breakpoints.up('md')]: {
@@ -203,7 +203,7 @@ const ForgotPassword = () => {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <PersonOutlineIcon/>
+                              <PersonOutlineIcon />
                             </InputAdornment>
                           ),
                           classes: {
@@ -215,7 +215,7 @@ const ForgotPassword = () => {
                     </Grid>
                   </Grid>
                   <Grid container justifyContent="left">
-                    <Grid align={'left'} item>
+                    <Grid item xs={6} sm={6} md={6} align={'left'}>
                       <Box pt={2} className={classes.linkBox}>
                         <ChevronLeftIcon />
                         <Link data-testid={'back_log_in'} className={classes.link} to="/sign-in" variant="body2">
@@ -223,23 +223,19 @@ const ForgotPassword = () => {
                         </Link>
                       </Box>
                     </Grid>
-                  </Grid>
-                  <Grid container justifyContent="right">
-                    <Grid item xs={12} sm={12} md={2}>
-                      <Grid container direction="column">
-                        <Grid align={'center'} item>
-                          <Box className={classes.sendButtonBox}>
-                            <RoundedButton
-                                data-testid={'submit_button'}
-                                disabled={!validateEmail(email)}
-                                className={classes.sendButton}
-                                type="submit"
-                                variant="contained"
-                            >
-                              {t('forgot_password.send')}
-                            </RoundedButton>
-                          </Box>
-                        </Grid>
+                    <Grid item xs={6} sm={6} md={6}>
+                      <Grid align="right" item>
+                        <Box className={classes.sendButtonBox}>
+                          <RoundedButton
+                            data-testid={'submit_button'}
+                            disabled={!validateEmail(email)}
+                            className={classes.sendButton}
+                            type="submit"
+                            variant="contained"
+                          >
+                            {t('forgot_password.send')}
+                          </RoundedButton>
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>

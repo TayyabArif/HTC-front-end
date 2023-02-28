@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 /** Material UI **/
-import { makeStyles, useTheme } from '@mui/styles'
-import { Container, Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography, useMediaQuery } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { Container, Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography } from '@mui/material'
 
 /** Components **/
 import { useWindowSize } from '@react-hook/window-size'
@@ -100,14 +100,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       width: '50%'
     }
+  },
+  logoGrid: {
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      padding: 4
+    },
+    [theme.breakpoints.down('md')]: {
+      padding: '10px  0px'
+    }
   }
 }))
 
 export const SignInContainer = (props) => {
   const { t } = useTranslation()
   const loading = useSelector(state => state.loading.loading)
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
   const [wWidth] = useWindowSize()
   const isMobile = wWidth <= mobileBreakpoint
@@ -124,7 +131,7 @@ export const SignInContainer = (props) => {
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit"/>
       </Backdrop>
-        {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} padding={isSmall ? 1.5 : 4}>
+        {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} className={classes.logoGrid}>
           <img src={conectadPlatformLogo} alt="Connectad Platform"/>
         </Grid>}
         <Grid item xs={12}>
