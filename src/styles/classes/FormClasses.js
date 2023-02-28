@@ -139,6 +139,10 @@ export const numberInputStyles = makeStyles(theme => ({
   },
   borderError: {
     borderColor: theme.colors.errorText
+  },
+  inputText: {
+    border: 'none !important',
+    padding: '0px !important'
   }
 }))
 

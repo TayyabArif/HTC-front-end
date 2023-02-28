@@ -153,6 +153,7 @@ export const RolesCard = props => {
                       selected={new Set()}
                       setSelected={() => {}}
                       skipTranslate={true}
+                      clickable={false}
                     />
                   </Box>
                 </Grid>
@@ -171,6 +172,7 @@ export const RolesCard = props => {
               selected={new Set()}
               setSelected={() => {}}
               skipTranslate={true}
+              clickable={false}
             />
           </Box>
         </Box>

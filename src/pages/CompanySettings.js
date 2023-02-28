@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  getCompanyConfigs,
   getCompanyProfile,
   getCompanyUsers,
   updateCompany,
@@ -59,8 +60,6 @@ const CompanySettings = props => {
   const [logoData, setLogoData] = useState()
   const [component, setComponent] = useState('')
   const [states, setStates] = useState()
-  const [dispatchError, setDispatchError] = useState(false)
-  const [invoiceError, setInvoiceError] = useState(false)
   const [fileError, setFileError] = useState({
     w9: false,
     coi: false,
@@ -71,12 +70,19 @@ const CompanySettings = props => {
   const [validHours, setValidHours] = useState(true)
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
+  const [companyConfigs, setCompanyConfigs] = useState([])
 
   useEffect(() => {
     initialMethod()
   }, [])
 
   const initialMethod = async () => {
+    getCompanyInfo()
+    updateRoles()
+    updateUsers()
+  }
+
+  const getCompanyInfo = async () => {
     try {
       setComplianceFields(
         userStore.userInfo?.configurations?.onboarding?.compliance
@@ -90,11 +96,11 @@ const CompanySettings = props => {
         )
         parseDataToMapView(response.service_area[0])
       }
+      const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
+      setCompanyConfigs(configResponse)
     } catch (error) {
       console.error('Error retrieving company profile: ', error)
     }
-    updateRoles()
-    updateUsers()
   }
 
   useEffect(() => {
@@ -165,6 +171,7 @@ const CompanySettings = props => {
   const handleClose = () => {
     setOpen(false)
     setOpenConfirm(false)
+    setUpdatedCompany({ ...company })
   }
   const parseAreaServiceToApi = serviceAreaList => {
     const newServiceAreaArray = []
@@ -189,6 +196,9 @@ const CompanySettings = props => {
       delete newProfile.id
       delete newProfile.external_token
       delete newProfile.client_ids
+      if (newProfile.configs) {
+        delete newProfile.configs
+      }
       newProfile.compliance = calculateCompliance()
         ? parseInt(calculateCompliance().split('%')[0])
         : undefined
@@ -242,8 +252,6 @@ const CompanySettings = props => {
             profile={updatedCompany}
             handleChange={handleChange}
             showLogo={false}
-            dispatchError={dispatchError}
-            invoiceError={invoiceError}
             setValidHours={setValidHours}
             requiredFields={complianceFields?.information?.fields}
             afterHoursPhone={afterHoursPhone}
@@ -480,16 +488,15 @@ const CompanySettings = props => {
     if (!data.name) {
       return false
     }
+    if (data?.email && data?.email !== '' && !validateEmail(data?.email)) {
+      return false
+    }
+    if (data?.invoice_email && data?.invoice_email !== '' && !validateEmail(data?.invoice_email)) {
+      return false
+    }
     if (!data?.email || !validateEmail(data?.email)) {
-      setDispatchError(true)
       return false
     }
-    if (!data?.invoice_email || !validateEmail(data?.invoice_email)) {
-      setInvoiceError(true)
-      return false
-    }
-    setDispatchError(false)
-    setInvoiceError(false)
     return true
   }
 
@@ -585,7 +592,7 @@ const CompanySettings = props => {
               >
                 {' '}
               </Avatar>
-              {!company?.logo?.url &&
+              {(!company?.logo?.url || company?.logo?.url === '') &&
                 <label htmlFor="profile-logo" className={classes.labelUpload}>
                   <Button id="profile-logo"
                     component="label" className={classes.uploadButton} >
@@ -598,7 +605,7 @@ const CompanySettings = props => {
                     />
                   </Button>
                 </label>}
-              {company?.logo?.url &&
+              {company?.logo?.url && company?.logo?.url !== '' &&
                 <label htmlFor="profile-logo" className={classes.editButton}>
                   <Button
                     id="profile-logo"
@@ -622,7 +629,7 @@ const CompanySettings = props => {
             setOpen={setOpen}
             setComponent={setComponent}
           />
-          <PreferencesCard />
+          <PreferencesCard companyConfigs={companyConfigs} getCompanyInfo={getCompanyInfo} />
           <SupportCard
             company={company}
           />
@@ -647,7 +654,7 @@ const CompanySettings = props => {
         scroll="paper"
         className={classes.editComponent}
       >
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogContent style={{ overflowY: 'none' }}>
           {editComponent(component)}
         </DialogContent>
         <DialogActions>

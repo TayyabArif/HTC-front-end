@@ -51,11 +51,11 @@ export const LocationCard = (props) => {
             <Typography className={classes.font16} align='left'>
               {props.info.name}
             </Typography>
-            <Typography className={classes.font12} align='left'>
+            <Typography className={classes.locationName} align='left'>
               {props.info.address}, {props.info.city} {props.info.state} {props.info.zipcode}
             </Typography>
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>
-              <Grid container >
+              <Grid container className={classes.locationStatus}>
                 {(props.info.work_orders_summary.open + props.info.work_orders_summary.in_progress + props.info.work_orders_summary.completed) === 0 && (
                   <Grid item xs={12} sm={6}>
                     <FiberManualRecord className={classes.noActivityWork} />

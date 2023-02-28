@@ -468,7 +468,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   mapButtonsBox: {
     width: '20px',
     position: 'relative',
-    top: '73px',
+    top: '80px',
     left: '15px',
     [theme.breakpoints.down('md')]: {
       display: 'none'
@@ -555,7 +555,8 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
       width: '11px',
       height: '11px',
       right: '-6px',
-      top: '-2px'
+      top: '-2px',
+      borderRadius: '50px'
     }
   }
 }))
@@ -716,12 +717,25 @@ export const searchResultsStyles = makeStyles((theme) => ({
 export const locationCardStyles = makeStyles((theme) => ({
   font16: {
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   font12: {
     fontSize: 12,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress
+  },
+  locationName: {
+    fontSize: 13,
+    fontWeight: '400',
+    color: theme.colors.locations.locationAddress,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -776,7 +790,11 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationTile: {
     cursor: 'pointer',
     height: '100%',
-    margin: '3px 11px'
+    margin: '5px 11px'
+  },
+  locationStatus: {
+    position: 'absolute',
+    bottom: '5px'
   }
 }))
 
@@ -1053,7 +1071,6 @@ export const woCardStyles = makeStyles((theme) => ({
   woStatus: {
     fontSize: '13px',
     fontWeight: '600',
-    color: theme.colors.statusLabel,
     margin: '8px 0px 21px 0px',
     textAlign: 'end'
   },
@@ -1068,7 +1085,11 @@ export const woCardStyles = makeStyles((theme) => ({
 export const locationInfoCardStyles = makeStyles((theme) => ({
   nameLabel: {
     fontSize: '22px',
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingRight: '26px'
   },
   mainCard: {
     width: '560px',

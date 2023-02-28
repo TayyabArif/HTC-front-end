@@ -30,6 +30,7 @@ export const workOrders = () => {
       complete: 'Completed',
       completed: 'Completed',
       canceled: 'Canceled',
+      cancelled: 'Canceled',
       expired: 'Expired',
       no_status: 'No Status',
       incomplete: 'Incomplete',
@@ -40,16 +41,16 @@ export const workOrders = () => {
     },
     column_names: {
       client_name: 'Client Name',
-      site_name: 'Location Name',
+      location: 'Location Name',
       priority: 'Priority',
       trade: 'Trade',
       service: 'Service',
-      won: 'WO #',
-      opendate: 'Start Date',
-      duedate: 'End Date',
-      wostat: 'WO Status',
+      wo_number: 'WO #',
+      open_date: 'Start Date',
+      close_date: 'End Date',
+      wo_status: 'WO Status',
       invoices: 'Invoice Status',
-      external_id: 'External ID'
+      tracking: 'External ID'
     },
     advanced_fields: {
       state: 'State',

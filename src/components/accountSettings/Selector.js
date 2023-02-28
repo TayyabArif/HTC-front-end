@@ -46,7 +46,7 @@ export const Selector = React.forwardRef((props, ref) => {
         placeholder={props.placeholder ?? ''}
         disabled={props.disabled}
         className={ classes.root }
-        InputLabelProps={{ className: classes.label, shrink: true }}
+        InputLabelProps={{ className: classes.label, shrink: true, required: props.required }}
         InputProps={{
           className: classes.textField,
           disableUnderline: true,

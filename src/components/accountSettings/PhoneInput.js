@@ -76,6 +76,7 @@ export const PhoneInput = React.forwardRef(
                 {value && (
                   <IconButton
                     aria-label="Clear contents"
+                    tabIndex="-1"
                     onClick={() => {
                       handleChange({ target: { name: name, value: '' } }, id)
                     }}
@@ -92,7 +93,7 @@ export const PhoneInput = React.forwardRef(
             className: classes.label
           }}
           placeholder={
-            placeholder ? t('account_settings.form.enter') + ' ' + label : ''
+            placeholder ?? t('account_settings.form.enter') + ' ' + label
           }
           className={classes.root}
           autoComplete="off"

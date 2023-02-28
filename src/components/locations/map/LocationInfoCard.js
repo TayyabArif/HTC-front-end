@@ -82,7 +82,7 @@ export const LocationInfoCard = (props) => {
     <Box marginLeft="10px" position="relative" hidden={!locationsStore.showSiteViewPanel}>
       <Card className={classes.mainCard}>
         <Box display="flex">
-          <Typography className={classes.nameLabel} >{selectedSite?.name}</Typography>
+          <Typography className={classes.nameLabel}>{selectedSite?.name}</Typography>
           {!expanded
             ? <ArrowDropDownRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />
             : <ArrowDropUpRounded fontSize='small' className={classes.arrowDown} onClick={() => setExpanded(!expanded)} />}
