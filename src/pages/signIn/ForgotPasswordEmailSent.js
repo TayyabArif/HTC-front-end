@@ -4,54 +4,17 @@ import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
 import { Box, Grid, Typography, Divider } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
 import { ChevronLeft as ChevronLeftIcon } from '@mui/icons-material'
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    '&.MuiTypography-root': {
-      fontFamily: 'Rubik Bold',
-      fontWeight: '700',
-      fontSize: '26px'
-    }
-  },
-  subtitle: {
-    '&.MuiTypography-root': {
-      fontWeight: '400',
-      [theme.breakpoints.down('md')]: {
-        fontSize: '12px'
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '14px'
-      },
-      lineHeight: '17px',
-      whiteSpace: 'pre-line'
-    }
-  },
-  linkBox: {
-    width: 'max-content',
-    display: 'flex',
-    [theme.breakpoints.down('md')]: {
-      marginBottom: '20px'
-    },
-    [theme.breakpoints.up('md')]: {
-      marginBottom: '100px'
-    }
-  },
-  link: {
-    color: theme.palette.primary.text,
-    textDecoration: 'none',
-    margin: 'auto',
-    fontSize: '14px'
-  }
-}))
+/** Styles **/
+import { forgotSentStyles } from '../../styles/classes/SignInClasses'
 
 const ForgotPasswordEmailSent = () => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = forgotSentStyles()
 
   return (
     <SignInContainer>

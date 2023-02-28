@@ -11,7 +11,6 @@ import { authActions } from '../../store/signIn'
 import { ChevronLeft as ChevronLeftIcon, PersonOutline as PersonOutlineIcon } from '@mui/icons-material'
 import { RoundedButton } from '../../styles/mui_custom_components'
 import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 
 /** Validations **/
 import * as yup from 'yup'
@@ -24,98 +23,13 @@ import { SignInContainer } from '../../components/SignInContainer'
 import { requestResetPassword } from '../../services/AuthService'
 import ReactGA from 'react-ga4'
 
-const useStyles = makeStyles((theme) => ({
-  mainItem: {
-    maxWidth: '30em',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: '1em'
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingTop: '4em'
-    }
-  },
-  subtitle: {
-    fontWeight: '400',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '16px',
-      display: 'block',
-      lineHeight: '21px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
-    }
-  },
-  link: {
-    color: theme.palette.primary.text,
-    textDecoration: 'none',
-    margin: 'auto',
-    fontSize: '16px'
-  },
-  title: {
-    '&.MuiTypography-root': {
-      fontWeight: '700',
-      fontFamily: 'Rubik Bold',
-      lineHeight: 1.5,
-      [theme.breakpoints.down('md')]: {
-        fontSize: '24px'
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '30px'
-      }
-    }
-  },
-  emailField: {
-    marginTop: '0px',
-    fontSize: '20px',
-    fontWeight: '400',
-    '& fieldset': {
-      borderRadius: '40px',
-      border: `1px solid ${theme.colors.inputBorder}`,
-      borderWidth: '1px'
-    }
-  },
-  sendButton: {
-    height: '61px',
-    [theme.breakpoints.down('md')]: {
-      width: '100%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '5em'
-    }
-  },
-  sendButtonBox: {
-    marginTop: '21px',
-    [theme.breakpoints.down('md')]: {
-      marginLeft: 0,
-      width: '100%'
-    },
-    [theme.breakpoints.up('md')]: {
-      marginLeft: '-10px'
-    }
-  },
-  linkBox: {
-    width: 'max-content',
-    display: 'flex'
-  },
-  fieldsOutlined: {
-    [theme.breakpoints.down('md')]: {
-      borderRadius: '4px'
-    },
-    [theme.breakpoints.up('md')]: {
-      borderRadius: '4px 0px 0px 4px',
-      borderRight: 'none'
-    },
-    fontSize: '24px'
-  },
-  gridContainer: {
-    transform: 'scale(0.80)'
-  }
-}))
+/** Styles **/
+import { forgotPassStyles } from '../../styles/classes/SignInClasses'
 
 const ForgotPassword = () => {
   const history = useHistory()
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = forgotPassStyles()
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [errorApi, setErrorApi] = useState('')
