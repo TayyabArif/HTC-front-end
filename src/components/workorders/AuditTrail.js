@@ -31,12 +31,8 @@ export const AuditTrail = props => {
       })
       wo.logs?.forEach(log => {
         if (log.status === 'complete') {
-          list.push({ type: log.type, time: log.date_created })
+          list.push({ type: log.type, time: log.type === 'checkOut' ? log.date_created + 1 : log.date_created })
         }
-      })
-      // invoice audit trail
-      wo.invoice?.history?.forEach(log => {
-        list.push({ type: log.action === 'create' ? 'invoiceCreated' : log.action, time: log.timestamp })
       })
     })
     setEventList(list.sort((a, b) => b.time - a.time))
