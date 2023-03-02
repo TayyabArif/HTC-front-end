@@ -192,6 +192,7 @@ const CompanySettings = props => {
   const handleSave = async (data) => {
     try {
       const newProfile = { ...data }
+      delete newProfile.name
       delete newProfile.company
       delete newProfile.id
       delete newProfile.external_token

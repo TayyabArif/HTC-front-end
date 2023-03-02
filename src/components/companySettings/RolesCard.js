@@ -134,7 +134,7 @@ export const RolesCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box display="flex" flexDirection="column">
-          {roles?.map(role => {
+          {roles?.filter(role => role.name !== 'Portal user').map(role => {
             const permissions = []
             permissionsList.forEach((item) => {
               if (role.permissions[item] && !permissions.find(element => element === t('company_settings.roles_card.' + item))) {

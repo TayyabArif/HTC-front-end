@@ -150,6 +150,7 @@ export const CompanyProfileComponent = props => {
           placeholder={t('company_profile.placeholder.company_legal')}
           value={profile?.name}
           label={t('company_profile.labels.company_legal')}
+          readOnly={true}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'name')}
         />
         <GlobalAddressInput

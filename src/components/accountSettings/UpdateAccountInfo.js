@@ -491,7 +491,7 @@ export const UpdateAccountInfo = props => {
                               }
                             ]
                           : finalRoles && finalRoles.length > 0
-                            ? [...finalRoles]
+                            ? (event === 'new' ? [...finalRoles.filter(role => role.name !== 'Portal user')] : [...finalRoles])
                             : []
                       }
                       placeholder={t('account_settings.info_card.placeholder_select')}
