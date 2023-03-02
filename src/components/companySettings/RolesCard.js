@@ -111,6 +111,7 @@ export const RolesCard = props => {
   }
   const permissionsList = [
     'workorders',
+    'locations',
     'company_settings'
   ]
   const permissionsMobile = [t('company_settings.roles_card.no_portal_access')]

@@ -53,7 +53,7 @@ export const ProfileInfoCard = props => {
                     {t('company_settings.card.profile')}
                 </Typography>
                 <EditButton
-                    label={t('company_settings.buttons.edit')}
+                    label={t('company_settings.buttons.view')}
                     onClick={handleEditProfile}
                 />
             </Box>

@@ -71,6 +71,11 @@ const CompanySettings = props => {
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
   const [companyConfigs, setCompanyConfigs] = useState([])
+  const styles = {
+    saveButton: {
+      display: 'none'
+    }
+  }
 
   useEffect(() => {
     initialMethod()
@@ -660,6 +665,7 @@ const CompanySettings = props => {
         </DialogContent>
         <DialogActions>
           <Button
+            sx={styles.saveButton}
             variant="contained"
             onClick={() => handleSave(updatedCompany)}
             className={classes.saveButton}

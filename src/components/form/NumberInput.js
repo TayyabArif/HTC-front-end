@@ -120,7 +120,8 @@ export default function GlobalNumberInput (props) {
         InputProps={{
           className: classes.inputText,
           inputComponent: NumberFormatCustom,
-          disableUnderline: true
+          disableUnderline: true,
+          ...rest
         }}
         value={value}
         onChange={handleChange}
