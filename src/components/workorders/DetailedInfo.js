@@ -75,6 +75,7 @@ export const DetailedInfo = props => {
   const [photoIndex, setPhotoIndex] = useState(-1)
   const classes = detailedInfoStyles()
   const { t } = useTranslation()
+  const [etaTime, setEtaTime] = useState(null)
   const { workOrder, handleClosePanel, viewMode } = props
 
   useEffect(() => {
@@ -82,6 +83,7 @@ export const DetailedInfo = props => {
   }, [workOrder])
 
   const showWO = async () => {
+    setEtaTime(null)
     if (workOrder) {
       try {
         setOpen(true)
@@ -184,7 +186,7 @@ export const DetailedInfo = props => {
         index="/audit"
         value={tabValue}
       >
-        <AuditTrail workOrders={trips} />
+        <AuditTrail workOrders={trips} etaTime={etaTime}/>
       </TabPanel>
       <TabPanel
         classes={{ root: classes.tabPanel }}
@@ -203,7 +205,7 @@ export const DetailedInfo = props => {
     </div>
   )
 
-  const tabActivities = () => (
+  /* const tabActivities = () => (
     <div>
       {trips &&
         trips.length > 0 &&
@@ -225,6 +227,40 @@ export const DetailedInfo = props => {
             }}
             setReady={setReady}
             setMessage={setLoadingMessage}
+          />
+        ))}
+    </div>
+  ) */
+
+  const tabActivities = () => (
+    <div>
+      {trips &&
+        trips.length > 0 &&
+        trips.map((obj, ind) => (
+          <ActivitiesCard
+            key={ind}
+            data={obj}
+            index={ind}
+            length={trips.length}
+            photosFtc={obj.ftc?.photos ?? []}
+            setPhotos={setPhotos}
+            setPhotoIndex={setPhotoIndex}
+            updateWoData={data => {
+              obj = data
+              if (obj.id === workOrder.id) {
+                if (obj.updateEta) {
+                  delete obj.updateEta
+                } else {
+                  workOrder.status = 'completed'
+                }
+                workOrder.invoice = data.invoice
+                workOrder.est_service_start = data.est_service_start
+                setEtaTime(workOrder.est_service_start)
+              }
+            }}
+            setReady={setReady}
+            setMessage={setLoadingMessage}
+            etaTime={etaTime}
           />
         ))}
     </div>
