@@ -204,7 +204,13 @@ const CompanySettings = props => {
   const handleSave = async (data) => {
     try {
       setButtonDisabled(true)
-      const newProfile = { ...data }
+      const newProfile = {
+        ...data,
+        invoice_email: data.invoice_email ?? '',
+        w9: data.w9 ?? {},
+        support_24_7: data.support_24_7 ?? false,
+        service_area: data.service_area ?? []
+      }
       delete newProfile.company
       delete newProfile.id
       delete newProfile.external_token
