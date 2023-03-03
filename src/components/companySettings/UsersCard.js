@@ -84,7 +84,7 @@ export const UsersCard = props => {
   function handleFilterChange (value) {
     const result = value
       ? users.filter(user =>
-        (user.firstName + ' ' + user.lastName)
+        (user.firstName.trim() + ' ' + user.lastName.trim())
           .toLowerCase()
           .includes(value.toLowerCase())
       )
