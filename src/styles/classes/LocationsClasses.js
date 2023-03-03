@@ -135,6 +135,7 @@ export const locationsStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   gmapBox: {
+    position: 'relative',
     [theme.breakpoints.up('md')]: {
       height: `calc(100vh - ${navBarHeaderHeight})`
     },
@@ -914,17 +915,35 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   legendsContainer: {
-    width: '440px',
-    position: 'absolute',
-    bottom: '24px',
+    bottom: '20px',
     left: '15px',
+    width: 'calc(100% - 25px)',
+    zIndex: 1000,
+    maxWidth: '440px',
+    position: 'absolute',
+    overflow: 'hidden',
+    transformOrigin: 'left bottom 0px'
+  },
+  legendsContainerIos: {
+    bottom: '80px',
+    left: '15px',
+    width: 'calc(100% - 25px)',
+    zIndex: 1000,
+    maxWidth: '440px',
+    position: 'absolute',
     overflow: 'hidden',
     transformOrigin: 'left bottom 0px'
   },
   legendsContainerMinimized: {
-    position: 'absolute',
-    bottom: '24px',
     left: '15px',
+    bottom: '20px',
+    position: 'absolute',
+    overflow: 'hidden'
+  },
+  legendsContainerMinimizedIos: {
+    left: '15px',
+    bottom: '80px',
+    position: 'absolute',
     overflow: 'hidden'
   },
   mapWeatherLegendsBoxMinimized: {
@@ -961,19 +980,35 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   playerContainer: {
+    right: '15px',
+    width: 'calc(100% - 25px)',
+    maxWidth: '350px',
     height: '142px',
-    width: '350px',
     position: 'absolute',
     bottom: '20px',
+    overflow: 'hidden'
+  },
+  playerContainerIos: {
     right: '15px',
+    width: 'calc(100% - 25px)',
+    maxWidth: '350px',
+    height: '142px',
+    position: 'absolute',
+    bottom: '80px',
     overflow: 'hidden'
   },
   playerContainerMinimized: {
+    right: '15px',
     height: 'auto',
-    width: '350px',
     position: 'absolute',
     bottom: '20px',
+    overflow: 'hidden'
+  },
+  playerContainerMinimizedIos: {
     right: '15px',
+    height: 'auto',
+    position: 'absolute',
+    bottom: '80px',
     overflow: 'hidden'
   },
   mapWeatherPlayerBoxMinimized: {

@@ -6,15 +6,19 @@ import { Box, Fade, Grid, IconButton, Paper, Slide, Slider, Typography } from '@
 import moment from 'moment'
 import { KeyboardArrowDownOutlined, KeyboardArrowUpOutlined, Pause, PlayArrow, Repeat } from '@mui/icons-material'
 import { SelectRadiosNoBorder } from '../inputs/SelectRadiosNoBorder'
-import { AFStateOptions } from '../../../lib/Constants'
 import { getCapabilities } from '../../../services/RadarApiService'
 import { xml2json } from 'xml-js'
 
 /** Styles **/
 import { weatherPlayerStyles } from '../../../styles/classes/LocationsClasses'
 
+/** Utils **/
+import { useWindowWidth } from '@react-hook/window-size'
+import { AFStateOptions, mobileBreakpoint, isSafari, isChrome } from '../../../lib/Constants'
+
 export const WeatherPlayer = (props) => {
   const classes = weatherPlayerStyles()
+  const actualWidth = useWindowWidth()
   const { t } = useTranslation()
   const [AFState, setAFState] = useState(10)
   const [liveTime, setLiveTime] = useState(moment().format('HH:mm A'))
@@ -39,6 +43,14 @@ export const WeatherPlayer = (props) => {
       stepForward()
     }, (Math.round(10000 / event.target.value)))
   }
+
+  useEffect(() => {
+    if (actualWidth > mobileBreakpoint) {
+      setPlayerHidden(false)
+    } else {
+      setPlayerHidden(true)
+    }
+  }, [])
 
   useEffect(() => {
     const liveinterval = setInterval(() => {
@@ -363,7 +375,7 @@ export const WeatherPlayer = (props) => {
 
   return (
     <Box hidden={props.hidden}>
-      <Fade className={classes.playerContainerMinimized} timeout={2000} in={playerHidden} container={containerRef.current}>
+      <Fade className={isSafari && !isChrome() ? classes.playerContainerMinimizedIos : classes.playerContainerMinimized} timeout={2000} in={playerHidden} container={containerRef.current}>
         <Box className={classes.mapWeatherPlayerBoxMinimized}>
           <Paper>
             <Box p={1}>
@@ -376,7 +388,7 @@ export const WeatherPlayer = (props) => {
                   </Grid>
                   <Grid item>
                     <IconButton onClick={onHidePlayer} className={classes.playerHideContainer}>
-                      <KeyboardArrowUpOutlined className={classes.playerHide}/>
+                      <KeyboardArrowUpOutlined className={classes.playerHide} />
                     </IconButton>
                   </Grid>
                 </Grid>
@@ -386,7 +398,7 @@ export const WeatherPlayer = (props) => {
         </Box>
       </Fade>
 
-      <Slide className={classes.playerContainer} direction="up" timeout={1000} in={!playerHidden} container={containerRef.current}>
+      <Slide className={isSafari && !isChrome() ? classes.playerContainerIos : classes.playerContainer} direction="up" timeout={1000} in={!playerHidden} container={containerRef.current}>
         <Paper>
           <Box p={1}>
             <Box pl={1}>
@@ -398,7 +410,7 @@ export const WeatherPlayer = (props) => {
                 </Grid>
                 <Grid item>
                   <IconButton onClick={onHidePlayer} className={classes.playerHideContainer}>
-                    <KeyboardArrowDownOutlined className={classes.playerHide}/>
+                    <KeyboardArrowDownOutlined className={classes.playerHide} />
                   </IconButton>
                 </Grid>
               </Grid>
@@ -410,19 +422,19 @@ export const WeatherPlayer = (props) => {
                   <IconButton
                     onClick={onPlayPause}
                     className={classes.playerButtonsContainer}>
-                    {props.play ? (<Pause className={classes.playerButtons}/>) : (<PlayArrow className={classes.playerButtons}/>)}
+                    {props.play ? (<Pause className={classes.playerButtons} />) : (<PlayArrow className={classes.playerButtons} />)}
                   </IconButton>
                 </Grid>
                 <Grid item>
                   <IconButton
                     onClick={onRepeat}
                     className={classes.playerButtonsContainer}>
-                    <Repeat className={classes.playerButtons} color={repeat ? 'primary' : 'inherit'}/>
+                    <Repeat className={classes.playerButtons} color={repeat ? 'primary' : 'inherit'} />
                   </IconButton>
                 </Grid>
                 <Grid item>
                   <SelectRadiosNoBorder handleChange={handleAFChange} dataDefault={10} dataElement={'AF'} dataItems={AFStateOptions} selectedOption={AFState}
-                                        setSelectedOption={setAFState}/>
+                    setSelectedOption={setAFState} />
                 </Grid>
               </Grid>
             </Box>

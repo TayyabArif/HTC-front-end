@@ -73,7 +73,7 @@ export const SearchResults = (props) => {
           <List
             width={width}
             height={wWidth > mobileBreakpoint ? wHeight - 180 : wHeight - 205}
-            rowCount={sites.length + 1}
+            rowCount={sites.length}
             rowHeight={getRowHeight}
             rowRenderer={rowRenderer}
           />
