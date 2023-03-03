@@ -102,7 +102,7 @@ export const ProfileInfoCard = props => {
                             field="countries"
                             value={
                                 props?.profile?.country?.length
-                                  ? props?.profile?.country
+                                  ? props?.profile?.country.join(', ')
                                   : 'N/A'
                             }
                             label={wWidth > profileCardLimits.top || wWidth < profileCardLimits.bottom ? t('company_profile.labels.country') : t('company_profile.labels.country').slice(0, -7) + '.'}

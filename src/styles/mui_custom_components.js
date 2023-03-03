@@ -73,7 +73,8 @@ export const HighlightButton = withStyles((theme) => ({
     fontSize: '18px !important',
     fontWeight: '700 !important',
     height: '58px !important',
-    width: '135px !important'
+    width: '135px !important',
+    zIndex: 999
   },
   contained: {
     boxShadow: '0 0 0 0'
@@ -125,11 +126,10 @@ export const MapButton = withStyles({
 export const MapCounter = withStyles({
   root: {
     background: '#FFFFFF',
-    minWidth: 'fit-content',
+    minWidth: '140px',
     width: 'fit-content',
-    height: '49px',
     paddingLeft: '12px',
-    paddingRight: '5px',
+    paddingRight: '12px',
     borderRadius: 8,
     paddingBottom: '5px'
   }

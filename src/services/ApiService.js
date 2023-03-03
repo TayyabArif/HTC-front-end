@@ -2,6 +2,41 @@ import * as Api from '../lib/Api'
 import { loadingActions } from '../store/loading'
 import { store } from '../store'
 import { login } from './AuthService'
+import { create } from 'apisauce'
+
+/**
+ * Create an api of location API
+ *
+ * @type {ApisauceInstance}
+ */
+const locationApi = create({
+  baseURL: process.env.REACT_APP_COUNTRIESNOW_URL,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
+  timeout: 10000
+})
+
+export const callLocationApi = async (type, route, params = {}) => {
+  let response
+  switch (type) {
+    case 'POST':
+      response = await locationApi.post(route, params)
+      break
+    case 'GET':
+      response = await locationApi.get(route, params)
+      break
+    default:
+      throw {
+        name: 'Method Not Allowed',
+        message: 'Call type not supported',
+        code: 405
+      }
+  }
+  if (!response.ok) return {}
+  return response.data
+}
 
 export const createLog = async (
   logType,
@@ -555,6 +590,78 @@ export const changeUserPassword = async password => {
   store.dispatch(loadingActions.show())
   try {
     const response = await Api.changeUserPassword(password)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getLocationInfo = async id => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocationInfo(id)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    return err
+  }
+}
+
+export const getLocations = async (clientId, page, limit, id, search, dateRange, woDateFrom, woDateTo, status, state, city) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocations(clientId, page, limit, id, search, dateRange, woDateFrom, woDateTo, status, state, city)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getLocationWorkOrders = async (id, search, limit, page, openDate, expirationDate, status, category, services, callType, sortBy) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocationWorkOrders(id, search, limit, page, openDate, expirationDate, status, category, services, callType, sortBy)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getLocationCallTypes = async (clientId) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getLocationCallTypes(clientId)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const getCompanyConfigs = async (companyId) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.getCompanyConfigs(companyId)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const putCompanyConfigs = async (companyId, data) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.putCompanyConfigs(companyId, data)
     store.dispatch(loadingActions.hide())
     return response
   } catch (err) {

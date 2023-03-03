@@ -46,7 +46,7 @@ export const Selector = React.forwardRef((props, ref) => {
         placeholder={props.placeholder ?? ''}
         disabled={props.disabled}
         className={ classes.root }
-        InputLabelProps={{ className: classes.label, shrink: true }}
+        InputLabelProps={{ className: classes.label, shrink: true, required: props.required }}
         InputProps={{
           className: classes.textField,
           disableUnderline: true,
@@ -73,6 +73,7 @@ export const Selector = React.forwardRef((props, ref) => {
               key={option.id}
               value={option.id}
               className={classes.menuItem}
+              disabled={option.disabled}
               onClick={() => {
                 props.handleChange({
                   target: { name: props.id, value: option.id }

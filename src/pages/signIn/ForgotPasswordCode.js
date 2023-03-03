@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 /** Material UI **/
 import { HighlightButton } from '../../styles/mui_custom_components'
 import { LockOutlined } from '@mui/icons-material'
-import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import { FormHelperText, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 /** Components **/
@@ -108,16 +108,27 @@ const ForgotPasswordCode = () => {
   const [newPassword, setNewPassword] = useState('')
   const authStore = store.getState().auth
   const [error, setError] = useState()
+  const [enableSave, setEnableSave] = useState()
 
   /** VALIDATIONS **/
   const validationSchema = yup.object().shape({
-    code: yup.string().required(t('general.messages.errors.required')),
-    new_password: yup.string().required(t('general.messages.errors.required')).test('len', t('forgot_password_code.min_6_chars'), (val) => val.toString().length >= 6)
+    new_password: yup.string()
+      .required(t('general.messages.errors.required'))
+      .min(6, t('forgot_password_code.min_6_chars'))
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'all',
     resolver: yupResolver(validationSchema)
   })
+
+  useEffect(() => {
+    let save = true
+    if (!newPassword || errors?.new_password?.message) {
+      save = false
+    }
+    setEnableSave(save)
+  }, [newPassword, errors])
 
   const onSubmit = async () => {
     try {
@@ -147,9 +158,11 @@ const ForgotPasswordCode = () => {
     setError(null)
     setNewPassword(event.target.value)
   }
+  const onError = (errors, e) => console.error(errors, e)
 
   return (
     <SignInContainer>
+      <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit, onError)}>
       <Grid data-testid={'forgot_password_code_page'} className={classes.mainGrid} container spacing={0} direction='column' alignItems='center'>
         <Grid className={classes.mainItem} item xs={12}>
           <Grid container justifyContent='center' alignItems='center'>
@@ -164,55 +177,63 @@ const ForgotPasswordCode = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
-              <Box className={classes.formBox} >
-                <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
-                  <TextField
-                    className={classes.fields}
-                    variant='outlined'
-                    margin='normal'
-                    required
-                    fullWidth
-                    type='password'
-                    id='new_password'
-                    placeholder={t('forgot_password_code.new_password')}
-                    autoComplete='off'
-                    name='new_password'
-                    inputProps={{
-                      minLength: 6
-                    }}
-                    error={!!errors.new_password}
-                    helperText={errors.new_password && errors.new_password.message}
-                    {...register('new_password')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <LockOutlined/>
-                        </InputAdornment>
-                      ),
-                      classes: {
-                        notchedOutline: classes.fieldsOutlined
-                      }
-                    }}
-                    onInput={handleNewPasswordChange}
-                  />
-                  <Box hidden={error === null}>
-                    <Typography align={'left'} className={classes.errorMessage}>
-                      {error}
-                    </Typography>
-                  </Box>
-                  <Grid className={classes.buttons} container justifyContent='flex-end' spacing={3} mt={2}>
-                    <Grid item className={classes.buttonGrid} >
-                      <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!newPassword} type='submit' variant='contained' onClick={onSubmit} >
-                        {t('forgot_password_code.reset_password')}
-                      </HighlightButton>
-                    </Grid>
+              <Grid container className={classes.formBox}>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.fields}
+                      variant='outlined'
+                      margin='normal'
+                      required
+                      fullWidth
+                      type='password'
+                      id='new_password'
+                      placeholder={t('forgot_password_code.new_password')}
+                      autoComplete='new-password'
+                      name='new_password'
+                      inputProps={{
+                        minLength: 6
+                      }}
+                      error={!!errors.new_password}
+                      {...register('new_password')}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <LockOutlined/>
+                          </InputAdornment>
+                        ),
+                        classes: {
+                          notchedOutline: classes.fieldsOutlined
+                        }
+                      }}
+                      onKeyUp={handleNewPasswordChange}
+                    />
                   </Grid>
-                </form>
-              </Box>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent='center' alignItems='center'>
+            <Grid item xs={12} md={8}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <FormHelperText>
+                    {error || (errors.new_password && errors.new_password.message)
+                      ? <Typography align={'left'} className={classes.errorMessage} variant="p">
+                        {error || errors.new_password.message}
+                      </Typography>
+                      : <Typography align={'left'} className={classes.errorMessage} variant="p"><br/></Typography>}
+                  </FormHelperText>
+                </Grid>
+                <Grid item className={classes.buttonGrid} >
+                  <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!enableSave} type='submit' variant='contained' onClick={onSubmit} >
+                    {t('forgot_password_code.reset_password')}
+                  </HighlightButton>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
+      </form>
     </SignInContainer>
   )
 }

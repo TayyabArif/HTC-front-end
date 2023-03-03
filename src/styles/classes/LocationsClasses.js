@@ -46,20 +46,6 @@ export const locationsStyles = makeStyles((theme) => ({
     backgroundColor: theme.colors.profile.borders,
     padding: '0px'
   },
-  leftColumnFilters: {
-    '&::-webkit-scrollbar': {
-      display: 'none'
-    },
-    height: 'calc(100vh - 60px)',
-    overflowY: 'overlay',
-    backgroundColor: theme.colors.locations.filters.leftColumnBackground,
-    padding: '19px'
-  },
-  leftColumnSiteView: {
-    height: 'calc(100vh - 87px)',
-    overflowY: 'hidden',
-    backgroundColor: theme.colors.locations.filters.leftColumnBackground
-  },
   searchBox: {
     width: '345px',
     marginLeft: '20px',
@@ -110,22 +96,12 @@ export const locationsStyles = makeStyles((theme) => ({
     width: '430px',
     border: 'none'
   },
-  tabs: {
-    height: '46px',
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'inline'
-    }
-  },
   gridFilters: {
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
     [theme.breakpoints.up('md')]: {
       display: 'flex',
-      marginTop: '10px',
       padding: '0px 10px'
     }
   },
@@ -164,6 +140,121 @@ export const locationsStyles = makeStyles((theme) => ({
   },
   menuIcon: {
     width: '27px'
+  },
+  midTab: {
+    minWidth: '50px',
+    padding: 0,
+    width: 'auto',
+    minHeight: 20,
+    maxHeight: '30px',
+    height: '30px',
+    fontSize: '14px',
+    color: theme.colors.gray,
+    textTransform: 'none',
+    backgroundColor: theme.colors.signInButton.background,
+    fontWeight: '400'
+  },
+  tab: {
+    minWidth: '50px',
+    padding: 0,
+    width: '82px',
+    minHeight: 20,
+    maxHeight: '30px',
+    height: 'auto',
+    fontSize: '14px',
+    color: theme.colors.gray,
+    textTransform: 'none',
+    backgroundColor: theme.colors.signInButton.background,
+    fontWeight: '400',
+    marginRight: '230px' // TODO: remove when the rest of tabs appear
+  },
+  tabs: {
+    backgroundColor: theme.colors.signInButton.background,
+    minHeight: 20,
+    maxHeight: '34px',
+    height: '40px',
+    margin: '0px 10px',
+    fontSize: '14px',
+    color: theme.colors.gray,
+    fontWeight: '400',
+    '& .Mui-selected': {
+      color: theme.palette.primary.light,
+      fontWeight: 'bold'
+    }
+  },
+  tabPanel: {
+    '& .MuiBox-root': {
+      maxWidth: 'unset',
+      padding: '0px'
+    }
+  },
+  appBar: {
+    backgroundColor: theme.colors.signInButton.background
+  },
+  iconButton: {
+    height: '35px',
+    width: '35px'
+  },
+  filterIcon: {
+    color: theme.colors.gray,
+    width: '25px',
+    marginRight: '10px',
+    cursor: 'pointer'
+  },
+  sortIcon: {
+    color: theme.colors.gray,
+    width: '25px',
+    marginRight: '4px',
+    cursor: 'pointer'
+  },
+  filterIconSelected: {
+    color: theme.palette.primary.light,
+    width: '25px',
+    marginRight: '10px',
+    cursor: 'pointer'
+  },
+  sortIconSelected: {
+    color: theme.palette.primary.light,
+    width: '25px',
+    marginRight: '4px',
+    cursor: 'pointer'
+  },
+  tabContainer: {
+    margin: 0,
+    padding: 0,
+    width: '100%',
+    cursor: 'pointer'
+  },
+  backIcon: {
+    width: '20px',
+    height: '20px'
+  },
+  backButton: {
+    marginTop: '23px',
+    width: '25px',
+    height: '25px'
+  },
+  badge: {
+    position: 'fixed',
+    '& .MuiBadge-badge': {
+      position: 'absolute',
+      color: theme.colors.invoiceColors.red_error,
+      width: '7px',
+      height: '7px',
+      right: '-5px',
+      top: '3px'
+    }
+  },
+  badgeSort: {
+    position: 'fixed',
+    '& .MuiBadge-badge': {
+      position: 'absolute',
+      color: theme.colors.invoiceColors.red_error,
+      width: '7px',
+      height: '7px',
+      right: '3px',
+      top: '3px'
+    }
   }
 }))
 
@@ -196,6 +287,9 @@ export const mapStyles = makeStyles((theme) => ({
     },
     '& .gm-style .gm-style-iw-t::after': {
       display: 'none !important'
+    },
+    '& .gm-style .gm-style-iw-tc': {
+      transform: 'translateX(-120px)'
     }
   },
   searchBar: {
@@ -271,7 +365,7 @@ export const infoMarkerStyles = makeStyles((theme) => ({
       fontSize: 10
     },
     fontWeight: '700',
-    color: theme.colors.sites.markers.locationAddress
+    color: theme.colors.locations.markers.locationAddress
   },
   font12: {
     fontSize: 12,
@@ -291,10 +385,11 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     }
   },
   infoSiteWindow: {
+    minWidth: '220px',
     width: 'auto',
     minHeight: 70,
     cursor: 'pointer',
-    padding: '10px 10px'
+    padding: '10px 0px 22px 10px'
   },
   workStatus: {
     top: '0px !important',
@@ -330,13 +425,14 @@ export const infoMarkerStyles = makeStyles((theme) => ({
     padding: '0px 0px'
   },
   arrowStyle: {
-    width: 22,
-    height: 22,
+    width: 32,
+    height: 32,
     display: 'flex',
-    marginRight: '5px',
-    marginLeft: 'auto'
+    color: theme.colors.textButton,
+    marginTop: '60%',
+    cursor: 'pointer'
   },
-  arrowGrid: {
+  arrowBox: {
     [theme.breakpoints.down('md')]: {
       padding: '10px 0px'
     },
@@ -372,9 +468,8 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   mapButtonsBox: {
     width: '20px',
     position: 'relative',
-    top: '15px',
+    top: '80px',
     left: '15px',
-    marginTop: '60px',
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
@@ -382,10 +477,23 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
       display: 'inline'
     }
   },
+  mapButtonsBoxSiteLevel: {
+    width: '20px',
+    position: 'relative',
+    top: '5px',
+    left: '10px',
+    marginTop: '5px',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    }
+  },
   hiddenButtonsBox: {
     width: '20px',
     position: 'relative',
-    top: '0px',
+    top: '15px',
     left: '15px',
     marginTop: '15px',
     [theme.breakpoints.down('md')]: {
@@ -393,6 +501,19 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('md')]: {
       display: 'inline'
+    }
+  },
+  hiddenButtonsBoxSiteLevel: {
+    width: '20px',
+    position: 'relative',
+    top: '0px',
+    left: '10px',
+    marginTop: '5px',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
     }
   },
   dropdowns: {
@@ -433,8 +554,9 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
       color: theme.colors.invoiceColors.red_error,
       width: '11px',
       height: '11px',
-      right: '-4px',
-      top: '-4px'
+      right: '-6px',
+      top: '-2px',
+      borderRadius: '50px'
     }
   }
 }))
@@ -448,6 +570,11 @@ export const mapCountersStyles = makeStyles((theme) => ({
   },
   font12: {
     fontSize: 12,
+    fontWeight: 500,
+    whiteSpace: 'nowrap'
+  },
+  font14: {
+    fontSize: 14,
     fontWeight: 500,
     whiteSpace: 'nowrap'
   },
@@ -590,12 +717,25 @@ export const searchResultsStyles = makeStyles((theme) => ({
 export const locationCardStyles = makeStyles((theme) => ({
   font16: {
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   font12: {
     fontSize: 12,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress
+  },
+  locationName: {
+    fontSize: 13,
+    fontWeight: '400',
+    color: theme.colors.locations.locationAddress,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -610,6 +750,36 @@ export const locationCardStyles = makeStyles((theme) => ({
   completedWork: {
     position: 'relative',
     top: 4,
+    color: theme.colors.workOrderColors.completed,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  noActivityWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.workOrderColors.declined,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  openWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.workOrderColors.open,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  inProgressWork: {
+    position: 'relative',
+    top: 4,
     color: theme.colors.locations.workOrderColors.completed,
     width: '17px',
     height: '17px',
@@ -620,7 +790,11 @@ export const locationCardStyles = makeStyles((theme) => ({
   locationTile: {
     cursor: 'pointer',
     height: '100%',
-    margin: '3px 11px'
+    margin: '5px 11px'
+  },
+  locationStatus: {
+    position: 'absolute',
+    bottom: '5px'
   }
 }))
 
@@ -638,11 +812,19 @@ export const mapFiltersStyles = makeStyles((theme) => ({
       height: '20px'
     }
   },
-  mainItem: {
+  filterLabel: {
     fontSize: '12px',
     '&:focus': {
       backgroundColor: 'unset'
-    }
+    },
+    padding: '8px 8px 4px 8px'
+  },
+  filterDrop: {
+    fontSize: '12px',
+    '&:focus': {
+      backgroundColor: 'unset'
+    },
+    padding: '0px 8px 8px 8px'
   },
   menuItem: {
     fontSize: '12px',
@@ -677,7 +859,8 @@ export const mapFiltersStyles = makeStyles((theme) => ({
   },
   muiPaper: {
     borderRadius: '12px',
-    marginLeft: '15px'
+    marginLeft: '15px',
+    maxHeight: '400px'
   },
   checkIcon: {
     marginLeft: 'auto',
@@ -812,5 +995,171 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
   },
   playerHideContainer: {
     padding: '0px'
+  }
+}))
+
+export const woCardStyles = makeStyles((theme) => ({
+  serviceNameDiv: {
+    backgroundColor: theme.colors.divBack,
+    width: '24px',
+    marginRight: '4px',
+    borderBottomLeftRadius: '5px'
+  },
+  serviceName: {
+    transform: 'rotate(90deg)',
+    fontSize: '10px',
+    fontWeight: '700',
+    color: 'white',
+    marginTop: '8px',
+    width: '120px',
+    position: 'absolute',
+    top: '55px',
+    left: '-40px'
+  },
+  woNumber: {
+    fontSize: 16,
+    fontWeight: '500'
+  },
+  clientTracking: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: theme.colors.gray
+  },
+  activeWorkCircle: (props) => ({
+    position: 'relative',
+    top: 4,
+    color: props.activeWorkCircleColor,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  }),
+  completedWork: {
+    position: 'relative',
+    top: 4,
+    color: theme.colors.locations.workOrderColors.completed,
+    width: '17px',
+    height: '17px',
+    marginRight: '10px',
+    border: `2px solid ${theme.colors.workStatusBorder}`,
+    borderRadius: '50%'
+  },
+  locationTile: {
+    cursor: 'pointer',
+    height: '100%',
+    margin: '3px 8px',
+    display: 'flex',
+    borderRadius: '0px 5px 0px 5px'
+  },
+  woType: {
+    fontSize: '11px',
+    fontWeight: '400',
+    color: theme.colors.text
+  },
+  endLabel: {
+    fontSize: '11px',
+    fontWeight: '500',
+    color: theme.colors.text,
+    textAlign: 'end'
+  },
+  startLabel: {
+    fontSize: '11px',
+    fontWeight: '500',
+    color: theme.colors.text
+  },
+  woStatus: {
+    fontSize: '13px',
+    fontWeight: '600',
+    margin: '8px 0px 21px 0px',
+    textAlign: 'end'
+  },
+  priority: {
+    fontSize: '11px',
+    fontWeight: '600',
+    color: theme.colors.gray,
+    textAlign: 'end'
+  }
+}))
+
+export const locationInfoCardStyles = makeStyles((theme) => ({
+  nameLabel: {
+    fontSize: '22px',
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingRight: '26px'
+  },
+  mainCard: {
+    width: '560px',
+    padding: '16px'
+  },
+  ratingLabel: {
+    fontSize: '14px',
+    fontWeight: '400',
+    color: theme.colors.locations.locationAddress,
+    marginTop: '2px'
+  },
+  rating: {
+    margin: '0px 6px'
+  },
+  locationDescription: {
+    fontSize: '14px',
+    fontWeight: '400',
+    color: theme.colors.locations.locationAddress
+  },
+  arrowDown: {
+    width: '60px',
+    height: 'auto',
+    color: theme.colors.textButton,
+    position: 'absolute',
+    right: '5px',
+    top: '2px',
+    cursor: 'pointer'
+  },
+  fieldLabel: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: theme.colors.gray,
+    letterSpacing: '0.4px'
+  },
+  fieldContent: {
+    fontSize: '14px',
+    fontWeight: '400',
+    color: theme.colors.gray,
+    letterSpacing: '0.4px'
+  },
+  cardContent: {
+    marginTop: '10px',
+    padding: '0 !important'
+  },
+  cardNoContent: {
+    marginTop: '30px',
+    padding: '0 !important',
+    textAlign: 'center'
+  },
+  moreHours: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: theme.colors.iconBlue,
+    cursor: 'pointer'
+  },
+  moreLabel: {
+    position: 'absolute',
+    right: '0px',
+    bottom: '0px',
+    fontSize: '14px',
+    color: theme.colors.text,
+    fontWeight: '500',
+    backgroundColor: '#fdfdfd99',
+    borderRadius: '12px 0px 12px 0px',
+    padding: '2px 5px'
+  },
+  urlDiv: {
+    display: 'inline'
+  },
+  rangesDiv: {
+    margin: '0px 5px'
   }
 }))

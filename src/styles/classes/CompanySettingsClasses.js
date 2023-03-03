@@ -78,8 +78,8 @@ export const companySettingsStyles = makeStyles(theme => ({
     width: '160px',
     alignSelf: 'flex-end',
     marginRight: '84px',
-    marginBottom: '37px',
-    marginTop: '48px'
+    marginBottom: '18px',
+    marginTop: '18px'
   },
   editComponent: {
     '& .MuiDialog-paperWidthSm': {
@@ -504,6 +504,9 @@ export const preferencesCardStyles = makeStyles(theme => ({
     fontSize: '10px',
     color: '#6C7172',
     margin: '0 0 25px 15px'
+  },
+  applyButton: {
+    textTransform: 'none'
   }
 }))
 
@@ -578,7 +581,7 @@ export const supportCardStyles = makeStyles(theme => ({
     color: theme.colors.black,
     lineHeight: '24px',
     letterSpacing: '0.05em',
-    margin: '23px 0px 22px 20px'
+    margin: '23px 0px 26px 20px'
   },
   card: {
     borderRadius: '8px',
@@ -591,6 +594,7 @@ export const supportCardStyles = makeStyles(theme => ({
     padding: '0px 0px'
   },
   content: {
+    display: 'inline-grid',
     padding: '0px 20px 30px 20px'
   },
   versionLabel: {
@@ -604,13 +608,14 @@ export const supportCardStyles = makeStyles(theme => ({
     color: theme.palette.primary.light,
     width: '100%',
     cursor: 'pointer',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    marginBottom: '29px'
   },
   contacts: {
     fontSize: '15px',
     fontWeight: '400',
     color: theme.colors.stepperGray,
-    marginBottom: '25px'
+    marginBottom: '29px'
   }
 }))
 

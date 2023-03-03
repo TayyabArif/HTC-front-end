@@ -137,7 +137,6 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   },
   editButton: {
     '&.MuiButtonBase-root': {
-      marginTop: '5px',
       marginRight: '10px'
     },
     '& .MuiTypography-root': {
@@ -165,8 +164,18 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       color: theme.colors.black,
       marginBottom: '15px',
       wordWrap: 'break-word',
-      padding: '5px 13px'
+      padding: '5px 13px',
+      minHeight: '35px'
     }
+  },
+  disabled: {
+    '&.MuiTypography-root': {
+      color: `${theme.colors.textGray} !important`
+    }
+  },
+  customInfo: {
+    paddingTop: '9px !important',
+    paddingBottom: 'unset !important'
   },
   gridImg: {
     display: 'flex',
@@ -223,6 +232,9 @@ export const PhoneInputClasses = makeStyles(theme => ({
     },
     '& .MuiInputBase-input': {
       fontSize: '16px'
+    },
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText
     }
   },
   input: {
@@ -245,7 +257,8 @@ export const PhoneInputClasses = makeStyles(theme => ({
       fontSize: '25px'
     },
     '&.MuiButtonBase-root': {
-      padding: '0px'
+      padding: '0px',
+      paddingTop: '16px'
     }
   },
   formControl: {
@@ -283,7 +296,8 @@ export const TextInputClasses = makeStyles(theme => ({
       top: '4px',
       fontSize: '10.7px',
       fontWeight: '400',
-      letterSpacing: '0.53px'
+      letterSpacing: '0.53px',
+      paddingLeft: '8px'
     },
     '& .Mui-focused': {
       color: theme.colors.tab.duedate
@@ -296,7 +310,12 @@ export const TextInputClasses = makeStyles(theme => ({
     },
     marginTop: 'unset',
     marginBottom: '12px',
-    flex: 1
+    flex: 1,
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText,
+      position: 'absolute',
+      left: '-2px'
+    }
   },
   label: {
     marginTop: 'unset',
@@ -321,7 +340,8 @@ export const TextInputClasses = makeStyles(theme => ({
       fontSize: '25px'
     },
     '&.MuiButtonBase-root': {
-      padding: '0px'
+      padding: '0px',
+      paddingTop: '16px'
     }
   },
   formControl: {
@@ -445,10 +465,16 @@ export const SelectorClasses = makeStyles(theme => ({
       top: '4px',
       fontSize: '10.7px',
       fontWeight: '400',
-      letterSpacing: '0.53px'
+      letterSpacing: '0.53px',
+      paddingLeft: '8px'
     },
     '& .MuiInputBase-input': {
       fontSize: '16px'
+    },
+    '& .MuiFormLabel-asterisk': {
+      color: theme.colors.errorText,
+      position: 'absolute',
+      left: '-2px'
     },
     marginBottom: '12px'
   },
@@ -458,7 +484,8 @@ export const SelectorClasses = makeStyles(theme => ({
   },
   icon: {
     color: theme.colors.company.iconColor,
-    marginRight: '5px'
+    marginRight: '5px',
+    marginTop: '13px'
   },
   menuItem: theme.filtersClasses.menuItem,
   formControl: {

@@ -23,30 +23,35 @@ export const workOrders = () => {
       last_six_months: 'Seis Últimos Meses'
     },
     wo_states: {
+      all: 'Todos',
       open: 'Abierto',
       active: 'En proceso',
       returning: 'Regresando',
       complete: 'Completo',
       completed: 'Completado',
       in_progress: 'En Progreso',
+      canceled: 'Cancelado',
       cancelled: 'Cancelado',
       expired: 'Expirado',
       no_status: 'Sin estado',
       incomplete: 'Incompleto',
-      no_work_order: 'Sin Órdenes'
+      no_work_order: 'Sin Órdenes',
+      dispatched: 'Despachado',
+      all_label: 'Todos'
     },
     column_names: {
       client_name: 'Nombre del Cliente',
-      site_name: 'Nombre del Sitio',
+      location: 'Nombre del Sitio',
       priority: 'Prioridad',
       trade: 'Comercio',
       service: 'Servicio',
-      won: 'WO #',
-      opendate: 'Fecha de Inicio',
-      duedate: 'Fecha de Fin',
-      wostat: 'Estado WO',
+      wo_number: 'WO #',
+      open_date: 'Fecha de Inicio',
+      close_date: 'Fecha de Fin',
+      wo_status: 'Estado WO',
       invoices: 'Estado de Factura',
-      external_id: 'Seguimiento de cliente #'
+      external_id: 'Seguimiento de cliente #',
+      tracking: 'Id Externo'
     },
     advanced_fields: {
       state: 'Estado',

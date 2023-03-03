@@ -145,11 +145,13 @@ export const UsersCard = props => {
                   </Typography>
                   <GlobalChip
                     chips={[
+                      user.email,
                       user.phone,
                       adaptRoleName(user.role),
                       roleOptions && user.roles && user.roles !== 'no_value'
                         ? roleOptions[user.roles]
-                        : t('company_settings.mobile_only')
+                        : t('company_settings.mobile_only'),
+                      user.status ? user.status?.charAt(0).toUpperCase() + user.status?.slice(1) : t('company_settings.users_card.view_only')
                     ].filter(
                       item => typeof item !== 'undefined' && item !== '' && item
                     )}

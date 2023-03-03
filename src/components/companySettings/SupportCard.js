@@ -8,8 +8,7 @@ import {
   Card,
   CardContent,
   CardActions,
-  Link,
-  Box
+  Link
 } from '@mui/material'
 // services
 import { supportCardStyles } from '../../styles/classes/CompanySettingsClasses'
@@ -54,24 +53,20 @@ export const SupportCard = props => {
         </Typography>
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
-        <Box margin="0px 0px 25px 0px" padding={0} >
-          <Link data-testid='knowledge_button' onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
-              {t('company_settings.support_card.knowledge')}
-          </Link>
-        </Box>
+        <Link data-testid='knowledge_button' onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+          {t('company_settings.support_card.knowledge')}
+        </Link>
         {contacts.email !== '' && <Typography classes={{ root: classes.contacts }}>
           {contacts.email}
         </Typography>}
         {contacts.phone !== '' && <Typography classes={{ root: classes.contacts }}>
           {contacts.phone}
         </Typography>}
-        <Box margin="0px 0px 25px 0px" padding={0} >
-          <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
-              {t('company_settings.support_card.privacy')}
-          </Link>
-        </Box>
+        <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+          {t('company_settings.support_card.privacy')}
+        </Link>
         <Typography classes={{ root: classes.versionLabel }}>
-            {t('company_settings.support_card.version')} {pjson.version}
+          {t('company_settings.support_card.version')} {pjson.version}
         </Typography>
       </CardContent>
     </Card>

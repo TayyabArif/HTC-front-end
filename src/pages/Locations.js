@@ -3,28 +3,34 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
 /** Material UI **/
-import { Box, Button, Drawer, Grid, IconButton, InputAdornment, TextField, Container } from '@mui/material'
-import { Menu, Clear } from '@mui/icons-material'
-import { styled } from '@mui/material/styles'
+import { Box, Drawer, Grid, IconButton, InputAdornment, TextField, Container, Tabs, Tab, AppBar, Badge } from '@mui/material'
+import { Menu, Clear, SortRounded, ArrowBackIos } from '@mui/icons-material'
+import { styled, useTheme } from '@mui/material/styles'
 
 /** Redux **/
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { locationsActions } from '../store/locations'
 
 /** Components **/
 import { GMap } from '../components/locations/map/GMap'
 import { SearchResults } from '../components/locations/SearchResults'
-// TODO: SiteView component
-// import { SiteView } from '../components/locations/siteView/SiteView'
+import { WorkOrdersList } from '../components/locations/WorkOrdersList'
+import { SiteSortMenu } from '../components/locations/SiteSortMenu'
+import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
+import { DetailedInfo } from '../components/workorders/DetailedInfo'
 
 /** Services **/
-import { userHasAuthorization } from '../services/AuthService'
+import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo, getLocationCallTypes } from '../services/ApiService'
 
 // Constants
 import { useWindowWidth } from '@react-hook/window-size'
+import { locationsPerPage } from '../lib/Constants'
 
 // Styles
 import { locationsStyles } from '../styles/classes/LocationsClasses'
+
+// Icon
+import { MapFilterIcon } from '../assets/icons/MapFilterIcon'
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, width }) => ({
@@ -44,537 +50,148 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   })
 )
 
-// hardcoded data
-const locationsData = {
-  meta: {
-    current_page: 1,
-    next_page: null,
-    prev_page: null,
-    total_pages: 1,
-    total_count: 673,
-    total_result: 673,
-    active_work_orders: 839,
-    completed_work_orders: 3499,
-    open_work_orders: 515,
-    total_proposals: 0,
-    returning_work_orders: 4,
-    canceled_work_orders: 231,
-    incomplete_work_orders: 546,
-    dispatched_work_orders: 315,
-    no_service_work_orders: 99,
-    no_activity_work_orders: 0,
-    active_sites: 522,
-    no_activity_sites: 151
-  },
-  sites: [
-    {
-      id: 820,
-      client_id: 23,
-      name: 'Starbucks 9859',
-      address: '4170 N Oakland',
-      state: 'Wisconsin',
-      city: 'Shorewood',
-      zipcode: '53211',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 0,
-        in_progress: 0,
-        completed: 1,
-        open: 0,
-        returning: 0,
-        canceled: 0,
-        incomplete: 3,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 43.09338,
-        lng: -87.88721
-      }
-    },
-    {
-      id: 1538,
-      client_id: 23,
-      name: 'Starbucks 2323',
-      address: '28832 Waukegan Road',
-      state: 'Illinois',
-      city: 'Lake Bluff',
-      zipcode: '60044',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 0,
-        in_progress: 0,
-        completed: 3,
-        open: 0,
-        returning: 0,
-        canceled: 0,
-        incomplete: 2,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 42.28094,
-        lng: -87.87987
-      }
-    },
-    {
-      id: 2433,
-      client_id: 23,
-      name: 'Starbucks 18014',
-      address: '1200 S Naper Blvd',
-      state: 'Illinois',
-      city: 'Naperville',
-      zipcode: '60540',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 0,
-        in_progress: 0,
-        completed: 6,
-        open: 0,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 41.7516,
-        lng: -88.11479
-      }
-    },
-    {
-      id: 2435,
-      client_id: 23,
-      name: 'Starbucks 2567',
-      address: '18051 Harwood Ave',
-      state: 'Illinois',
-      city: 'Homewood',
-      zipcode: '60430',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 0,
-        in_progress: 0,
-        completed: 6,
-        open: 0,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 41.56133,
-        lng: -87.66765
-      }
-    },
-    {
-      id: 2758,
-      client_id: 23,
-      name: 'Starbucks 10502',
-      address: '780 Nautica Drive',
-      state: 'Florida',
-      city: 'Jacksonville',
-      zipcode: '32218',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 3,
-        in_progress: 1,
-        completed: 4,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 30.479979,
-        lng: -81.638163
-      }
-    },
-    {
-      id: 2760,
-      client_id: 23,
-      name: 'Starbucks 302',
-      address: '4634 26th Avenue NE',
-      state: 'Washington',
-      city: 'Seattle',
-      zipcode: '98105',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 1,
-        in_progress: 0,
-        completed: 7,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 47.66263,
-        lng: -122.29968
-      }
-    },
-    {
-      id: 2767,
-      client_id: 23,
-      name: 'Starbucks 11115',
-      address: '16330 St. Rd. 54',
-      state: 'Florida',
-      city: 'Odessa',
-      zipcode: '33556',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 2,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 1,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 28.188048,
-        lng: -82.545732
-      }
-    },
-    {
-      id: 2769,
-      client_id: 23,
-      name: 'Starbucks 15732',
-      address: '10002 N. Dale Mabry Hwy',
-      state: 'Florida',
-      city: 'Tampa',
-      zipcode: '33618',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 2,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 1,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 28.040503,
-        lng: -82.50535
-      }
-    },
-    {
-      id: 2883,
-      client_id: 23,
-      name: 'Starbucks 15748',
-      address: '22850 Allen Rd',
-      state: 'Michigan',
-      city: 'Woodhaven',
-      zipcode: '48183',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 0,
-        in_progress: 0,
-        completed: 7,
-        open: 0,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 42.14108,
-        lng: -83.22658
-      }
-    },
-    {
-      id: 2885,
-      client_id: 23,
-      name: 'Starbucks 8586',
-      address: '2519 Aloma Ave',
-      state: 'Florida',
-      city: 'Winter Park',
-      zipcode: '32792',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 1,
-        in_progress: 0,
-        completed: 5,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 28.60196,
-        lng: -81.31946
-      }
-    },
-    {
-      id: 3142,
-      client_id: 23,
-      name: 'Starbucks 389',
-      address: '7100 E Greenlake Drive N',
-      state: 'Washington',
-      city: 'Seattle',
-      zipcode: '98115',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 1,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 1,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 47.67999,
-        lng: -122.32539
-      }
-    },
-    {
-      id: 3144,
-      client_id: 23,
-      name: 'Starbucks 417',
-      address: '7737 SW Capitol Highway',
-      state: 'Oregon',
-      city: 'Portland',
-      zipcode: '97219',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 1,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 45.46864,
-        lng: -122.71144
-      }
-    },
-    {
-      id: 3146,
-      client_id: 23,
-      name: 'Starbucks 441',
-      address: '61535 South Highway 97',
-      state: 'Oregon',
-      city: 'Bend',
-      zipcode: '97702',
-      trades: 'Snow|Land',
-      work_orders_summary: {
-        active: 0,
-        in_progress: 0,
-        completed: 6,
-        open: 0,
-        returning: 0,
-        canceled: 0,
-        incomplete: 4,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 44.011,
-        lng: -121.32183
-      }
-    },
-    {
-      id: 3151,
-      client_id: 23,
-      name: 'Starbucks 3202',
-      address: '6501 California Ave',
-      state: 'Washington',
-      city: 'Seattle',
-      zipcode: '98136',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 2,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 47.54469,
-        lng: -122.38744
-      }
-    },
-    {
-      id: 3153,
-      client_id: 23,
-      name: 'Starbucks 3278',
-      address: '42 Bellevue Way NE',
-      state: 'Washington',
-      city: 'Bellevue',
-      zipcode: '98004',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 2,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 47.61062,
-        lng: -122.20067
-      }
-    },
-    {
-      id: 3160,
-      client_id: 23,
-      name: 'Starbucks 3702',
-      address: '4000 East Madison St',
-      state: 'Washington',
-      city: 'Seattle',
-      zipcode: '98112',
-      trades: 'Land',
-      work_orders_summary: {
-        active: 2,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 0,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 47.63413,
-        lng: -122.2808
-      }
-    },
-    {
-      id: 3162,
-      client_id: 23,
-      name: 'Starbucks 11156',
-      address: '8223 Steilacoom Blvd, Lakewood',
-      state: 'Washington',
-      city: 'Lakewood',
-      zipcode: '98498',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 2,
-        in_progress: 0,
-        completed: 6,
-        open: 1,
-        returning: 0,
-        canceled: 1,
-        incomplete: 2,
-        no_activity: 0,
-        dispatched: 1,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 47.18006,
-        lng: -122.54735
-      }
-    },
-    {
-      id: 3169,
-      client_id: 23,
-      name: 'Starbucks 14041',
-      address: '3623 SE Powell',
-      state: 'Oregon',
-      city: 'Portland',
-      zipcode: '97202',
-      trades: 'Land|Snow',
-      work_orders_summary: {
-        active: 1,
-        in_progress: 0,
-        completed: 8,
-        open: 1,
-        returning: 0,
-        canceled: 1,
-        incomplete: 0,
-        no_activity: 0,
-        dispatched: 0,
-        no_service: 0
-      },
-      proposals: 0,
-      coordinates: {
-        lat: 45.49736,
-        lng: -122.62571
-      }
-    }
-  ]
+function a11yProps (index) {
+  return {
+    id: `scrollable-auto-tab-${index}`,
+    'aria-controls': `scrollable-auto-tabpanel-${index}`
+  }
+}
+
+function TabPanel (props) {
+  const { children, index, value } = props
+
+  return (
+    <div
+      role="tabpanel"
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+    >
+      {value === index && (
+        <Box p={3} style={{ padding: '0px 0px', marginTop: '10px' }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  )
 }
 
 const Locations = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
   const classes = locationsStyles()
+  const dispatch = useDispatch()
   const [hideLeftSection, setHideLeftSection] = useState(false)
   const [date, setDate] = useState('today')
   const [dateStart, setDateStart] = useState(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss Z'))
   const [dateEnd, setDateEnd] = useState(moment().format('YYYY-MM-DD HH:mm:ss Z'))
   const locationsStore = useSelector((state) => state.locations)
-  const clientStore = useSelector(state => state.auth.client)
+  const userStore = useSelector(state => state.auth.user)
   const [sitesResponse, setSitesResponse] = useState(null)
   const actualWidth = useWindowWidth()
   const [actualWoTab, setActualWoTab] = useState('work_orders')
   const [forceReloadOverlay, setForceReloadOverlay] = useState(null)
+  const [tabValue, setTabValue] = useState('/work-orders')
+  const [anchorSort, setAnchorSort] = useState(null)
+  const isSortMenuOpen = Boolean(anchorSort)
+  const [anchorFilters, setAnchorFilters] = useState(null)
+  const isFiltersMenuOpen = Boolean(anchorFilters)
+  const theme = useTheme()
   const [searchValue, setSearch] = useState('')
+  const [invisibleFilterBadge, setFilterInvisible] = useState(true)
+  const [invisibleSortBadge, setSortInvisible] = useState(true)
+  const [page, setPage] = useState(1)
+  const [siteListing, setSiteListing] = useState([])
+  const [hasMore, setHasMore] = useState(true)
 
   useEffect(() => {
-    setSitesResponse(locationsData)
+    const timer1 = setTimeout(() => handleGetLocations(), 500)
+    return () => {
+      clearTimeout(timer1)
+    }
+  }, [page, userStore.clientId, searchValue, locationsStore.locationFilters])
+
+  useEffect(() => {
+    setPage(1)
+  }, [searchValue, locationsStore.locationFilters])
+
+  useEffect(() => {
+    dispatch(locationsActions.setLocationFilters({
+      dateRange: 'today',
+      dateFrom: '',
+      dateTo: '',
+      status: 'all',
+      state: 'all',
+      city: 'all'
+    }))
+    handleGetCatalogs()
   }, [])
+
+  const handleGetLocations = async () => {
+    try {
+      if (!locationsStore.showSiteViewPanel && !locationsStore.selectedSite) {
+        const filters = locationsStore.locationFilters
+        const response = await getLocations(
+          userStore.userInfo.company_id ?? userStore.userInfo.companyId,
+          page,
+          locationsPerPage,
+          null,
+          searchValue,
+          filters.dateRange,
+          filters.dateFrom,
+          filters.dateTo,
+          filters.status === 'all' ? '' : filters.status,
+          filters.state === 'all' ? '' : filters.state,
+          filters.city === 'all' ? '' : filters.city)
+        setSitesResponse(response)
+        setHasMore(response.sites.length === locationsPerPage)
+        if (page === 1) {
+          setSiteListing(response.sites)
+        } else {
+          setSiteListing(prevList => [...prevList, ...response.sites])
+        }
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleGetCatalogs = async () => {
+    const statesData = await callLocationApi('POST', '/states', {
+      country: 'United States'
+    })
+    if (!statesData.error) {
+      const finalStates = []
+      finalStates.push({
+        id: 'all',
+        name: ''
+      })
+      statesData.data.states.forEach(state => {
+        finalStates.push({
+          id: state.state_code,
+          name: state.name
+        })
+      })
+      dispatch(locationsActions.setStatesOptions(finalStates))
+    }
+    const filters = await getSitesAdvancedFiltersInfo()
+    const callTypesRes = await getLocationCallTypes(userStore.userInfo.company_id ?? userStore.userInfo.companyId)
+    filters.trades.forEach(trade => {
+      trade.id = trade.name
+    })
+    filters.services.forEach(service => {
+      service.id = service.name
+    })
+    const callTypes = []
+    callTypesRes.forEach(callType => {
+      if (callType && callType !== '') {
+        callTypes.push({
+          id: callType
+        })
+      }
+    })
+    dispatch(locationsActions.setTradesOptions([{ id: 'all' }, ...filters.trades]))
+    dispatch(locationsActions.setServicesOptions([{ id: 'all' }, ...filters.services]))
+    dispatch(locationsActions.setCallTypeOptions([{ id: 'all' }, ...callTypes]))
+  }
 
   const dateOptions = [
     {
@@ -607,34 +224,122 @@ const Locations = () => {
     setSearch('')
   }
 
-  const handleShowFilterClick = () => {
-    dispatch(locationsActions.showAdvancedFilters())
+  const handleFiltersOpen = (event) => {
+    setAnchorFilters(event.currentTarget)
+  }
+  const handleFiltersClose = (event) => {
+    setAnchorFilters(null)
   }
 
-  const handleClearFilters = async () => {
-    setSearch('')
-    dispatch(locationsActions.setAdvancedFiltersSelected(null))
-    dispatch(locationsActions.setAdvancedFiltersParams(null))
-    dispatch(locationsActions.reloadResponse())
+  const handleSortOpen = (event) => {
+    setAnchorSort(event.currentTarget)
+  }
+  const handleSortClose = (event) => {
+    setAnchorSort(null)
+  }
+
+  const tabs = () => (
+    <Container
+      data-testid={'wo_info_component'}
+      role="presentation"
+      className={classes.tabContainer}
+    >
+      <AppBar position="static" elevation={0} classes={{ root: classes.appBar }} >
+        <Tabs value={tabValue} onChange={handleChangeTab} aria-label="simple tabs example" variant="fullWidth"
+          classes={{ root: classes.tabs }}
+          TabIndicatorProps={{
+            style: {
+              background: theme.colors.iconBlue,
+              height: '3px',
+              borderRadius: '4px',
+              width: 'calc(100% / 3 - 100% / 6)',
+              marginLeft: 'calc(100% / 19)'
+            }
+          }}
+          style={{ zIndex: 1000 }} >
+          <Tab classes={{ root: classes.tab }} value="/work-orders" label={t('locations.work_orders.work_orders')} {...a11yProps('work-orders')} />
+          {/* TODO: uncomment when tabs content is designed
+           <Tab classes={{ root: classes.midTab }} value="/proposals" label={t('locations.work_orders.proposals')} {...a11yProps('proposals')} />
+          <Tab classes={{ root: classes.tab }} value="/invoices" label={t('locations.work_orders.invoices')} {...a11yProps('invoices')} /> */}
+          <IconButton className={classes.iconButton}>
+            <Badge color="error" variant="dot" invisible={invisibleSortBadge} classes={{ root: classes.badgeSort }}>
+              <SortRounded onClick={handleSortOpen} classes={{ root: isSortMenuOpen ? classes.sortIconSelected : classes.sortIcon }} />
+            </Badge>
+          </IconButton>
+          <SiteSortMenu
+            isSortMenuOpen={isSortMenuOpen}
+            handleSortClose={handleSortClose}
+            anchorSort={anchorSort}
+            setInvisible={setSortInvisible}
+          />
+          <IconButton onClick={handleFiltersOpen} className={classes.iconButton}>
+            <Badge color="error" variant="dot" invisible={invisibleFilterBadge} classes={{ root: classes.badge }}>
+              <MapFilterIcon color={isFiltersMenuOpen ? '#2F80ED' : '#333333'} />
+            </Badge>
+          </IconButton>
+          <SiteFiltersMenu
+            isFiltersMenuOpen={isFiltersMenuOpen}
+            handleFiltersClose={handleFiltersClose}
+            anchorFilters={anchorFilters}
+            setInvisible={setFilterInvisible}
+          />
+        </Tabs>
+      </AppBar>
+      <TabPanel classes={{ root: classes.tabPanel }} index="/work-orders" value={tabValue}>
+        <WorkOrdersList searchValue={searchValue} />
+      </TabPanel>
+      <TabPanel classes={{ root: classes.tabPanel }} index="/proposals" value={tabValue}>
+        { }
+      </TabPanel>
+      <TabPanel classes={{ root: classes.tabPanel }} index="/invoices" value={tabValue}>
+        { }
+      </TabPanel>
+    </Container>
+  )
+
+  const handleChangeTab = (event, newValue) => {
+    setTabValue(newValue)
+  }
+
+  const backSiteView = () => {
+    dispatch(locationsActions.showMapSiteView({
+      coordinates: {
+        lat: 40.175472,
+        lng: -101.466083
+      },
+      zoom: 5,
+      hideMarkers: false,
+      selectedMarkerIndex: null
+    }))
+    dispatch(locationsActions.setSelectedSite(null))
+    dispatch(locationsActions.setActiveInfoWindow(null))
+    dispatch(locationsActions.hideSiteViewPanel())
+  }
+
+  const handleClosePanel = () => {
+    dispatch(locationsActions.setSelectedWorkOrder(null))
   }
 
   const drawerBoxComponent = () => {
     return <Box data-testid={'search_section'} >
-      <Box className={classes.leftColumnSites} hidden={!locationsStore.showSearch} >
+      <Box className={classes.leftColumnSites} >
         <Grid container alignItems='center' className={classes.gridFilters}>
           <Grid item xs={11}>
-            <Box pr={1}>
+            <Box display="flex" pr={1}>
+              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
+                <ArrowBackIos className={classes.backIcon} />
+              </IconButton>}
               <TextField
                 className={classes.searchBox}
                 value={searchValue}
                 size='small'
-                disabled={userHasAuthorization('masquerade:write') && !clientStore}
+                disabled={false}
                 variant='outlined'
                 margin='normal'
                 required
                 fullWidth
                 id='search'
-                placeholder={t('locations.search_placeholder')}
+                placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
                 onChange={(e) => setSearch(e.target.value)}
@@ -661,36 +366,21 @@ const Locations = () => {
                   setHideLeftSection(true)
                 }}
                 className={classes.arrowButton}>
-                <Menu className={classes.menuIcon}/>
+                <Menu className={classes.menuIcon} />
               </IconButton>
             </Box>
           </Grid>
         </Grid>
-
-        {/* CLEAR ADVANCED FILTER BUTTONS */}
-        <Box hidden={!locationsStore.advancedFiltersSelected}>
-          <Box ml={2} mr={2}>
-            <Grid container justifyContent='flex-end'>
-              <Grid item align='left' xs={6}>
-                <Button onClick={handleClearFilters} className={classes.font12} size='small' color='primary'>
-                  {t('sites.filters.clear_filters')}
-                </Button>
-              </Grid>
-              <Grid item align='right' xs={6}>
-                <Button onClick={handleShowFilterClick} className={classes.font12} size='small' color='primary'>
-                    {t('sites.filters.return_advanced_filters')}
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+        <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'flex' : 'none'} >
+          {tabs()}
         </Box>
 
         {/* RESULTS */}
-        <Grid container >
-          <Grid item xs={12}>
-            <SearchResults sites={sitesResponse?.sites ?? []} activeTab={locationsStore.activeTab}/>
+        <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
+          <Grid item >
+            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} />
           </Grid>
-        </Grid>
+        </Box>
       </Box>
 
     </Box>
@@ -698,16 +388,17 @@ const Locations = () => {
 
   return (
     <Container className={classes.mainContainer}>
-     <Drawer
-          id="left-drawer"
-          key="left-drawer"
-          anchor={'left'}
-          open={!hideLeftSection}
-          classes={{ paper: classes.drawerPaper }}
-          variant="persistent"
-        >
-          {drawerBoxComponent()}
-        </Drawer>
+      <DetailedInfo workOrder={locationsStore.selectedWorkOrder} handleClosePanel={handleClosePanel} />
+      <Drawer
+        id="left-drawer"
+        key="left-drawer"
+        anchor={'left'}
+        open={!hideLeftSection}
+        classes={{ paper: classes.drawerPaper }}
+        variant="persistent"
+      >
+        {drawerBoxComponent()}
+      </Drawer>
       <Main open={!hideLeftSection} width={actualWidth} data-testid={'sites_page'}>
         <Box data-testid={'google_maps'} bgcolor={'grey'} className={classes.gmapBox}>
           <GMap
@@ -727,6 +418,7 @@ const Locations = () => {
             setDateEnd={setDateEnd}
             forceReloadOverlay={forceReloadOverlay}
             setForceReloadOverlay={setForceReloadOverlay}
+            siteListing={siteListing}
             dateStart={dateStart}
             dateEnd={dateEnd}
           />

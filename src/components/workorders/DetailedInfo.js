@@ -16,9 +16,9 @@ import {
   AppBar,
   Tab,
   Tabs,
-  Drawer
+  Drawer,
+  useTheme
 } from '@mui/material'
-import { statusColors } from '../../styles/mui_custom_theme'
 import { getWorkOrder, workOrdersPortal } from '../../lib/Api'
 import { WoDetails } from './WoDetails'
 import { AuditTrail } from './AuditTrail'
@@ -65,6 +65,7 @@ function a11yProps (index) {
 }
 
 export const DetailedInfo = props => {
+  const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [ready, setReady] = useState(false)
   const [loadingMessage, setLoadingMessage] = useState(null)
@@ -126,8 +127,8 @@ export const DetailedInfo = props => {
 
   const handleClose = () => {
     setOpen(false)
-    handleClosePanel()
     setTabValue('/activities')
+    handleClosePanel()
   }
 
   const cleanClose = () => {
@@ -150,7 +151,7 @@ export const DetailedInfo = props => {
           classes={{ root: classes.tabs }}
           TabIndicatorProps={{
             style: {
-              background: statusColors.open,
+              background: theme.colors.iconBlue,
               height: '3px',
               borderRadius: '4px',
               width: '20%',
@@ -236,7 +237,7 @@ export const DetailedInfo = props => {
           photos={photos}
           index={photoIndex}
           cleanClose={cleanClose}
-          woInfo={workOrder}
+          woInfo={trips[0] ?? workOrder}
           style={{ zIndex: 1500 }}
         />
       )}
@@ -266,13 +267,15 @@ export const DetailedInfo = props => {
                 : classes.woNoStatus
             }
           >
-            {(viewMode ? trips[0] : workOrder)?.status
-              ? t(
+            {(viewMode && !trips[0]) || (!viewMode && !workOrder)
+              ? ''
+              : (viewMode ? trips[0] : workOrder)?.status
+                  ? t(
                   `work_orders.wo_states.${getWOstatus(
                     viewMode ? trips[0] : workOrder
                   )}`
-              )
-              : t('work_orders.wo_states.no_status')}
+                  )
+                  : t('work_orders.wo_states.no_status')}
           </FormLabel>
           {workOrder?.invoice?.id && (
             <>

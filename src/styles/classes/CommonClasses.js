@@ -42,6 +42,14 @@ export const mainContainerStyles = makeStyles(theme => ({
         display: 'none'
       },
       touchAction: 'pan-y'
+    },
+    [theme.breakpoints.up('md')]: {
+      overflowY: 'auto'
+    }
+  },
+  containerScrollHidden: {
+    [theme.breakpoints.up('md')]: {
+      overflowY: 'hidden'
     }
   },
   backdrop: {
@@ -154,18 +162,32 @@ export const navBarStyles = makeStyles(theme => ({
     display: 'flex'
   },
   logoLink: {
-    margin: '27px auto'
+    [theme.breakpoints.up('xs')]: {
+      margin: '15px auto 0px auto'
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: '27px auto'
+    }
   },
   logo: {
-    width: '170px'
+    width: '170px',
+    maxHeight: '42px'
   },
   companyName: {
     fontSize: '24px',
     fontWeight: '600',
     color: theme.colors.text,
-    margin: 'auto 15px auto 0px'
+    margin: 'auto 15px auto 0px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
   },
   tabs: {
-    marginTop: '32px'
+    [theme.breakpoints.up('xs')]: {
+      marginTop: '0px'
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: '32px'
+    }
   }
 }))

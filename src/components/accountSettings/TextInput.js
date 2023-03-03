@@ -59,6 +59,7 @@ export const TextInput = React.forwardRef(
                           {value && (
                               <IconButton
                                   aria-label="Clear contents"
+                                  tabIndex="-1"
                                   onClick={() => {
                                     handleChange({ target: { name: name, value: '' } }, id)
                                   }}
@@ -75,7 +76,7 @@ export const TextInput = React.forwardRef(
                 className: classes.label
               }}
               placeholder={
-                  placeholder ? t('account_settings.form.enter') + ' ' + label : ''
+                  placeholder ?? t('account_settings.form.enter') + ' ' + label
               }
               classes={{ root: classes.root }}
               autoComplete="off"

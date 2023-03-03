@@ -229,7 +229,7 @@ const SignIn = () => {
     password: yup.string().required(t('general.messages.errors.sign_in'))
   })
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit } = useForm({
     mode: 'all',
     resolver: yupResolver(validationSchema)
   })
@@ -328,7 +328,6 @@ const SignIn = () => {
                 autoComplete='off'
                 type='text'
                 autoFocus
-                error={!!errors.email}
                 FormHelperTextProps={{
                   classes: {
                     root: classes.errorMessage,
@@ -361,8 +360,6 @@ const SignIn = () => {
                 type='password'
                 id='password'
                 autoComplete='new-password'
-                error={!!errors.password}
-                helperText={errors.password && errors.email && errors.email.message}
                 FormHelperTextProps={{
                   classes: {
                     root: classes.errorMessage,
@@ -416,7 +413,7 @@ const SignIn = () => {
                 </BasicButton>
               </Grid>
               <Grid item xs={5} textAlign={'end'}>
-                <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type='submit' variant='contained' >
+                <HighlightButton id='sign_in_button' data-testid='sign_in_button' disabled={!email || !password} type="submit" variant='contained' >
                   {t('sign_in.sign_in')}
                 </HighlightButton>
               </Grid>

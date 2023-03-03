@@ -343,6 +343,9 @@ export const mainTableStyles = makeStyles(theme => ({
   checkboxTablecell: {
     width: '48px'
   },
+  dateTablecell: {
+    width: '200px'
+  },
   emptyTableCell: {
     borderBottom: 'none'
   },
@@ -629,9 +632,8 @@ export const dateTimeFilterStyles = makeStyles(theme => ({
 
 export const detailedInfoStyles = makeStyles(theme => ({
   presentation: {
-    marginBottom: '0px',
-    marginTop: '19px',
-    overflowY: 'auto'
+    margin: 0,
+    marginTop: '19px'
   },
   loading: {
     justifyItems: 'center',
@@ -642,16 +644,14 @@ export const detailedInfoStyles = makeStyles(theme => ({
     fontSize: '16px'
   },
   drawerPaper: {
-    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
+    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 1px'}))`,
     marginTop: navBarHeaderHeight,
     width: '360px',
     borderRadius: '8px',
-    overflow: 'auto',
     overflowX: 'hidden',
+    overflowY: 'hidden',
     zIndex: 1500,
     boxSizing: 'content-box',
-    marginRight: '19px',
-    marginBottom: '20px',
     display: 'flex'
   },
   midTab: {
@@ -694,7 +694,9 @@ export const detailedInfoStyles = makeStyles(theme => ({
       padding: '0px'
     },
     padding: '0px 0px',
-    marginTop: '10px'
+    marginTop: '10px',
+    maxHeight: '56vh',
+    overflowY: 'auto'
   },
   title: {
     padding: '12px 0px',
@@ -1180,7 +1182,14 @@ export const slideFilterStyles = makeStyles(theme => ({
   },
   searchInput1: theme.filtersClasses.searchInput1,
   searchInput2: theme.filtersClasses.searchInput2,
-  menuItem: { ...theme.filtersClasses.menuItem, minWidth: '164px', whiteSpace: 'initial', wordBreak: 'break-word' }
+  menuItem: { ...theme.filtersClasses.menuItem, width: '220px !important', whiteSpace: 'initial', wordBreak: 'break-word' },
+  itemLabel: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
+  }
 }))
 
 export const sortMenuStyles = makeStyles(theme => ({
