@@ -203,6 +203,7 @@ const CompanySettings = props => {
 
   const handleSave = async (data) => {
     try {
+      setButtonDisabled(true)
       const newProfile = { ...data }
       delete newProfile.company
       delete newProfile.id
@@ -251,8 +252,10 @@ const CompanySettings = props => {
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
       setOpen(false)
+      setButtonDisabled(false)
     } catch (error) {
       console.error(error)
+      setButtonDisabled(false)
     }
   }
 
