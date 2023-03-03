@@ -564,14 +564,6 @@ export const ActivitiesCard = props => {
                   return null
                 })}
             </div>
-            {data?.logs?.length === 0 && noCheckInComp()}
-            <Box className={classes.serviceType}>
-              <Divider className={classes.divider} />
-              <FormLabel className={classes.serviceTypeTitle}>
-                {t('work_orders.field_service')}
-              </FormLabel>
-              <Divider className={classes.divider} />
-            </Box>
             {data.status === 'completed' &&
               data?.service &&
               data.service.map(service => (
