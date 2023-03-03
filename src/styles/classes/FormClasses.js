@@ -34,7 +34,8 @@ export const chipStyles = makeStyles(theme => ({
     fontSize: '12px',
     fontWeight: '400',
     padding: '16px 0px',
-    lineHeight: '14px'
+    lineHeight: '14px',
+    '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)'
   },
   chipSelected: {
     fontSize: '12px',
@@ -43,7 +44,8 @@ export const chipStyles = makeStyles(theme => ({
     color: 'white',
     border: '1px solid ' + theme.colors.iconBlue,
     padding: '16px 0px',
-    lineHeight: '14px'
+    lineHeight: '14px',
+    '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)'
   }
 }))
 
