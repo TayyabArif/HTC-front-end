@@ -181,7 +181,6 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
@@ -190,7 +189,6 @@ export const UpdateAccountInfo = props => {
       (event === 'new' && (updatedInfo.password?.length < 6 || updatedInfo.passwordConfirm?.length < 6 || (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
-      errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message
     ) {

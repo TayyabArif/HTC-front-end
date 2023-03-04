@@ -18,11 +18,12 @@ import * as ApiServices from '../../services/ApiService'
 import { userHasAuthorization } from '../../services/AuthService'
 import ReactGA from 'react-ga4'
 import GlobalChip from '../form/Chip'
-import { rolesCardStyles } from '../../styles/classes/CompanySettingsClasses'
+import { rolesCardSxStyles, rolesCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const RolesCard = props => {
   const { roles, updateRoles } = props
   const classes = rolesCardStyles()
+  const styles = rolesCardSxStyles
   const { t } = useTranslation()
 
   const [openPanel, setOpenPanel] = useState(false)
@@ -158,13 +159,13 @@ export const RolesCard = props => {
                     />
                   </Box>
                 </Grid>
-                <Grid item xs={11.7}>
+                <Grid item xs={11.7} sx={ roles.length > 1 ? styles.divider : '' }>
                   <Divider />
                 </Grid>
               </Grid>
             )
           })}
-          <Box display="flex" flexDirection="row" alignItems="baseline">
+          <Box sx={styles.viewOnlyCard} display="flex" flexDirection="row" alignItems="baseline">
             <Typography classes={{ root: classes.roleItem }}>
               {t('company_settings.view_only')}
             </Typography>

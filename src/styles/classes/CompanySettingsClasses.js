@@ -976,6 +976,14 @@ export const rolesCardStyles = makeStyles(theme => ({
     minWidth: '10em'
   }
 }))
+export const rolesCardSxStyles = {
+  viewOnlyCard: {
+    display: 'none'
+  },
+  divider: {
+    display: 'none'
+  }
+}
 
 export const tradesServicesCardStyles = makeStyles(theme => ({
   card: {
