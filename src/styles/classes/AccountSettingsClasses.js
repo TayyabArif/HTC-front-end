@@ -90,7 +90,10 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
   drawerPaper: {
     maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
     marginTop: navBarHeaderHeight,
-    width: '387px',
+    width: '360px',
+    [theme.breakpoints.up('sm')]: {
+      width: '387px'
+    },
     borderRadius: '8px',
     overflow: 'auto',
     overflowX: 'hidden',
