@@ -102,11 +102,18 @@ const CompanySettings = props => {
       const response = await getCompanyProfile(userStore.userInfo.company_id)
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
-      if (response?.service_area) {
+      if (response?.service_area && response?.service_area.length > 0) {
         response.service_area[0].zip = await getZipCodesFiltered(
           response?.service_area[0]
         )
         parseDataToMapView(response.service_area[0])
+      }
+      if (response?.logo?.url) {
+        const date = new Date()
+        const dateFormatted = `${date.getFullYear()}-${date.getDate()}-${
+          date.getMonth() + 1
+        }_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
+        response.logo.url = response.logo.url + '?' + dateFormatted
       }
       const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
       setCompanyConfigs(configResponse)
