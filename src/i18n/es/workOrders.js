@@ -50,8 +50,7 @@ export const workOrders = () => {
       close_date: 'Fecha de Fin',
       wo_status: 'Estado WO',
       invoices: 'Estado de Factura',
-      external_id: 'Seguimiento de cliente #',
-      tracking: 'Id Externo'
+      tracking: 'Seguimiento de cliente #'
     },
     advanced_fields: {
       state: 'Estado',
