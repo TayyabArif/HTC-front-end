@@ -14,6 +14,7 @@ export const locations = () => {
     no_activity: 'Sin Actividad',
     no_results: 'No Existen Resultados',
     update_search: 'Por favor actualice los parámetros de búsqueda',
+    no_locations: 'No existen locaciones',
     work_orders: {
       search_placeholder: 'Buscar Órdenes de Trabajo',
       tracking: 'Seguimiento cliente',

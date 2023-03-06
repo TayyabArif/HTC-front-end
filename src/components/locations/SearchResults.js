@@ -21,14 +21,16 @@ import { mobileBreakpoint } from '../../lib/Constants'
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
 
 export const SearchResults = (props) => {
-  const { sites, actualPage, hasMore } = props
+  const { sites, actualPage, hasMore, searchValue } = props
   const classes = searchResultsStyles()
   const wWidth = useWindowWidth()
   const { t } = useTranslation()
   const wHeight = useWindowHeight()
   const locationsStore = useSelector((state) => state.locations)
+  const locationsFilters = locationsStore.locationFilters
   const [keyAutoSizer, setKeyAutoSizer] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [filtersFlag, setFiltersFlag] = useState(false)
 
   useEffect(() => {
     setKeyAutoSizer(value => value + 1)
@@ -37,6 +39,14 @@ export const SearchResults = (props) => {
   useEffect(() => {
     setLoading(false)
   }, [sites])
+
+  useEffect(() => {
+    if (searchValue === '' && locationsFilters.dateRange === 'today' && locationsFilters.status === 'all' && locationsFilters.state === 'all' && locationsFilters.city === 'all') {
+      setFiltersFlag(false)
+    } else {
+      setFiltersFlag(true)
+    }
+  }, [searchValue, locationsFilters])
 
   const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const row = sites[index]
@@ -80,16 +90,26 @@ export const SearchResults = (props) => {
         )}
       </AutoSizer>
     } else {
-      return (
-        <Box pt={5}>
-          <Typography className={classes.font12} align='center'>
-            {t('locations.no_results')}
-          </Typography>
-          <Typography className={classes.font12} align='center'>
-            {t('locations.update_search')}
-          </Typography>
-        </Box>
-      )
+      if (filtersFlag) {
+        return (
+          <Box pt={5}>
+            <Typography className={classes.font12} align='center'>
+              {t('locations.no_results')}
+            </Typography>
+            <Typography className={classes.font12} align='center'>
+              {t('locations.update_search')}
+            </Typography>
+          </Box>
+        )
+      } else {
+        return (
+          <Box pt={5}>
+            <Typography className={classes.font12} align='center'>
+              {t('locations.no_locations')}
+            </Typography>
+          </Box>
+        )
+      }
     }
   } else {
     return (<div></div>)
