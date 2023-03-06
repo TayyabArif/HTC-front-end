@@ -1217,5 +1217,8 @@ export const woDetailsStyles = makeStyles(theme => ({
     fontWeight: '400',
     lineHeight: '17px',
     letterSpacing: '1px'
+  },
+  cardContent: {
+    padding: '5px'
   }
 }))
