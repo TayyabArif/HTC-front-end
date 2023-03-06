@@ -214,3 +214,28 @@ export const defWorkColumns = [
   { id: 'close_date', visible: true },
   { id: 'wo_status', visible: true }
 ]
+
+export const isChrome = () => {
+  const isChromium = window.chrome
+  const winNav = window.navigator
+  const vendorName = winNav.vendor
+  const isOpera = typeof window.opr !== 'undefined'
+  const isIEedge = winNav.userAgent.indexOf('Edg') > -1
+  const isIOSChrome = winNav.userAgent.match('CriOS')
+
+  if (isIOSChrome) {
+    return true
+  } else if (
+    isChromium !== null &&
+typeof isChromium !== 'undefined' &&
+vendorName === 'Google Inc.' &&
+isOpera === false &&
+isIEedge === false
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)

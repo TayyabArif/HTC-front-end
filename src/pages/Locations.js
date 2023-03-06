@@ -99,6 +99,7 @@ const Locations = () => {
   const isFiltersMenuOpen = Boolean(anchorFilters)
   const theme = useTheme()
   const [searchValue, setSearch] = useState('')
+  const [searchWO, setSearchWO] = useState('')
   const [invisibleFilterBadge, setFilterInvisible] = useState(true)
   const [invisibleSortBadge, setSortInvisible] = useState(true)
   const [page, setPage] = useState(1)
@@ -224,7 +225,11 @@ const Locations = () => {
   ]
 
   const handleClearSearchBox = async (event) => {
-    setSearch('')
+    if (locationsStore.selectedSite) {
+      setSearchWO('')
+    } else {
+      setSearch('')
+    }
   }
 
   const handleFiltersOpen = (event) => {
@@ -288,7 +293,7 @@ const Locations = () => {
         </Tabs>
       </AppBar>
       <TabPanel classes={{ root: classes.tabPanel }} index="/work-orders" value={tabValue}>
-        <WorkOrdersList searchValue={searchValue} />
+        <WorkOrdersList searchValue={searchWO} />
       </TabPanel>
       <TabPanel classes={{ root: classes.tabPanel }} index="/proposals" value={tabValue}>
         { }
@@ -322,6 +327,14 @@ const Locations = () => {
     dispatch(locationsActions.setSelectedWorkOrder(null))
   }
 
+  const handleChangeSearch = (event) => {
+    if (locationsStore.selectedSite) {
+      setSearchWO(event.target.value)
+    } else {
+      setSearch(event.target.value)
+    }
+  }
+
   const drawerBoxComponent = () => {
     return <Box data-testid={'search_section'} >
       <Box className={classes.leftColumnSites} >
@@ -333,7 +346,7 @@ const Locations = () => {
               </IconButton>}
               <TextField
                 className={classes.searchBox}
-                value={searchValue}
+                value={locationsStore.selectedSite ? searchWO : searchValue}
                 size='small'
                 disabled={false}
                 variant='outlined'
@@ -344,7 +357,7 @@ const Locations = () => {
                 placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={handleChangeSearch}
                 InputProps={{
                   endAdornment: (searchValue !== '' &&
                     <InputAdornment

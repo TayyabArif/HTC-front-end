@@ -28,7 +28,6 @@ export const PanelCountsMobile = (props) => {
         />
         <Chip
             label={labelComp(t('locations.open'), props.searchResults?.meta?.sites_open_wo ?? 0)}
-            onClick={() => {}}
             onDelete={() => {}}
             variant="filled"
             className={classes.font12}
@@ -36,7 +35,6 @@ export const PanelCountsMobile = (props) => {
         />
         <Chip
             label={labelComp(t('locations.in_progress'), props.searchResult?.meta?.sites_in_progress_wo ?? 0)}
-            onClick={() => {}}
             onDelete={() => {}}
             variant="filled"
             className={classes.font12}
@@ -44,7 +42,6 @@ export const PanelCountsMobile = (props) => {
         />
         <Chip
             label={labelComp(t('locations.completed'), props.searchResults?.meta?.sites_completed_wo ?? 0)}
-            onClick={() => {}}
             onDelete={() => {}}
             variant="filled"
             className={classes.font12}
@@ -52,7 +49,6 @@ export const PanelCountsMobile = (props) => {
         />
         <Chip
             label={labelComp(t('locations.no_activity'), props.searchResults?.meta?.no_activity_sites ?? 0)}
-            onClick={() => {}}
             onDelete={() => {}}
             variant="filled"
             className={classes.font12}
