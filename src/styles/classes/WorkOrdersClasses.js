@@ -751,7 +751,7 @@ export const detailedInfoStyles = makeStyles(theme => ({
   cancelled: {
     fontSize: '16px',
     fontWeight: '800',
-    color: theme.colors.grey,
+    color: theme.colors.workOrderColors.cancelled,
     display: 'flex',
     flex: 1,
     maxWidth: '100px'
