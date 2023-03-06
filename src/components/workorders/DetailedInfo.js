@@ -205,33 +205,6 @@ export const DetailedInfo = props => {
     </div>
   )
 
-  /* const tabActivities = () => (
-    <div>
-      {trips &&
-        trips.length > 0 &&
-        trips.map((obj, ind) => (
-          <ActivitiesCard
-            key={ind}
-            data={obj}
-            index={ind}
-            length={trips.length}
-            photosFtc={obj.ftc?.photos ?? []}
-            setPhotos={setPhotos}
-            setPhotoIndex={setPhotoIndex}
-            updateWoData={data => {
-              obj = data
-              if (obj.id === workOrder.id) {
-                workOrder.status = 'completed'
-                workOrder.invoice = data.invoice
-              }
-            }}
-            setReady={setReady}
-            setMessage={setLoadingMessage}
-          />
-        ))}
-    </div>
-  ) */
-
   const tabActivities = () => (
     <div>
       {trips &&
@@ -313,14 +286,6 @@ export const DetailedInfo = props => {
                   )
                   : t('work_orders.wo_states.no_status')}
           </FormLabel>
-          {workOrder?.invoice?.id && (
-            <>
-              <FontAwesomeIcon
-                className={classes.invoiceIcon}
-                icon={['far', 'arrow-right-from-line']}
-              />
-            </>
-          )}
         </div>
         <Grid style={{ opacity: ready ? 1 : 0.1 }} container spacing={1}>
           <Grid item xs={8} classes={{ root: classes.grid }}>
