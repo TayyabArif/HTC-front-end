@@ -118,7 +118,7 @@ export const WorkOrdersList = (props) => {
         <List
           width={width < wWidth ? width : wWidth}
           height={wWidth > mobileBreakpoint ? wHeight - 210 : wHeight - 190}
-          rowCount={workOrders.length}
+          rowCount={workOrders.length + 1}
           rowHeight={getRowHeight}
           rowRenderer={woRowRenderer}
         />

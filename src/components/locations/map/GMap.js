@@ -80,9 +80,8 @@ export const GMap = (props) => {
           mapContainerStyle={{
             height: wWidth > mobileBreakpoint
               ? `calc(100vh - ${navBarHeaderHeight})`
-              : `calc(100vh - ${navBarHeaderHeightMobile})`,
+              : `calc(100vh - ${navBarHeaderHeightMobile} - 55px)`,
             width: '100%',
-            position: 'fixed',
             overflowY: 'hidden'
           }}
           center={locationsStore.map.center}
