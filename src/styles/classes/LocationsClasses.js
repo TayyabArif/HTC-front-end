@@ -39,6 +39,7 @@ export const locationsStyles = makeStyles((theme) => ({
     height: '12px'
   },
   leftColumnSites: {
+    touchAction: 'none',
     '&::-webkit-scrollbar': {
       display: 'none'
     },
@@ -761,11 +762,7 @@ export const locationCardStyles = makeStyles((theme) => ({
     fontSize: 13,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    '-webkit-line-clamp': 2,
-    '-webkit-box-orient': 'vertical'
+    overflow: 'hidden !important'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
