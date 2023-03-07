@@ -326,9 +326,6 @@ const Locations = () => {
         <Grid container alignItems='center' className={classes.gridFilters}>
           <Grid item xs={11}>
             <Box display="flex" pr={1}>
-              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
-                <ArrowBackIos className={classes.backIcon} />
-              </IconButton>}
               <TextField
                 className={classes.searchBox}
                 value={searchValue}
@@ -361,13 +358,16 @@ const Locations = () => {
           </Grid>
           <Grid item xs={1}>
             <Box>
-              <IconButton
+              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
+                <ArrowBackIos className={classes.backIcon} /><small>Back</small>
+              </IconButton>}
+              {!locationsStore.selectedSite && <IconButton
                 onClick={() => {
                   setHideLeftSection(true)
                 }}
                 className={classes.arrowButton}>
                 <Menu className={classes.menuIcon} />
-              </IconButton>
+              </IconButton>}
             </Box>
           </Grid>
         </Grid>

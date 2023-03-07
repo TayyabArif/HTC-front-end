@@ -230,9 +230,13 @@ export const locationsStyles = makeStyles((theme) => ({
     height: '20px'
   },
   backButton: {
-    marginTop: '23px',
+    marginTop: '4px',
     width: '25px',
-    height: '25px'
+    height: '25px',
+    '& small': {
+      fontSize: '12px',
+      marginLeft: '-7px'
+    }
   },
   badge: {
     position: 'fixed',
