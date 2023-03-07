@@ -148,6 +148,15 @@ const Locations = () => {
         } else {
           setSiteListing(prevList => [...prevList, ...response.sites])
         }
+        dispatch(locationsActions.resetZoomAndCenter({
+          center: {
+            lat: 40.175472,
+            lng: -101.466083
+          },
+          zoom: 4,
+          hideMarkers: false,
+          selectedMarkerIndex: null
+        }))
       }
     } catch (err) {
       console.error(err)
@@ -320,6 +329,11 @@ const Locations = () => {
     dispatch(locationsActions.setSelectedWorkOrder(null))
   }
 
+  const handleSearchBoxChange = (e) => {
+    dispatch(locationsActions.setSelectedSite(null))
+    setSearch(e.target.value)
+  }
+
   const drawerBoxComponent = () => {
     return <Box data-testid={'search_section'} >
       <Box className={classes.leftColumnSites} >
@@ -339,7 +353,7 @@ const Locations = () => {
                 placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={handleSearchBoxChange}
                 InputProps={{
                   endAdornment: (searchValue !== '' &&
                     <InputAdornment
