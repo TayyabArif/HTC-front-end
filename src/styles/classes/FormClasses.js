@@ -122,12 +122,15 @@ export const numberInputStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   label: {
-    fontSize: '15px',
+    fontSize: '13px',
     fontWeight: '400',
     marginBottom: '0.5em',
     textAlign: 'left',
     marginLeft: '5px',
-    color: theme.colors.stepperGray
+    color: theme.colors.stepperGray,
+    [theme.breakpoints.up('md')]: {
+      fontSize: '15px'
+    }
   },
   error: {
     fontSize: '10px',
