@@ -39,6 +39,7 @@ export const locationsStyles = makeStyles((theme) => ({
     height: '12px'
   },
   leftColumnSites: {
+    touchAction: 'none',
     '&::-webkit-scrollbar': {
       display: 'none'
     },
@@ -98,6 +99,7 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
+    position: 'fixed',
     border: 'none',
     [theme.breakpoints.up('md')]: {
       width: '430px',
@@ -135,6 +137,7 @@ export const locationsStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   gmapBox: {
+    position: 'relative',
     [theme.breakpoints.up('md')]: {
       height: `calc(100vh - ${navBarHeaderHeight})`
     },
@@ -759,11 +762,7 @@ export const locationCardStyles = makeStyles((theme) => ({
     fontSize: 13,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    '-webkit-line-clamp': 2,
-    '-webkit-box-orient': 'vertical'
+    overflow: 'hidden !important'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -914,17 +913,35 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   legendsContainer: {
-    width: '440px',
-    position: 'absolute',
-    bottom: '24px',
+    bottom: '20px',
     left: '15px',
+    width: 'calc(100% - 25px)',
+    zIndex: 1000,
+    maxWidth: '440px',
+    position: 'absolute',
+    overflow: 'hidden',
+    transformOrigin: 'left bottom 0px'
+  },
+  legendsContainerIos: {
+    bottom: '30px',
+    left: '15px',
+    width: 'calc(100% - 25px)',
+    zIndex: 1000,
+    maxWidth: '440px',
+    position: 'absolute',
     overflow: 'hidden',
     transformOrigin: 'left bottom 0px'
   },
   legendsContainerMinimized: {
-    position: 'absolute',
-    bottom: '24px',
     left: '15px',
+    bottom: '20px',
+    position: 'absolute',
+    overflow: 'hidden'
+  },
+  legendsContainerMinimizedIos: {
+    left: '15px',
+    bottom: '30px',
+    position: 'absolute',
     overflow: 'hidden'
   },
   mapWeatherLegendsBoxMinimized: {
@@ -961,19 +978,35 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   playerContainer: {
+    right: '15px',
+    width: 'calc(100% - 25px)',
+    maxWidth: '350px',
     height: '142px',
-    width: '350px',
     position: 'absolute',
     bottom: '20px',
+    overflow: 'hidden'
+  },
+  playerContainerIos: {
     right: '15px',
+    width: 'calc(100% - 25px)',
+    maxWidth: '350px',
+    height: '142px',
+    position: 'absolute',
+    bottom: '30px',
     overflow: 'hidden'
   },
   playerContainerMinimized: {
+    right: '15px',
     height: 'auto',
-    width: '350px',
     position: 'absolute',
     bottom: '20px',
+    overflow: 'hidden'
+  },
+  playerContainerMinimizedIos: {
     right: '15px',
+    height: 'auto',
+    position: 'absolute',
+    bottom: '30px',
     overflow: 'hidden'
   },
   mapWeatherPlayerBoxMinimized: {

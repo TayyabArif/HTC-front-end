@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 
 /* Utils */
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
-import { mobileBreakpoint } from '../../lib/Constants'
+import { isChrome, isSafari, mobileBreakpoint } from '../../lib/Constants'
 
 // Styles
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
@@ -72,8 +72,10 @@ export const SearchResults = (props) => {
         {({ width }) => (
           <List
             width={width}
-            height={wWidth > mobileBreakpoint ? wHeight - 180 : wHeight - 205}
-            rowCount={sites.length + 1}
+            height={wWidth > mobileBreakpoint
+              ? wHeight - 180
+              : (wWidth > 577 ? wHeight - 208 : (isSafari && !isChrome() ? wHeight - 240 : wHeight - 240))}
+            rowCount={sites.length}
             rowHeight={getRowHeight}
             rowRenderer={rowRenderer}
           />

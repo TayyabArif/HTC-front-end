@@ -78,9 +78,9 @@ export const GMap = (props) => {
           }}
           mapContainerClassName={classes.markers}
           mapContainerStyle={{
-            height: wWidth <= mobileBreakpoint
-              ? `calc(100vh - ${navBarHeaderHeightMobile})`
-              : `calc(100vh - ${navBarHeaderHeight})`,
+            height: wWidth > mobileBreakpoint
+              ? `calc(100vh - ${navBarHeaderHeight})`
+              : `calc(100vh - ${navBarHeaderHeightMobile} - 55px)`,
             width: '100%',
             overflowY: 'hidden'
           }}

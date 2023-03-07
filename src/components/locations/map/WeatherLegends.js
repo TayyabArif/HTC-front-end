@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
@@ -8,12 +8,25 @@ import { FullscreenExitOutlined, FullscreenOutlined } from '@mui/icons-material'
 /** Styles **/
 import { weatherLegendsStyles } from '../../../styles/classes/LocationsClasses'
 
+/** Utils **/
+import { useWindowWidth } from '@react-hook/window-size'
+import { mobileBreakpoint, isSafari, isChrome } from '../../../lib/Constants'
+
 export const WeatherLegends = (props) => {
   const classes = weatherLegendsStyles()
+  const actualWidth = useWindowWidth()
   const theme = useTheme()
   const { t } = useTranslation()
   const [legendsHidden, setLegendsHidden] = useState(false)
   const containerRef = React.useRef(null)
+
+  useEffect(() => {
+    if (actualWidth > mobileBreakpoint) {
+      setLegendsHidden(false)
+    } else {
+      setLegendsHidden(true)
+    }
+  }, [])
 
   const onHideLegends = () => {
     setLegendsHidden(prevState => !prevState)
@@ -21,7 +34,7 @@ export const WeatherLegends = (props) => {
 
   return (
     <Box hidden={props.hidden}>
-      <Fade className={classes.legendsContainerMinimized} timeout={2000} in={legendsHidden} container={containerRef.current}>
+      <Fade className={isSafari && !isChrome() ? classes.legendsContainerMinimizedIos : classes.legendsContainerMinimized} timeout={2000} in={legendsHidden} container={containerRef.current}>
         <Paper className={classes.mapWeatherLegendsBoxMinimized}>
           <Box p={1}>
             <Box pl={1}>
@@ -41,7 +54,7 @@ export const WeatherLegends = (props) => {
           </Box>
         </Paper>
       </Fade>
-      <Grow className={classes.legendsContainer} timeout={1000} in={!legendsHidden} appear={false}>
+      <Grow className={isSafari && !isChrome() ? classes.legendsContainerIos : classes.legendsContainer} timeout={1000} in={!legendsHidden} appear={false}>
         <Paper>
           <Box p={1}>
             <Box pl={1}>

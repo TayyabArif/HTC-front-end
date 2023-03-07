@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { degrees2meters } from '../../../lib/Global'
-import ReactGA from 'react-ga4'
 
 /** Material UI **/
 import { Menu as MenuIcon, Check as CheckIcon, LocationSearchingOutlined } from '@mui/icons-material'
@@ -96,11 +95,7 @@ export const MapActionButtons = (props) => {
         props.setMapStylesState(mapStylesGray)
         break
     }
-
-    ReactGA.event({
-      category: 'change',
-      action: `change_map_type_to_${e.currentTarget.dataset.mapType}`
-    })
+    setAnchorMOEl(null)
   }
 
   const handleWeatherMenuOpen = (event) => {

@@ -82,7 +82,7 @@ export const WorkOrdersList = (props) => {
 
   useEffect(() => {
     setKeyAutoSizer(value => value + 1)
-  }, [locationsStore.activeTab])
+  }, [locationsStore.selectedSite])
 
   const woRowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const row = workOrders[index]
@@ -90,7 +90,9 @@ export const WorkOrdersList = (props) => {
       setLoading(true)
       setPage(page + 1)
     }
-    return <WorkOrderCard activeTab={props.activeTab} key={row.id} info={row} style={style} />
+    if (row) {
+      return <WorkOrderCard activeTab={props.activeTab} key={row.id} info={row} style={style} />
+    }
   }
 
   const getRowHeight = ({ index }) => {
@@ -102,11 +104,11 @@ export const WorkOrdersList = (props) => {
 
     switch (props.activeTab) {
       case 'active_work_orders':
-        return 108
+        return 120
       case 'all_sites':
         return contentRowLength > 55 ? 95 : 78
       default:
-        return 120
+        return 110
     }
   }
 
@@ -114,9 +116,9 @@ export const WorkOrdersList = (props) => {
     return <AutoSizer key={keyAutoSizer}>
       {({ width }) => (
         <List
-          width={width}
-          height={wWidth > mobileBreakpoint ? wHeight - 205 : wHeight - 180}
-          rowCount={workOrders.length}
+          width={width < wWidth ? width : wWidth}
+          height={wWidth > mobileBreakpoint ? wHeight - 210 : wHeight - 190}
+          rowCount={workOrders.length + 1}
           rowHeight={getRowHeight}
           rowRenderer={woRowRenderer}
         />
