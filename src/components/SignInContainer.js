@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
     margin: '0px !important',
     padding: '0px !important',
     maxWidth: '100%',
-    maxHeight: '100%',
+    height: '100%',
     overflowY: 'auto',
-    position: 'fixed'
+    position: 'fixed',
+    display: 'flex'
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   },
   body: {
+    width: '100%',
     backgroundColor: theme.colors.backdropColor,
     '&::-webkit-scrollbar': {
       display: 'none'
@@ -82,11 +84,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     [theme.breakpoints.up('md')]: {
-      padding: '0px 30px 30px 30px'
+      padding: '0px 12% 30px 12%'
     },
     [theme.breakpoints.down('md')]: {
       padding: '0px',
-      width: '100%'
+      width: '100%',
+      marginTop: 'auto'
     }
   },
   bottomTypos: {
@@ -102,12 +105,14 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   logoGrid: {
-    textAlign: 'center',
     [theme.breakpoints.up('md')]: {
-      padding: 4
+      padding: '4%',
+      textAlign: 'left'
     },
     [theme.breakpoints.down('md')]: {
-      padding: '10px  0px'
+      padding: '10%  0px',
+      textAlign: 'center',
+      margin: '0px auto'
     }
   }
 }))
@@ -121,30 +126,31 @@ export const SignInContainer = (props) => {
 
   return (
     <div>
-      <CssBaseline/>
+      <CssBaseline />
       <Container
         className={classes.scrollContainer}
         style={{
           minWidth: isMobile ? 'unset' : wWidth > 800 ? '800px' : '1440px'
         }}
       >
-      <Backdrop className={classes.backdrop} open={loading}>
-        <CircularProgress color="inherit"/>
-      </Backdrop>
-        {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} className={classes.logoGrid}>
-          <img src={conectadPlatformLogo} alt="Connectad Platform"/>
-        </Grid>}
-        <Grid item xs={12}>
-          <Box className={classes.body}>
-            {props.children}
-          </Box>
-        </Grid>
+        <Backdrop className={classes.backdrop} open={loading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid container>
+          {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} className={classes.logoGrid}>
+            <img src={conectadPlatformLogo} alt="Connectad Platform" />
+          </Grid>}
+          <Grid xs={12}>
+            <Box className={classes.body}>
+              {props.children}
+            </Box>
+          </Grid>
           <Box fullWidth className={classes.bottomBox} >
             <Box >
-              <img src={conectadLogo} alt="Connectad Logo" className={classes.bottomLogo}/>
+              <img src={conectadLogo} alt="Connectad Logo" className={classes.bottomLogo} />
             </Box>
             <Box className={classes.bottomTypos} >
-              <Typography variant={'p'} className={ classes.contactText }>
+              <Typography variant={'p'} className={classes.contactText}>
                 {t('sign_in.contact_us')}
               </Typography>
               <Typography variant={'p'} align={'center'} className={classes.versionText}>
@@ -152,6 +158,7 @@ export const SignInContainer = (props) => {
               </Typography>
             </Box>
           </Box>
+        </Grid>
       </Container>
     </div>
   )

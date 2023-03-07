@@ -227,7 +227,7 @@ const SignIn = () => {
               </Grid>
             </Grid>
 
-            <Box hidden={true} textAlign='center' pt={2}>
+            <Box textAlign='center' pt={2}>
               <Typography component={'span'} align={'center'} className={classes.terms}>
                 {t('sign_in.messages.terms_and_conditions')} <Link onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
               </Typography>

@@ -105,12 +105,12 @@ export const signInStyles = makeStyles((theme) => ({
   },
   terms: {
     fontWeight: '400 !important',
-    fontSize: '14px !important',
+    display: 'block',
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      fontSize: '12px !important'
     },
     [theme.breakpoints.up('md')]: {
-      display: 'block'
+      fontSize: '14px !important'
     }
   },
   linkTerms: {

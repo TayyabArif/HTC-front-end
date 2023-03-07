@@ -26,7 +26,7 @@ const ForgotPasswordEmailSent = () => {
       >
         <Grid item xs={12} md={6}>
           <Grid container justifyContent="center" >
-            <Grid item xs={12} mt={20} textAlign="center">
+            <Grid item xs={12} mt={13} textAlign="center">
               <Typography align='center' className={classes.title}>
                 {t('forgot_password.email_sent.title').toUpperCase()}
               </Typography>
