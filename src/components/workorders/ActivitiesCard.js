@@ -52,7 +52,8 @@ export const ActivitiesCard = props => {
     type,
     getWindowHeight,
     externalUser,
-    setMessage
+    setMessage,
+    etaTime
   } = props
   const wHeight = getWindowHeight ? getWindowHeight() : null
   const classes = activitiesCardStyle()
@@ -486,13 +487,14 @@ export const ActivitiesCard = props => {
           <CardContent style={{ paddingBottom: '3px' }}>
             {data.status !== 'open' && (
             <EtaSelect
-              data={data?.est_service_start}
+              data={data?.est_service_start ? data?.est_service_start : etaTime}
               disabled={getWOstatus(data) !== 'open'}
               woId={data.id}
               type={type}
               onUpdate={eta =>
                 updateWoData({ ...data, est_service_start: eta })
               }
+              maxDate={data?.scheduled_date}
             />)}
 
             <div>

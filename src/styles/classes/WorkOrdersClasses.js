@@ -695,8 +695,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
     },
     padding: '0px 0px',
     marginTop: '10px',
-    maxHeight: '56vh',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    height: 'calc(100vh - 310px)'
   },
   title: {
     padding: '12px 0px',
