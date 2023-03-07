@@ -151,6 +151,7 @@ export const MapFilters = (props) => {
   }
 
   const saveFilters = () => {
+    dispatch(locationsActions.setSelectedSite(null))
     if (dateRange === 'today' && status === 'all' && state === 'all' && city === 'all') {
       props.setInvisible(true)
     } else {

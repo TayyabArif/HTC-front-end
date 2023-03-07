@@ -581,11 +581,12 @@ export const MapActionButtons = (props) => {
 
   const handleRecenter = () => {
     dispatch(locationsActions.resetZoomAndCenter({
-      zoom: 19,
-      center: locationsStore.selectedSite.coordinates
+      center: locationsStore.selectedSite.coordinates,
+      hideMarkers: false,
+      selectedMarkerIndex: locationsStore.selectedSite.id
     }))
-    dispatch(locationsActions.setSelectedSite(locationsStore.selectedSite))
-    dispatch(locationsActions.setActiveInfoWindow(locationsStore.selectedSite.id))
+    dispatch(locationsActions.setActiveInfoWindow(null))
+    dispatch(locationsActions.hideSiteViewPanel())
   }
 
   return (<div>
