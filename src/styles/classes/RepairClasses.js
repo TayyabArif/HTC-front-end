@@ -402,13 +402,15 @@ export const taskListStyles = makeStyles(theme => ({
   repairItem: {
     minHeight: '20px',
     marginBottom: '20px',
-    marginLeft: '5px'
+    marginLeft: '5px',
+    lineHeight: '1.1'
   },
   checkIcon: {
     width: '20px',
     color: theme.colors.workOrders.tab.duedate,
     stroke: theme.colors.workOrders.tab.duedate,
-    strokeWidth: 2
+    strokeWidth: 2,
+    height: '18px'
   },
   dotIcon: {
     fontSize: '7px',
