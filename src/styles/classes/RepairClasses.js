@@ -232,10 +232,12 @@ export const signatureComponentStyles = makeStyles(theme => ({
     height: '99px',
     width: '303px',
     marginBottom: '6px',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    marginLeft: '4px'
   },
   thumb: {
     height: '100%',
+    width: '100%',
     objectFit: 'cover',
     borderRadius: '8px'
   },
@@ -409,7 +411,7 @@ export const taskListStyles = makeStyles(theme => ({
     width: '20px',
     color: theme.colors.workOrders.tab.duedate,
     stroke: theme.colors.workOrders.tab.duedate,
-    strokeWidth: 2,
+    strokeWidth: 1,
     height: '18px'
   },
   dotIcon: {
