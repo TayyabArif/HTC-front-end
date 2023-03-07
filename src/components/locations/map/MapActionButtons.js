@@ -590,11 +590,11 @@ export const MapActionButtons = (props) => {
 
   return (<div>
     <Box className={props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.hiddenButtonsBoxSiteLevel : props.hideLeftSection && !locationsStore.showSiteViewPanel ? classes.hiddenButtonsBox : !props.hideLeftSection && locationsStore.showSiteViewPanel ? classes.mapButtonsBoxSiteLevel : classes.mapButtonsBox}>
-      <Box pb={2} pr={2}>
+      {(props.hideLeftSection || locationsStore.showSiteViewPanel) && <Box pb={2} pr={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
           <MenuIcon color={props.hideLeftSection ? 'primary' : 'inherit'} />
         </MapButton>
-      </Box>
+      </Box>}
       <Box hidden={locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleFiltersOpen}>
           <Badge color="error" variant="dot" invisible={invisibleBadge} className={classes.badge}>
