@@ -358,10 +358,10 @@ const Locations = () => {
           </Grid>
           <Grid item xs={1}>
             <Box>
-              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
+              {(locationsStore.selectedSite && locationsStore.showSiteViewPanel) && <IconButton className={classes.backButton} onClick={backSiteView}>
                 <ArrowBackIos className={classes.backIcon} /><small>Back</small>
               </IconButton>}
-              {!locationsStore.selectedSite && <IconButton
+              {(!locationsStore.selectedSite || !locationsStore.showSiteViewPanel) && <IconButton
                 onClick={() => {
                   setHideLeftSection(true)
                 }}

@@ -228,7 +228,7 @@ export const GMap = (props) => {
         </GoogleMap>
       </LoadScript>)
     }
-  }, [requestLoading, locationsStore.activeInfoWindow, enableCluster, props.hideLeftSection, props.searchResults, locationsStore.map, map, mapType, weather, props.forceReloadOverlay, loading, props.siteListing])
+  }, [requestLoading, locationsStore.activeInfoWindow, enableCluster, props.hideLeftSection, props.searchResults, locationsStore.map, map, mapType, weather, props.forceReloadOverlay, loading, props.siteListing, locationsStore.selectedSite])
 
   return (renderMap ?? null)
 }
