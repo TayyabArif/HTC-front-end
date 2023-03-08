@@ -78,7 +78,7 @@ export const HighlightButton = withStyles((theme) => ({
     },
     fontWeight: '700 !important',
     height: '58px !important',
-    width: '135px !important',
+    width: '140px !important',
     zIndex: 999
   },
   contained: {

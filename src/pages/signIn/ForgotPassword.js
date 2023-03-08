@@ -26,10 +26,15 @@ import ReactGA from 'react-ga4'
 /** Styles **/
 import { forgotPassStyles } from '../../styles/classes/SignInClasses'
 
+/** Utils **/
+import { mobileBreakpoint } from '../../lib/Constants'
+import { useWindowWidth } from '@react-hook/window-size'
+
 const ForgotPassword = () => {
   const history = useHistory()
   const { t } = useTranslation()
   const classes = forgotPassStyles()
+  const actualWidth = useWindowWidth()
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [errorApi, setErrorApi] = useState('')
@@ -110,7 +115,7 @@ const ForgotPassword = () => {
                         placeholder={t('forgot_password.email')}
                         name="email"
                         autoComplete="off"
-                        autoFocus
+                        autoFocus={actualWidth > mobileBreakpoint}
                         error={(!!errors.email) || (!!errorApi)}
                         helperText={(errors.email && errors.email.message) || errorApi}
                         {...register('email')}

@@ -31,11 +31,16 @@ import { LoadingSplash } from '../../components/LoadingSplash'
 /** Styles **/
 import { signInStyles } from '../../styles/classes/SignInClasses'
 
+/** Utils **/
+import { mobileBreakpoint } from '../../lib/Constants'
+import { useWindowWidth } from '@react-hook/window-size'
+
 const SignIn = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { t } = useTranslation()
   const classes = signInStyles()
+  const actualWidth = useWindowWidth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showErrors, setShowErrors] = useState(false)
@@ -154,7 +159,7 @@ const SignIn = () => {
                 name='email'
                 autoComplete='off'
                 type='text'
-                autoFocus
+                autoFocus={actualWidth > mobileBreakpoint}
                 FormHelperTextProps={{
                   classes: {
                     root: classes.errorMessage,
