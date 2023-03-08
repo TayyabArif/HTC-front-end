@@ -461,6 +461,9 @@ export const activitiesCardStyle = makeStyles(theme => ({
   },
   errorBox: {
     marginBottom: '20px'
+  },
+  cardActionsContainer: {
+    height: '48px'
   }
 }))
 

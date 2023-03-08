@@ -442,7 +442,7 @@ export const ActivitiesCard = props => {
         onClick={type !== 'iframe' ? handleExpandClick : null}
         className={classes.actions}
       >
-        <Grid container style={{ height: '48px' }} alignItems="center">
+        <Grid container className={classes.cardActionsContainer} alignItems="center">
           <Grid item md={12} className={classes.tripGrid}>
             <FormLabel
               component="legend"
