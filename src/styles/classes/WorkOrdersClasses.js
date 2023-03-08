@@ -463,7 +463,8 @@ export const activitiesCardStyle = makeStyles(theme => ({
     marginBottom: '20px'
   },
   cardActionsContainer: {
-    height: '48px'
+    height: '48px',
+    alignItems: 'center'
   }
 }))
 
