@@ -22,7 +22,7 @@ export const DateTimeFilter = props => {
   }, [props.values])
 
   const handleChange = (date, update = false) => {
-    setSelectedDate(date ? date.format('MM/DD/yyyy hh:mm A') : null)
+    setSelectedDate(date ? date.format(t('general.date_formats.basic')) : null)
     if (date === null) props.setValues(null)
     if (update) props.setValues(date.valueOf())
     setOpenTime(!openTime)
