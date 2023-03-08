@@ -69,6 +69,9 @@ export const general = () => {
       snow: 'Nieve',
       sweep: 'Barrer',
       special: 'Especial'
+    },
+    date_formats: {
+      basic: 'DD/MM/yyyy hh:mm A'
     }
   }
 }
