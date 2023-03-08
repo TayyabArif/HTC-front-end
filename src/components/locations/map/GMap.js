@@ -171,30 +171,15 @@ export const GMap = (props) => {
             >
               {
                 (clusterer) => props.siteListing.map((site, index) => {
-                  // if site level view is active, only show the corresponding marker
-                  if (locationsStore.selectedSite && locationsStore.showSiteViewPanel) {
-                    if (locationsStore.selectedSite.id === site.id) {
-                      return <OnlyMarker
-                        key={index}
-                        index={site.id}
-                        position={site.coordinates}
-                        clusterer={clusterer}
-                        site={site}
-                        enableCluster={enableCluster}
-                      />
-                    } else {
-                      return null
-                    }
-                  } else {
-                    return <OnlyMarker
-                      key={index}
-                      index={site.id}
-                      position={site.coordinates}
-                      clusterer={clusterer}
-                      site={site}
-                      enableCluster={enableCluster}
-                    />
-                  }
+                  // site level view is active, show the corresponding markers
+                  return <OnlyMarker
+                    key={index}
+                    index={site.id}
+                    position={site.coordinates}
+                    clusterer={clusterer}
+                    site={site}
+                    enableCluster={enableCluster}
+                  />
                 })
               }
             </MarkerClusterer>

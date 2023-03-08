@@ -48,7 +48,7 @@ export const InfoMarker = (props) => {
       dispatch(locationsActions.showMapSiteView({
         coordinates: site.coordinates,
         zoom: 19,
-        hideMarkers: true,
+        hideMarkers: false,
         selectedMarkerIndex: props.index
       }))
       dispatch(locationsActions.setSelectedSite(site))
