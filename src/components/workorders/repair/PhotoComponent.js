@@ -122,7 +122,7 @@ export const PhotoComponent = props => {
   }
 
   return (
-    <>
+    <Grid container pl={0.6}>
       <Grid item xs={12}>
         <FormLabel
           component="legend"
@@ -135,7 +135,7 @@ export const PhotoComponent = props => {
         </FormLabel>
       </Grid>
       {disabled && (
-        <Grid container>
+        <Grid container justifyContent="space-between">
           {photos && photos.length > 0
             ? photos.map((obj, ind) => (
                 <Grid key={ind} item xs={4} md={4}>
@@ -225,6 +225,6 @@ export const PhotoComponent = props => {
           )}
         </Grid>
       )}
-    </>
+    </Grid>
   )
 }

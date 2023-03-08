@@ -383,6 +383,7 @@ export const activitiesCardStyle = makeStyles(theme => ({
   },
   chipRoot: {
     marginRight: 'auto',
+    marginTop: '1.5px',
     fontSize: '12px',
     alignSelf: 'center',
     minWidth: 'fit-content'
@@ -460,6 +461,10 @@ export const activitiesCardStyle = makeStyles(theme => ({
   },
   errorBox: {
     marginBottom: '20px'
+  },
+  cardActionsContainer: {
+    height: '48px',
+    alignItems: 'center'
   }
 }))
 
@@ -684,7 +689,7 @@ export const detailedInfoStyles = makeStyles(theme => ({
     height: '20px',
     margin: '0px 30px',
     '& .Mui-selected': {
-      color: theme.palette.primary.light
+      color: theme.colors.iconBlue
     },
     zIndex: 1000
   },
@@ -709,8 +714,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
     backgroundColor: theme.colors.backdropColor
   },
   description: {
-    padding: '1px 0px',
-    marginLeft: '23px',
+    padding: '0px',
+    marginLeft: '20px',
     color: theme.colors.workOrders.tab.description,
     fontSize: '14px',
     fontWeight: '400',
@@ -718,8 +723,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
   },
   drawerHeader: {
     display: 'flex',
-    height: '60px',
-    minHeight: '60px',
+    height: '50px',
+    minHeight: '50px',
     alignItems: 'center',
     margin: '0 20px'
   },
@@ -750,7 +755,7 @@ export const detailedInfoStyles = makeStyles(theme => ({
   cancelled: {
     fontSize: '16px',
     fontWeight: '800',
-    color: theme.colors.grey,
+    color: theme.colors.workOrderColors.cancelled,
     display: 'flex',
     flex: 1,
     maxWidth: '100px'
@@ -776,7 +781,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
     color: theme.colors.workOrders.tab.wonum,
     fontSize: '32px',
     fontWeight: '600',
-    marginBottom: '2px'
+    marginBottom: '2px',
+    lineHeight: '0.9'
   },
   duedate: {
     padding: '3px 0px',
@@ -1215,5 +1221,8 @@ export const woDetailsStyles = makeStyles(theme => ({
     fontWeight: '400',
     lineHeight: '17px',
     letterSpacing: '1px'
+  },
+  cardContent: {
+    padding: '5px'
   }
 }))
