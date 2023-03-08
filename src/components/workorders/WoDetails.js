@@ -48,7 +48,7 @@ export const WoDetails = props => {
             </FormLabel>
             <FormLabel component="legend" className={classes.fieldData}>
               {moment(new Date(workOrder?.open_date * 1000)).format(
-                'MM/DD/yyyy hh:mm A'
+                t('general.date_formats.basic')
               )}
             </FormLabel>
             <FormLabel component="legend" className={classes.field}>
@@ -58,7 +58,7 @@ export const WoDetails = props => {
               {workOrder?.expiration_date === 0
                 ? ''
                 : moment(new Date(workOrder?.expiration_date * 1000)).format(
-                  'MM/DD/yyyy hh:mm A'
+                  t('general.date_formats.basic')
                 )}
             </FormLabel>
             <FormLabel component="legend" className={classes.field}>

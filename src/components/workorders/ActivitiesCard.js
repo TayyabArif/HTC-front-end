@@ -515,7 +515,7 @@ export const ActivitiesCard = props => {
                           classes={{ root: classes.fieldData }}
                         >
                           {moment(new Date(log.date_created * 1000)).format(
-                            'MM/DD/yyyy hh:mm A'
+                            t('general.date_formats.basic')
                           )}
                         </FormLabel>
                       </div>
@@ -546,7 +546,7 @@ export const ActivitiesCard = props => {
                         >
                           {log.status !== 'incomplete'
                             ? moment(new Date(log.date_created * 1000)).format(
-                              'MM/DD/yyyy hh:mm A'
+                              t('general.date_formats.basic')
                             )
                             : t('work_orders.checkout_message')}
                         </FormLabel>
