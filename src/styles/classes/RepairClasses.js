@@ -159,8 +159,8 @@ export const photoComponentStyles = makeStyles(theme => ({
     fontWeight: '700'
   },
   thumbContainer: {
-    width: '99px',
-    height: '94px',
+    width: '95px',
+    height: '92px',
     marginBottom: '6px',
     borderRadius: '8px'
   },
@@ -232,10 +232,12 @@ export const signatureComponentStyles = makeStyles(theme => ({
     height: '99px',
     width: '303px',
     marginBottom: '6px',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    marginLeft: '4px'
   },
   thumb: {
     height: '100%',
+    width: '100%',
     objectFit: 'cover',
     borderRadius: '8px'
   },
@@ -402,11 +404,15 @@ export const taskListStyles = makeStyles(theme => ({
   repairItem: {
     minHeight: '20px',
     marginBottom: '20px',
-    marginLeft: '5px'
+    marginLeft: '5px',
+    lineHeight: '1.1'
   },
   checkIcon: {
     width: '20px',
-    color: theme.colors.workOrders.tab.duedate
+    color: theme.colors.workOrders.tab.duedate,
+    stroke: theme.colors.workOrders.tab.duedate,
+    strokeWidth: 1,
+    height: '18px'
   },
   dotIcon: {
     fontSize: '7px',
