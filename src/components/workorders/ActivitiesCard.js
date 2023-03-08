@@ -22,7 +22,6 @@ import {
   ExpandMore as ExpandMoreIcon,
   ExpandLess as ExpandLessIcon
 } from '@mui/icons-material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RepairData } from './RepairData'
 import { useSelector } from 'react-redux'
 import { EtaSelect } from './EtaSelect'
@@ -53,7 +52,8 @@ export const ActivitiesCard = props => {
     type,
     getWindowHeight,
     externalUser,
-    setMessage
+    setMessage,
+    etaTime
   } = props
   const wHeight = getWindowHeight ? getWindowHeight() : null
   const classes = activitiesCardStyle()
@@ -442,7 +442,7 @@ export const ActivitiesCard = props => {
         onClick={type !== 'iframe' ? handleExpandClick : null}
         className={classes.actions}
       >
-        <Grid container style={{ height: '48px' }}>
+        <Grid container className={classes.cardActionsContainer}>
           <Grid item md={12} className={classes.tripGrid}>
             <FormLabel
               component="legend"
@@ -485,22 +485,16 @@ export const ActivitiesCard = props => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         {
           <CardContent style={{ paddingBottom: '3px' }}>
-            <FormLabel component="legend" classes={{ root: classes.field }}>
-              {t('work_orders.trips.origin')}
-            </FormLabel>
-            <FormLabel component="legend" classes={{ root: classes.fieldData }}>
-              {t('work_orders.trips.mobile') + ' '}
-              <FontAwesomeIcon icon={['far', 'mobile-screen-button']} />
-            </FormLabel>
             {data.status !== 'open' && (
             <EtaSelect
-              data={data?.est_service_start}
+              data={data?.est_service_start ? data?.est_service_start : etaTime}
               disabled={getWOstatus(data) !== 'open'}
               woId={data.id}
               type={type}
               onUpdate={eta =>
                 updateWoData({ ...data, est_service_start: eta })
               }
+              maxDate={data?.scheduled_date}
             />)}
 
             <div>
@@ -521,7 +515,7 @@ export const ActivitiesCard = props => {
                           classes={{ root: classes.fieldData }}
                         >
                           {moment(new Date(log.date_created * 1000)).format(
-                            'MM/DD/yyyy hh:mm A'
+                            t('general.date_formats.basic')
                           )}
                         </FormLabel>
                       </div>
@@ -552,7 +546,7 @@ export const ActivitiesCard = props => {
                         >
                           {log.status !== 'incomplete'
                             ? moment(new Date(log.date_created * 1000)).format(
-                              'MM/DD/yyyy hh:mm A'
+                              t('general.date_formats.basic')
                             )
                             : t('work_orders.checkout_message')}
                         </FormLabel>

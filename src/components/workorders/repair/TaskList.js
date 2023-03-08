@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormLabel, Grid } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Selector } from '../../workorders/repair/MultiSelector'
 import { taskListStyles } from '../../../styles/classes/RepairClasses'
+import { Circle as CircleIcon, Check as CheckIcon } from '@mui/icons-material'
 
 export const TaskList = props => {
   const { t } = useTranslation()
@@ -49,10 +49,7 @@ export const TaskList = props => {
               <Grid key={ind} container className={classes.taskList}>
                 <Grid item md={1} className={classes.selectedTask}>
                   {
-                    <FontAwesomeIcon
-                      icon={['fas', 'circle-small']}
-                      className={classes.dotIcon}
-                    />
+                    <CircleIcon className={classes.dotIcon}/>
                   }
                 </Grid>
                 <Grid item md={10}>
@@ -62,8 +59,7 @@ export const TaskList = props => {
                 </Grid>
                 <Grid item md={1}>
                   {obj.selected && (
-                    <FontAwesomeIcon
-                      icon={['fas', 'check']}
+                    <CheckIcon
                       className={classes.checkIcon}
                     />
                   )}
