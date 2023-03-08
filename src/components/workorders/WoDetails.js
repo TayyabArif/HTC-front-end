@@ -76,25 +76,29 @@ export const WoDetails = props => {
 
             {workOrder?.contact_person &&
               (workOrder.contact_person[0] || workOrder.contact_person[1]) && (
-                <>
-                  <FormLabel component="legend" className={classes.field}>
-                    {t('work_orders.wo_details.location_contacts')}
-                  </FormLabel>
-                  <FormLabel component="legend" className={classes.fieldData}>
-                    {workOrder?.contact_person && workOrder?.contact_person[0]}
-                    {workOrder?.contact_person && workOrder?.contact_person[1]}
-                  </FormLabel>
-                </>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <FormLabel component="legend" className={classes.field}>
+                      {t('work_orders.wo_details.location_contacts')}
+                    </FormLabel>
+                    <FormLabel component="legend" className={classes.fieldData}>
+                      {workOrder?.contact_person && workOrder?.contact_person[0]}
+                      {workOrder?.contact_person && workOrder?.contact_person[1]}
+                    </FormLabel>
+                  </Grid>
+                </Grid>
             )}
             {workOrder?.notes && (
-              <>
-                <FormLabel component="legend" className={classes.field}>
-                  {t('work_orders.wo_details.notes')}
-                </FormLabel>
-                <FormLabel component="legend" className={classes.fieldData}>
-                  {workOrder?.notes}
-                </FormLabel>
-              </>
+              <Grid container>
+                <Grid item xs={12}>
+                  <FormLabel component="legend" className={classes.field}>
+                    {t('work_orders.wo_details.notes')}
+                  </FormLabel>
+                  <FormLabel component="legend" className={classes.fieldData}>
+                    {workOrder?.notes}
+                  </FormLabel>
+                </Grid>
+              </Grid>
             )}
             {/* Comment until defined */}
             {/* <FormLabel component="legend" className={classes.field}>
