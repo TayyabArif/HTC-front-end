@@ -17,8 +17,8 @@ import { RoundedButton } from '../../styles/mui_custom_components'
 import { LoadingSplash } from '../../components/LoadingSplash'
 
 /** Services **/
-import { createUser } from '../../services/ApiService'
-import { useLocation } from 'react-router-dom'
+import { createUser, getContactOffline } from '../../services/ApiService'
+import { useLocation, useHistory } from 'react-router-dom'
 
 /** Styles **/
 import { createAccountStyles } from '../../styles/classes/CreateAccountClasses'
@@ -36,6 +36,7 @@ const CreateAccount = () => {
   const [accessCode, setAccessCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [errorPass, setErrorPass] = useState(null)
+  const history = useHistory()
 
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -89,8 +90,16 @@ const CreateAccount = () => {
   }, [password])
 
   useEffect(() => {
-    setEmail(query.get('originEmail'))
-    setAccessCode(query.get('affiliateId'))
+    async function initData () {
+      setEmail(query.get('originEmail'))
+      setAccessCode(query.get('affiliateId'))
+      const companyId = query.get('companyId')
+      const contactData = await getContactOffline(companyId)
+      if (contactData?.last_accessed) {
+        history.replace('sign-in')
+      }
+    }
+    initData()
   }, [])
 
   const onSubmit = async (data) => {
