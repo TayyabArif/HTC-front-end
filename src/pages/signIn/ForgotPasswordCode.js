@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { HighlightButton } from '../../styles/mui_custom_components'
 import { LockOutlined } from '@mui/icons-material'
 import { FormHelperText, Grid, InputAdornment, TextField, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
@@ -23,87 +22,12 @@ import { store } from '../../store'
 /** Services **/
 import { resetPassword, login } from '../../services/AuthService'
 
-const useStyles = makeStyles((theme) => ({
-  mainGrid: {
-    minHeight: '70vh',
-    transform: 'scale(0.80)'
-  },
-  mainItem: {
-    maxWidth: '30em',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: '1em'
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingTop: '4em'
-    }
-  },
-  icon: {
-    width: '1em',
-    position: 'relative',
-    top: '-4px'
-  },
-  title: {
-    '&.MuiTypography-root': {
-      fontFamily: 'Rubik Bold',
-      fontWeight: '700',
-      [theme.breakpoints.down('md')]: {
-        fontSize: '20px',
-        marginBottom: '10px'
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '30px'
-      }
-    }
-  },
-  buttons: {
-    marginTop: theme.spacing(4)
-  },
-  fieldsOutlined: {
-    borderRadius: '4px'
-  },
-  formBox: {
-    [theme.breakpoints.down('md')]: {
-      marginTop: '0px'
-    },
-    [theme.breakpoints.up('md')]: {
-      marginTop: '32px'
-    }
-  },
-  fields: {
-    marginTop: '0px',
-    fontSize: '20px',
-    fontWeight: '400',
-    '& fieldset': {
-      borderRadius: '40px',
-      border: `1px solid ${theme.colors.inputBorder}`,
-      borderWidth: '1px'
-    }
-  },
-  resetButton: {
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-      height: '58px'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: 'auto'
-    }
-  },
-  buttonGrid: {
-    width: '100%',
-    textAlign: 'right'
-  },
-  errorMessage: {
-    '&.MuiTypography-root': {
-      color: theme.colors.errorText,
-      fontWeight: '400',
-      fontSize: '15px'
-    }
-  }
-}))
+/** Styles **/
+import { forgotCodeStyles } from '../../styles/classes/SignInClasses'
 
 const ForgotPasswordCode = () => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = forgotCodeStyles()
   const dispatch = useDispatch()
   const [newPassword, setNewPassword] = useState('')
   const authStore = store.getState().auth

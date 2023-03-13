@@ -1,21 +1,35 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 /** Redux **/
 import { useSelector } from 'react-redux'
 
 /** Material UI **/
-import { makeStyles, useTheme } from '@mui/styles'
-import { Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography, useMediaQuery } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { Container, Backdrop, Box, CircularProgress, CssBaseline, Grid, Typography } from '@mui/material'
 
 /** Components **/
+import { useWindowSize } from '@react-hook/window-size'
 
 /** Images **/
 import conectadPlatformLogo from '../assets/images/connectad_platform.svg'
 import conectadLogo from '../assets/images/connectad_logo.svg'
 
+/** Utils */
+import { mobileBreakpoint } from '../lib/Constants'
+
 const pjson = require('../../package.json')
 
 const useStyles = makeStyles((theme) => ({
+  scrollContainer: {
+    margin: '0px !important',
+    padding: '0px !important',
+    maxWidth: '100%',
+    height: '100%',
+    overflowY: 'auto',
+    position: 'fixed',
+    display: 'flex'
+  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: theme.colors.backdropColor
@@ -24,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   },
   body: {
+    width: '100%',
     backgroundColor: theme.colors.backdropColor,
     '&::-webkit-scrollbar': {
       display: 'none'
@@ -32,13 +47,27 @@ const useStyles = makeStyles((theme) => ({
     '-ms-overflow-style': 'none'
   },
   versionText: {
+    [theme.breakpoints.up('md')]: {
+      fontSize: '20px'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '12px'
+    },
+    marginTop: 'auto',
+    marginRight: '20px',
     fontWeight: '400',
-    fontSize: '20px',
     marginLeft: '30px'
   },
   contactText: {
+    minWidth: '70px',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '14px'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '10px'
+    },
+    marginTop: 'auto',
     fontWeight: '400',
-    fontSize: '14px',
     '&:hover': {
       textDecoration: 'underline'
     },
@@ -50,50 +79,87 @@ const useStyles = makeStyles((theme) => ({
     '& img': {
       width: '100%'
     }
+  },
+  bottomBox: {
+    width: '100%',
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      padding: '0px 12% 30px 12%'
+    },
+    [theme.breakpoints.down('md')]: {
+      padding: '0px',
+      width: '100%',
+      marginTop: 'auto'
+    }
+  },
+  bottomTypos: {
+    marginLeft: 'auto',
+    display: 'flex'
+  },
+  bottomLogo: {
+    [theme.breakpoints.up('md')]: {
+      width: '100%'
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '50%'
+    }
+  },
+  logoGrid: {
+    [theme.breakpoints.up('md')]: {
+      padding: '4%',
+      textAlign: 'left'
+    },
+    [theme.breakpoints.down('md')]: {
+      padding: '10%  0px',
+      textAlign: 'center',
+      margin: '0px auto'
+    }
   }
 }))
 
 export const SignInContainer = (props) => {
+  const { t } = useTranslation()
   const loading = useSelector(state => state.loading.loading)
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
+  const [wWidth] = useWindowSize()
+  const isMobile = wWidth <= mobileBreakpoint
 
   return (
     <div>
-      <CssBaseline/>
-      <Backdrop className={classes.backdrop} open={loading}>
-        <CircularProgress color="inherit"/>
-      </Backdrop>
-      <Grid container>
-        {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} padding={isSmall ? 1.5 : 4}>
-          <img src={conectadPlatformLogo} alt="Connectad Platform"/>
-        </Grid>}
-        <Grid item xs={12}>
-          <Box className={classes.body}>
-            {props.children}
-          </Box>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container className={classes.footerContainer}>
-            <Grid item sm={0} md={1} lg={0.5} xl={1}></Grid>
-            <Grid item xs={8} sm={2} md={2} lg={2}>
-              <img src={conectadLogo} alt="Connectad Logo"/>
-            </Grid>
-            <Grid item sm={5} md={5} lg={5} />
-            <Grid item sm={2} md={2} lg={2} alignSelf="flex-end" textAlign="right">
-              <Typography variant={'p'} className={ classes.contactText }>
-                Contact us
+      <CssBaseline />
+      <Container
+        className={classes.scrollContainer}
+        style={{
+          minWidth: isMobile ? 'unset' : wWidth > 800 ? '800px' : '1440px'
+        }}
+      >
+        <Backdrop className={classes.backdrop} open={loading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid container>
+          {!(props.screen && props.screen === 'sign_in') && <Grid item md={12} className={classes.logoGrid}>
+            <img src={conectadPlatformLogo} alt="Connectad Platform" />
+          </Grid>}
+          <Grid xs={12}>
+            <Box className={classes.body}>
+              {props.children}
+            </Box>
+          </Grid>
+          <Box fullWidth className={classes.bottomBox} >
+            <Box >
+              <img src={conectadLogo} alt="Connectad Logo" className={classes.bottomLogo} />
+            </Box>
+            <Box className={classes.bottomTypos} >
+              <Typography variant={'p'} className={classes.contactText}>
+                {t('sign_in.contact_us')}
               </Typography>
-            </Grid>
-            <Grid item sm={0.7} md={0.7} lg={0.7} alignSelf="flex-end" textAlign="right">
               <Typography variant={'p'} align={'center'} className={classes.versionText}>
                 &nbsp;v{pjson.version}
               </Typography>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Grid>
-      </Grid>
+      </Container>
     </div>
   )
 }
