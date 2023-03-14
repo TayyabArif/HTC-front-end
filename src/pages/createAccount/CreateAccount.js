@@ -103,6 +103,7 @@ const CreateAccount = () => {
           history.replace(redirectTo)
           history.go(redirectTo)
         }
+        setLoading(false)
       } catch (e) {
         console.error(e)
         setLoading(false)
