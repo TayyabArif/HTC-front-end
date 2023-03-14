@@ -5,9 +5,9 @@ import React, { useState, useEffect } from 'react'
 /** Material UI **/
 import { BasicButton, HighlightButton, SignInButton } from '../../styles/mui_custom_components'
 import { LockOutlined, PersonOutlineOutlined } from '@mui/icons-material'
-import { makeStyles } from '@mui/styles'
 import { Box, Checkbox, Divider, FormControlLabel, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { SignInContainer } from '../../components/SignInContainer'
+
 /** Validations **/
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -28,187 +28,19 @@ import { store } from '../../store'
 import { login } from '../../services/AuthService'
 import { LoadingSplash } from '../../components/LoadingSplash'
 
-const useStyles = makeStyles((theme) => ({
-  mainContainer: {
-    margin: '0px !important',
-    padding: '0px !important',
-    maxWidth: '1980px !important'
-  },
-  mainItem: {
-    maxWidth: '30em'
-  },
-  signMessage: {
-    marginTop: '15px !important',
-    fontSize: '14px !important',
-    fontWieght: '300 !important'
-  },
-  connectIcon: {
-    width: '100%',
-    margin: '0px auto',
-    position: 'relative'
-  },
-  icon: {
-    top: '-1px',
-    width: '24px',
-    height: '24px',
-    position: 'relative'
-  },
-  iconSpan: {
-    width: '24px',
-    height: '26px'
-  },
-  title: {
-    fontWeight: '700',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '24px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '40px'
-    }
-  },
-  subtitle: {
-    fontWeight: '400',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '16px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
-    }
-  },
-  buttons: {
-    width: '560px !important',
-    margin: '0px auto',
-    marginTop: theme.spacing(4)
-  },
-  link: {
-    fontWeight: '400',
-    color: theme.colors.text,
-    textDecoration: 'none',
-    fontFamily: 'Rubik',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '16px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '14px'
-    }
-  },
-  linkBox: {
-    paddingTop: '10px',
-    paddingRight: '6px'
-  },
-  rememberMe: {
-    fontWeight: '400',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '16px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '14px !important'
-    }
-  },
-  errorMessage: {
-    color: `${theme.colors.errorText} !important`,
-    fontWeight: '300 !important',
-    fontSize: '14px !important'
-  },
-  terms: {
-    fontWeight: '400 !important',
-    fontSize: '14px !important',
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'block'
-    }
-  },
-  linkTerms: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none'
-  },
-  signWith: {
-    width: '100% !important',
-    fontSize: '20px !important',
-    padding: '6px 10px',
-    borderRadius: '15px !important'
-  },
-  signWithGrid: {
-    width: '100%',
-    fontSize: '20px',
-    [theme.breakpoints.down('md')]: {
-      padding: '4px 16px !important'
-    },
-    [theme.breakpoints.up('md')]: {
-      padding: '16px !important'
-    }
-  },
-  boxSignWith: {
-    [theme.breakpoints.down('md')]: {
-      marginTop: '15px'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '570px',
-      margin: '40px auto 0px auto',
-      paddingLeft: '3%'
-    }
-  },
-  fields: {
-    '& .MuiOutlinedInput-root': {
-      borderRadius: '36px',
-      fontSize: '14px',
-      height: '36px',
-      width: '560px'
-    },
-    '& .MuiFormControl-root': {
-      width: '530px'
-    },
-    '& .MuiInputBase-root': {
-      '& input': {
-        WebkitBoxShadow: '0 0 0 1000px white inset'
-      }
-    }
-  },
-  requestButton: {
-    [theme.breakpoints.down('md')]: {
-      width: '100%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '211px'
-    }
-  },
-  singButton: {
-    [theme.breakpoints.down('md')]: {
-      width: '100%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '129px'
-    }
-  },
-  rememberForgot: {
-    width: '560px !important',
-    margin: '0px auto'
-  },
-  signinIcon: {
-    width: '310px'
-  },
-  signDivider: {
-    margin: '40px auto !important',
-    width: '550px'
-  },
-  contactUs: {
-    fontSize: '14px !important',
-    fontWeight: '400 !important',
-    marginTop: '6px !important'
-  },
-  version: {
-    fontSize: '20px !important',
-    fontWeight: '300 !important'
-  }
-}))
+/** Styles **/
+import { signInStyles } from '../../styles/classes/SignInClasses'
+
+/** Utils **/
+import { mobileBreakpoint } from '../../lib/Constants'
+import { useWindowWidth } from '@react-hook/window-size'
 
 const SignIn = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = signInStyles()
+  const actualWidth = useWindowWidth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showErrors, setShowErrors] = useState(false)
@@ -315,7 +147,7 @@ const SignIn = () => {
               </Grid>
             </Grid>
           </Box>
-          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <form className={classes.signForm} noValidate onSubmit={handleSubmit(onSubmit)}>
             <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
                 classes={{ root: classes.fields }}
@@ -327,7 +159,7 @@ const SignIn = () => {
                 name='email'
                 autoComplete='off'
                 type='text'
-                autoFocus
+                autoFocus={actualWidth > mobileBreakpoint}
                 FormHelperTextProps={{
                   classes: {
                     root: classes.errorMessage,
@@ -380,7 +212,7 @@ const SignIn = () => {
                 onInput={handlePasswordChange}
               />
             </Box>
-            <Box hidden={!showErrors} width="560px" margin="0px auto" >
+            <Box hidden={!showErrors} margin="0px auto" >
               <Typography align={'left'} className={classes.errorMessage}>
                 {t('sign_in.messages.wrong_user_password')}
               </Typography>

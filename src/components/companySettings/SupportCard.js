@@ -53,7 +53,8 @@ export const SupportCard = props => {
         </Typography>
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
-        <Link data-testid='knowledge_button' onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+        {/** TODO: this knowledge support link is gonna be hidden until Marios confirmation */}
+        <Link hidden={true} data-testid='knowledge_button' onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
           {t('company_settings.support_card.knowledge')}
         </Link>
         {contacts.email !== '' && <Typography classes={{ root: classes.contacts }}>

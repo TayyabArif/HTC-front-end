@@ -88,7 +88,7 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
     width: '313px'
   },
   drawerPaper: {
-    maxHeight: `calc(100% - calc(${navBarHeaderHeight + ' + 12px'}))`,
+    height: `calc(100vh - ${navBarHeaderHeight})`,
     marginTop: navBarHeaderHeight,
     width: '360px',
     [theme.breakpoints.up('sm')]: {
@@ -99,7 +99,7 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
     overflowX: 'hidden',
     zIndex: 1500,
     boxSizing: 'content-box',
-    marginBottom: '20px',
+    marginBottom: '0px',
     display: 'flex'
   },
   footer: {

@@ -39,6 +39,7 @@ export const locationsStyles = makeStyles((theme) => ({
     height: '12px'
   },
   leftColumnSites: {
+    touchAction: 'none',
     '&::-webkit-scrollbar': {
       display: 'none'
     },
@@ -98,6 +99,7 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
+    position: 'fixed',
     border: 'none',
     [theme.breakpoints.up('md')]: {
       width: '430px',
@@ -760,11 +762,7 @@ export const locationCardStyles = makeStyles((theme) => ({
     fontSize: 13,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    '-webkit-line-clamp': 2,
-    '-webkit-box-orient': 'vertical'
+    overflow: 'hidden !important'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -925,7 +923,7 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
     transformOrigin: 'left bottom 0px'
   },
   legendsContainerIos: {
-    bottom: '80px',
+    bottom: '30px',
     left: '15px',
     width: 'calc(100% - 25px)',
     zIndex: 1000,
@@ -942,7 +940,7 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
   },
   legendsContainerMinimizedIos: {
     left: '15px',
-    bottom: '80px',
+    bottom: '30px',
     position: 'absolute',
     overflow: 'hidden'
   },
@@ -994,7 +992,7 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
     maxWidth: '350px',
     height: '142px',
     position: 'absolute',
-    bottom: '80px',
+    bottom: '30px',
     overflow: 'hidden'
   },
   playerContainerMinimized: {
@@ -1008,7 +1006,7 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
     right: '15px',
     height: 'auto',
     position: 'absolute',
-    bottom: '80px',
+    bottom: '30px',
     overflow: 'hidden'
   },
   mapWeatherPlayerBoxMinimized: {

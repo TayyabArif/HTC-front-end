@@ -42,6 +42,15 @@ export const LocationCard = (props) => {
     }
   }
 
+  const getAddressLabel = (info) => {
+    const original = `${info.address}, ${info.city} ${info.state} ${info.zipcode}`
+    if (original.length > 100) {
+      return original.slice(0, 100) + '...'
+    } else {
+      return original
+    }
+  }
+
   const renderLocation = useMemo(() => {
     return (
       <Box className={'sitesCard'} pb={0.5} style={props.style}>
@@ -51,7 +60,7 @@ export const LocationCard = (props) => {
               {props.info.name}
             </Typography>
             <Typography className={classes.locationName} align='left'>
-              {props.info.address}, {props.info.city} {props.info.state} {props.info.zipcode}
+              {getAddressLabel(props.info)}
             </Typography>
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>
               <Grid container className={classes.locationStatus}>
