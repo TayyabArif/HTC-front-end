@@ -27,7 +27,7 @@ export const EtaSelect = props => {
         ? (
         <FormLabel component="legend" className={classes.fieldData}>
           {data && data?.time && data.time !== ''
-            ? moment(new Date(eta)).format('MM/DD/yyyy hh:mm A')
+            ? moment(new Date(eta)).format(t('general.date_formats.basic'))
             : t('general.labels.not_available')}
         </FormLabel>
           )
