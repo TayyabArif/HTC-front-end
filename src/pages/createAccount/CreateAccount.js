@@ -95,9 +95,15 @@ const CreateAccount = () => {
       setEmail(originEmail)
       setAccessCode(query.get('affiliateId'))
       const companyId = query.get('companyId')
-      const contactData = await getContactOffline(companyId, originEmail)
-      if (contactData?.last_accessed) {
-        history.replace('sign-in')
+      setLoading(true)
+      try {
+        const contactData = await getContactOffline(companyId, originEmail)
+        if (contactData?.last_accessed) {
+          history.replace('sign-in')
+        }
+      } catch (e) {
+        console.error(e)
+        setLoading(false)
       }
     }
     initData()

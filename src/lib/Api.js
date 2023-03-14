@@ -377,11 +377,13 @@ export const getCompany = async id => {
  * GET Company contact
  * @returns Contact
  */
-export const getContactOffline = async id => {
+export const getContactOffline = async (id, originEmail) => {
   const response = await callAPI(
     'GET',
     `/company-contact-offline/${id}`,
-    {},
+    {
+      origin_email: originEmail
+    },
     false
   )
   return response
@@ -394,10 +396,7 @@ export const getContactOffline = async id => {
 export const getCompanyProfile = async (id, originEmail) => {
   const response = await callAPI(
     'GET',
-    `/companyProfile/${id}`,
-    {
-      origin_email: originEmail
-    }
+    `/companyProfile/${id}`
   )
   return response
 }
