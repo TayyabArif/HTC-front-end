@@ -391,8 +391,14 @@ export const getContactOffline = async id => {
  * GET Selected company Profile
  * @returns CompanyProfile
  */
-export const getCompanyProfile = async id => {
-  const response = await callAPI('GET', `/companyProfile/${id}`)
+export const getCompanyProfile = async (id, originEmail) => {
+  const response = await callAPI(
+    'GET',
+    `/companyProfile/${id}`,
+    {
+      origin_email: originEmail
+    }
+  )
   return response
 }
 

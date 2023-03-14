@@ -91,10 +91,11 @@ const CreateAccount = () => {
 
   useEffect(() => {
     async function initData () {
-      setEmail(query.get('originEmail'))
+      const originEmail = query.get('originEmail')
+      setEmail(originEmail)
       setAccessCode(query.get('affiliateId'))
       const companyId = query.get('companyId')
-      const contactData = await getContactOffline(companyId)
+      const contactData = await getContactOffline(companyId, originEmail)
       if (contactData?.last_accessed) {
         history.replace('sign-in')
       }

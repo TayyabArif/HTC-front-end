@@ -480,10 +480,10 @@ export const getCompany = async id => {
     throw err
   }
 }
-export const getContactOffline = async id => {
+export const getContactOffline = async (id, originEmail) => {
   store.dispatch(loadingActions.show())
   try {
-    const response = await Api.getContactOffline(id)
+    const response = await Api.getContactOffline(id, originEmail)
     store.dispatch(loadingActions.hide())
     return response
   } catch (err) {
