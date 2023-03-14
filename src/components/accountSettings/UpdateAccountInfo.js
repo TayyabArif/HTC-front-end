@@ -302,7 +302,6 @@ export const UpdateAccountInfo = props => {
         updatedInfo.password,
         updatedInfo.employeeId
       )
-      console.log(newUser)
       await ApiServices.sendPortalInvitation(newUser.id)
       updateUsers()
       handleClose()
