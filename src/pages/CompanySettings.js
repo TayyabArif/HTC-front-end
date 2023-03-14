@@ -143,7 +143,10 @@ const CompanySettings = props => {
   const updateRoles = async () => {
     try {
       const response = await getRoles(userStore.userInfo.company_id)
-      setRoles(response)
+      if (response) {
+        // temporary hidden role "Portal user"
+        setRoles(response.filter(role => role.name.toLowerCase() !== 'portal user'))
+      }
     } catch (error) {
       console.error(error)
       setRoles([])
