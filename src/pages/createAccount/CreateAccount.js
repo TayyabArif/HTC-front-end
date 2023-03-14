@@ -99,7 +99,9 @@ const CreateAccount = () => {
       try {
         const contactData = await getContactOffline(companyId, originEmail)
         if (contactData?.last_accessed) {
-          history.replace('sign-in')
+          const redirectTo = '/sign-in'
+          history.replace(redirectTo)
+          history.go(redirectTo)
         }
       } catch (e) {
         console.error(e)
