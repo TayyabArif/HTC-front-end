@@ -43,7 +43,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     }
   },
   '& .Mui-disabled': {
-    backgroundColor: '#FAFAFA'
+    backgroundColor: customTheme.colors.generalBackground
   }
 }))
 
