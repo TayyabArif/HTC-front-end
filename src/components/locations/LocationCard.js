@@ -52,8 +52,8 @@ export const LocationCard = (props) => {
 
   const getAddressLabel = (info) => {
     const original = `${info.address}, ${info.city} ${info.state} ${info.zipcode}`
-    if (original.length > 100) {
-      return original.slice(0, 95) + '...'
+    if (original.length > 85) {
+      return original.slice(0, 82) + '...'
     } else {
       return original
     }
