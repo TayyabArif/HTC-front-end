@@ -280,7 +280,8 @@ export const locationsStyles = makeStyles((theme) => ({
       display: 'none'
     },
     [theme.breakpoints.down('md')]: {
-      display: 'flex'
+      display: 'flex',
+      position: 'fixed'
     }
   }
 }))
