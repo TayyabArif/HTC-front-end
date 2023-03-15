@@ -287,19 +287,20 @@ export const UpdateAccountInfo = props => {
       setErrorMessage(null)
       clearErrors()
 
-      await ApiServices.createClientUser(
+      const newUser = await ApiServices.createClientUser(
         affiliateId,
         updatedInfo.firstName,
         updatedInfo.lastName,
         updatedInfo.email,
         updatedInfo.phone,
-        updatedInfo.email,
+        updatedInfo.username,
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
         updatedInfo.password,
-        updatedInfo.username
+        updatedInfo.employeeId
       )
+      await ApiServices.sendPortalInvitation(newUser.id)
       updateUsers()
       handleClose()
     } catch (e) {
