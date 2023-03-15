@@ -20,6 +20,7 @@ export const WorkOrderCard = (props) => {
   const theme = useTheme()
   const dispatch = useDispatch()
   const locationsStore = useSelector((state) => state.locations)
+  const userStore = useSelector((state) => state.auth.user)
   const { t } = useTranslation()
 
   const styleProps = {
@@ -52,13 +53,27 @@ export const WorkOrderCard = (props) => {
     return label
   }
 
+  const getTradeColor = (trade) => {
+    const tradesConfigs = userStore?.userInfo?.configurations?.trade_configs
+    if (trade && tradesConfigs) {
+      const tradeConfig = tradesConfigs[trade.toLowerCase()]
+      if (tradeConfig) {
+        return tradeConfig.color
+      } else {
+        return tradesConfigs.default?.color ?? theme.colors.divBack
+      }
+    } else {
+      return theme.colors.divBack
+    }
+  }
+
   const renderLocation = useMemo(() => {
     return (
       <Box className={'sitesCard'} pb={0.5} style={props.style} >
         <Paper className={classes.locationTile} elevation={1}
           onClick={handleClickWo}
         >
-          <Box className={classes.serviceNameDiv}>
+          <Box className={classes.serviceNameDiv} style={{ backgroundColor: getTradeColor(info?.category) }}>
             <Typography className={classes.serviceName} >{info?.category ? (info?.category.length < 17 ? info?.category : info?.category.slice(0, 14) + '...') : ''}</Typography>
           </Box>
           <Box display="flex" width="100%">
