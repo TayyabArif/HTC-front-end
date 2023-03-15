@@ -669,3 +669,15 @@ export const putCompanyConfigs = async (companyId, data) => {
     throw err
   }
 }
+
+export const sendPortalInvitation = async (userId) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.sendPortalInvitation(userId)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}

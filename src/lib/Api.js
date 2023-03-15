@@ -775,3 +775,16 @@ export const putCompanyConfigs = async (companyId, data) => {
     return false
   }
 }
+
+/**
+ * POST send portal invitation
+ * @returns company profile
+ */
+export const sendPortalInvitation = async (userId) => {
+  try {
+    const response = await callAPI('POST', `/users/sendportalcreation/${userId}`)
+    return response
+  } catch {
+    return false
+  }
+}
