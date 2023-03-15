@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 /** Material UI **/
 import { Box, Fade, Grid, IconButton, Paper, Slide, Slider, Typography } from '@mui/material'
 import moment from 'moment'
-import { KeyboardArrowDownOutlined, KeyboardArrowUpOutlined, Pause, PlayArrow, Repeat } from '@mui/icons-material'
+import { KeyboardArrowDownOutlined, KeyboardArrowUpOutlined, KeyboardArrowLeftOutlined, KeyboardArrowRightOutlined, Pause, PlayArrow, Repeat } from '@mui/icons-material'
 import { SelectRadiosNoBorder } from '../inputs/SelectRadiosNoBorder'
 import { getCapabilities } from '../../../services/RadarApiService'
 import { xml2json } from 'xml-js'
@@ -14,7 +14,7 @@ import { weatherPlayerStyles } from '../../../styles/classes/LocationsClasses'
 
 /** Utils **/
 import { useWindowWidth } from '@react-hook/window-size'
-import { AFStateOptions, mobileBreakpoint, isSafari, isChrome } from '../../../lib/Constants'
+import { AFStateOptions, mobileBreakpoint } from '../../../lib/Constants'
 
 export const WeatherPlayer = (props) => {
   const classes = weatherPlayerStyles()
@@ -375,7 +375,7 @@ export const WeatherPlayer = (props) => {
 
   return (
     <Box hidden={props.hidden}>
-      <Fade className={isSafari && !isChrome() ? classes.playerContainerMinimizedIos : classes.playerContainerMinimized} timeout={2000} in={playerHidden} container={containerRef.current}>
+      <Fade className={actualWidth <= mobileBreakpoint ? classes.playerContainerMinMobile : classes.playerContainerMin} timeout={2000} in={playerHidden} container={containerRef.current}>
         <Box className={classes.mapWeatherPlayerBoxMinimized}>
           <Paper>
             <Box p={1}>
@@ -388,7 +388,7 @@ export const WeatherPlayer = (props) => {
                   </Grid>
                   <Grid item>
                     <IconButton onClick={onHidePlayer} className={classes.playerHideContainer}>
-                      <KeyboardArrowUpOutlined className={classes.playerHide} />
+                      {actualWidth <= mobileBreakpoint ? <KeyboardArrowLeftOutlined className={classes.playerHide} /> : <KeyboardArrowUpOutlined className={classes.playerHide} />}
                     </IconButton>
                   </Grid>
                 </Grid>
@@ -398,7 +398,7 @@ export const WeatherPlayer = (props) => {
         </Box>
       </Fade>
 
-      <Slide className={isSafari && !isChrome() ? classes.playerContainerIos : classes.playerContainer} direction="up" timeout={1000} in={!playerHidden} container={containerRef.current}>
+      <Slide className={actualWidth <= mobileBreakpoint ? classes.playerContainerMobile : classes.playerContainer} direction={actualWidth <= mobileBreakpoint ? 'left' : 'up'} timeout={1000} in={!playerHidden} container={containerRef.current}>
         <Paper>
           <Box p={1}>
             <Box pl={1}>
@@ -410,7 +410,7 @@ export const WeatherPlayer = (props) => {
                 </Grid>
                 <Grid item>
                   <IconButton onClick={onHidePlayer} className={classes.playerHideContainer}>
-                    <KeyboardArrowDownOutlined className={classes.playerHide} />
+                    {actualWidth <= mobileBreakpoint ? <KeyboardArrowRightOutlined className={classes.playerHide} /> : <KeyboardArrowDownOutlined className={classes.playerHide} />}
                   </IconButton>
                 </Grid>
               </Grid>
