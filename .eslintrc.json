@@ -18,6 +18,7 @@
   "plugins": [
     "react"
   ],
+  "ignorePatterns": ["src/assets", "src/mocks", "src/i18n"],
   "rules": {
     "react/prop-types": 0,
     "no-throw-literal": 0,
