@@ -255,36 +255,36 @@ const CompanySettings = props => {
 
   function editComponent (targetComponent) {
     switch (targetComponent) {
-      case 'profile':
-        return (
-          <CompanyProfileComponent
-            profile={updatedCompany}
-            handleChange={handleChange}
-            showLogo={false}
-            setValidHours={setValidHours}
-            requiredFields={complianceFields?.information?.fields}
-            afterHoursPhone={afterHoursPhone}
-          />
-        )
-      case 'insurance':
-        return (
-          <InsuranceComponent
-            profile={updatedCompany}
-            handleChange={handleChange}
-            states={states}
-            handleFileChange={handleFileChange}
-            setFileUploaded={setFileUploaded}
-            fileError={fileError}
-            setFileError={setFileError}
-            requiredFields={complianceFields?.insurance?.fields}
-          />
-        )
-      case 'trades':
-        return (
-          <ClientsComponent profile={company} handleChange={handleChange} />
-        )
-      default:
-        break
+    case 'profile':
+      return (
+        <CompanyProfileComponent
+          profile={updatedCompany}
+          handleChange={handleChange}
+          showLogo={false}
+          setValidHours={setValidHours}
+          requiredFields={complianceFields?.information?.fields}
+          afterHoursPhone={afterHoursPhone}
+        />
+      )
+    case 'insurance':
+      return (
+        <InsuranceComponent
+          profile={updatedCompany}
+          handleChange={handleChange}
+          states={states}
+          handleFileChange={handleFileChange}
+          setFileUploaded={setFileUploaded}
+          fileError={fileError}
+          setFileError={setFileError}
+          requiredFields={complianceFields?.insurance?.fields}
+        />
+      )
+    case 'trades':
+      return (
+        <ClientsComponent profile={company} handleChange={handleChange} />
+      )
+    default:
+      break
     }
   }
 
@@ -472,21 +472,21 @@ const CompanySettings = props => {
 
   const handleValidations = data => {
     switch (component) {
-      case 'profile':
-        setButtonDisabled(!profileValidation(data))
-        break
-      case 'insurance':
-        setButtonDisabled(!insuranceValidation(data))
-        break
-      case 'trades':
-        setButtonDisabled(!clientsAndTradesValidation(data))
-        break
-      case 'service':
-        setButtonDisabled(!serviceAreaValidation(data))
-        break
-      default:
-        setButtonDisabled(true)
-        break
+    case 'profile':
+      setButtonDisabled(!profileValidation(data))
+      break
+    case 'insurance':
+      setButtonDisabled(!insuranceValidation(data))
+      break
+    case 'trades':
+      setButtonDisabled(!clientsAndTradesValidation(data))
+      break
+    case 'service':
+      setButtonDisabled(!serviceAreaValidation(data))
+      break
+    default:
+      setButtonDisabled(true)
+      break
     }
   }
 
@@ -708,13 +708,13 @@ const CompanySettings = props => {
           </Button>
           {logoError
             ? (
-                ''
-              )
+              ''
+            )
             : (
               <Button onClick={updateProfileLogo} autoFocus>
                 {t('company_settings.card.save')}
               </Button>
-              )}
+            )}
         </DialogActions>
       </Dialog>
     </Container>

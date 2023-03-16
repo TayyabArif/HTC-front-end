@@ -105,194 +105,194 @@ export const DateFilter = props => {
           endAdornment={
             selectedDate.length > 0
               ? (
-              <FontAwesomeIcon icon={faTimes} onClick={handleClean} />
-                )
+                <FontAwesomeIcon icon={faTimes} onClick={handleClean} />
+              )
               : (
-              <FontAwesomeIcon
-                icon={faAngleDown}
-                onClick={() => setCalendarFrom(true)}
-              />
-                )
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  onClick={() => setCalendarFrom(true)}
+                />
+              )
           }
         />
       </FormControl>
       {props.range
         ? (
-        <ThemeProvider theme={muiThemeDateFilter}>
-          <LocalizationProvider
-            key="date-picker-dialog-from"
-            dateAdapter={AdapterDayjs}
-          >
-            <ThemeProvider
+          <ThemeProvider theme={muiThemeDateFilter}>
+            <LocalizationProvider
               key="date-picker-dialog-from"
-              theme={muiThemeHeaderDate}
+              dateAdapter={AdapterDayjs}
             >
-              <DatePicker
-                renderInput={() => {} }
-                disableToolbar={false}
-                ToolbarComponent={() => (
-                  <div style={calendarTitleStyle}>From:</div>
-                )}
-                InputProps={{ className: classes.picker }}
-                format="MM/dd/yyyy"
-                margin="normal"
-                variant="inline"
-                id="date-picker-dialog-from"
+              <ThemeProvider
                 key="date-picker-dialog-from"
-                value={selectedDateFrom}
-                onChange={date => {
-                  setDateFrom(date)
-                  setMaxDate(date)
-                }}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-                PopperProps={{
-                  anchorEl: () => rootRef.current,
-                  anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                  },
-                  transformOrigin: {
-                    vertical: 'top',
-                    horizontal: 'left'
-                  },
-                  PaperProps: {
-                    style: {
-                      backgroundColor: 'white',
-                      borderRadius: '8px'
+                theme={muiThemeHeaderDate}
+              >
+                <DatePicker
+                  renderInput={() => {} }
+                  disableToolbar={false}
+                  ToolbarComponent={() => (
+                    <div style={calendarTitleStyle}>From:</div>
+                  )}
+                  InputProps={{ className: classes.picker }}
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  variant="inline"
+                  id="date-picker-dialog-from"
+                  key="date-picker-dialog-from"
+                  value={selectedDateFrom}
+                  onChange={date => {
+                    setDateFrom(date)
+                    setMaxDate(date)
+                  }}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date'
+                  }}
+                  PopperProps={{
+                    anchorEl: () => rootRef.current,
+                    anchorOrigin: {
+                      vertical: 'bottom',
+                      horizontal: 'left'
+                    },
+                    transformOrigin: {
+                      vertical: 'top',
+                      horizontal: 'left'
+                    },
+                    PaperProps: {
+                      style: {
+                        backgroundColor: 'white',
+                        borderRadius: '8px'
+                      }
                     }
-                  }
-                }}
-                TextFieldComponent={() => null}
-                open={openCalendarFrom}
-                onOpen={() => setCalendarFrom(true)}
-                onClose={() => {
-                  setCalendarTo(false)
-                  setCalendarFrom(false)
-                }}
-                onAccept={() => {
-                  setCalendarTo(true)
-                  setTimeout(() => setCalendarFrom(false), 100)
-                }}
-              />
-            </ThemeProvider>
-          </LocalizationProvider>
-          <LocalizationProvider
-            key="date-picker-dialog-to"
-            dateAdapter={AdapterDayjs}
-          >
-            <ThemeProvider
-              key="date-picker-dialog-to"
-              theme={muiThemeHeaderDate}
-            >
-              <DatePicker
-                disableOpenPicker = {true}
-                renderInput={() => {} }
-                disableToolbar={false}
-                ToolbarComponent={() => (
-                  <div style={calendarTitleStyle}>To:</div>
-                )}
-                format="MM/dd/yyyy"
-                margin="normal"
-                variant="inline"
-                id="date-picker-dialog-to"
-                key="date-picker-dialog-to"
-                value={selectedDateTo}
-                onChange={date => {
-                  setDateTo(date)
-                }}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-                PopperProps={{
-                  anchorEl: () => rootRef.current,
-                  anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                  },
-                  transformOrigin: {
-                    vertical: 'top',
-                    horizontal: 'left'
-                  },
-                  PaperProps: {
-                    style: {
-                      backgroundColor: 'white',
-                      borderRadius: '8px'
-                    }
-                  }
-                }}
-                TextFieldComponent={() => null}
-                open={openCalendarTo}
-                onOpen={() => setCalendarTo(true)}
-                onClose={() => {
-                  setCalendarTo(false)
-                  setCalendarFrom(false)
-                }}
-                onAccept={date => {
-                  if (!openCalendarFrom) {
+                  }}
+                  TextFieldComponent={() => null}
+                  open={openCalendarFrom}
+                  onOpen={() => setCalendarFrom(true)}
+                  onClose={() => {
                     setCalendarTo(false)
-                    handleChange(date)
-                  }
-                }}
-                shouldDisableDate={disablePastDates}
-                maxDate={maxDateFrom}
-              />
-            </ThemeProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
-          )
+                    setCalendarFrom(false)
+                  }}
+                  onAccept={() => {
+                    setCalendarTo(true)
+                    setTimeout(() => setCalendarFrom(false), 100)
+                  }}
+                />
+              </ThemeProvider>
+            </LocalizationProvider>
+            <LocalizationProvider
+              key="date-picker-dialog-to"
+              dateAdapter={AdapterDayjs}
+            >
+              <ThemeProvider
+                key="date-picker-dialog-to"
+                theme={muiThemeHeaderDate}
+              >
+                <DatePicker
+                  disableOpenPicker = {true}
+                  renderInput={() => {} }
+                  disableToolbar={false}
+                  ToolbarComponent={() => (
+                    <div style={calendarTitleStyle}>To:</div>
+                  )}
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  variant="inline"
+                  id="date-picker-dialog-to"
+                  key="date-picker-dialog-to"
+                  value={selectedDateTo}
+                  onChange={date => {
+                    setDateTo(date)
+                  }}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date'
+                  }}
+                  PopperProps={{
+                    anchorEl: () => rootRef.current,
+                    anchorOrigin: {
+                      vertical: 'bottom',
+                      horizontal: 'left'
+                    },
+                    transformOrigin: {
+                      vertical: 'top',
+                      horizontal: 'left'
+                    },
+                    PaperProps: {
+                      style: {
+                        backgroundColor: 'white',
+                        borderRadius: '8px'
+                      }
+                    }
+                  }}
+                  TextFieldComponent={() => null}
+                  open={openCalendarTo}
+                  onOpen={() => setCalendarTo(true)}
+                  onClose={() => {
+                    setCalendarTo(false)
+                    setCalendarFrom(false)
+                  }}
+                  onAccept={date => {
+                    if (!openCalendarFrom) {
+                      setCalendarTo(false)
+                      handleChange(date)
+                    }
+                  }}
+                  shouldDisableDate={disablePastDates}
+                  maxDate={maxDateFrom}
+                />
+              </ThemeProvider>
+            </LocalizationProvider>
+          </ThemeProvider>
+        )
         : (
-        <ThemeProvider theme={muiThemeDateFilter}>
-          <DatePicker
-            renderInput={(params) => <TextField {...params} />}
-            disableToolbar={true}
-            format="MM/dd/yyyy"
-            margin="normal"
-            variant="inline"
-            id="date-picker-inline"
-            value={selectedDate}
-            onChange={handleChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change date'
-            }}
-            PopoverProps={{
-              anchorEl: () => rootRef.current,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left'
-              },
-              transformOrigin: {
-                vertical: 'top',
-                horizontal: 'left'
-              },
-              PaperProps: {
-                style: {
-                  backgroundColor: 'white',
-                  borderRadius: '8px'
-                }
-              },
-              'data-testid': props.testid + '_popover'
-            }}
-            DialogProps={{ className: classes.datePicker }}
-            TextFieldComponent={() => null}
-            open={openCalendar}
-            onOpen={event => {
-              event.preventDefault()
-              event.target.focus({ preventScroll: true })
-              setCalendar(true)
-            }}
-            onClose={() => {
-              setCalendar(false)
-            }}
-            onAccept={() => setCalendar(false)}
-            onFocus={event => {
-              event.preventDefault()
-              event.target.focus({ preventScroll: false })
-            }}
-          />
-        </ThemeProvider>
-          )}
+          <ThemeProvider theme={muiThemeDateFilter}>
+            <DatePicker
+              renderInput={(params) => <TextField {...params} />}
+              disableToolbar={true}
+              format="MM/dd/yyyy"
+              margin="normal"
+              variant="inline"
+              id="date-picker-inline"
+              value={selectedDate}
+              onChange={handleChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date'
+              }}
+              PopoverProps={{
+                anchorEl: () => rootRef.current,
+                anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'left'
+                },
+                transformOrigin: {
+                  vertical: 'top',
+                  horizontal: 'left'
+                },
+                PaperProps: {
+                  style: {
+                    backgroundColor: 'white',
+                    borderRadius: '8px'
+                  }
+                },
+                'data-testid': props.testid + '_popover'
+              }}
+              DialogProps={{ className: classes.datePicker }}
+              TextFieldComponent={() => null}
+              open={openCalendar}
+              onOpen={event => {
+                event.preventDefault()
+                event.target.focus({ preventScroll: true })
+                setCalendar(true)
+              }}
+              onClose={() => {
+                setCalendar(false)
+              }}
+              onAccept={() => setCalendar(false)}
+              onFocus={event => {
+                event.preventDefault()
+                event.target.focus({ preventScroll: false })
+              }}
+            />
+          </ThemeProvider>
+        )}
     </div>
   )
 }

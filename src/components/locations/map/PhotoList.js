@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { Typography } from '@mui/material'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
+import { useWindowSize } from '@react-hook/window-size'
 
 /** Styles **/
 import { locationInfoCardStyles } from '../../../styles/classes/LocationsClasses'
 
 /** Constants **/
-import { whiteImage } from '../../../lib/Constants'
+import { whiteImage, mobileBreakpoint } from '../../../lib/Constants'
 
 function srcset (image, size, rows = 1, cols = 1) {
   return {
@@ -21,6 +22,7 @@ function srcset (image, size, rows = 1, cols = 1) {
 
 export const PhotoList = (props) => {
   const { photos, url } = props
+  const [wWidth] = useWindowSize()
   const classes = locationInfoCardStyles()
   const { t } = useTranslation()
   const [locationPhotos, setPhotos] = useState([])
@@ -60,8 +62,16 @@ export const PhotoList = (props) => {
       })
     } else if (photos.length === 2) {
       final.forEach((element, index) => {
-        element.img = index === 0 ? photos[index].img : (index === 1 || index === 2 || index === 3 || index === 5) ? whiteImage : photos[index - 3].img
-        element.cols = index === 0 ? 6 : (index === 1 || index === 2 || index === 3) ? 2 : 3
+        element.img = index === 0
+          ? photos[index].img
+          : (index === 1 || index === 2 || index === 3 || index === 5)
+            ? whiteImage
+            : photos[index - 3].img
+        element.cols = index === 0
+          ? 6
+          : (index === 1 || index === 2 || index === 3)
+            ? 2
+            : 3
       })
     } else if (photos.length === 1) {
       final.forEach((element, index) => {
@@ -78,10 +88,14 @@ export const PhotoList = (props) => {
 
   return (
     <ImageList
-      sx={{ width: 480, height: 200, cursor: 'pointer' }}
+      sx={{
+        width: wWidth > mobileBreakpoint ? 480 : 'calc(100% - 50px)',
+        height: wWidth > mobileBreakpoint ? 200 : 'calc(100% - 50px)',
+        cursor: 'pointer'
+      }}
       variant="quilted"
       cols={12}
-      rowHeight={97}
+      rowHeight={wWidth > mobileBreakpoint ? 97 : 50}
       onClick={handleRedirectURL}
     >
       {locationPhotos.map((item, index) => (

@@ -179,3 +179,12 @@ export const getPhotosFromRepair = (repair, photosFromRepair) => {
   }
   return tmpPhotoStore
 }
+
+/** Cut string to the limit if its exceeding  */
+export const limitLabel = (label, limit) => {
+  if (label && label.length > (limit + 3)) {
+    return label.slice(0, limit) + '...'
+  } else {
+    return label
+  }
+}

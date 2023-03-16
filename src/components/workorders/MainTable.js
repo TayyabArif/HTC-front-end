@@ -169,59 +169,59 @@ function EnhancedTableHead (props) {
                   <div>
                     {headCell.type === 'Button'
                       ? (
-                      <div id={headCell.id} />
-                        )
+                        <div id={headCell.id} />
+                      )
                       : (
-                          false
-                        )}
+                        false
+                      )}
                     {headCell.type === 'InputFieldFilter'
                       ? (
-                      <InputFieldFilter
-                        id={headCell.id}
-                        values={filters}
-                        type={1}
-                        setValues={setFilters}
-                        placeholder={t('general.labels.search')}
-                        height={headCell.height}
-                        filterContent={() => null}
-                      />
-                        )
+                        <InputFieldFilter
+                          id={headCell.id}
+                          values={filters}
+                          type={1}
+                          setValues={setFilters}
+                          placeholder={t('general.labels.search')}
+                          height={headCell.height}
+                          filterContent={() => null}
+                        />
+                      )
                       : (
-                          false
-                        )}
+                        false
+                      )}
                     {headCell.type === 'DateFilter'
                       ? (
-                      <DateFilter
-                        id={headCell.id}
-                        values={filters}
-                        type={1}
-                        setValues={setFilters}
-                        height={headCell.height}
-                        filterContent={() => null}
-                        range
-                        testid={'date_filter'}
-                      />
-                        )
+                        <DateFilter
+                          id={headCell.id}
+                          values={filters}
+                          type={1}
+                          setValues={setFilters}
+                          height={headCell.height}
+                          filterContent={() => null}
+                          range
+                          testid={'date_filter'}
+                        />
+                      )
                       : (
-                          false
-                        )}
+                        false
+                      )}
                     {headCell.type === 'SlideFilter'
                       ? (
-                      <SlideFilter
-                        id={headCell.id}
-                        values={props.filters}
-                        type={1}
-                        setValues={props.setFilters}
-                        options={headCell.options ?? []}
-                        height={headCell.height}
-                        filterContent={() => null}
-                        testid={'filter_open'}
-                        hasAll={true}
-                      />
-                        )
+                        <SlideFilter
+                          id={headCell.id}
+                          values={props.filters}
+                          type={1}
+                          setValues={props.setFilters}
+                          options={headCell.options ?? []}
+                          height={headCell.height}
+                          filterContent={() => null}
+                          testid={'filter_open'}
+                          hasAll={true}
+                        />
+                      )
                       : (
-                          false
-                        )}
+                        false
+                      )}
                   </div>
                 </TableCell>
               )
@@ -364,26 +364,26 @@ function EnhancedTable (props) {
         <TableCell className={classes.emptyTableCell} colSpan={10}>
           {!validateFilters()
             ? (
-            <>
-              <Box className={ classes.empty1 }>
-                {t('work_orders.empty_message_title')}
-              </Box>
-              <Box className={ classes.empty2 }>
-                {t('work_orders.empty_message_filters')}
-              </Box>
-            </>
-              )
+              <>
+                <Box className={ classes.empty1 }>
+                  {t('work_orders.empty_message_title')}
+                </Box>
+                <Box className={ classes.empty2 }>
+                  {t('work_orders.empty_message_filters')}
+                </Box>
+              </>
+            )
             : (
-            <>
-              <Box className={ classes.empty1 }>
-                {t('work_orders.empty_message_title')}
-              </Box>
-              <Box className={ classes.empty2 } >
-                {t('work_orders.empty_message').replace('{company_name}', companyName)}
+              <>
+                <Box className={ classes.empty1 }>
+                  {t('work_orders.empty_message_title')}
+                </Box>
+                <Box className={ classes.empty2 } >
+                  {t('work_orders.empty_message').replace('{company_name}', companyName)}
 
-              </Box>
-            </>
-              )}
+                </Box>
+              </>
+            )}
         </TableCell>
       </TableRow>
     </TableBody>
@@ -420,25 +420,25 @@ function EnhancedTable (props) {
         }
         return column.type !== 'Button'
           ? (
-          <TableCell
-            key={column.id + '-' + i + '-' + index}
-            align="left"
-            style={{ paddingLeft: '8px', paddingRight: '14px' }}
-            classes={{ root: classes.tableCell }}
-          >
-            <LinearProgress
-              style={{ width: '100%' }}
-              classes={{
-                colorPrimary: classes.colorPrimary,
-                barColorPrimary: classes.barColorPrimary,
-                root: classes.dimensions
-              }}
-            />
-          </TableCell>
-            )
+            <TableCell
+              key={column.id + '-' + i + '-' + index}
+              align="left"
+              style={{ paddingLeft: '8px', paddingRight: '14px' }}
+              classes={{ root: classes.tableCell }}
+            >
+              <LinearProgress
+                style={{ width: '100%' }}
+                classes={{
+                  colorPrimary: classes.colorPrimary,
+                  barColorPrimary: classes.barColorPrimary,
+                  root: classes.dimensions
+                }}
+              />
+            </TableCell>
+          )
           : (
-              false
-            )
+            false
+          )
       })}
       {<TableCell padding="checkbox" size="small" />}
     </TableRow>
@@ -482,46 +482,46 @@ function EnhancedTable (props) {
           >
             {content && content.length > 0
               ? (
-              <TableBody key="wo-table-body" classes={{ root: classes.body }}>
-                {content.map((row, index) => {
-                  let tableReference = null
-                  if (content.length === index + 1) {
-                    tableReference = lastTableElement
-                  }
-                  return (
-                    <TableRow
-                      ref={tableReference}
-                      hover
-                      onClick={event => {
-                        event.stopPropagation()
-                        ReactGA.event({
-                          category: 'show',
-                          action: 'show_work_order_detail'
-                        })
-                        setWoNum(row)
-                      }}
-                      role="checkbox"
-                      aria-checked={isSelected(row.id)}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isSelected(row.id) || woNum?.id === row.id}
-                      classes={{ selected: classes.selected }}
-                      className={classes.tableRow}
-                    >
-                      <TableCell padding="checkbox">
-                        <ThemeProvider theme={checkboxTheme}>
-                          <Checkbox
-                            onClick={event => handleClick(event, row.id)}
-                            checked={isSelected(row.id)}
-                            inputProps={{
-                              'aria-labelledby': `enhanced-table-checkbox-${index}`
-                            }}
-                          />
-                        </ThemeProvider>
-                      </TableCell>
-                      {columnsConfig.map((column, index) => {
-                        if (!column.visible) return null
-                        switch (column.id) {
+                <TableBody key="wo-table-body" classes={{ root: classes.body }}>
+                  {content.map((row, index) => {
+                    let tableReference = null
+                    if (content.length === index + 1) {
+                      tableReference = lastTableElement
+                    }
+                    return (
+                      <TableRow
+                        ref={tableReference}
+                        hover
+                        onClick={event => {
+                          event.stopPropagation()
+                          ReactGA.event({
+                            category: 'show',
+                            action: 'show_work_order_detail'
+                          })
+                          setWoNum(row)
+                        }}
+                        role="checkbox"
+                        aria-checked={isSelected(row.id)}
+                        tabIndex={-1}
+                        key={row.id}
+                        selected={isSelected(row.id) || woNum?.id === row.id}
+                        classes={{ selected: classes.selected }}
+                        className={classes.tableRow}
+                      >
+                        <TableCell padding="checkbox">
+                          <ThemeProvider theme={checkboxTheme}>
+                            <Checkbox
+                              onClick={event => handleClick(event, row.id)}
+                              checked={isSelected(row.id)}
+                              inputProps={{
+                                'aria-labelledby': `enhanced-table-checkbox-${index}`
+                              }}
+                            />
+                          </ThemeProvider>
+                        </TableCell>
+                        {columnsConfig.map((column, index) => {
+                          if (!column.visible) return null
+                          switch (column.id) {
                           case 'client_name':
                             return (
                               <TableCell
@@ -565,7 +565,7 @@ function EnhancedTable (props) {
                                 align="left"
                                 classes={{ root: classes.tableCell }}
                               >
-                                {row.external_id}
+                                {row.client_tracking_number}
                               </TableCell>
                             )
                           case 'trade':
@@ -603,7 +603,7 @@ function EnhancedTable (props) {
                                 align="left"
                                 classes={{ root: classes.tableCell }}
                               >
-                                {row.customer_po ?? row.external_id}
+                                {row.customer_po}
                               </TableCell>
                             )
                           case 'open_date':
@@ -643,19 +643,19 @@ function EnhancedTable (props) {
                               >
                                 {row.status
                                   ? (
-                                  <PointIcon
-                                    className={classes[getWOstatus(row)]}
-                                  />
-                                    )
+                                    <PointIcon
+                                      className={classes[getWOstatus(row)]}
+                                    />
+                                  )
                                   : (
-                                  <PointIcon className={classes.noIcon} />
-                                    )}
+                                    <PointIcon className={classes.noIcon} />
+                                  )}
                                 <div style={{ display: 'inline' }}>
                                   {row.status
                                     ? t(
-                                        `work_orders.wo_states.${getWOstatus(
-                                          row
-                                        )}`
+                                      `work_orders.wo_states.${getWOstatus(
+                                        row
+                                      )}`
                                     )
                                     : t('work_orders.wo_states.no_status')}
                                 </div>
@@ -669,38 +669,38 @@ function EnhancedTable (props) {
                                 className={`${classes.tableCell} ${
                                   row.invoice
                                     ? classes[
-                                        row.invoice.status === 'open'
-                                          ? 'invoice_open'
-                                          : row.invoice.status
-                                      ]
+                                      row.invoice.status === 'open'
+                                        ? 'invoice_open'
+                                        : row.invoice.status
+                                    ]
                                     : classes.not_available
                                 }`}
                               >
                                 {row.invoice
                                   ? t(
-                                      `invoices.in_states.${row.invoice.status}`
+                                    `invoices.in_states.${row.invoice.status}`
                                   )
                                   : t('invoices.in_states.not_available')}
                               </TableCell>
                             )
                           default:
                             return null
-                        }
-                      })}
-                      {<TableCell padding="checkbox" size="small" />}
-                    </TableRow>
-                  )
-                })}
-                {content.length > 0 && loading && progressRow(columnsConfig, 1)}
-              </TableBody>
-                )
+                          }
+                        })}
+                        {<TableCell padding="checkbox" size="small" />}
+                      </TableRow>
+                    )
+                  })}
+                  {content.length > 0 && loading && progressRow(columnsConfig, 1)}
+                </TableBody>
+              )
               : loading
                 ? (
-                    progressComponent(columnsConfig)
-                  )
+                  progressComponent(columnsConfig)
+                )
                 : (
-                    emptyComponent()
-                  )}
+                  emptyComponent()
+                )}
           </Table>
         </TableContainer>
       </TableContainer>

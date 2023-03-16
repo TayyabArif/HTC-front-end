@@ -25,21 +25,21 @@ export const EtaSelect = props => {
       </FormLabel>
       {disabled
         ? (
-        <FormLabel component="legend" className={classes.fieldData}>
-          {data && data?.time && data.time !== ''
-            ? moment(new Date(eta)).format(t('general.date_formats.basic'))
-            : t('general.labels.not_available')}
-        </FormLabel>
-          )
+          <FormLabel component="legend" className={classes.fieldData}>
+            {data && data?.time && data.time !== ''
+              ? moment(new Date(eta)).format(t('general.date_formats.basic'))
+              : t('general.labels.not_available')}
+          </FormLabel>
+        )
         : (
-        <DateTimeFilter
-          id={'eta'}
-          values={eta ?? ''}
-          type={2}
-          setValues={updateEta}
-          filterContent={() => null}
-        />
-          )}
+          <DateTimeFilter
+            id={'eta'}
+            values={eta ?? ''}
+            type={2}
+            setValues={updateEta}
+            filterContent={() => null}
+          />
+        )}
     </div>
   )
 }

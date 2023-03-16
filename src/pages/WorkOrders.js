@@ -206,13 +206,13 @@ const WorkOrders = (props) => {
               <InputAdornment position="end">
                 {searchValue.length > 0
                   ? (
-                  <IconButton onClick={handleClearGlobalSearch}>
-                    <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
-                  </IconButton>
-                    )
+                    <IconButton onClick={handleClearGlobalSearch}>
+                      <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
+                    </IconButton>
+                  )
                   : (
-                  <div />
-                    )}
+                    <div />
+                  )}
               </InputAdornment>
             }
             autoComplete="off"
