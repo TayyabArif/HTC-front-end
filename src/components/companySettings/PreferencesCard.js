@@ -175,10 +175,12 @@ export const PreferencesCard = props => {
                     axis="xy"
                     setColumns={setColumns}
                 />
-                <Box className={classes.buttonBox} >
-                    <Button disabled={disableSave} onClick={async () => await applyChanges()} size="small" className={classes.applyButton} >
-                        {t('company_settings.preferences_card.apply')}
-                    </Button>
+                <Box className={classes.buttonBox}>
+                  {!disableSave
+                    ? <Button onClick={async () => await applyChanges()} size="small" className={classes.applyButton} >
+                    {t('company_settings.preferences_card.apply')}
+                  </Button>
+                    : <br/>}
                 </Box>
             </CardContent>
         </Card>
