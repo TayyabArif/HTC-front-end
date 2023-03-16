@@ -25,7 +25,7 @@ import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo, getLocation
 
 // Constants
 import { useWindowWidth } from '@react-hook/window-size'
-import { locationsPerPage } from '../lib/Constants'
+import { locationsPerPage, mobileBreakpoint } from '../lib/Constants'
 
 // Styles
 import { locationsStyles } from '../styles/classes/LocationsClasses'
@@ -396,7 +396,9 @@ const Locations = () => {
             <Box className={classes.mobileCountsBox}>
               <PanelCountsMobile searchResults={sitesResponse}/>
             </Box>
-            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} searchValue={searchValue} />
+            <Box paddingTop={actualWidth > mobileBreakpoint ? '0px' : actualWidth > 577 ? '60px' : '92px'}>
+              <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} searchValue={searchValue} />
+            </Box>
           </Grid>
         </Box>
       </Box>

@@ -17,7 +17,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 /** Redux **/
 import { useDispatch } from 'react-redux'
 import { loadingActions } from '../../store/loading'
-import { store } from '../../store'
 
 /** Services **/
 import { resetPassword, login } from '../../services/AuthService'
@@ -30,7 +29,6 @@ const ForgotPasswordCode = () => {
   const classes = forgotCodeStyles()
   const dispatch = useDispatch()
   const [newPassword, setNewPassword] = useState('')
-  const authStore = store.getState().auth
   const [error, setError] = useState()
   const [enableSave, setEnableSave] = useState()
 
@@ -61,8 +59,9 @@ const ForgotPasswordCode = () => {
       const selector = queryParams.get('selector')
       const token = queryParams.get('token')
       const apiToken = queryParams.get('apiToken')
+      const username = queryParams.get('u')
       await resetPassword(selector, token, newPassword, newPassword, apiToken)
-      await login(authStore.changedEmail, newPassword)
+      await login(username, newPassword)
       dispatch(loadingActions.hide())
     } catch (error) {
       console.error(error)

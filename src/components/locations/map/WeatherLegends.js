@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
-import { Box, Fade, Grid, Grow, IconButton, Paper, Typography, useTheme } from '@mui/material'
+import { Box, Fade, Grid, Slide, IconButton, Paper, Typography, useTheme } from '@mui/material'
 import { FullscreenExitOutlined, FullscreenOutlined } from '@mui/icons-material'
 
 /** Styles **/
@@ -10,7 +10,7 @@ import { weatherLegendsStyles } from '../../../styles/classes/LocationsClasses'
 
 /** Utils **/
 import { useWindowWidth } from '@react-hook/window-size'
-import { mobileBreakpoint, isSafari, isChrome } from '../../../lib/Constants'
+import { mobileBreakpoint } from '../../../lib/Constants'
 
 export const WeatherLegends = (props) => {
   const classes = weatherLegendsStyles()
@@ -34,7 +34,7 @@ export const WeatherLegends = (props) => {
 
   return (
     <Box hidden={props.hidden}>
-      <Fade className={isSafari && !isChrome() ? classes.legendsContainerMinimizedIos : classes.legendsContainerMinimized} timeout={2000} in={legendsHidden} container={containerRef.current}>
+      <Fade className={actualWidth <= mobileBreakpoint ? classes.legendsContainerMinMobile : classes.legendsContainerMin} timeout={2000} in={legendsHidden} container={containerRef.current}>
         <Paper className={classes.mapWeatherLegendsBoxMinimized}>
           <Box p={1}>
             <Box pl={1}>
@@ -54,7 +54,7 @@ export const WeatherLegends = (props) => {
           </Box>
         </Paper>
       </Fade>
-      <Grow className={isSafari && !isChrome() ? classes.legendsContainerIos : classes.legendsContainer} timeout={1000} in={!legendsHidden} appear={false}>
+      <Slide className={actualWidth <= mobileBreakpoint ? classes.legendsContainerMobile : classes.legendsContainer} direction={actualWidth <= mobileBreakpoint ? 'left' : 'up'} timeout={1000} in={!legendsHidden} appear={false}>
         <Paper>
           <Box p={1}>
             <Box pl={1}>
@@ -320,7 +320,7 @@ export const WeatherLegends = (props) => {
             </Box>
           </Box>
         </Paper>
-      </Grow>
+      </Slide>
     </Box>
   )
 }

@@ -280,7 +280,8 @@ export const locationsStyles = makeStyles((theme) => ({
       display: 'none'
     },
     [theme.breakpoints.down('md')]: {
-      display: 'flex'
+      display: 'flex',
+      position: 'fixed'
     }
   }
 }))
@@ -750,8 +751,7 @@ export const locationCardStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: '500',
     whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    overflow: 'hidden'
   },
   font12: {
     fontSize: 12,
@@ -922,9 +922,9 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     transformOrigin: 'left bottom 0px'
   },
-  legendsContainerIos: {
-    bottom: '30px',
-    left: '15px',
+  legendsContainerMobile: {
+    right: '10px',
+    top: '60px',
     width: 'calc(100% - 25px)',
     zIndex: 1000,
     maxWidth: '440px',
@@ -932,15 +932,15 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     transformOrigin: 'left bottom 0px'
   },
-  legendsContainerMinimized: {
+  legendsContainerMin: {
     left: '15px',
     bottom: '20px',
     position: 'absolute',
     overflow: 'hidden'
   },
-  legendsContainerMinimizedIos: {
-    left: '15px',
-    bottom: '30px',
+  legendsContainerMinMobile: {
+    right: '10px',
+    top: '60px',
     position: 'absolute',
     overflow: 'hidden'
   },
@@ -986,27 +986,27 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
     bottom: '20px',
     overflow: 'hidden'
   },
-  playerContainerIos: {
-    right: '15px',
+  playerContainerMobile: {
+    right: '10px',
     width: 'calc(100% - 25px)',
     maxWidth: '350px',
     height: '142px',
     position: 'absolute',
-    bottom: '30px',
+    top: '60px',
     overflow: 'hidden'
   },
-  playerContainerMinimized: {
+  playerContainerMin: {
     right: '15px',
     height: 'auto',
     position: 'absolute',
     bottom: '20px',
     overflow: 'hidden'
   },
-  playerContainerMinimizedIos: {
-    right: '15px',
+  playerContainerMinMobile: {
+    right: '10px',
     height: 'auto',
     position: 'absolute',
-    bottom: '30px',
+    top: '120px',
     overflow: 'hidden'
   },
   mapWeatherPlayerBoxMinimized: {
@@ -1061,7 +1061,6 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
 
 export const woCardStyles = makeStyles((theme) => ({
   serviceNameDiv: {
-    backgroundColor: theme.colors.divBack,
     width: '24px',
     marginRight: '4px',
     borderBottomLeftRadius: '5px'

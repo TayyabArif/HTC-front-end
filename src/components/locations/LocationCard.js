@@ -42,10 +42,18 @@ export const LocationCard = (props) => {
     }
   }
 
+  const getNameLabel = (name) => {
+    if (name && name.length > 35) {
+      return name.slice(0, 32) + '...'
+    } else {
+      return name
+    }
+  }
+
   const getAddressLabel = (info) => {
     const original = `${info.address}, ${info.city} ${info.state} ${info.zipcode}`
-    if (original.length > 100) {
-      return original.slice(0, 100) + '...'
+    if (original.length > 85) {
+      return original.slice(0, 82) + '...'
     } else {
       return original
     }
@@ -57,7 +65,7 @@ export const LocationCard = (props) => {
         <Paper className={classes.locationTile} elevation={0} onClick={handleClickLocation}>
           <Box p={2}>
             <Typography className={classes.font16} align='left'>
-              {props.info.name}
+              {getNameLabel(props.info.name)}
             </Typography>
             <Typography className={classes.locationName} align='left'>
               {getAddressLabel(props.info)}
@@ -65,7 +73,7 @@ export const LocationCard = (props) => {
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>
               <Grid container className={classes.locationStatus}>
                 {(props.info.work_orders_summary.open + props.info.work_orders_summary.in_progress + props.info.work_orders_summary.completed) === 0 && (
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6}>
                     <FiberManualRecord className={classes.noActivityWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>
                       {t('locations.locations_no_activity')}
@@ -73,7 +81,7 @@ export const LocationCard = (props) => {
                   </Grid>
                 )}
                 {props.info.work_orders_summary.open > 0 && (
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} >
                     <FiberManualRecord className={classes.openWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>
                       {props.info.work_orders_summary.open} {t('locations.locations_open_work')}
@@ -81,7 +89,7 @@ export const LocationCard = (props) => {
                   </Grid>
                 )}
                 {props.info.work_orders_summary.in_progress > 0 && (
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6}>
                     <FiberManualRecord className={classes.inProgressWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>
                       {props.info.work_orders_summary.in_progress} {t('locations.locations_in_progress_work')}
