@@ -57,16 +57,16 @@ const callAPI = async (type, route, params = {}, attempt = 1) => {
   const timeout = 30000
 
   switch (type) {
-    case 'GET':
-      setTimeout(() => { source.cancel('Operation canceled.') }, timeout)
-      response = await api.get(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
+  case 'GET':
+    setTimeout(() => { source.cancel('Operation canceled.') }, timeout)
+    response = await api.get(route, params)
+    break
+  default:
+    throw {
+      name: 'Method Not Allowed',
+      message: 'Call type not supported',
+      code: 405
+    }
   }
 
   if (!response.ok) {
