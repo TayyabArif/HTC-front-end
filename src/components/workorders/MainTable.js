@@ -565,7 +565,7 @@ function EnhancedTable (props) {
                                 align="left"
                                 classes={{ root: classes.tableCell }}
                               >
-                                {row.external_id}
+                                {row.client_tracking_number}
                               </TableCell>
                             )
                           case 'trade':
@@ -603,7 +603,7 @@ function EnhancedTable (props) {
                                 align="left"
                                 classes={{ root: classes.tableCell }}
                               >
-                                {row.customer_po ?? row.external_id}
+                                {row.customer_po}
                               </TableCell>
                             )
                           case 'open_date':
