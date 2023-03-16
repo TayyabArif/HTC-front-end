@@ -82,7 +82,7 @@ export const WorkOrderCard = (props) => {
                 {(info?.customer_po && info?.customer_po !== '') ? 'WO#' + info?.customer_po : <br></br>}
               </Typography>
               <Typography marginBottom={0.3} className={classes.clientTracking} align='left'>
-                {(info?.client_tracking_number && info?.client_tracking_number !== '') ? t('locations.work_orders.tracking') + '#' + info?.client_tracking_number : <br></br>}
+                {(info?.client_tracking_number && info?.client_tracking_number !== '') ? t('locations.work_orders.tracking') + '# ' + info?.client_tracking_number : <br></br>}
               </Typography>
               <Typography marginBottom={0.3} className={classes.woType} align='left'>
                 {(info?.call_type && info?.call_type !== '') ? info?.call_type : <br></br>}
