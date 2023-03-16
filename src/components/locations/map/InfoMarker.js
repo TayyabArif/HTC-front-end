@@ -8,7 +8,7 @@ import { ArrowRight } from '@mui/icons-material'
 import { Marker, InfoWindow } from '@react-google-maps/api'
 
 /** Images **/
-import selectedm23 from '../../../assets/images/clusters/selectedm23.png'
+import selectedm23 from '../../../assets/images/clusters/selected.png'
 import m23 from '../../../assets/images/clusters/m23.png'
 import mOpen from '../../../assets/images/clusters/open.png'
 import mCompleted from '../../../assets/images/clusters/completed.png'
@@ -40,7 +40,7 @@ export const InfoMarker = (props) => {
       dispatch(locationsActions.showMapSiteView({
         coordinates: site.coordinates,
         zoom: 19,
-        hideMarkers: true,
+        hideMarkers: false,
         selectedMarkerIndex: props.index
       }))
       dispatch(locationsActions.setSelectedSite(site))
@@ -48,11 +48,10 @@ export const InfoMarker = (props) => {
       dispatch(locationsActions.showSiteViewPanel())
     }
   }
-
   return (<Marker
     visible={false}
     icon={props.enableCluster
-      ? (locationsStore.setActiveInfoWindow === index ? selectedm23 : m23)
+      ? (locationsStore.selectedSite.id === index ? selectedm23 : m23)
       : (site.work_order_status === 'Unknown'
         ? mNoWorkOrder
         : site.work_order_status === 'open'

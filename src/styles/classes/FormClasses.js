@@ -34,7 +34,8 @@ export const chipStyles = makeStyles(theme => ({
     fontSize: '12px',
     fontWeight: '400',
     padding: '16px 0px',
-    lineHeight: '14px'
+    lineHeight: '14px',
+    '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)'
   },
   chipSelected: {
     fontSize: '12px',
@@ -43,7 +44,8 @@ export const chipStyles = makeStyles(theme => ({
     color: theme.colors.backdropColor,
     border: '1px solid ' + theme.colors.iconBlue,
     padding: '16px 0px',
-    lineHeight: '14px'
+    lineHeight: '14px',
+    '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)'
   }
 }))
 
@@ -120,12 +122,15 @@ export const numberInputStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   label: {
-    fontSize: '15px',
+    fontSize: '13px',
     fontWeight: '400',
     marginBottom: '0.5em',
     textAlign: 'left',
     marginLeft: '5px',
-    color: theme.colors.stepperGray
+    color: theme.colors.stepperGray,
+    [theme.breakpoints.up('md')]: {
+      fontSize: '15px'
+    }
   },
   error: {
     fontSize: '10px',

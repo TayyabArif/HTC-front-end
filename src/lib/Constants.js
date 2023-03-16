@@ -1,3 +1,35 @@
+export const Routes = {
+  SIGN_IN: {
+    path: '/sign-in'
+  },
+  DASHBOARD: {
+    path: '/dashboard'
+  },
+  FORGOT_PASSWORD: {
+    path: '/forgot-password',
+    SENT: {
+      path: '/forgot-password/sent'
+    },
+    CODE: {
+      path: '/forgot-password/code'
+    }
+  },
+  CREATE_ACCOUNT: {
+    path: '/create-account'
+  },
+  WORK_ORDERS: {
+    path: '/work-orders'
+  },
+  COMPANY_SETTINGS: {
+    path: '/company-settings'
+  },
+  ACCOUNT_SETTINGS: {
+    path: '/account-settings'
+  },
+  LOCATIONS: {
+    path: '/locations'
+  }
+}
 export const woStatusOptions = [
   'open',
   'in_progress',

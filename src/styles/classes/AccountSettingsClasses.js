@@ -13,9 +13,12 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
       fontFamily: 'Rubik Bold',
       display: 'flex',
       color: theme.colors.white,
-      padding: '24px 0px 32px 62px',
+      padding: '15px',
       fontWeight: 700,
-      fontSize: '28px'
+      fontSize: '28px',
+      [theme.breakpoints.up('md')]: {
+        padding: '24px 0px 32px 62px'
+      }
     }
 
   },
@@ -29,6 +32,11 @@ export const AccountSettingsPageClasses = makeStyles(theme => ({
     maxWidth: '100%'
   },
   frontBoxes: {
+    [theme.breakpoints.down('md')]: {
+      '& .MuiGrid-root': {
+        flexGrow: 1
+      }
+    },
     position: 'relative'
   }
 }))
@@ -83,6 +91,9 @@ export const UpdateAccountInfoClasses = makeStyles(theme => ({
     height: `calc(100vh - ${navBarHeaderHeight})`,
     marginTop: navBarHeaderHeight,
     width: '360px',
+    [theme.breakpoints.up('sm')]: {
+      width: '387px'
+    },
     borderRadius: '8px',
     overflow: 'auto',
     overflowX: 'hidden',
@@ -122,9 +133,12 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
   card: {
     '&.MuiCard-root': {
       borderRadius: '10px',
-      margin: '0px 15px 13px 62px',
+      margin: '15px 15px 150px 15px',
       boxShadow: 'none',
-      border: 'none'
+      border: 'none',
+      [theme.breakpoints.up('md')]: {
+        margin: '0px 15px 13px 62px'
+      }
     }
   },
   title: {
@@ -165,7 +179,12 @@ export const AccountInfoCardClasses = makeStyles(theme => ({
       marginBottom: '15px',
       wordWrap: 'break-word',
       padding: '5px 13px',
-      minHeight: '35px'
+      minHeight: '35px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      '-webkit-line-clamp': 2,
+      '-webkit-box-orient': 'vertical'
     }
   },
   disabled: {
