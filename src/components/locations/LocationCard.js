@@ -51,7 +51,8 @@ export const LocationCard = (props) => {
   }
 
   const getAddressLabel = (info) => {
-    const original = `${info.address}, ${info.city} ${info.state} ${info.zipcode}`
+    const original = `${info.address}, ${info.city}` +
+      `${info.state} ${info.zipcode}`
     if (original.length > 85) {
       return original.slice(0, 82) + '...'
     } else {
@@ -62,7 +63,10 @@ export const LocationCard = (props) => {
   const renderLocation = useMemo(() => {
     return (
       <Box className={'sitesCard'} pb={0.5} style={props.style}>
-        <Paper className={classes.locationTile} elevation={0} onClick={handleClickLocation}>
+        <Paper
+          className={classes.locationTile}
+          elevation={0}
+          onClick={handleClickLocation}>
           <Box p={2}>
             <Typography className={classes.font16} align='left'>
               {getNameLabel(props.info.name)}
