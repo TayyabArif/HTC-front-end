@@ -49,7 +49,8 @@ export const AccountInfoCard = props => {
           setUserInfo(userInfo)
 
           if (response) {
-            setRoles(response)
+            // temporary hidden role "Portal user"
+            setRoles(response.filter(role => role.name.toLowerCase() !== 'portal user'))
           }
           firstLoad = false
         }

@@ -71,6 +71,11 @@ const CompanySettings = props => {
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
   const [companyConfigs, setCompanyConfigs] = useState([])
+  const styles = {
+    saveButton: {
+      display: 'none'
+    }
+  }
 
   useEffect(() => {
     initialMethod()
@@ -138,7 +143,10 @@ const CompanySettings = props => {
   const updateRoles = async () => {
     try {
       const response = await getRoles(userStore.userInfo.company_id)
-      setRoles(response)
+      if (response) {
+        // temporary hidden role "Portal user"
+        setRoles(response.filter(role => role.name.toLowerCase() !== 'portal user'))
+      }
     } catch (error) {
       console.error(error)
       setRoles([])
@@ -192,6 +200,7 @@ const CompanySettings = props => {
   const handleSave = async (data) => {
     try {
       const newProfile = { ...data }
+      delete newProfile.name
       delete newProfile.company
       delete newProfile.id
       delete newProfile.external_token
@@ -659,6 +668,7 @@ const CompanySettings = props => {
         </DialogContent>
         <DialogActions>
           <Button
+            sx={styles.saveButton}
             variant="contained"
             onClick={() => handleSave(updatedCompany)}
             className={classes.saveButton}

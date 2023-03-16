@@ -40,6 +40,7 @@ export const companySettings = () => {
       delete_users: 'Eliminar Usuarios',
       wo_view: 'Ver Work Orders',
       workorders: 'Work Orders',
+      locations: 'Sitios',
       proposals: 'Proposals',
       invoices: 'Facturas',
       company_settings: 'Configuraciones',
@@ -146,7 +147,8 @@ export const companySettings = () => {
     buttons: {
       edit: 'Editar',
       show_more: 'Mostrar más',
-      add: 'Añadir'
+      add: 'Añadir',
+      view: 'Ver'
     },
     card: {
       profile: 'Perfil de Compañía',

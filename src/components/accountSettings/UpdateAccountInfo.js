@@ -181,7 +181,6 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
@@ -192,7 +191,6 @@ export const UpdateAccountInfo = props => {
         (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
-      errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message
     ) {
@@ -494,7 +492,7 @@ export const UpdateAccountInfo = props => {
                             }
                           ]
                           : finalRoles && finalRoles.length > 0
-                            ? [...finalRoles]
+                            ? (event === 'new' ? [...finalRoles.filter(role => role.name !== 'Portal user')] : [...finalRoles])
                             : []
                       }
                       placeholder={t('account_settings.info_card.placeholder_select')}

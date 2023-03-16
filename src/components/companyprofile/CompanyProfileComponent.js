@@ -64,6 +64,8 @@ export const CompanyProfileComponent = props => {
     }
     setAddress(newAddress)
   }
+  // temporarily disabled for GlobalAddressInput
+  /* eslint-disable  no-unused-vars */
   const handleFocus = event => event.target.select()
 
   const handleBlurEmail = () => {
@@ -150,6 +152,7 @@ export const CompanyProfileComponent = props => {
           placeholder={t('company_profile.placeholder.company_legal')}
           value={profile?.name}
           label={t('company_profile.labels.company_legal')}
+          readOnly={true}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'name')}
         />
         <GlobalAddressInput
@@ -159,7 +162,7 @@ export const CompanyProfileComponent = props => {
           label={t('company_settings.info_card.address')}
           value={profile?.address?.address ?? ''}
           onChange={addressChanged}
-          onFocus={handleFocus}
+          readOnly={true}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'address')}
         />
         <GlobalSelect
@@ -170,6 +173,7 @@ export const CompanyProfileComponent = props => {
           placeholder={`${t('company_profile.placeholder.country')}`}
           value={profile?.country ?? []}
           multiple={true}
+          readOnly={true}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'country')}
         />
         <Box display="flex">
@@ -180,6 +184,7 @@ export const CompanyProfileComponent = props => {
               field="phone"
               placeholder={t('company_profile.placeholder.business_hours')}
               value={profile?.business_hours?.phone}
+              readOnly={true}
               label={t('company_profile.labels.business_hours')}
               format="(###) ### ####"
             />
@@ -191,6 +196,7 @@ export const CompanyProfileComponent = props => {
               field="phone"
               placeholder={t('company_profile.placeholder.after_hours')}
               value={afterHoursPhone}
+              readOnly={true}
               label={t('company_profile.labels.after_hours')}
               format="(###) ### ####"
             />
@@ -207,6 +213,7 @@ export const CompanyProfileComponent = props => {
           onFocus={handleFocusEmail}
           error={!!errorEmail}
           helperText={errorEmail}
+          readOnly={true}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'email')}
         />
         <GlobalInput
@@ -219,6 +226,7 @@ export const CompanyProfileComponent = props => {
           onBlur={handleBlurInvoice}
           onFocus={handleFocusInvoice}
           error={!!errorInvoice}
+          readOnly={true}
           helperText={errorInvoice}
           required={props.requiredFields && Object.prototype.hasOwnProperty.call(props?.requiredFields, 'invoice_email')}
         />
