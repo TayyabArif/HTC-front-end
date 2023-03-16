@@ -54,7 +54,11 @@ export const SupportCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         {/** TODO: this knowledge support link is gonna be hidden until Marios confirmation */}
-        <Link hidden={true} data-testid='knowledge_button' onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+        <Link
+          hidden={true}
+          data-testid='knowledge_button'
+          onClick={() => window.open(process.env.REACT_APP_FTC_KNOWLEDGE_BASE_SUPPORT, '_blank', 'noopener,noreferrer')}
+          classes={{ root: classes.link }} >
           {t('company_settings.support_card.knowledge')}
         </Link>
         {contacts.email !== '' && <Typography classes={{ root: classes.contacts }}>
@@ -63,7 +67,10 @@ export const SupportCard = props => {
         {contacts.phone !== '' && <Typography classes={{ root: classes.contacts }}>
           {contacts.phone}
         </Typography>}
-        <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+        <Link
+          data-testid='privacy_policy_button'
+          onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')}
+          classes={{ root: classes.link }} >
           {t('company_settings.support_card.privacy')}
         </Link>
         <Typography classes={{ root: classes.versionLabel }}>

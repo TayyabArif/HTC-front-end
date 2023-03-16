@@ -35,59 +35,59 @@ export const TaskList = props => {
       </FormLabel>
       {disabled &&
         services[0].tasks.filter(task => task.selected).length === 0 && (
-          <FormLabel className={classes.fieldMessage}>
-            {notAvailable
-              ? t('general.labels.not_available')
-              : t('work_orders.checkout_message')}
-          </FormLabel>
+        <FormLabel className={classes.fieldMessage}>
+          {notAvailable
+            ? t('general.labels.not_available')
+            : t('work_orders.checkout_message')}
+        </FormLabel>
       )}
       {disabled
         ? (
-            services[0].tasks.map((obj, ind) => {
-              if (obj.selected) {
-                return (
-              <Grid key={ind} container className={classes.taskList}>
-                <Grid item md={1} className={classes.selectedTask}>
-                  {
-                    <CircleIcon className={classes.dotIcon}/>
-                  }
+          services[0].tasks.map((obj, ind) => {
+            if (obj.selected) {
+              return (
+                <Grid key={ind} container className={classes.taskList}>
+                  <Grid item md={1} className={classes.selectedTask}>
+                    {
+                      <CircleIcon className={classes.dotIcon}/>
+                    }
+                  </Grid>
+                  <Grid item md={10}>
+                    <FormLabel component="legend" className={classes.item}>
+                      {obj.name}
+                    </FormLabel>
+                  </Grid>
+                  <Grid item md={1}>
+                    {obj.selected && (
+                      <CheckIcon
+                        className={classes.checkIcon}
+                      />
+                    )}
+                  </Grid>
                 </Grid>
-                <Grid item md={10}>
-                  <FormLabel component="legend" className={classes.item}>
-                    {obj.name}
-                  </FormLabel>
-                </Grid>
-                <Grid item md={1}>
-                  {obj.selected && (
-                    <CheckIcon
-                      className={classes.checkIcon}
-                    />
-                  )}
-                </Grid>
-              </Grid>
-                )
-              }
-              return null
-            })
-          )
-        : (
-        <Grid container className={classes.taskList}>
-          <Selector
-            id={'taskList'}
-            multiple
-            value={
-              selectedTasks?.filter(t => t.selected).length > 0
-                ? selectedTasks
-                  .filter(t => t.selected)
-                  .map(t => t.name)
-                  .join('\n')
-                : ''
+              )
             }
-            handleChange={handleChangeValues}
-            options={services[0].tasks ? services[0].tasks : []}
-          />
-        </Grid>
-          )}
+            return null
+          })
+        )
+        : (
+          <Grid container className={classes.taskList}>
+            <Selector
+              id={'taskList'}
+              multiple
+              value={
+                selectedTasks?.filter(t => t.selected).length > 0
+                  ? selectedTasks
+                    .filter(t => t.selected)
+                    .map(t => t.name)
+                    .join('\n')
+                  : ''
+              }
+              handleChange={handleChangeValues}
+              options={services[0].tasks ? services[0].tasks : []}
+            />
+          </Grid>
+        )}
     </Grid>
   )
 }

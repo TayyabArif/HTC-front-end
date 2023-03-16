@@ -113,9 +113,9 @@ const CreateAccount = () => {
       )
     } catch (error) {
       switch (error.type) {
-        case 'email':
-          setEmailError(error.message)
-          break
+      case 'email':
+        setEmailError(error.message)
+        break
       }
       setLoading(false)
     }

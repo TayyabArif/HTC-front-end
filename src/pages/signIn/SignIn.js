@@ -180,8 +180,8 @@ const SignIn = () => {
                 onInput={handleEmailChange}
                 value={email}
               />
-              </Box>
-              <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
+            </Box>
+            <Box alignItems="center" alignContent="center" textAlign={'center'} justifyContent="center" >
               <TextField
                 classes={{ root: classes.fields }}
                 variant='outlined'
@@ -220,7 +220,13 @@ const SignIn = () => {
 
             <Grid container className={classes.rememberForgot}>
               <Grid item xs >
-                <FormControlLabel classes={{ label: classes.rememberMe }} control={<Checkbox style={{ transform: 'scale(0.6)' }} checked={rememberMe} onChange={handleChangeRemember} color='primary' />}
+                <FormControlLabel
+                  classes={{ label: classes.rememberMe }}
+                  control={<Checkbox
+                    style={{ transform: 'scale(0.6)' }}
+                    checked={rememberMe}
+                    onChange={handleChangeRemember}
+                    color='primary' />}
                   label={t('sign_in.remember_me')} />
               </Grid>
               <Grid item>
@@ -234,7 +240,12 @@ const SignIn = () => {
 
             <Box textAlign='center' pt={2}>
               <Typography component={'span'} align={'center'} className={classes.terms}>
-                {t('sign_in.messages.terms_and_conditions')} <Link onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} className={classes.linkTerms}>{t('sign_in.messages.terms_and_conditions_link')}</Link>
+                {t('sign_in.messages.terms_and_conditions')}
+                <Link
+                  onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')}
+                  className={classes.linkTerms}>
+                  {t('sign_in.messages.terms_and_conditions_link')}
+                </Link>
               </Typography>
             </Box>
 

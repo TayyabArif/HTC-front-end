@@ -9,8 +9,11 @@ import { FiberManualRecord } from '@mui/icons-material'
 import { useSelector, useDispatch } from 'react-redux'
 import { locationsActions } from '../../store/locations'
 
-// Styles
+/** Styles **/
 import { locationCardStyles } from '../../styles/classes/LocationsClasses'
+
+/** Constants **/
+import { locationAddressLimit, locationNameLimit } from '../../lib/Constants'
 
 export const LocationCard = (props) => {
   const theme = useTheme()
@@ -43,8 +46,8 @@ export const LocationCard = (props) => {
   }
 
   const getNameLabel = (name) => {
-    if (name && name.length > 35) {
-      return name.slice(0, 32) + '...'
+    if (name && name.length > (locationNameLimit + 3)) {
+      return name.slice(0, locationNameLimit) + '...'
     } else {
       return name
     }
@@ -53,8 +56,8 @@ export const LocationCard = (props) => {
   const getAddressLabel = (info) => {
     const original = `${info.address}, ${info.city}` +
       `${info.state} ${info.zipcode}`
-    if (original.length > 85) {
-      return original.slice(0, 82) + '...'
+    if (original.length > (locationAddressLimit + 3)) {
+      return original.slice(0, locationAddressLimit) + '...'
     } else {
       return original
     }
@@ -76,7 +79,9 @@ export const LocationCard = (props) => {
             </Typography>
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>
               <Grid container className={classes.locationStatus}>
-                {(props.info.work_orders_summary.open + props.info.work_orders_summary.in_progress + props.info.work_orders_summary.completed) === 0 && (
+                {(props.info.work_orders_summary.open +
+                props.info.work_orders_summary.in_progress +
+                props.info.work_orders_summary.completed) === 0 && (
                   <Grid item xs={6}>
                     <FiberManualRecord className={classes.noActivityWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>

@@ -139,10 +139,10 @@ export const CompanyProfileComponent = props => {
               </Button>
             </Box>
           </Box>
-          )
+        )
         : (
-            ''
-          )}
+          ''
+        )}
       <Box className={classes.formContainer}>
         <GlobalInput
           onChange={handleChange}

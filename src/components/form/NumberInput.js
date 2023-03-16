@@ -107,14 +107,14 @@ export default function GlobalNumberInput (props) {
     <FormControl variant="standard" fullWidth={true}>
       {label
         ? (
-        <Typography id="text-label" className={classes.label}>
-          {props.required && <span className={classes.required}>*</span>}
-          {label}
-        </Typography>
-          )
+          <Typography id="text-label" className={classes.label}>
+            {props.required && <span className={classes.required}>*</span>}
+            {label}
+          </Typography>
+        )
         : (
-            ''
-          )}
+          ''
+        )}
       <BootstrapInput
         {...rest}
         InputProps={{

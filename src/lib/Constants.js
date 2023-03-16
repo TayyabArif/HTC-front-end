@@ -195,10 +195,10 @@ export const isChrome = () => {
     return true
   } else if (
     isChromium !== null &&
-typeof isChromium !== 'undefined' &&
-vendorName === 'Google Inc.' &&
-isOpera === false &&
-isIEedge === false
+    typeof isChromium !== 'undefined' &&
+    vendorName === 'Google Inc.' &&
+    isOpera === false &&
+    isIEedge === false
   ) {
     return true
   } else {
@@ -207,3 +207,7 @@ isIEedge === false
 }
 
 export const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
+export const locationNameLimit = 32
+
+export const locationAddressLimit = 82

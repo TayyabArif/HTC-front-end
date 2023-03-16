@@ -127,9 +127,9 @@ export const GMap = (props) => {
               play={play}
             />
             <Grid marginLeft={-5.5} container>
-                <Grid align={'left'} item xs={12} >
-                  <MapCounters searchResults={props.searchResults} date={props.date} hideLeftSection={props.hideLeftSection} />
-                </Grid>
+              <Grid align={'left'} item xs={12} >
+                <MapCounters searchResults={props.searchResults} date={props.date} hideLeftSection={props.hideLeftSection} />
+              </Grid>
             </Grid>
           </Box>
           {!requestLoading && props.siteListing.length
@@ -201,15 +201,15 @@ export const GMap = (props) => {
               }
             </MarkerClusterer>
             : !requestLoading && props.siteListing.map((site, index) => {
-                return (
+              return (
                 <OnlyMarker
                   key={index}
                   index={site.id}
                   position={site.coordinates}
                   site={site}
                 />)
-              }
-              )
+            }
+            )
           }
           {locationsStore.activeInfoWindow && props.siteListing.find(site => locationsStore.activeInfoWindow === site.id) &&
             (<InfoMarker
@@ -230,7 +230,8 @@ export const GMap = (props) => {
         </GoogleMap>
       </LoadScript>)
     }
-  }, [requestLoading, locationsStore.activeInfoWindow, enableCluster, props.hideLeftSection, props.searchResults, locationsStore.map, map, mapType, weather, props.forceReloadOverlay, loading, props.siteListing])
+  }, [requestLoading, locationsStore.activeInfoWindow, enableCluster, props.hideLeftSection, props.searchResults, locationsStore.map,
+    map, mapType, weather, props.forceReloadOverlay, loading, props.siteListing])
 
   return (renderMap ?? null)
 }

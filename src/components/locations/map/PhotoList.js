@@ -62,8 +62,16 @@ export const PhotoList = (props) => {
       })
     } else if (photos.length === 2) {
       final.forEach((element, index) => {
-        element.img = index === 0 ? photos[index].img : (index === 1 || index === 2 || index === 3 || index === 5) ? whiteImage : photos[index - 3].img
-        element.cols = index === 0 ? 6 : (index === 1 || index === 2 || index === 3) ? 2 : 3
+        element.img = index === 0
+          ? photos[index].img
+          : (index === 1 || index === 2 || index === 3 || index === 5)
+            ? whiteImage
+            : photos[index - 3].img
+        element.cols = index === 0
+          ? 6
+          : (index === 1 || index === 2 || index === 3)
+            ? 2
+            : 3
       })
     } else if (photos.length === 1) {
       final.forEach((element, index) => {
@@ -80,7 +88,11 @@ export const PhotoList = (props) => {
 
   return (
     <ImageList
-      sx={{ width: wWidth > mobileBreakpoint ? 480 : 'calc(100% - 50px)', height: wWidth > mobileBreakpoint ? 200 : 'calc(100% - 50px)', cursor: 'pointer' }}
+      sx={{
+        width: wWidth > mobileBreakpoint ? 480 : 'calc(100% - 50px)',
+        height: wWidth > mobileBreakpoint ? 200 : 'calc(100% - 50px)',
+        cursor: 'pointer'
+      }}
       variant="quilted"
       cols={12}
       rowHeight={wWidth > mobileBreakpoint ? 97 : 50}

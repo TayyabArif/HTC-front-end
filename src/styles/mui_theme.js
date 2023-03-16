@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { createTheme } from '@mui/material/styles'
 import RubikRegular from '../assets/fonts/Rubik-Regular.ttf'
 import RubikBold from '../assets/fonts/Rubik-Bold.ttf'

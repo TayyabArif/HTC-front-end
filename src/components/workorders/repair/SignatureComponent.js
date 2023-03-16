@@ -67,83 +67,83 @@ export const SignatureComponent = props => {
       </FormLabel>
       {disabled
         ? (
-        <>
-          {data?.image && (
-            <Grid item md={4}>
-              <div className={classes.signatureContainer}>
-                <img
-                  src={
-                    data.image?.includes('http')
-                      ? data.image.replace('.jpg', '_L.jpg')
-                      : process.env.REACT_APP_FTC_IMAGE_BASE_URL +
+          <>
+            {data?.image && (
+              <Grid item md={4}>
+                <div className={classes.signatureContainer}>
+                  <img
+                    src={
+                      data.image?.includes('http')
+                        ? data.image.replace('.jpg', '_L.jpg')
+                        : process.env.REACT_APP_FTC_IMAGE_BASE_URL +
                         data.image.replace('.jpg', '_L.jpg')
-                  }
-                  className={classes.thumb}
-                  onClick={() =>
-                    handleOpenPhotos(0, [
-                      {
-                        uri: data.image?.includes('http')
-                          ? data.image.replace('.jpg', '_L.jpg')
-                          : process.env.REACT_APP_FTC_IMAGE_BASE_URL +
+                    }
+                    className={classes.thumb}
+                    onClick={() =>
+                      handleOpenPhotos(0, [
+                        {
+                          uri: data.image?.includes('http')
+                            ? data.image.replace('.jpg', '_L.jpg')
+                            : process.env.REACT_APP_FTC_IMAGE_BASE_URL +
                             data.image.replace('.jpg', '_L.jpg')
-                      }
-                    ])
-                  }
-                />
-              </div>
-            </Grid>
-          )}
-          {data?.name && (
-            <FormLabel component="legend" classes={{ root: classes.notes }}>
-              {data.name}
-            </FormLabel>
-          )}
-          {!data?.image && !data?.name && noImagesComp()}
-        </>
-          )
-        : (
-        <>
-          <PhotoPicker
-            key={'photo-picker'}
-            photoRef={photoRef}
-            callback={setPhotoUrl}
-          />
-          {data?.image
-            ? (
-            <Grid className={classes.fieldContainer} item xs={12}>
-              <FormLabel className={classes.buttonLabel}>
-                {headerText}
+                        }
+                      ])
+                    }
+                  />
+                </div>
+              </Grid>
+            )}
+            {data?.name && (
+              <FormLabel component="legend" classes={{ root: classes.notes }}>
+                {data.name}
               </FormLabel>
-              <FontAwesomeIcon
-                icon={faTimesCircle}
-                onClick={() => removePhoto()}
-                className={classes.icon}
-              />
-            </Grid>
+            )}
+            {!data?.image && !data?.name && noImagesComp()}
+          </>
+        )
+        : (
+          <>
+            <PhotoPicker
+              key={'photo-picker'}
+              photoRef={photoRef}
+              callback={setPhotoUrl}
+            />
+            {data?.image
+              ? (
+                <Grid className={classes.fieldContainer} item xs={12}>
+                  <FormLabel className={classes.buttonLabel}>
+                    {headerText}
+                  </FormLabel>
+                  <FontAwesomeIcon
+                    icon={faTimesCircle}
+                    onClick={() => removePhoto()}
+                    className={classes.icon}
+                  />
+                </Grid>
               )
-            : (
-            <AddButton
-              label={t('work_orders.trips.sign')}
-              callback={() => photoRef.current.click()}
-            />
+              : (
+                <AddButton
+                  label={t('work_orders.trips.sign')}
+                  callback={() => photoRef.current.click()}
+                />
               )}
-          {
-            <TextField
-              variant="outlined"
-              className={classes.textField}
-              placeholder={t('work_orders.trips.enter_signature_name')}
-              value={name}
-              onChange={event => setName(event.target.value)}
-              onBlur={() =>
-                onUpdate({
-                  image: data?.image,
-                  name: name
-                })
-              }
-            />
-          }
-        </>
-          )}
+            {
+              <TextField
+                variant="outlined"
+                className={classes.textField}
+                placeholder={t('work_orders.trips.enter_signature_name')}
+                value={name}
+                onChange={event => setName(event.target.value)}
+                onBlur={() =>
+                  onUpdate({
+                    image: data?.image,
+                    name: name
+                  })
+                }
+              />
+            }
+          </>
+        )}
 
       {/* TODO Update when signature field is modified */}
       {<div style={{ marginBottom: '20px' }} />}

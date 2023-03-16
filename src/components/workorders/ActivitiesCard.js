@@ -238,116 +238,116 @@ export const ActivitiesCard = props => {
     }
     for (const service in serviceForCheck) {
       switch (true) {
-        case service.includes('photos_before'):
-        case service.includes('photos_after'):
-        case service.includes('additional_photos'): {
-          if (serviceForCheck[service].min < 1) break
+      case service.includes('photos_before'):
+      case service.includes('photos_after'):
+      case service.includes('additional_photos'): {
+        if (serviceForCheck[service].min < 1) break
 
-          if (
-            !repair.data ||
+        if (
+          !repair.data ||
             !repair.data[service] ||
             Object.keys(repair.data[service]).length < 1
-          ) {
-            count++
-            continue
-          }
-
-          const hasAll = checkPhotoRequirements(
-            serviceForCheck[service],
-            repair.data[service]
-          )
-          if (hasAll === false) count++
-          break
+        ) {
+          count++
+          continue
         }
-        case service.includes('signature'):
-          if (!serviceForCheck[service]?.mandatory) continue
-          if (!repair?.data?.[service]?.image) count++
-          if (
-            serviceForCheck?.[service].print_name_mandatory &&
+
+        const hasAll = checkPhotoRequirements(
+          serviceForCheck[service],
+          repair.data[service]
+        )
+        if (hasAll === false) count++
+        break
+      }
+      case service.includes('signature'):
+        if (!serviceForCheck[service]?.mandatory) continue
+        if (!repair?.data?.[service]?.image) count++
+        if (
+          serviceForCheck?.[service].print_name_mandatory &&
             !repair?.data?.[service]?.name
-          ) {
-            count++
-          }
-          break
-        case service.includes('tasks'):
-        case service.includes('cost_code_materials'): {
-          // If WO doesn't have any tasks don't do anything
-          if (!validWoTasks(data)) continue
-          if (!data.services || data.services.length < 1) {
-            continue
-          }
-          if (!serviceForCheck[service].mandatory) continue
-          let tasksPending = false
-          if (!repair.data || !repair.data?.services || repair.data.services.length < 1) {
-            tasksPending = true
-          } else {
-            repair.data.services.forEach(repairService => {
-              switch (service) {
-                case 'tasks':
-                  if (!repairService.tasks || repairService.tasks.length < 1) {
-                    tasksPending = true
-                  }
-                  break
-                case 'cost_code_materials':
-                  repairService.tasks.forEach(task => {
-                    if (task.daily.length < 1) tasksPending = true
-                  })
-                  break
-              }
-            })
-          }
-
-          if (tasksPending) count++
-          break
+        ) {
+          count++
         }
-        case service.includes('parts'): {
-          const partsOptions =
+        break
+      case service.includes('tasks'):
+      case service.includes('cost_code_materials'): {
+        // If WO doesn't have any tasks don't do anything
+        if (!validWoTasks(data)) continue
+        if (!data.services || data.services.length < 1) {
+          continue
+        }
+        if (!serviceForCheck[service].mandatory) continue
+        let tasksPending = false
+        if (!repair.data || !repair.data?.services || repair.data.services.length < 1) {
+          tasksPending = true
+        } else {
+          repair.data.services.forEach(repairService => {
+            switch (service) {
+            case 'tasks':
+              if (!repairService.tasks || repairService.tasks.length < 1) {
+                tasksPending = true
+              }
+              break
+            case 'cost_code_materials':
+              repairService.tasks.forEach(task => {
+                if (task.daily.length < 1) tasksPending = true
+              })
+              break
+            }
+          })
+        }
+
+        if (tasksPending) count++
+        break
+      }
+      case service.includes('parts'): {
+        const partsOptions =
             (type === 'iframe' ? externalUser : userData)?.parts_options || {}
-          const validateParts =
+        const validateParts =
             (serviceForCheck[service]?.options?.length > 0 &&
               Object.keys(partsOptions)?.length > 0) ||
             false
-          const inventoryParts = serviceForCheck[service]?.inventory || false
-          let incompletePartDescription = false
-          let incompletePartOption = false
+        const inventoryParts = serviceForCheck[service]?.inventory || false
+        let incompletePartDescription = false
+        let incompletePartOption = false
 
-          if (repair.data.parts?.length) {
-            repair.data.parts.forEach(part => {
-              if (!incompletePartDescription && !part.description) {
-                incompletePartDescription = true
-              }
-              if (!incompletePartOption && !part.location_option) {
-                incompletePartOption = true
-              }
-            })
-          }
-
-          if (incompletePartDescription && !inventoryParts) count++
-          if (incompletePartOption && validateParts) count++
-          break
+        if (repair.data.parts?.length) {
+          repair.data.parts.forEach(part => {
+            if (!incompletePartDescription && !part.description) {
+              incompletePartDescription = true
+            }
+            if (!incompletePartOption && !part.location_option) {
+              incompletePartOption = true
+            }
+          })
         }
-        case service.includes('service_type'):
-          if (!repair.data || !repair.data?.service_type) {
-            count++
-          }
-          break
-        case service.includes('labor'): {
-          for (const laborConfig in serviceForCheck[service]) {
-            if (serviceForCheck[service][laborConfig].mandatory) {
-              if (!repair.data || !repair.data.labor || !repair.data.labor[laborConfig]) {
-                count++
-              }
+
+        if (incompletePartDescription && !inventoryParts) count++
+        if (incompletePartOption && validateParts) count++
+        break
+      }
+      case service.includes('service_type'):
+        if (!repair.data || !repair.data?.service_type) {
+          count++
+        }
+        break
+      case service.includes('labor'): {
+        for (const laborConfig in serviceForCheck[service]) {
+          if (serviceForCheck[service][laborConfig].mandatory) {
+            if (!repair.data || !repair.data.labor || !repair.data.labor[laborConfig]) {
+              count++
             }
           }
-          break
         }
-        case service.includes('picker'):
-        case service.includes('numeric'):
-        case service.includes('notes'):
-          if (serviceForCheck[service]?.mandatory && (!repair.data || !repair?.data[service])) {
-            count++
-          }
-          break
+        break
+      }
+      case service.includes('picker'):
+      case service.includes('numeric'):
+      case service.includes('notes'):
+        if (serviceForCheck[service]?.mandatory && (!repair.data || !repair?.data[service])) {
+          count++
+        }
+        break
       }
     }
     return count
@@ -455,30 +455,30 @@ export const ActivitiesCard = props => {
             </FormLabel>
             {type !== 'iframe'
               ? (
-              <>
-                {expanded
-                  ? (
-                  <Grow in={expanded}>
-                    <IconButton aria-expanded={expanded} aria-label="show more">
-                      <ExpandLessIcon />
-                    </IconButton>
-                  </Grow>
+                <>
+                  {expanded
+                    ? (
+                      <Grow in={expanded}>
+                        <IconButton aria-expanded={expanded} aria-label="show more">
+                          <ExpandLessIcon />
+                        </IconButton>
+                      </Grow>
                     )
-                  : (
-                  <Grow in={!expanded}>
-                    <IconButton
-                      aria-expanded={!expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton>
-                  </Grow>
+                    : (
+                      <Grow in={!expanded}>
+                        <IconButton
+                          aria-expanded={!expanded}
+                          aria-label="show more"
+                        >
+                          <ExpandMoreIcon />
+                        </IconButton>
+                      </Grow>
                     )}
-              </>
-                )
+                </>
+              )
               : (
-              <IconButton disabled />
-                )}
+                <IconButton disabled />
+              )}
           </Grid>
         </Grid>
       </CardActions>
@@ -486,16 +486,16 @@ export const ActivitiesCard = props => {
         {
           <CardContent style={{ paddingBottom: '3px' }}>
             {data.status !== 'open' && (
-            <EtaSelect
-              data={data?.est_service_start ? data?.est_service_start : etaTime}
-              disabled={getWOstatus(data) !== 'open'}
-              woId={data.id}
-              type={type}
-              onUpdate={eta =>
-                updateWoData({ ...data, est_service_start: eta })
-              }
-              maxDate={data?.scheduled_date}
-            />)}
+              <EtaSelect
+                data={data?.est_service_start ? data?.est_service_start : etaTime}
+                disabled={getWOstatus(data) !== 'open'}
+                woId={data.id}
+                type={type}
+                onUpdate={eta =>
+                  updateWoData({ ...data, est_service_start: eta })
+                }
+                maxDate={data?.scheduled_date}
+              />)}
 
             <div>
               {/* Check In */}
@@ -587,56 +587,56 @@ export const ActivitiesCard = props => {
             {data?.logs?.length === 0 && noCheckInComp()}
             {data.status === 'completed' &&
               (!data?.service || data?.service.length === 0) && (
-                <RepairData
-                  disabled={
-                    woFixedStatus.includes(data.status) ||
+              <RepairData
+                disabled={
+                  woFixedStatus.includes(data.status) ||
                     getWOstatus(data) === 'expired'
-                  }
-                  configRequired={configRequired}
-                  key={0}
-                  woData={data}
-                  repairData={newRepair}
-                  configs={configs}
-                  woServices={data.services ?? []}
-                  setPhotos={setPhotos}
-                  setPhotoIndex={setPhotoIndex}
-                  serviceTypeOptions={
-                    type === 'iframe'
-                      ? externalUser.service_types
-                      : serviceTypeOptions
-                  }
-                  onUpdate={setNewRepair}
-                  externalUser={externalUser}
-                />
+                }
+                configRequired={configRequired}
+                key={0}
+                woData={data}
+                repairData={newRepair}
+                configs={configs}
+                woServices={data.services ?? []}
+                setPhotos={setPhotos}
+                setPhotoIndex={setPhotoIndex}
+                serviceTypeOptions={
+                  type === 'iframe'
+                    ? externalUser.service_types
+                    : serviceTypeOptions
+                }
+                onUpdate={setNewRepair}
+                externalUser={externalUser}
+              />
             )}
             {data.status === 'completed' &&
               !(
                 woFixedStatus.includes(data.status) ||
                 getWOstatus(data) === 'expired'
               ) && (
-                <Grid item xs={12} className={classes.errorContainer}>
-                  {pendingTasks > 0 && (
-                    <Grid item xs={12} className={classes.errorBox}>
-                      <FormLabel className={classes.error}>
-                        {t('work_orders.trips.fields_required')}
-                      </FormLabel>
-                    </Grid>
-                  )}
-                  <ThemeProvider theme={buttonSettingsDisabled}>
-                    <Button
-                      size="medium"
-                      disabled={pendingTasks > 0}
-                      style={
-                        pendingTasks > 0
-                          ? disableButtonStyle
-                          : enableButtonStyle
-                      }
-                      onClick={handleSubmit}
-                    >
-                      {t('general.labels.submit')}
-                    </Button>
-                  </ThemeProvider>
-                </Grid>
+              <Grid item xs={12} className={classes.errorContainer}>
+                {pendingTasks > 0 && (
+                  <Grid item xs={12} className={classes.errorBox}>
+                    <FormLabel className={classes.error}>
+                      {t('work_orders.trips.fields_required')}
+                    </FormLabel>
+                  </Grid>
+                )}
+                <ThemeProvider theme={buttonSettingsDisabled}>
+                  <Button
+                    size="medium"
+                    disabled={pendingTasks > 0}
+                    style={
+                      pendingTasks > 0
+                        ? disableButtonStyle
+                        : enableButtonStyle
+                    }
+                    onClick={handleSubmit}
+                  >
+                    {t('general.labels.submit')}
+                  </Button>
+                </ThemeProvider>
+              </Grid>
             )}
             {data.status !== 'completed' && (
               <div>

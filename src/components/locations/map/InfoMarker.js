@@ -54,24 +54,24 @@ export const InfoMarker = (props) => {
     icon={props.enableCluster
       ? (locationsStore.setActiveInfoWindow === index ? selectedm23 : m23)
       : (site.work_order_status === 'Unknown'
-          ? mNoWorkOrder
-          : site.work_order_status === 'open'
-            ? mOpen
-            : site.work_order_status === 'completed'
-              ? mCompleted
-              : site.work_order_status === 'returning'
-                ? mReturning
-                : site.work_order_status === 'canceled'
-                  ? mCanceled
-                  : site.work_order_status === 'in_progress'
-                    ? mInProgress
-                    : site.work_order_status === 'incomplete'
-                      ? mIncomplete
-                      : site.work_order_status === 'dispatched'
-                        ? mDispatched
-                        : site.work_order_status?.includes('no_service')
-                          ? mNoService
-                          : selectedm23)
+        ? mNoWorkOrder
+        : site.work_order_status === 'open'
+          ? mOpen
+          : site.work_order_status === 'completed'
+            ? mCompleted
+            : site.work_order_status === 'returning'
+              ? mReturning
+              : site.work_order_status === 'canceled'
+                ? mCanceled
+                : site.work_order_status === 'in_progress'
+                  ? mInProgress
+                  : site.work_order_status === 'incomplete'
+                    ? mIncomplete
+                    : site.work_order_status === 'dispatched'
+                      ? mDispatched
+                      : site.work_order_status?.includes('no_service')
+                        ? mNoService
+                        : selectedm23)
     }
     {...props}
   >

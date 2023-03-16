@@ -34,8 +34,8 @@ import { defWorkColumns } from '../../lib/Constants'
 const DragHandle = SortableHandle(({ visible }) => {
   const classes = preferencesCardStyles()
   return (<ListItemIcon className={classes.listItemIcon}>
-        <img src={visible ? DragGrid : DragGridOff} className={classes.gridIcon}></img>
-    </ListItemIcon>)
+    <img src={visible ? DragGrid : DragGridOff} className={classes.gridIcon}></img>
+  </ListItemIcon>)
 })
 
 const SortableItem = SortableElement(({ items, setColumns, id, visible }) => {
@@ -43,34 +43,34 @@ const SortableItem = SortableElement(({ items, setColumns, id, visible }) => {
   const classes = preferencesCardStyles()
 
   return (
-        <Box>
-            <Chip className={visible ? classes.chip : classes.chipVisibleOff}
-                label={<Typography
-                    component={'div'}
-                    className={classes.chipText}>{t('company_settings.preferences_card.columns.' + id)}<DragHandle visible={visible} /></Typography>}
-                onDelete={() => {
-                  const newcolumns = JSON.parse(JSON.stringify(items))
-                  const col = newcolumns.find(col => col.id === id)
-                  col.visible = !col.visible
-                  if (newcolumns.filter(col => col.visible).length >= 1) {
-                    setColumns(newcolumns)
-                  } else {
-                    setColumns(items)
-                  }
-                }}
-                deleteIcon={visible ? <VisibilityIcon className={classes.whiteIcon} /> : <VisibilityOffIcon />}
-            ></Chip>
-        </Box>)
+    <Box>
+      <Chip className={visible ? classes.chip : classes.chipVisibleOff}
+        label={<Typography
+          component={'div'}
+          className={classes.chipText}>{t('company_settings.preferences_card.columns.' + id)}<DragHandle visible={visible} /></Typography>}
+        onDelete={() => {
+          const newcolumns = JSON.parse(JSON.stringify(items))
+          const col = newcolumns.find(col => col.id === id)
+          col.visible = !col.visible
+          if (newcolumns.filter(col => col.visible).length >= 1) {
+            setColumns(newcolumns)
+          } else {
+            setColumns(items)
+          }
+        }}
+        deleteIcon={visible ? <VisibilityIcon className={classes.whiteIcon} /> : <VisibilityOffIcon />}
+      ></Chip>
+    </Box>)
 })
 
 const SortableListContainer = SortableContainer(({ items, setColumns }) => {
   const classes = preferencesCardStyles()
   return (
-        <List component="div" className={classes.list}>
-            {items?.map((item, index) => (
-                <SortableItem items={items} setColumns={setColumns} key={item.id} index={index} {...item} />
-            ))}
-        </List>)
+    <List component="div" className={classes.list}>
+      {items?.map((item, index) => (
+        <SortableItem items={items} setColumns={setColumns} key={item.id} index={index} {...item} />
+      ))}
+    </List>)
 })
 
 export const PreferencesCard = props => {
@@ -157,30 +157,30 @@ export const PreferencesCard = props => {
   }, [companyConfigs, columns])
 
   return (
-        <Card className={classes.card} data-testid='preferences_card' >
-            <CardActions disableSpacing classes={{ root: classes.actions }}>
-                <Typography classes={{ root: classes.title }}>
-                    {t('company_settings.preferences_card.title')}
-                </Typography>
-            </CardActions>
-            <CardContent classes={{ root: classes.content }}>
-                <Typography
-                    classes={{ root: classes.subtitle }}>{t('company_settings.preferences_card.work_order_columns')}
-                </Typography>
-                <br />
-                <SortableListContainer
-                    items={columns}
-                    onSortEnd={onSortEnd}
-                    useDragHandle={true}
-                    axis="xy"
-                    setColumns={setColumns}
-                />
-                <Box className={classes.buttonBox} >
-                    <Button disabled={disableSave} onClick={async () => await applyChanges()} size="small" className={classes.applyButton} >
-                        {t('company_settings.preferences_card.apply')}
-                    </Button>
-                </Box>
-            </CardContent>
-        </Card>
+    <Card className={classes.card} data-testid='preferences_card' >
+      <CardActions disableSpacing classes={{ root: classes.actions }}>
+        <Typography classes={{ root: classes.title }}>
+          {t('company_settings.preferences_card.title')}
+        </Typography>
+      </CardActions>
+      <CardContent classes={{ root: classes.content }}>
+        <Typography
+          classes={{ root: classes.subtitle }}>{t('company_settings.preferences_card.work_order_columns')}
+        </Typography>
+        <br />
+        <SortableListContainer
+          items={columns}
+          onSortEnd={onSortEnd}
+          useDragHandle={true}
+          axis="xy"
+          setColumns={setColumns}
+        />
+        <Box className={classes.buttonBox} >
+          <Button disabled={disableSave} onClick={async () => await applyChanges()} size="small" className={classes.applyButton} >
+            {t('company_settings.preferences_card.apply')}
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   )
 }

@@ -41,7 +41,11 @@ export const SearchResults = (props) => {
   }, [sites])
 
   useEffect(() => {
-    if (searchValue === '' && locationsFilters.dateRange === 'today' && locationsFilters.status === 'all' && locationsFilters.state === 'all' && locationsFilters.city === 'all') {
+    if (searchValue === '' &&
+    locationsFilters.dateRange === 'today' &&
+    locationsFilters.status === 'all' &&
+    locationsFilters.state === 'all' &&
+    locationsFilters.city === 'all') {
       setFiltersFlag(false)
     } else {
       setFiltersFlag(true)
@@ -67,12 +71,12 @@ export const SearchResults = (props) => {
       site.zipcode?.length
 
     switch (props.activeTab) {
-      case 'active_work_orders':
-        return 120
-      case 'all_sites':
-        return contentRowLength > 55 ? 95 : 78
-      default:
-        return 110
+    case 'active_work_orders':
+      return 120
+    case 'all_sites':
+      return contentRowLength > 55 ? 95 : 78
+    default:
+      return 110
     }
   }
 

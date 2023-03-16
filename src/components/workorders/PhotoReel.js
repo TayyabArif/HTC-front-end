@@ -269,16 +269,16 @@ export const PhotoReel = props => {
                       />
                       {obj.attributes
                         ? (
-                        <FormLabel className={classes.timestampLabel}>
-                          {' '}
-                          {moment(
-                            new Date(parseInt(obj.attributes.timestamp))
-                          ).format(t('general.date_formats.basic'))}{' '}
-                        </FormLabel>
-                          )
+                          <FormLabel className={classes.timestampLabel}>
+                            {' '}
+                            {moment(
+                              new Date(parseInt(obj.attributes.timestamp))
+                            ).format(t('general.date_formats.basic'))}{' '}
+                          </FormLabel>
+                        )
                         : (
-                        <div></div>
-                          )}
+                          <div></div>
+                        )}
                     </div>
                   </div>
                   <p className={classes.legend + ' details'}>

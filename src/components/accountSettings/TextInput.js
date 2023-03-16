@@ -39,54 +39,54 @@ export const TextInput = React.forwardRef(
 
     return (
       <FormControl fullWidth className={classes.formControl}>
-          <TextField
-              id={id}
-              name={name}
-              key={id}
-              value={value}
-              label={label}
-              onKeyUp={handleChange}
-              size="small"
-              variant="filled"
-              margin="normal"
-              inputRef={inputRef}
-              InputProps={{
-                className: classes.textField,
-                style: inputStyle,
-                disableUnderline: true,
-                endAdornment: endAdornment && (
-                      <InputAdornment position="end">
-                          {value && (
-                              <IconButton
-                                  aria-label="Clear contents"
-                                  tabIndex="-1"
-                                  onClick={() => {
-                                    handleChange({ target: { name: name, value: '' } }, id)
-                                  }}
-                                  className={classes.icon}
-                                  size="small"
-                              >
-                                  <HighlightOff p={0}/>
-                              </IconButton>
-                          )}
-                      </InputAdornment>
-                )
-              }}
-              InputLabelProps={{
-                className: classes.label
-              }}
-              placeholder={
-                  placeholder ?? t('account_settings.form.enter') + ' ' + label
-              }
-              classes={{ root: classes.root }}
-              autoComplete="off"
-              error={error}
-              helperText={helperText}
-              ref={ref}
-              type={type ?? 'text'}
-              onInput={handleChangeInt}
-              {...rest}
-          />
+        <TextField
+          id={id}
+          name={name}
+          key={id}
+          value={value}
+          label={label}
+          onKeyUp={handleChange}
+          size="small"
+          variant="filled"
+          margin="normal"
+          inputRef={inputRef}
+          InputProps={{
+            className: classes.textField,
+            style: inputStyle,
+            disableUnderline: true,
+            endAdornment: endAdornment && (
+              <InputAdornment position="end">
+                {value && (
+                  <IconButton
+                    aria-label="Clear contents"
+                    tabIndex="-1"
+                    onClick={() => {
+                      handleChange({ target: { name: name, value: '' } }, id)
+                    }}
+                    className={classes.icon}
+                    size="small"
+                  >
+                    <HighlightOff p={0}/>
+                  </IconButton>
+                )}
+              </InputAdornment>
+            )
+          }}
+          InputLabelProps={{
+            className: classes.label
+          }}
+          placeholder={
+            placeholder ?? t('account_settings.form.enter') + ' ' + label
+          }
+          classes={{ root: classes.root }}
+          autoComplete="off"
+          error={error}
+          helperText={helperText}
+          ref={ref}
+          type={type ?? 'text'}
+          onInput={handleChangeInt}
+          {...rest}
+        />
       </FormControl>
     )
   }
