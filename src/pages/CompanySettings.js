@@ -283,7 +283,7 @@ const CompanySettings = props => {
 
   function editComponent (targetComponent) {
     switch (targetComponent) {
-      case 'profile':
+    case 'profile':
       return (
         <CompanyProfileComponent
           profile={updatedCompany}
@@ -500,7 +500,7 @@ const CompanySettings = props => {
 
   const handleValidations = data => {
     switch (component) {
-      case 'profile':
+    case 'profile':
       setButtonDisabled(!profileValidation(data))
       break
     case 'insurance':
