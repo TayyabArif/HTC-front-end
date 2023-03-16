@@ -12,8 +12,9 @@ import { locationsActions } from '../../store/locations'
 /** Styles **/
 import { locationCardStyles } from '../../styles/classes/LocationsClasses'
 
-/** Constants **/
+/** Utils **/
 import { locationAddressLimit, locationNameLimit } from '../../lib/Constants'
+import { limitLabel } from '../../lib/Global'
 
 export const LocationCard = (props) => {
   const theme = useTheme()
@@ -45,24 +46,6 @@ export const LocationCard = (props) => {
     }
   }
 
-  const getNameLabel = (name) => {
-    if (name && name.length > (locationNameLimit + 3)) {
-      return name.slice(0, locationNameLimit) + '...'
-    } else {
-      return name
-    }
-  }
-
-  const getAddressLabel = (info) => {
-    const original = `${info.address}, ${info.city}` +
-      `${info.state} ${info.zipcode}`
-    if (original.length > (locationAddressLimit + 3)) {
-      return original.slice(0, locationAddressLimit) + '...'
-    } else {
-      return original
-    }
-  }
-
   const renderLocation = useMemo(() => {
     return (
       <Box className={'sitesCard'} pb={0.5} style={props.style}>
@@ -72,10 +55,11 @@ export const LocationCard = (props) => {
           onClick={handleClickLocation}>
           <Box p={2}>
             <Typography className={classes.font16} align='left'>
-              {getNameLabel(props.info.name)}
+              {limitLabel(props.info.name, locationNameLimit)}
             </Typography>
             <Typography className={classes.locationName} align='left'>
-              {getAddressLabel(props.info)}
+              {limitLabel(`${props.info.address}, ${props.info.city}` +
+                `${props.info.state} ${props.info.zipcode}`, locationAddressLimit)}
             </Typography>
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>
               <Grid container className={classes.locationStatus}>
