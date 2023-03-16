@@ -21,18 +21,18 @@ const locationApi = create({
 export const callLocationApi = async (type, route, params = {}) => {
   let response
   switch (type) {
-    case 'POST':
-      response = await locationApi.post(route, params)
-      break
-    case 'GET':
-      response = await locationApi.get(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
+  case 'POST':
+    response = await locationApi.post(route, params)
+    break
+  case 'GET':
+    response = await locationApi.get(route, params)
+    break
+  default:
+    throw {
+      name: 'Method Not Allowed',
+      message: 'Call type not supported',
+      code: 405
+    }
   }
   if (!response.ok) return {}
   return response.data
@@ -342,7 +342,7 @@ export const workOrdersPortal = async (
   status,
   invoices,
   priority,
-  externalId,
+  clientTrackingNumber,
   sort,
   perPage,
   page
@@ -366,7 +366,7 @@ export const workOrdersPortal = async (
       statusString,
       invoices,
       priority,
-      externalId,
+      clientTrackingNumber,
       sort,
       perPage,
       page
@@ -662,6 +662,18 @@ export const putCompanyConfigs = async (companyId, data) => {
   store.dispatch(loadingActions.show())
   try {
     const response = await Api.putCompanyConfigs(companyId, data)
+    store.dispatch(loadingActions.hide())
+    return response
+  } catch (err) {
+    store.dispatch(loadingActions.hide())
+    throw err
+  }
+}
+
+export const sendPortalInvitation = async (userId) => {
+  store.dispatch(loadingActions.show())
+  try {
+    const response = await Api.sendPortalInvitation(userId)
     store.dispatch(loadingActions.hide())
     return response
   } catch (err) {

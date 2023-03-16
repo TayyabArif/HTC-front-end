@@ -40,7 +40,11 @@ export const SelectRadiosNoBorder = (props) => {
                 <Typography className={classes.menuItem}>{obj.label}</Typography>
               </Grid>
               <Grid align={'right'} item xs={4}>
-                <Radio checked={props.selectedOption ? (props.selectedOption === obj.value) : (props.dataDefault === obj.value)} className={classes.radio} size='small' color='primary'/>
+                <Radio
+                  checked={props.selectedOption ? (props.selectedOption === obj.value) : (props.dataDefault === obj.value)}
+                  className={classes.radio}
+                  size='small'
+                  color='primary'/>
               </Grid>
             </Grid>
           </MenuItem>

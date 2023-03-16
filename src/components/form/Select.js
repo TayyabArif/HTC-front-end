@@ -98,14 +98,14 @@ export default function GlobalSelect (props) {
     <FormControl variant="standard" fullWidth={true}>
       {label
         ? (
-        <Typography id="text-label" className={classes.label}>
-          {props.required && <span className={classes.required}>*</span>}
-          {label}
-        </Typography>
-          )
+          <Typography id="text-label" className={classes.label}>
+            {props.required && <span className={classes.required}>*</span>}
+            {label}
+          </Typography>
+        )
         : (
-            ''
-          )}
+          ''
+        )}
       <Select
         className={
           props.required && fieldError

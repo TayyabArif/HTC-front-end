@@ -199,145 +199,145 @@ export const RepairData = props => {
     // Initialize components
     for (const serviceName in configs) {
       switch (serviceName) {
-        case 'tasks':
-          // If there are no services on the WO, do not display them
-          if (!servicesToDisplay || servicesToDisplay.length < 1) break
+      case 'tasks':
+        // If there are no services on the WO, do not display them
+        if (!servicesToDisplay || servicesToDisplay.length < 1) break
 
-          // If there are no services, initialize them
-          if (!repair.data?.services || repair.data?.services?.length < 1) {
-            repair.data.services = servicesToDisplay.map(service => ({
-              id: service.id,
-              name: service.name,
-              tasks: null
-            }))
-          }
-
-          // eslint-disable-next-line
-          const services = servicesToDisplay.map(service => ({
+        // If there are no services, initialize them
+        if (!repair.data?.services || repair.data?.services?.length < 1) {
+          repair.data.services = servicesToDisplay.map(service => ({
             id: service.id,
             name: service.name,
-            tasks: service.tasks.map(task => ({
-              name: task.name,
-              id: task.name,
-              cost_code: task.cost_code,
-              unique_option: configs[serviceName].services?.unique_option
-                ? configs[serviceName].services?.unique_option?.includes(
-                  task.name.toLowerCase()
-                )
-                : task.name.toLowerCase() === NO_RECORD_ITEM
-            }))
+            tasks: null
           }))
+        }
 
-          // If repair has Service's tasks selected, set those tasks as selected = true
-          if (repair.data.services && repair.data.services.length > 0) {
-            services.forEach(service => {
-              service.tasks.forEach(task => {
-                repair.data.services.forEach(repairService => {
-                  let repairServiceId = repairService.id
-                  if (parseInt(repairServiceId)) {
-                    repairServiceId = parseInt(repairServiceId)
-                  }
-                  if (repairServiceId !== service.id || !repairService.tasks) {
-                    return
-                  }
-                  const tempTasks = repairService.tasks.filter(item => {
-                    if (item.name === task.name) return true
-                    return false
-                  })
+        // eslint-disable-next-line
+          const services = servicesToDisplay.map(service => ({
+          id: service.id,
+          name: service.name,
+          tasks: service.tasks.map(task => ({
+            name: task.name,
+            id: task.name,
+            cost_code: task.cost_code,
+            unique_option: configs[serviceName].services?.unique_option
+              ? configs[serviceName].services?.unique_option?.includes(
+                task.name.toLowerCase()
+              )
+              : task.name.toLowerCase() === NO_RECORD_ITEM
+          }))
+        }))
 
-                  if (tempTasks.length > 0) task.selected = true
+        // If repair has Service's tasks selected, set those tasks as selected = true
+        if (repair.data.services && repair.data.services.length > 0) {
+          services.forEach(service => {
+            service.tasks.forEach(task => {
+              repair.data.services.forEach(repairService => {
+                let repairServiceId = repairService.id
+                if (parseInt(repairServiceId)) {
+                  repairServiceId = parseInt(repairServiceId)
+                }
+                if (repairServiceId !== service.id || !repairService.tasks) {
+                  return
+                }
+                const tempTasks = repairService.tasks.filter(item => {
+                  if (item.name === task.name) return true
+                  return false
                 })
+
+                if (tempTasks.length > 0) task.selected = true
               })
             })
-          }
-          setServices(services)
-          break
-        case 'parts':
-          // Load initial part list from saved report
-          if (repair?.data?.parts) {
-            repair.data.parts.forEach(part => {
-              // Set selected option
-              const options = cloneDeep(props.partOptions)
-              const foundOption = options.find(
-                option => option.id === part.location_option
-              )
-              if (foundOption) foundOption.selected = true
+          })
+        }
+        setServices(services)
+        break
+      case 'parts':
+        // Load initial part list from saved report
+        if (repair?.data?.parts) {
+          repair.data.parts.forEach(part => {
+            // Set selected option
+            const options = cloneDeep(props.partOptions)
+            const foundOption = options.find(
+              option => option.id === part.location_option
+            )
+            if (foundOption) foundOption.selected = true
 
-              partList.push(
-                props.partInventory
-                  ? new InventoryPart(
-                    part.id,
-                    part.name || '',
-                    part.description || '',
-                    part.serial_number || '',
-                    part.quantity || 1,
-                    options,
-                    part.location_option
-                  )
-                  : new Part(
-                    part.description || '',
-                    part.quantity || 1,
-                    options,
-                    part.location_option
-                  )
-              )
-            })
-          }
-          break
-        case 'service_type':
-          // eslint-disable-next-line
+            partList.push(
+              props.partInventory
+                ? new InventoryPart(
+                  part.id,
+                  part.name || '',
+                  part.description || '',
+                  part.serial_number || '',
+                  part.quantity || 1,
+                  options,
+                  part.location_option
+                )
+                : new Part(
+                  part.description || '',
+                  part.quantity || 1,
+                  options,
+                  part.location_option
+                )
+            )
+          })
+        }
+        break
+      case 'service_type':
+        // eslint-disable-next-line
           const gated = configs[serviceName].gated ?? null
-          setGated(gated)
+        setGated(gated)
 
-          // Load initial service type from saved report
-          if (repair?.data?.service_type) {
-            setServiceType(repair.data.service_type || undefined)
+        // Load initial service type from saved report
+        if (repair?.data?.service_type) {
+          setServiceType(repair.data.service_type || undefined)
+        } else {
+          // Initializes service type if there is only one option available
+          // Uncomment when functionality is added
+          // const options = Object.keys(props.serviceTypeOptions)
+          // For the time being initialize with the first option
+          if (configRequired) {
+            repair.data.service_type = options[0]
+            setServiceType(options[0])
+            break
           } else {
-            // Initializes service type if there is only one option available
-            // Uncomment when functionality is added
-            // const options = Object.keys(props.serviceTypeOptions)
-            // For the time being initialize with the first option
-            if (configRequired) {
-              repair.data.service_type = options[0]
-              setServiceType(options[0])
-              break
-            } else {
-              if (configs[serviceName].options.length === 1) {
-                repair.data.service_type = configs[serviceName].options[0]
-                setServiceType(configs[serviceName].options[0])
-              }
-            }
-
-            if (options.length === 1) {
-              repair.data.service_type = options[0]
-              setServiceType(options[0])
+            if (configs[serviceName].options.length === 1) {
+              repair.data.service_type = configs[serviceName].options[0]
+              setServiceType(configs[serviceName].options[0])
             }
           }
-          break
-        case 'systems':
-          setMultiple(configs.systems.multi ?? null)
 
-          // Load initial selected systems from saved report
-          if (repair?.data?.systems?.length) {
-            setSystems(repair.data.systems)
+          if (options.length === 1) {
+            repair.data.service_type = options[0]
+            setServiceType(options[0])
           }
-          break
-        case 'labor':
-          if (repair?.data?.labor) setLabor(repair?.data?.labor)
-          break
-        case 'photos_before':
-          setBeforePhotos(
-            getPhotosFromRepair(repair, repair.data?.photos_before)
-          )
-          break
-        case 'photos_after':
-          setAfterPhotos(getPhotosFromRepair(repair, repair.data?.photos_after))
-          break
-        case 'additional_photos':
-          setAdditionalPhotos(
-            getPhotosFromRepair(repair, repair.data?.additional_photos)
-          )
-          break
+        }
+        break
+      case 'systems':
+        setMultiple(configs.systems.multi ?? null)
+
+        // Load initial selected systems from saved report
+        if (repair?.data?.systems?.length) {
+          setSystems(repair.data.systems)
+        }
+        break
+      case 'labor':
+        if (repair?.data?.labor) setLabor(repair?.data?.labor)
+        break
+      case 'photos_before':
+        setBeforePhotos(
+          getPhotosFromRepair(repair, repair.data?.photos_before)
+        )
+        break
+      case 'photos_after':
+        setAfterPhotos(getPhotosFromRepair(repair, repair.data?.photos_after))
+        break
+      case 'additional_photos':
+        setAdditionalPhotos(
+          getPhotosFromRepair(repair, repair.data?.additional_photos)
+        )
+        break
       }
     }
     setRepair(repair)
@@ -350,13 +350,13 @@ export const RepairData = props => {
         <div>
           {serviceType != null
             ? (
-            <div>{children}</div>
-              )
+              <div>{children}</div>
+            )
             : (
-            <Button disabled pointerEvents="none">
-              {children}
-            </Button>
-              )}
+              <Button disabled pointerEvents="none">
+                {children}
+              </Button>
+            )}
         </div>
       )
     }
@@ -370,11 +370,11 @@ export const RepairData = props => {
           {gated === true &&
           Object.keys(props.serviceTypeOptions).length > 1
             ? (
-            <Gated />
-              )
+              <Gated />
+            )
             : (
-            <NotGated />
-              )}
+              <NotGated />
+            )}
         </div>
       ),
       [serviceTypeOptions, gated, children]
@@ -430,20 +430,20 @@ export const RepairData = props => {
     }
 
     switch (serviceName) {
-      case 'photos_before':
-        setBeforePhotos(photos)
-        if (added_photos === null) delete repair.data.photos_before
-        else repair.data.photos_before = added_photos
-        break
-      case 'photos_after':
-        setAfterPhotos(photos)
-        if (added_photos === null) delete repair.data.photos_after
-        else repair.data.photos_after = added_photos
-        break
-      default:
-        setAdditionalPhotos(photos)
-        if (added_photos === null) delete repair.data.additional_photos
-        else repair.data.additional_photos = added_photos
+    case 'photos_before':
+      setBeforePhotos(photos)
+      if (added_photos === null) delete repair.data.photos_before
+      else repair.data.photos_before = added_photos
+      break
+    case 'photos_after':
+      setAfterPhotos(photos)
+      if (added_photos === null) delete repair.data.photos_after
+      else repair.data.photos_after = added_photos
+      break
+    default:
+      setAdditionalPhotos(photos)
+      if (added_photos === null) delete repair.data.additional_photos
+      else repair.data.additional_photos = added_photos
     }
     setRepair({ ...repair })
     props.onUpdate({ ...repair })
@@ -475,90 +475,90 @@ export const RepairData = props => {
     }
     for (const serviceName in servicesConfigs) {
       switch (true) {
-        case serviceName.includes('photos_before'):
-        case serviceName.includes('photos_after'):
-        case serviceName.includes('additional_photos'):
-          fields.push(
-            <Grid
-              className={classes.repairItem}
-              key={`component-${serviceName}`}
-            >
-              <Gate key={`component-${serviceName}`}>
-                <PhotoComponent
-                  disabled={disabled}
-                  photosType={serviceName}
-                  mandatory={servicesConfigs[serviceName].mandatory}
-                  photos={
-                    serviceName.includes('photos_before')
-                      ? beforePhotos
-                      : serviceName.includes('photos_after')
-                        ? afterPhotos
-                        : additionalPhotos
-                  }
-                  handleOpenPhotos={handleOpenPhotos}
-                  minRequired={servicesConfigs[serviceName]?.min || 0}
-                  required={servicesConfigs[serviceName].min > 0}
-                  maxPhotos={servicesConfigs[serviceName].max}
-                  unique={servicesConfigs[serviceName].titles?.unique}
-                  titleOptions={
-                    servicesConfigs[serviceName].titles?.options
-                      ? servicesConfigs[serviceName].titles.options
-                      : null
-                  }
-                  headerText={servicesConfigs[serviceName].header_text}
-                  onUpdate={photos => updatePhotos(serviceName, photos)}
-                  notAvailable={woExpiredCancelled}
-                />
-              </Gate>
-            </Grid>
-          )
-          break
-        case serviceName.includes('notes'):
-          fields.push(
-            <Grid
-              className={classes.repairItem}
-              key={`component-${serviceName}`}
-            >
-              <Gate key={`component-${serviceName}`}>
-                <NotesComponent
-                  mandatory={servicesConfigs[serviceName].mandatory}
-                  title={servicesConfigs[serviceName].header_text}
-                  notes={repair ? repair.data[serviceName] : ''}
-                  disabled={disabled}
-                  onUpdate={value => _updateRepairValue(serviceName, value)}
-                  notAvailable={woExpiredCancelled}
-                />
-              </Gate>
-            </Grid>
-          )
-          break
-        case serviceName.includes('signature'):
-        case serviceName.includes('additional_signature'):
-          fields.push(
+      case serviceName.includes('photos_before'):
+      case serviceName.includes('photos_after'):
+      case serviceName.includes('additional_photos'):
+        fields.push(
+          <Grid
+            className={classes.repairItem}
+            key={`component-${serviceName}`}
+          >
             <Gate key={`component-${serviceName}`}>
-              <SignatureComponent
+              <PhotoComponent
                 disabled={disabled}
-                mandatory={
-                  servicesConfigs[serviceName].mandatory ||
-                  servicesConfigs[serviceName].print_name_mandatory
+                photosType={serviceName}
+                mandatory={servicesConfigs[serviceName].mandatory}
+                photos={
+                  serviceName.includes('photos_before')
+                    ? beforePhotos
+                    : serviceName.includes('photos_after')
+                      ? afterPhotos
+                      : additionalPhotos
                 }
                 handleOpenPhotos={handleOpenPhotos}
-                onUpdate={value => _updateRepairValue(serviceName, value)}
-                headerText={
-                  servicesConfigs[serviceName].header_text ||
-                  t('work_orders.trips.signature')
+                minRequired={servicesConfigs[serviceName]?.min || 0}
+                required={servicesConfigs[serviceName].min > 0}
+                maxPhotos={servicesConfigs[serviceName].max}
+                unique={servicesConfigs[serviceName].titles?.unique}
+                titleOptions={
+                  servicesConfigs[serviceName].titles?.options
+                    ? servicesConfigs[serviceName].titles.options
+                    : null
                 }
-                data={repair ? repair.data[serviceName] : {}}
+                headerText={servicesConfigs[serviceName].header_text}
+                onUpdate={photos => updatePhotos(serviceName, photos)}
                 notAvailable={woExpiredCancelled}
               />
             </Gate>
-          )
-          break
-        case serviceName.includes('parts'):
-          fields.push(
+          </Grid>
+        )
+        break
+      case serviceName.includes('notes'):
+        fields.push(
+          <Grid
+            className={classes.repairItem}
+            key={`component-${serviceName}`}
+          >
             <Gate key={`component-${serviceName}`}>
-              {/* Comment for future use */}
-              {/* <PartsComponent
+              <NotesComponent
+                mandatory={servicesConfigs[serviceName].mandatory}
+                title={servicesConfigs[serviceName].header_text}
+                notes={repair ? repair.data[serviceName] : ''}
+                disabled={disabled}
+                onUpdate={value => _updateRepairValue(serviceName, value)}
+                notAvailable={woExpiredCancelled}
+              />
+            </Gate>
+          </Grid>
+        )
+        break
+      case serviceName.includes('signature'):
+      case serviceName.includes('additional_signature'):
+        fields.push(
+          <Gate key={`component-${serviceName}`}>
+            <SignatureComponent
+              disabled={disabled}
+              mandatory={
+                servicesConfigs[serviceName].mandatory ||
+                  servicesConfigs[serviceName].print_name_mandatory
+              }
+              handleOpenPhotos={handleOpenPhotos}
+              onUpdate={value => _updateRepairValue(serviceName, value)}
+              headerText={
+                servicesConfigs[serviceName].header_text ||
+                  t('work_orders.trips.signature')
+              }
+              data={repair ? repair.data[serviceName] : {}}
+              notAvailable={woExpiredCancelled}
+            />
+          </Gate>
+        )
+        break
+      case serviceName.includes('parts'):
+        fields.push(
+          <Gate key={`component-${serviceName}`}>
+            {/* Comment for future use */}
+            {/* <PartsComponent
                 disabled={gated && serviceType === null}
                 headerText={servicesConfigs[serviceName].header_text}
                 options={props.partOptions}
@@ -567,27 +567,27 @@ export const RepairData = props => {
                 savePartsCallback={setPartList}
                 fetchParts={props.fetchParts}
               /> */}
-            </Gate>
-          )
-          break
-        case serviceName.includes('service_type'):
-          // Remove the placeholder
-          fields.shift()
-          fields.unshift(
-            <Box className={classes.serviceType}>
-              <Divider className={classes.divider} />
-              <FormLabel className={classes.serviceTypeTitle}>
-                {props.serviceTypeOptions[serviceType]}
-              </FormLabel>
-              <Divider className={classes.divider} />
-            </Box>
-          )
-          break
-        case serviceName.includes('systems'):
-          fields.push(
-            <Gate key={`component-${serviceName}`}>
-              {/* Comment for future use */}
-              {/* <SystemsComponent
+          </Gate>
+        )
+        break
+      case serviceName.includes('service_type'):
+        // Remove the placeholder
+        fields.shift()
+        fields.unshift(
+          <Box className={classes.serviceType}>
+            <Divider className={classes.divider} />
+            <FormLabel className={classes.serviceTypeTitle}>
+              {props.serviceTypeOptions[serviceType]}
+            </FormLabel>
+            <Divider className={classes.divider} />
+          </Box>
+        )
+        break
+      case serviceName.includes('systems'):
+        fields.push(
+          <Gate key={`component-${serviceName}`}>
+            {/* Comment for future use */}
+            {/* <SystemsComponent
                 disabled={gated && serviceType === null}
                 headerText={servicesConfigs[serviceName].header_text}
                 multiple={multiple}
@@ -595,117 +595,117 @@ export const RepairData = props => {
                 setSystems={setSystems}
                 selectedWo={props.selectedWo}
               /> */}
-            </Gate>
-          )
-          break
-        case serviceName.includes('tasks'):
-          if (
-            services &&
+          </Gate>
+        )
+        break
+      case serviceName.includes('tasks'):
+        if (
+          services &&
             services.length > 0 &&
             repair.data &&
             repair.data.services
-          ) {
-            services.map(service => {
-              if (!service.tasks || service.tasks.length < 1) {
-                return (
-                  <Grid
-                    className={classes.repairItem}
-                    key={`component-${serviceName}`}
+        ) {
+          services.map(service => {
+            if (!service.tasks || service.tasks.length < 1) {
+              return (
+                <Grid
+                  className={classes.repairItem}
+                  key={`component-${serviceName}`}
+                >
+                  <FormLabel
+                    component="legend"
+                    classes={{ root: classes.fieldMessage }}
                   >
-                    <FormLabel
-                      component="legend"
-                      classes={{ root: classes.fieldMessage }}
-                    >
-                      {t('work_orders.checkout_message')}
-                    </FormLabel>
-                  </Grid>
-                )
-              }
-              fields.push(
-                <Gate key={`component-${serviceName}`}>
-                  <TaskList
-                    mandatory={servicesConfigs[serviceName].mandatory}
-                    serviceName={serviceName}
-                    services={services}
-                    disabled={disabled}
-                    updateCallback={onSaveTaskList}
-                    notAvailable={woExpiredCancelled}
-                  />
-                </Gate>
+                    {t('work_orders.checkout_message')}
+                  </FormLabel>
+                </Grid>
               )
-              return null
-            })
-          }
-          break
-        case serviceName.includes('labor'):
-          fields.push(
-            <Gate key={`component-${serviceName}`}>
-              {/* Comment for future use */}
-              {/* <LaborComponent
+            }
+            fields.push(
+              <Gate key={`component-${serviceName}`}>
+                <TaskList
+                  mandatory={servicesConfigs[serviceName].mandatory}
+                  serviceName={serviceName}
+                  services={services}
+                  disabled={disabled}
+                  updateCallback={onSaveTaskList}
+                  notAvailable={woExpiredCancelled}
+                />
+              </Gate>
+            )
+            return null
+          })
+        }
+        break
+      case serviceName.includes('labor'):
+        fields.push(
+          <Gate key={`component-${serviceName}`}>
+            {/* Comment for future use */}
+            {/* <LaborComponent
                 enabled={!(gated && serviceType === null)}
                 initializedLabor={labor}
                 onChange={setLabor}
                 configs={servicesConfigs[serviceName]}
                 laborOptions={props?.laborOptions}
               /> */}
-            </Gate>
+          </Gate>
+        )
+        break
+      case serviceName.includes('picker'): {
+        const options = {}
+        if (pickerServiceCatalogs.picker_options) {
+          servicesConfigs[serviceName].options.forEach(
+            item =>
+              (options[item] = pickerServiceCatalogs.picker_options[item])
           )
-          break
-        case serviceName.includes('picker'): {
-          const options = {}
-          if (pickerServiceCatalogs.picker_options) {
-            servicesConfigs[serviceName].options.forEach(
-              item =>
-                (options[item] = pickerServiceCatalogs.picker_options[item])
-            )
-          } else {
-            servicesConfigs[serviceName].options.forEach(
-              item => (options[item] = item)
-            )
-          }
+        } else {
+          servicesConfigs[serviceName].options.forEach(
+            item => (options[item] = item)
+          )
+        }
 
-          fields.push(
+        fields.push(
+          <Gate key={`component-${serviceName}`}>
+            <SimplePicker
+              disabled={disabled}
+              mandatory={servicesConfigs[serviceName].mandatory}
+              title={servicesConfigs[serviceName].header_text}
+              options={options}
+              handleChange={value => {
+                _updateRepairValue(serviceName, value)
+              }}
+              value={repair ? repair.data[serviceName] : ''}
+              notAvailable={woExpiredCancelled}
+            />
+          </Gate>
+        )
+        break
+      }
+      case serviceName.includes('numeric'):
+        fields.push(
+          <Grid
+            className={classes.repairItem}
+            key={`component-${serviceName}`}
+          >
             <Gate key={`component-${serviceName}`}>
-              <SimplePicker
-                disabled={disabled}
+              <NotesComponent
                 mandatory={servicesConfigs[serviceName].mandatory}
                 title={servicesConfigs[serviceName].header_text}
-                options={options}
-                handleChange={value => {
-                  _updateRepairValue(serviceName, value)
-                }}
-                value={repair ? repair.data[serviceName] : ''}
+                type="number"
+                notes={repair ? repair.data[serviceName] : ''}
+                disabled={disabled}
+                onUpdate={value => _updateRepairValue(serviceName, value)}
+                decimals={servicesConfigs[serviceName].decimals}
+                catalogs={numericSuffixCatalog}
+                suffix={servicesConfigs[serviceName]?.suffix || ''}
                 notAvailable={woExpiredCancelled}
               />
             </Gate>
-          )
-          break
-        }
-        case serviceName.includes('numeric'):
-          fields.push(
-            <Grid
-              className={classes.repairItem}
-              key={`component-${serviceName}`}
-            >
-              <Gate key={`component-${serviceName}`}>
-                <NotesComponent
-                  mandatory={servicesConfigs[serviceName].mandatory}
-                  title={servicesConfigs[serviceName].header_text}
-                  type="number"
-                  notes={repair ? repair.data[serviceName] : ''}
-                  disabled={disabled}
-                  onUpdate={value => _updateRepairValue(serviceName, value)}
-                  decimals={servicesConfigs[serviceName].decimals}
-                  catalogs={numericSuffixCatalog}
-                  suffix={servicesConfigs[serviceName]?.suffix || ''}
-                  notAvailable={woExpiredCancelled}
-                />
-              </Gate>
-            </Grid>
-          )
-          break
-        default:
-          break
+          </Grid>
+        )
+        break
+      default:
+        break
       }
     }
     return fields

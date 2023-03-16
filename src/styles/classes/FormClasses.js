@@ -40,7 +40,7 @@ export const chipStyles = makeStyles(theme => ({
     fontSize: '12px',
     fontWeight: '400',
     backgroundColor: theme.colors.iconBlue + ' !important',
-    color: 'white',
+    color: theme.colors.backdropColor,
     border: '1px solid ' + theme.colors.iconBlue,
     padding: '16px 0px',
     lineHeight: '14px'
@@ -311,7 +311,7 @@ export const textInputButtonsStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   addButton: {
-    color: 'white',
+    color: theme.colors.backdropColor,
     textTransform: 'none',
     fontSize: '7px',
     fontWeight: '400',

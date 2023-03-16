@@ -9,7 +9,7 @@ export const workOrderStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     paddingLeft: '16px'
   },
   SearchInput: {
@@ -252,7 +252,8 @@ export const mainTableStyles = makeStyles(theme => ({
     background: theme.colors.workOrders.buttonPrimary
   },
   barColorPrimary: {
-    background: `linear-gradient(to right, ${theme.colors.workOrders.buttonPrimary},${theme.colors.workOrders.gradient},${theme.colors.workOrders.buttonPrimary})`
+    background: 'linear-gradient(to right, ' +
+    `${theme.colors.workOrders.buttonPrimary},${theme.colors.workOrders.gradient},${theme.colors.workOrders.buttonPrimary})`
   },
   dimensions: {
     height: '21px',
@@ -260,7 +261,7 @@ export const mainTableStyles = makeStyles(theme => ({
   },
   body: {
     maxHeight: '680px',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     overflowY: 'scroll'
   },
   open: {
@@ -683,7 +684,7 @@ export const detailedInfoStyles = makeStyles(theme => ({
     backgroundColor: theme.colors.backdropColor
   },
   tabs: {
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     minHeight: 25,
     maxHeight: '34px',
     height: '20px',
@@ -1008,7 +1009,7 @@ export const photoReelStyles = makeStyles(theme => ({
     margin: '50px 0px'
   },
   arrowIcon: {
-    color: 'white',
+    color: theme.colors.backdropColor,
     backgroundColor: theme.colors.opaqueBackground,
     height: '40px',
     width: '45px',
@@ -1032,7 +1033,7 @@ export const photoReelStyles = makeStyles(theme => ({
   },
   iconButton: {
     backgroundColor: theme.colors.opaqueBackground,
-    color: 'white',
+    color: theme.colors.backdropColor,
     borderRadius: '8px',
     marginLeft: '12px',
     width: '45px',

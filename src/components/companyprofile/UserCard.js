@@ -111,20 +111,20 @@ export const UserCard = props => {
   useEffect(() => {
     let role = ''
     switch (props.idx) {
-      case 0:
-        role = 'dispatcher'
-        break
-      case 1:
-        role = 'account_manager'
-        break
-      case 2:
-        role = 'administrator'
-        break
-      case 3:
-        role = 'operations_manager'
-        break
-      default:
-        break
+    case 0:
+      role = 'dispatcher'
+      break
+    case 1:
+      role = 'account_manager'
+      break
+    case 2:
+      role = 'administrator'
+      break
+    case 3:
+      role = 'operations_manager'
+      break
+    default:
+      break
     }
     formik.setFieldValue('role', role)
   }, [])
@@ -163,21 +163,21 @@ export const UserCard = props => {
       formik.setValues({ ...formik.values, ...createdUser })
     } catch (e) {
       switch (true) {
-        case e.includes('email'):
-          formik.setFieldError(
-            'email',
-            t('account_settings.messages.errors.email_taken')
-          )
-          break
-        case e.includes('Username'):
-          formik.setFieldError(
-            'username',
-            t('account_settings.messages.errors.username_taken')
-          )
-          break
-        default:
-          setOpenDialog(true)
-          break
+      case e.includes('email'):
+        formik.setFieldError(
+          'email',
+          t('account_settings.messages.errors.email_taken')
+        )
+        break
+      case e.includes('Username'):
+        formik.setFieldError(
+          'username',
+          t('account_settings.messages.errors.username_taken')
+        )
+        break
+      default:
+        setOpenDialog(true)
+        break
       }
     }
   }
@@ -371,48 +371,48 @@ export const UserCard = props => {
           />
           {mobileOnly
             ? (
-            <GlobalInput
-              label={t('account_settings.info_card.access_type')}
-              value={t('company_settings.mobile_only')}
-              style={textStyle}
-              disabled
-            />
-              )
+              <GlobalInput
+                label={t('account_settings.info_card.access_type')}
+                value={t('company_settings.mobile_only')}
+                style={textStyle}
+                disabled
+              />
+            )
             : (
-            <GlobalSelect
-              label={t('account_settings.info_card.access_type')}
-              options={
-                mobileOnly
-                  ? [
+              <GlobalSelect
+                label={t('account_settings.info_card.access_type')}
+                options={
+                  mobileOnly
+                    ? [
                       {
                         value: 'no_value',
                         label: t('company_settings.mobile_only')
                       }
                     ]
-                  : roles && roles.length > 0
-                    ? [
+                    : roles && roles.length > 0
+                      ? [
                         ...roles.map(item => ({
                           value: item.id,
                           label: item.name
                         }))
                       ]
-                    : []
-              }
-              placeholder={`${t('account_settings.form.enter')} Access Type`}
-              style={textStyle}
-              value={formik.values.roles}
-              field="roles"
-              id="roles"
-              name="roles"
-              displayValue
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={formik.touched.roles && Boolean(formik.errors.roles)}
-              helperText={formik.touched.roles && formik.errors.roles}
-              disabled={formik.values.createdAt}
-              validate
-            />
-              )}
+                      : []
+                }
+                placeholder={`${t('account_settings.form.enter')} Access Type`}
+                style={textStyle}
+                value={formik.values.roles}
+                field="roles"
+                id="roles"
+                name="roles"
+                displayValue
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={formik.touched.roles && Boolean(formik.errors.roles)}
+                helperText={formik.touched.roles && formik.errors.roles}
+                disabled={formik.values.createdAt}
+                validate
+              />
+            )}
 
           <Box className={classes.buttonContainer}>
             <ThemeProvider theme={buttonSettingsDisabled}>

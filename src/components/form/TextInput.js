@@ -41,6 +41,9 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '&:invalid': {
       borderColor: customTheme.colors.errorText
     }
+  },
+  '& .Mui-disabled': {
+    backgroundColor: customTheme.colors.generalBackground
   }
 }))
 

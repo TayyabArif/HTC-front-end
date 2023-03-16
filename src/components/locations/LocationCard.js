@@ -9,8 +9,12 @@ import { FiberManualRecord } from '@mui/icons-material'
 import { useSelector, useDispatch } from 'react-redux'
 import { locationsActions } from '../../store/locations'
 
-// Styles
+/** Styles **/
 import { locationCardStyles } from '../../styles/classes/LocationsClasses'
+
+/** Utils **/
+import { locationAddressLimit, locationNameLimit } from '../../lib/Constants'
+import { limitLabel } from '../../lib/Global'
 
 export const LocationCard = (props) => {
   const theme = useTheme()
@@ -39,25 +43,30 @@ export const LocationCard = (props) => {
       dispatch(locationsActions.setSelectedSite(props.info))
       dispatch(locationsActions.setActiveInfoWindow(null))
       dispatch(locationsActions.showSiteViewPanel())
-      props.setSearch('')
     }
   }
 
   const renderLocation = useMemo(() => {
     return (
       <Box className={'sitesCard'} pb={0.5} style={props.style}>
-        <Paper className={classes.locationTile} elevation={0} onClick={handleClickLocation}>
+        <Paper
+          className={classes.locationTile}
+          elevation={0}
+          onClick={handleClickLocation}>
           <Box p={2}>
             <Typography className={classes.font16} align='left'>
-              {props.info.name}
+              {limitLabel(props.info.name, locationNameLimit)}
             </Typography>
             <Typography className={classes.locationName} align='left'>
-              {props.info.address}, {props.info.city} {props.info.state} {props.info.zipcode}
+              {limitLabel(`${props.info.address}, ${props.info.city}` +
+                `${props.info.state} ${props.info.zipcode}`, locationAddressLimit)}
             </Typography>
             <Box hidden={!(locationsStore.activeTab === 'active_work_orders')}>
               <Grid container className={classes.locationStatus}>
-                {(props.info.work_orders_summary.open + props.info.work_orders_summary.in_progress + props.info.work_orders_summary.completed) === 0 && (
-                  <Grid item xs={12} sm={6}>
+                {(props.info.work_orders_summary.open +
+                props.info.work_orders_summary.in_progress +
+                props.info.work_orders_summary.completed) === 0 && (
+                  <Grid item xs={6}>
                     <FiberManualRecord className={classes.noActivityWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>
                       {t('locations.locations_no_activity')}
@@ -65,7 +74,7 @@ export const LocationCard = (props) => {
                   </Grid>
                 )}
                 {props.info.work_orders_summary.open > 0 && (
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} >
                     <FiberManualRecord className={classes.openWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>
                       {props.info.work_orders_summary.open} {t('locations.locations_open_work')}
@@ -73,7 +82,7 @@ export const LocationCard = (props) => {
                   </Grid>
                 )}
                 {props.info.work_orders_summary.in_progress > 0 && (
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6}>
                     <FiberManualRecord className={classes.inProgressWork} />
                     <Typography display={'inline'} className={classes.font12} align='left'>
                       {props.info.work_orders_summary.in_progress} {t('locations.locations_in_progress_work')}

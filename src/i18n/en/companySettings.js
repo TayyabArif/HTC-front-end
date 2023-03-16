@@ -40,6 +40,7 @@ export const companySettings = () => {
       delete_users: 'Delete Users',
       wo_view: 'View Work Orders',
       workorders: 'Work Orders',
+      locations: 'Locations',
       proposals: 'Proposals',
       invoices: 'Invoices',
       company_settings: 'Settings',
@@ -147,7 +148,8 @@ export const companySettings = () => {
     buttons: {
       edit: 'Edit',
       show_more: 'Show More',
-      add: 'Add'
+      add: 'Add',
+      view: 'View'
     },
     card: {
       profile: 'Company Profile',

@@ -23,17 +23,17 @@ export const SortMenu = props => {
   const handleSelect = (field1, field2) => {
     let fieldName = ''
     switch (props.id) {
-      case 'opendate':
-        fieldName = 'open_date'
-        break
-      case 'duedate':
-        fieldName = 'expiration_date'
-        break
-      case 'wostat':
-        fieldName = 'status'
-        break
-      default:
-        fieldName = props.id
+    case 'opendate':
+      fieldName = 'open_date'
+      break
+    case 'duedate':
+      fieldName = 'expiration_date'
+      break
+    case 'wostat':
+      fieldName = 'status'
+      break
+    default:
+      fieldName = props.id
     }
     props.setValues(prevState => ({
       ...prevState,
@@ -107,10 +107,10 @@ export const SortMenu = props => {
         {props.values.asc_sort === props.id ||
         props.values.desc_sort === props.id
           ? (
-          <MenuItem onClick={handleClean} className={classes.menuItem}>
-            {t('work_orders.clear')}
-          </MenuItem>
-            )
+            <MenuItem onClick={handleClean} className={classes.menuItem}>
+              {t('work_orders.clear')}
+            </MenuItem>
+          )
           : null}
       </Menu>
     </>

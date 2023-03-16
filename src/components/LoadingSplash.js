@@ -20,9 +20,9 @@ export const LoadingSplash = () => {
       </Grid>
       <Grid item xs={12} p={2}>
         <FadeLoader
-        loading={true}
-        height={12}
-        width={4}
+          loading={true}
+          height={12}
+          width={4}
         />
       </Grid>
     </Grid>

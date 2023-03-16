@@ -95,80 +95,80 @@ export const NotesComponent = props => {
       </FormLabel>
       {disabled
         ? (
-        <FormLabel
-          classes={{
-            root: notes ? classes.notes : classes.fieldMessage
-          }}
-        >
-          {notes ||
+          <FormLabel
+            classes={{
+              root: notes ? classes.notes : classes.fieldMessage
+            }}
+          >
+            {notes ||
             (notAvailable
               ? t('general.labels.not_available')
               : t('work_orders.checkout_message'))}
-        </FormLabel>
-          )
+          </FormLabel>
+        )
         : !expanded && !notes
+          ? (
+            <AddButton label={title} callback={() => setExpanded(true)} />
+          )
+          : type === 'number'
             ? (
-        <AddButton label={title} callback={() => setExpanded(true)} />
-              )
-            : type === 'number'
-              ? (
-        <div className={classes.numberContainer}>
-          <NumberFormat
-            thousandSeparator
-            allowEmptyFormatting
-            decimalScale={2}
-            decimalSeparator="."
-            value={value}
-            onChange={handleChangeValues}
-            onBlur={value !== notes ? () => onBlur(value) : null}
-            className={`${classes.numberField}`}
-            onFocus={removeSuffix}
-          />
-          {value && (
-            <InputAdornment position="end" className={classes.clearIconNumber}>
-              <IconButton
-                onClick={() => {
-                  handleChangeValues({ target: { value: '' } })
-                  onUpdate('')
-                }}
-                className={classes.icon}
-                size="small"
-              >
-                <FontAwesomeIcon icon={faCircleXmark} size="xs" />
-              </IconButton>
-            </InputAdornment>
-          )}
-        </div>
-                )
-              : (
-        <TextField
-          className={`${classes.textField}`}
-          multiline
-          maxRows={10}
-          minRows={4}
-          value={value}
-          type={type}
-          onChange={handleChangeValues}
-          onFocus={removeSuffix}
-          onBlur={value !== notes ? () => onUpdate(value) : null}
-          InputProps={{
-            endAdornment: value && (
-              <InputAdornment position="end" className={classes.clearIcon}>
-                <IconButton
-                  onClick={() => {
-                    handleChangeValues({ target: { value: '' } })
-                    onUpdate('')
-                  }}
-                  className={classes.icon}
-                  size="small"
-                >
-                  <FontAwesomeIcon icon={faCircleXmark} size="xs" />
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-        />
+              <div className={classes.numberContainer}>
+                <NumberFormat
+                  thousandSeparator
+                  allowEmptyFormatting
+                  decimalScale={2}
+                  decimalSeparator="."
+                  value={value}
+                  onChange={handleChangeValues}
+                  onBlur={value !== notes ? () => onBlur(value) : null}
+                  className={`${classes.numberField}`}
+                  onFocus={removeSuffix}
+                />
+                {value && (
+                  <InputAdornment position="end" className={classes.clearIconNumber}>
+                    <IconButton
+                      onClick={() => {
+                        handleChangeValues({ target: { value: '' } })
+                        onUpdate('')
+                      }}
+                      className={classes.icon}
+                      size="small"
+                    >
+                      <FontAwesomeIcon icon={faCircleXmark} size="xs" />
+                    </IconButton>
+                  </InputAdornment>
                 )}
+              </div>
+            )
+            : (
+              <TextField
+                className={`${classes.textField}`}
+                multiline
+                maxRows={10}
+                minRows={4}
+                value={value}
+                type={type}
+                onChange={handleChangeValues}
+                onFocus={removeSuffix}
+                onBlur={value !== notes ? () => onUpdate(value) : null}
+                InputProps={{
+                  endAdornment: value && (
+                    <InputAdornment position="end" className={classes.clearIcon}>
+                      <IconButton
+                        onClick={() => {
+                          handleChangeValues({ target: { value: '' } })
+                          onUpdate('')
+                        }}
+                        className={classes.icon}
+                        size="small"
+                      >
+                        <FontAwesomeIcon icon={faCircleXmark} size="xs" />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            )}
     </Grid>
   )
 }
