@@ -77,11 +77,11 @@ export const AuditTrail = props => {
                 </div>
                 {idx !== eventList.length - 1
                   ? (
-                  <StepConnector />
-                    )
+                    <StepConnector />
+                  )
                   : (
-                  <StepConnector className={classes.adornmentEnd} />
-                    )}
+                    <StepConnector className={classes.adornmentEnd} />
+                  )}
               </Step>
             ))}
             <div className={classes.bigAdornment} />

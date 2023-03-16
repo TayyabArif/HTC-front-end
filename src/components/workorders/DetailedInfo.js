@@ -279,12 +279,12 @@ export const DetailedInfo = props => {
             {(viewMode && !trips[0]) || (!viewMode && !workOrder)
               ? ''
               : (viewMode ? trips[0] : workOrder)?.status
-                  ? t(
+                ? t(
                   `work_orders.wo_states.${getWOstatus(
                     viewMode ? trips[0] : workOrder
                   )}`
-                  )
-                  : t('work_orders.wo_states.no_status')}
+                )
+                : t('work_orders.wo_states.no_status')}
           </FormLabel>
         </div>
         <Grid style={{ opacity: ready ? 1 : 0.1 }} container>

@@ -79,24 +79,24 @@ export default function GlobalInputButtons (props) {
           <Box flex={1} display="flex" justifyContent="flex-end">
             {props.index === 0
               ? (
-              <Button
-                className={classes.addButton}
-                onClick={handleButtonAdd}
-                size="small"
-                disabled={props.buttonenabled}
-              >
-                {t('general.labels.add')}
-              </Button>
-                )
+                <Button
+                  className={classes.addButton}
+                  onClick={handleButtonAdd}
+                  size="small"
+                  disabled={props.buttonenabled}
+                >
+                  {t('general.labels.add')}
+                </Button>
+              )
               : (
-              <IconButton
-                onClick={handleButtonRemove}
-                size="small"
-                className={classes.removeButton}
-              >
-                <FontAwesomeIcon icon="fa-regular fa-circle-xmark" />
-              </IconButton>
-                )}
+                <IconButton
+                  onClick={handleButtonRemove}
+                  size="small"
+                  className={classes.removeButton}
+                >
+                  <FontAwesomeIcon icon="fa-regular fa-circle-xmark" />
+                </IconButton>
+              )}
           </Box>
         </Box>
       </Box>

@@ -270,12 +270,17 @@ export const MapFilters = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {mapDateRangeOptions.map(option => <MenuItem ref={option.id === 'custom' ? rootRef : null} key={option.id} onClick={() => handleChangeDate(option.id)} className={classes.menuItem}>
-          <Typography className={classes.menuLabel}>
-            {t(`locations.date_ranges.${option.id}`)}
-          </Typography>
-          {option.id === dateRange && <CheckIcon className={classes.checkIcon} />}
-        </MenuItem>)}
+        {mapDateRangeOptions.map(option => (
+          <MenuItem
+            ref={option.id === 'custom' ? rootRef : null}
+            key={option.id}
+            onClick={() => handleChangeDate(option.id)}
+            className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {t(`locations.date_ranges.${option.id}`)}
+            </Typography>
+            {option.id === dateRange && <CheckIcon className={classes.checkIcon} />}
+          </MenuItem>))}
         <ThemeProvider theme={muiThemeDateFilter}>
           <LocalizationProvider
             key="date-picker-dialog-from"
@@ -413,12 +418,14 @@ export const MapFilters = (props) => {
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
         {/* Temporary filtering */}
-        {mapStatusOptions.filter(option => (option.id === 'all' || option.id === 'open' || option.id === 'in_progress' || option.id === 'completed')).map(option => <MenuItem key={option.id} onClick={() => handleChangeStatus(option.id)} className={classes.menuItem}>
-          <Typography className={classes.menuLabel}>
-            {t(`work_orders.wo_states.${option.id}`)}
-          </Typography>
-          {option.id === status && <CheckIcon className={classes.checkIcon} />}
-        </MenuItem>)}
+        {mapStatusOptions.filter(option => (option.id === 'all' || option.id === 'open' || option.id === 'in_progress' || option.id === 'completed'))
+          .map(option => (
+            <MenuItem key={option.id} onClick={() => handleChangeStatus(option.id)} className={classes.menuItem}>
+              <Typography className={classes.menuLabel}>
+                {t(`work_orders.wo_states.${option.id}`)}
+              </Typography>
+              {option.id === status && <CheckIcon className={classes.checkIcon} />}
+            </MenuItem>))}
       </Menu>
     </Box>
     <Box key="state" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.state')}</Typography></Box>
@@ -441,12 +448,13 @@ export const MapFilters = (props) => {
         }}
         classes={{ root: classes.dropdowns, paper: classes.muiPaper }}
       >
-        {locationStore.statesOptions.map(option => <MenuItem key={option.id} onClick={() => handleChangeState(option.id, option.name)} className={classes.menuItem}>
-          <Typography className={classes.menuLabel}>
-            {option.id === 'all' ? t('locations.map.all_states') : option.id}
-          </Typography>
-          {option.id === state && <CheckIcon className={classes.checkIcon} />}
-        </MenuItem>)}
+        {locationStore.statesOptions.map(option => (
+          <MenuItem key={option.id} onClick={() => handleChangeState(option.id, option.name)} className={classes.menuItem}>
+            <Typography className={classes.menuLabel}>
+              {option.id === 'all' ? t('locations.map.all_states') : option.id}
+            </Typography>
+            {option.id === state && <CheckIcon className={classes.checkIcon} />}
+          </MenuItem>))}
       </Menu>
     </Box>
     <Box key="city" className={classes.filterLabel}><Typography className={classes.menuTitle}>{t('locations.map.city')}</Typography></Box>
@@ -478,7 +486,7 @@ export const MapFilters = (props) => {
       </Menu>
     </Box>
     <Box width="100%" display="flex">
-    <Button
+      <Button
         disabled={isResetDisabled()}
         variant="outlined"
         size="small"

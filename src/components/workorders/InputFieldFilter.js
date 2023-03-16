@@ -72,11 +72,11 @@ export const InputFieldFilter = props => {
             <IconButton onClick={handleClearSearch}>
               {search && search.length > 0
                 ? (
-                <FontAwesomeIcon icon={faTimes} fontSize="small" />
-                  )
+                  <FontAwesomeIcon icon={faTimes} fontSize="small" />
+                )
                 : (
-                <div />
-                  )}
+                  <div />
+                )}
             </IconButton>
           </InputAdornment>
         }

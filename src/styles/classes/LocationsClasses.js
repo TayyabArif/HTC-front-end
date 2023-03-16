@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles'
+import { navBarHeaderHeight, navBarHeaderHeightMobile } from '../../lib/Constants'
 
 export const locationsStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -38,16 +39,22 @@ export const locationsStyles = makeStyles((theme) => ({
     height: '12px'
   },
   leftColumnSites: {
+    touchAction: 'none',
     '&::-webkit-scrollbar': {
       display: 'none'
     },
-    height: 'calc(100vh - 100px)',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeight})`
+    },
+    [theme.breakpoints.down('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeightMobile})`
+    },
     overflowY: 'overlay',
     backgroundColor: theme.colors.profile.borders,
     padding: '0px'
   },
   searchBox: {
-    width: '345px',
+    width: '100%',
     marginLeft: '20px',
     '& input::placeholder': {
       fontSize: 16,
@@ -65,7 +72,7 @@ export const locationsStyles = makeStyles((theme) => ({
     width: 'auto',
     border: `1px solid ${theme.colors.profile.borders}`,
     borderRadius: '8px',
-    backgroundColor: 'white'
+    backgroundColor: theme.colors.backdropColor
   },
   clearAdornment: {
     fontSize: 16,
@@ -92,18 +99,20 @@ export const locationsStyles = makeStyles((theme) => ({
     padding: 'unset'
   },
   drawerPaper: {
-    marginTop: '100px',
-    width: '430px',
-    border: 'none'
+    position: 'fixed',
+    border: 'none',
+    [theme.breakpoints.up('md')]: {
+      width: '430px',
+      marginTop: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      marginTop: navBarHeaderHeightMobile
+    }
   },
   gridFilters: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-      padding: '0px 10px'
-    }
+    display: 'flex',
+    padding: '0px 10px'
   },
   swipeable: {
     height: 'calc(50% - 56px)',
@@ -128,7 +137,13 @@ export const locationsStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   gmapBox: {
-    height: 'calc(100vh - 100px)'
+    position: 'relative',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeight})`
+    },
+    [theme.breakpoints.down('md')]: {
+      height: `calc(100vh - ${navBarHeaderHeightMobile})`
+    }
   },
   siteTab: {
     fontSize: '12px',
@@ -155,9 +170,8 @@ export const locationsStyles = makeStyles((theme) => ({
     fontWeight: '400'
   },
   tab: {
-    minWidth: '50px',
+    minWidth: '100px',
     padding: 0,
-    width: '82px',
     minHeight: 20,
     maxHeight: '30px',
     height: 'auto',
@@ -166,7 +180,12 @@ export const locationsStyles = makeStyles((theme) => ({
     textTransform: 'none',
     backgroundColor: theme.colors.signInButton.background,
     fontWeight: '400',
-    marginRight: '230px' // TODO: remove when the rest of tabs appear
+    [theme.breakpoints.up('md')]: {
+      marginRight: '230px' // TODO: remove when the rest of tabs appear
+    },
+    [theme.breakpoints.down('md')]: {
+      marginRight: '100%' // TODO: remove when the rest of tabs appear
+    }
   },
   tabs: {
     backgroundColor: theme.colors.signInButton.background,
@@ -259,6 +278,15 @@ export const locationsStyles = makeStyles((theme) => ({
       right: '3px',
       top: '3px'
     }
+  },
+  mobileCountsBox: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      position: 'fixed'
+    }
   }
 }))
 
@@ -346,6 +374,9 @@ export const mapStyles = makeStyles((theme) => ({
     textTransform: 'none',
     color: theme.palette.primary.light,
     backgroundColor: theme.palette.primary.contrastText
+  },
+  actionButtonsBox: {
+    display: 'flex'
   }
 }))
 
@@ -497,14 +528,15 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
   hiddenButtonsBox: {
     width: '20px',
     position: 'relative',
-    top: '15px',
     left: '15px',
     marginTop: '15px',
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'flex',
+      top: '0px'
     },
     [theme.breakpoints.up('md')]: {
-      display: 'inline'
+      display: 'inline',
+      top: '15px'
     }
   },
   hiddenButtonsBoxSiteLevel: {
@@ -513,12 +545,7 @@ export const mapActionButtonsStyles = makeStyles((theme) => ({
     top: '0px',
     left: '10px',
     marginTop: '5px',
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'flex'
-    }
+    display: 'flex'
   },
   dropdowns: {
     marginLeft: 15
@@ -585,7 +612,7 @@ export const mapCountersStyles = makeStyles((theme) => ({
   activeWork: {
     position: 'relative',
     top: 4,
-    color: theme.palette.primary.light,
+    color: `${theme.palette.primary.light} !important`,
     width: '17px',
     height: '17px',
     marginLeft: '10px'
@@ -680,8 +707,13 @@ export const mapCountersStyles = makeStyles((theme) => ({
   },
   hiddenContainerDiv: {
     marginLeft: '60px',
-    display: 'flex',
-    width: '100%'
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
   },
   gridCounter: {
     width: 'min-content'
@@ -723,8 +755,7 @@ export const locationCardStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: '500',
     whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    overflow: 'hidden'
   },
   font12: {
     fontSize: 12,
@@ -735,11 +766,7 @@ export const locationCardStyles = makeStyles((theme) => ({
     fontSize: 13,
     fontWeight: '400',
     color: theme.colors.locations.locationAddress,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    '-webkit-line-clamp': 2,
-    '-webkit-box-orient': 'vertical'
+    overflow: 'hidden !important'
   },
   activeWorkCircle: (props) => ({
     position: 'relative',
@@ -890,17 +917,35 @@ export const weatherLegendsStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   legendsContainer: {
-    width: '440px',
-    position: 'absolute',
-    bottom: '24px',
+    bottom: '20px',
     left: '15px',
+    width: 'calc(100% - 25px)',
+    zIndex: 1000,
+    maxWidth: '440px',
+    position: 'absolute',
     overflow: 'hidden',
     transformOrigin: 'left bottom 0px'
   },
-  legendsContainerMinimized: {
+  legendsContainerMobile: {
+    right: '10px',
+    top: '60px',
+    width: 'calc(100% - 25px)',
+    zIndex: 1000,
+    maxWidth: '440px',
     position: 'absolute',
-    bottom: '24px',
+    overflow: 'hidden',
+    transformOrigin: 'left bottom 0px'
+  },
+  legendsContainerMin: {
     left: '15px',
+    bottom: '20px',
+    position: 'absolute',
+    overflow: 'hidden'
+  },
+  legendsContainerMinMobile: {
+    right: '10px',
+    top: '60px',
+    position: 'absolute',
     overflow: 'hidden'
   },
   mapWeatherLegendsBoxMinimized: {
@@ -937,19 +982,35 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   playerContainer: {
+    right: '15px',
+    width: 'calc(100% - 25px)',
+    maxWidth: '350px',
     height: '142px',
-    width: '350px',
     position: 'absolute',
     bottom: '20px',
-    right: '15px',
     overflow: 'hidden'
   },
-  playerContainerMinimized: {
+  playerContainerMobile: {
+    right: '10px',
+    width: 'calc(100% - 25px)',
+    maxWidth: '350px',
+    height: '142px',
+    position: 'absolute',
+    top: '60px',
+    overflow: 'hidden'
+  },
+  playerContainerMin: {
+    right: '15px',
     height: 'auto',
-    width: '350px',
     position: 'absolute',
     bottom: '20px',
-    right: '15px',
+    overflow: 'hidden'
+  },
+  playerContainerMinMobile: {
+    right: '10px',
+    height: 'auto',
+    position: 'absolute',
+    top: '120px',
     overflow: 'hidden'
   },
   mapWeatherPlayerBoxMinimized: {
@@ -1012,7 +1073,7 @@ export const woCardStyles = makeStyles((theme) => ({
     transform: 'rotate(90deg)',
     fontSize: '10px',
     fontWeight: '700',
-    color: 'white',
+    color: theme.colors.backdropColor,
     marginTop: '8px',
     width: '120px',
     position: 'absolute',
@@ -1095,7 +1156,15 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
     paddingRight: '26px'
   },
   mainCard: {
-    width: '560px',
+    maxWidth: '560px',
+    [theme.breakpoints.up('md')]: {
+      width: '560px',
+      minWidth: '560px'
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      minWidth: '300px'
+    },
     padding: '16px'
   },
   ratingLabel: {
@@ -1135,7 +1204,16 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
   },
   cardContent: {
     marginTop: '10px',
-    padding: '0 !important'
+    padding: '0 !important',
+    [theme.breakpoints.up('md')]: {
+      maxHeight: 'unset',
+      overflowY: 'unset'
+    },
+    [theme.breakpoints.down('md')]: {
+      maxHeight: 'calc(100vh - 300px)',
+      overflowY: 'auto'
+    },
+    overflowX: 'hidden'
   },
   cardNoContent: {
     marginTop: '30px',
@@ -1146,7 +1224,15 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
     fontSize: '14px',
     fontWeight: '600',
     color: theme.colors.iconBlue,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    margin: '0px 0px 6px 50px'
+  },
+  moreLink: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: theme.colors.iconBlue,
+    cursor: 'pointer',
+    marginLeft: '50px'
   },
   moreLabel: {
     position: 'absolute',
@@ -1164,5 +1250,65 @@ export const locationInfoCardStyles = makeStyles((theme) => ({
   },
   rangesDiv: {
     margin: '0px 5px'
+  }
+}))
+
+export const panelCountsMobileStyles = makeStyles((theme) => ({
+  mainDiv: {
+    padding: '11px'
+  },
+  activeWork: {
+    position: 'relative',
+    color: `${theme.palette.primary.light} !important`,
+    width: '17px',
+    height: '17px',
+    marginLeft: '10px'
+  },
+  openedWork: {
+    position: 'relative',
+    color: `${theme.colors.locations.workOrderColors.open} !important`,
+    width: '17px',
+    height: '17px',
+    marginLeft: '10px'
+  },
+  inProgressWork: {
+    position: 'relative',
+    color: `${theme.colors.locations.inProgressWork} !important`,
+    width: '17px',
+    height: '17px',
+    marginLeft: '10px'
+  },
+  returningWork: {
+    position: 'relative',
+    color: `${theme.colors.locations.workOrderColors.returning} !important`,
+    width: '17px',
+    height: '17px',
+    marginLeft: '10px'
+  },
+  completedWork: {
+    position: 'relative',
+    color: `${theme.colors.workOrderColors.completed} !important`,
+    width: '17px',
+    height: '17px',
+    marginLeft: '10px'
+  },
+  noActivity: {
+    position: 'relative',
+    color: `${theme.colors.locations.noActivity} !important`,
+    width: '17px',
+    height: '17px',
+    marginLeft: '10px'
+  },
+  font12: {
+    fontSize: '12px',
+    backgroundColor: theme.colors.backdropColor,
+    margin: 2
+  },
+  labelTypo: {
+    fontSize: '12px'
+  },
+  labelTypoBold: {
+    fontSize: '12px',
+    fontWeight: 'bold'
   }
 }))

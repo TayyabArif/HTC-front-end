@@ -139,12 +139,12 @@ export const AccessPanel = props => {
           endAdornment:
             data.name !== ''
               ? (
-              <InputAdornment position="end">
-                <IconButton onClick={() => handlechangeValues('', 'name')}>
-                  <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
-                </IconButton>
-              </InputAdornment>
-                )
+                <InputAdornment position="end">
+                  <IconButton onClick={() => handlechangeValues('', 'name')}>
+                    <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              )
               : null
         }}
         inputProps={{
@@ -222,45 +222,45 @@ export const AccessPanel = props => {
         {fields()}
         {props.data.id && props.data.id !== 0
           ? (
-          <div className={classes.bottomDiv}>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              classes={{ root: classes.delete }}
-              onClick={onDelete}
-            >
-              {t('company_settings.roles_card.panel_delete')}
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              classes={{
-                root: mainValidation() ? classes.saveOk : classes.save
-              }}
-              onClick={onChange}
-            >
-              {t('company_settings.roles_card.panel_save')}
-            </Button>
-          </div>
-            )
+            <div className={classes.bottomDiv}>
+              <Button
+                variant="outlined"
+                size="small"
+                color="primary"
+                classes={{ root: classes.delete }}
+                onClick={onDelete}
+              >
+                {t('company_settings.roles_card.panel_delete')}
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                color="primary"
+                classes={{
+                  root: mainValidation() ? classes.saveOk : classes.save
+                }}
+                onClick={onChange}
+              >
+                {t('company_settings.roles_card.panel_save')}
+              </Button>
+            </div>
+          )
           : (
-          <div className={classes.bottomDiv}>
-            <Button
-              variant="outlined"
-              size="small"
-              color="primary"
-              classes={{
-                root: mainValidation() ? classes.saveOk : classes.save
-              }}
-              onClick={onCreate}
-              disable={!mainValidation()}
-            >
-              {t('company_settings.roles_card.panel_create')}
-            </Button>
-          </div>
-            )}
+            <div className={classes.bottomDiv}>
+              <Button
+                variant="outlined"
+                size="small"
+                color="primary"
+                classes={{
+                  root: mainValidation() ? classes.saveOk : classes.save
+                }}
+                onClick={onCreate}
+                disable={!mainValidation()}
+              >
+                {t('company_settings.roles_card.panel_create')}
+              </Button>
+            </div>
+          )}
       </Drawer>
     </div>
   )

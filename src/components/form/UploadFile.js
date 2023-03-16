@@ -43,53 +43,53 @@ export default function GlobalUploadFile (props) {
       </InputLabel>
       {props.value && !props.error
         ? (
-        <Box className={classes.linkContainer}>
-          <Link
-            className={classes.fileData}
-            onClick={async event => await handleFileDownload(event)}
-            underline="hover"
-            target="_blank"
-            rel="noopener"
-          >
-            {props.fileName ?? 'file'}
-          </Link>
-          <IconButton
-            size="small"
-            className={classes.removeButton}
-            onClick={handleClick}
-          >
-            <FontAwesomeIcon icon="fa-regular fa-circle-xmark" />
-          </IconButton>
-        </Box>
-          )
+          <Box className={classes.linkContainer}>
+            <Link
+              className={classes.fileData}
+              onClick={async event => await handleFileDownload(event)}
+              underline="hover"
+              target="_blank"
+              rel="noopener"
+            >
+              {props.fileName ?? 'file'}
+            </Link>
+            <IconButton
+              size="small"
+              className={classes.removeButton}
+              onClick={handleClick}
+            >
+              <FontAwesomeIcon icon="fa-regular fa-circle-xmark" />
+            </IconButton>
+          </Box>
+        )
         : (
-        <Button
-          id="bootstrap-input"
-          variant="contained"
-          component="label"
-          disabled={loading}
-          className={
-            props.error
-              ? classes.buttonError
-              : props.required
-                ? classes.buttonRequired
-                : classes.button
-          }
-        >
-          {loading
-            ? props.loadingLabel
-            : props.error
-              ? props.helperText
-              : props.buttonLabel}
-          <input
-            hidden
-            accept={props.accept}
-            multiple
-            type="file"
-            onChange={handleChange}
-          />
-        </Button>
-          )}
+          <Button
+            id="bootstrap-input"
+            variant="contained"
+            component="label"
+            disabled={loading}
+            className={
+              props.error
+                ? classes.buttonError
+                : props.required
+                  ? classes.buttonRequired
+                  : classes.button
+            }
+          >
+            {loading
+              ? props.loadingLabel
+              : props.error
+                ? props.helperText
+                : props.buttonLabel}
+            <input
+              hidden
+              accept={props.accept}
+              multiple
+              type="file"
+              onChange={handleChange}
+            />
+          </Button>
+        )}
       <div className={classes.bottomSpacing}></div>
     </FormControl>
   )

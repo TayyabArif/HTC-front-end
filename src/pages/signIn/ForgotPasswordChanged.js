@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 /** Material UI **/
 import { Grid, Typography } from '@mui/material'
 import { HighlightButton } from '../../styles/mui_custom_components'
-import { makeStyles } from '@mui/styles'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
@@ -19,51 +18,12 @@ import { authActions } from '../../store/signIn'
 /** Services **/
 import { login } from '../../services/AuthService'
 
-const useStyles = makeStyles((theme) => ({
-  mainGrid: {
-    minHeight: '70vh',
-    transform: 'scale(0.80)'
-  },
-  title: {
-    fontWeight: 'bold',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '24px',
-      margin: '0px 30px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '40px'
-    }
-  },
-  subtitle: {
-    [theme.breakpoints.down('md')]: {
-      fontSize: '16px',
-      margin: '10px 30px',
-      display: 'block',
-      lineHeight: '21px'
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '20px'
-    }
-  },
-  buttons: {
-    marginTop: theme.spacing(4)
-  },
-  resetButton: {
-    [theme.breakpoints.down('md')]: {
-      width: '60%',
-      height: '58px'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: 'auto'
-    }
-  },
-  buttonGrid: {
-    width: '100%',
-    textAlign: 'center'
-  }
-}))
+/** Styles **/
+import { forgotChangedStyles } from '../../styles/classes/SignInClasses'
 
 const ForgotPasswordChanged = () => {
+  const { t } = useTranslation()
+  const classes = forgotChangedStyles()
   const history = useHistory()
   const authStore = store.getState().auth
   const dispatch = useDispatch()
@@ -83,9 +43,6 @@ const ForgotPasswordChanged = () => {
       history.push('/sing-in')
     }
   }
-
-  const { t } = useTranslation()
-  const classes = useStyles()
 
   return (
     <SignInContainer>

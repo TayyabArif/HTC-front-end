@@ -26,7 +26,10 @@ export const SupportCard = props => {
         </Typography>
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
-        <Link data-testid='privacy_policy_button' onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')} classes={{ root: classes.link }} >
+        <Link
+          data-testid='privacy_policy_button'
+          onClick={() => window.open(process.env.REACT_APP_FTC_TERMS_OF_SERVICE_URL, '_blank', 'noopener,noreferrer')}
+          classes={{ root: classes.link }} >
           {t('company_settings.support_card.privacy')}
         </Link>
         <Typography classes={{ root: classes.versionLabel }}>
