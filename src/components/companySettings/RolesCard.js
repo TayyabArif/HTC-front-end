@@ -146,18 +146,22 @@ export const RolesCard = props => {
             return (
               <Grid container key={role.name}>
                 <Grid item xs={12}>
-                  <Box display="flex" flexDirection="row" alignItems="baseline">
-                    <Typography classes={{ root: classes.roleItem }}>
-                      {role.name}
-                    </Typography>
-                    <GlobalChip
-                      chips={permissions}
-                      selected={new Set()}
-                      setSelected={() => {}}
-                      skipTranslate={true}
-                      clickable={false}
-                    />
-                  </Box>
+                  <Grid container display="flex" flexDirection="row" alignItems="baseline">
+                    <Grid item xs={5} md={3} lg={4}>
+                      <Typography classes={{ root: classes.roleItem }}>
+                        {role.name}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={7} md={9} lg={8}>
+                      <GlobalChip
+                        chips={permissions}
+                        selected={new Set()}
+                        setSelected={() => {}}
+                        skipTranslate={true}
+                        clickable={false}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item xs={11.7} sx={ roles.length > 1 ? styles.divider : '' }>
                   <Divider />
@@ -165,18 +169,22 @@ export const RolesCard = props => {
               </Grid>
             )
           })}
-          <Box sx={styles.viewOnlyCard} display="flex" flexDirection="row" alignItems="baseline">
-            <Typography classes={{ root: classes.roleItem }}>
-              {t('company_settings.view_only')}
-            </Typography>
-            <GlobalChip
-              chips={permissionsMobile}
-              selected={new Set()}
-              setSelected={() => {}}
-              skipTranslate={true}
-              clickable={false}
-            />
-          </Box>
+          <Grid sx={styles.viewOnlyCard} container display="flex" flexDirection="row" alignItems="baseline">
+            <Grid item xs={5} md={3} lg={4}>
+              <Typography classes={{ root: classes.roleItem }}>
+                {t('company_settings.view_only')}
+              </Typography>
+            </Grid>
+            <Grid item xs={7} md={9} lg={8}>
+              <GlobalChip
+                chips={permissionsMobile}
+                selected={new Set()}
+                setSelected={() => {}}
+                skipTranslate={true}
+                clickable={false}
+              />
+            </Grid>
+          </Grid>
         </Box>
       </CardContent>
       <AccessPanel

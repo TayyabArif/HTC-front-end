@@ -60,15 +60,15 @@ const processApiResponse = response => {
 const callAuth = async (type, route, params = {}) => {
   let response
   switch (type) {
-    case 'POST':
-      response = await auth.post(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
+  case 'POST':
+    response = await auth.post(route, params)
+    break
+  default:
+    throw {
+      name: 'Method Not Allowed',
+      message: 'Call type not supported',
+      code: 405
+    }
   }
 
   return processApiResponse(response)

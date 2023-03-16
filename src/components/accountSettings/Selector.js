@@ -50,6 +50,7 @@ export const Selector = React.forwardRef((props, ref) => {
         InputProps={{
           className: classes.textField,
           disableUnderline: true,
+          readOnly: props.readOnly,
           endAdornment: (
             <InputAdornment position="end">
               <ArrowDropDown
