@@ -17,7 +17,7 @@ import { profileCardLimits } from '../../lib/Constants'
 const EditButton = props => {
   const classes = profileInfoCardStyles()
   return (
-        <Button data-testid='edit_company_info_button' className={classes.editButton} onClick={props.onClick}>
+        <Button data-testid='edit_company_info_button' className={classes.editButton} onClick={props.onClick} {...props}>
             {props.label}
         </Button>
   )
@@ -27,6 +27,11 @@ export const ProfileInfoCard = props => {
   const classes = profileInfoCardStyles()
   const [wWidth] = useWindowSize()
   const { t } = useTranslation()
+  const styles = {
+    editButton: {
+      display: 'none'
+    }
+  }
 
   const handleEditProfile = () => {
     props.setComponent('profile')
@@ -53,7 +58,8 @@ export const ProfileInfoCard = props => {
                     {t('company_settings.card.profile')}
                 </Typography>
                 <EditButton
-                    label={t('company_settings.buttons.edit')}
+                  sx={styles.editButton}
+                    label={t('company_settings.buttons.view')}
                     onClick={handleEditProfile}
                 />
             </Box>
