@@ -152,6 +152,15 @@ const Locations = () => {
         } else {
           setSiteListing(prevList => [...prevList, ...response.sites])
         }
+        dispatch(locationsActions.resetZoomAndCenter({
+          center: {
+            lat: 40.175472,
+            lng: -101.466083
+          },
+          zoom: 4,
+          hideMarkers: false,
+          selectedMarkerIndex: null
+        }))
       }
     } catch (err) {
       console.error(err)
@@ -328,6 +337,7 @@ const Locations = () => {
   }
 
   const handleChangeSearch = (event) => {
+    dispatch(locationsActions.setSelectedSite(null))
     if (locationsStore.selectedSite) {
       setSearchWO(event.target.value)
     } else {
@@ -341,9 +351,6 @@ const Locations = () => {
         <Grid container alignItems='center' className={classes.gridFilters}>
           <Grid item xs={11}>
             <Box display="flex" pr={1}>
-              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
-                <ArrowBackIos className={classes.backIcon} />
-              </IconButton>}
               <TextField
                 className={classes.searchBox}
                 value={locationsStore.selectedSite ? searchWO : searchValue}
@@ -378,13 +385,16 @@ const Locations = () => {
           </Grid>
           <Grid item xs={1}>
             <Box>
-              <IconButton
+              {(locationsStore.selectedSite && locationsStore.showSiteViewPanel) && <IconButton className={classes.backButton} onClick={backSiteView}>
+                <ArrowBackIos className={classes.backIcon} /><small>Back</small>
+              </IconButton>}
+              {(!locationsStore.selectedSite || !locationsStore.showSiteViewPanel) && <IconButton
                 onClick={() => {
                   setHideLeftSection(true)
                 }}
                 className={classes.arrowButton}>
                 <Menu className={classes.menuIcon} />
-              </IconButton>
+              </IconButton>}
             </Box>
           </Grid>
         </Grid>
