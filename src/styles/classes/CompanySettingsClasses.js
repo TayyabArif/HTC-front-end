@@ -438,9 +438,9 @@ export const preferencesCardStyles = makeStyles(theme => ({
     padding: '0px 20px 30px 20px'
   },
   subtitle: {
-    fontSize: '14px',
+    fontSize: '17px',
     fontWeight: '500',
-    margin: '0 0 -25px 15px'
+    margin: '0 0 -25px 0'
   },
   buttonBox: {
     display: 'flex',
@@ -976,6 +976,14 @@ export const rolesCardStyles = makeStyles(theme => ({
     minWidth: '10em'
   }
 }))
+export const rolesCardSxStyles = {
+  viewOnlyCard: {
+    display: 'none'
+  },
+  divider: {
+    display: 'none'
+  }
+}
 
 export const tradesServicesCardStyles = makeStyles(theme => ({
   card: {

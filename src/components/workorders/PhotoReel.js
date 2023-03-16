@@ -273,7 +273,7 @@ export const PhotoReel = props => {
                           {' '}
                           {moment(
                             new Date(parseInt(obj.attributes.timestamp))
-                          ).format('MM/DD/yyyy hh:mm A')}{' '}
+                          ).format(t('general.date_formats.basic'))}{' '}
                         </FormLabel>
                           )
                         : (

@@ -181,7 +181,6 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
@@ -190,7 +189,6 @@ export const UpdateAccountInfo = props => {
       (event === 'new' && (updatedInfo.password?.length < 6 || updatedInfo.passwordConfirm?.length < 6 || (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
-      errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message
     ) {
@@ -289,19 +287,20 @@ export const UpdateAccountInfo = props => {
       setErrorMessage(null)
       clearErrors()
 
-      await ApiServices.createClientUser(
+      const newUser = await ApiServices.createClientUser(
         affiliateId,
         updatedInfo.firstName,
         updatedInfo.lastName,
         updatedInfo.email,
         updatedInfo.phone,
-        updatedInfo.email,
+        updatedInfo.username,
         updatedInfo.photo_url,
         props.mobile ? 'no_value' : roles[0].id,
         updatedInfo.role,
         updatedInfo.password,
-        updatedInfo.username
+        updatedInfo.employeeId
       )
+      await ApiServices.sendPortalInvitation(newUser.id)
       updateUsers()
       handleClose()
     } catch (e) {
@@ -491,7 +490,7 @@ export const UpdateAccountInfo = props => {
                               }
                             ]
                           : finalRoles && finalRoles.length > 0
-                            ? [...finalRoles]
+                            ? (event === 'new' ? [...finalRoles.filter(role => role.name !== 'Portal user')] : [...finalRoles])
                             : []
                       }
                       placeholder={t('account_settings.info_card.placeholder_select')}

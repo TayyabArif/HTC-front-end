@@ -1004,7 +1004,6 @@ export const weatherPlayerStyles = makeStyles((theme) => ({
 
 export const woCardStyles = makeStyles((theme) => ({
   serviceNameDiv: {
-    backgroundColor: theme.colors.divBack,
     width: '24px',
     marginRight: '4px',
     borderBottomLeftRadius: '5px'
