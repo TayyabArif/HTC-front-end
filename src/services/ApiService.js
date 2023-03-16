@@ -21,18 +21,18 @@ const locationApi = create({
 export const callLocationApi = async (type, route, params = {}) => {
   let response
   switch (type) {
-    case 'POST':
-      response = await locationApi.post(route, params)
-      break
-    case 'GET':
-      response = await locationApi.get(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
+  case 'POST':
+    response = await locationApi.post(route, params)
+    break
+  case 'GET':
+    response = await locationApi.get(route, params)
+    break
+  default:
+    throw {
+      name: 'Method Not Allowed',
+      message: 'Call type not supported',
+      code: 405
+    }
   }
   if (!response.ok) return {}
   return response.data
