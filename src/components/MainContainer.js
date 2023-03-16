@@ -28,21 +28,25 @@ export const MainContainer = props => {
   const loading = useSelector(state => state.loading.loading)
 
   return (
-    <div>
+    <div style={{ overflowY: 'hidden' }}>
       <CssBaseline />
       <Container
         className={classes.scrollContainer}
         style={{
-          minWidth: isMobile ? 'unset' : wWidth > 800 ? '800px' : '1440px'
+          minWidth: isMobile ? 'unset' : wWidth > 800 ? '800px' : '1440px',
+          overflowY: 'hidden'
         }}
       >
-        <Container className={window.location.pathname.includes('/work-orders') ? clsx(classes.container, classes.containerScrollHidden) : classes.container}>
+        <Container
+          className={window.location.pathname.includes('/work-orders')
+            ? clsx(classes.container, classes.containerScrollHidden)
+            : classes.container}>
           <Backdrop className={classes.backdrop} open={loading}>
             <CircularProgress color="inherit" />
           </Backdrop>
           <NavBar />
           <Box className={classes.navBarOffset}></Box>
-          <Box className={classes.contentBox}>{props.children}</Box>
+          <Box >{props.children}</Box>
         </Container>
       </Container>
     </div>

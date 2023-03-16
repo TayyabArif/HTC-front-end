@@ -21,7 +21,9 @@
   "rules": {
     "react/prop-types": 0,
     "no-throw-literal": 0,
-    "no_trailing_spaces": 0
+    "no_trailing_spaces": 0,
+    "indent": ["error", 2],
+    "max-len": ["error", 150]
   },
   "settings": {
     "react": {

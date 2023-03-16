@@ -139,50 +139,50 @@ export const AreaServiceFilterComponent = props => {
     if (!currentServiceArea.unselected) currentServiceArea.unselected = {}
 
     switch (key) {
-      case 'city':
-        currentServiceArea.unselected.cities
-          ? (newUnselectedList = cloneDeep(
-              currentServiceArea.unselected.cities
-            ))
-          : (newUnselectedList = [])
-        if (!newUnselectedList.includes(value)) {
-          newUnselectedList.push(value)
-        } else {
-          newUnselectedList = newUnselectedList.filter(city => city !== value)
-        }
-        currentServiceArea.unselected.cities = newUnselectedList
-        break
+    case 'city':
+      currentServiceArea.unselected.cities
+        ? (newUnselectedList = cloneDeep(
+          currentServiceArea.unselected.cities
+        ))
+        : (newUnselectedList = [])
+      if (!newUnselectedList.includes(value)) {
+        newUnselectedList.push(value)
+      } else {
+        newUnselectedList = newUnselectedList.filter(city => city !== value)
+      }
+      currentServiceArea.unselected.cities = newUnselectedList
+      break
 
-      case 'zip':
-        currentServiceArea.unselected.zip
-          ? (newUnselectedList = cloneDeep(currentServiceArea.unselected.zip))
-          : (newUnselectedList = [])
-        if (!newUnselectedList.includes(value)) {
-          newUnselectedList.push(value)
-        } else {
-          newUnselectedList = newUnselectedList.filter(zip => zip !== value)
-        }
-        currentServiceArea.unselected.zip = newUnselectedList
-        break
+    case 'zip':
+      currentServiceArea.unselected.zip
+        ? (newUnselectedList = cloneDeep(currentServiceArea.unselected.zip))
+        : (newUnselectedList = [])
+      if (!newUnselectedList.includes(value)) {
+        newUnselectedList.push(value)
+      } else {
+        newUnselectedList = newUnselectedList.filter(zip => zip !== value)
+      }
+      currentServiceArea.unselected.zip = newUnselectedList
+      break
 
-      case 'county':
-        currentServiceArea.unselected.county
-          ? (newUnselectedList = cloneDeep(
-              currentServiceArea.unselected.county
-            ))
-          : (newUnselectedList = [])
-        if (!newUnselectedList.includes(value)) {
-          newUnselectedList.push(value)
-        } else {
-          newUnselectedList = newUnselectedList.filter(
-            county => county !== value
-          )
-        }
-        currentServiceArea.unselected.county = newUnselectedList
-        break
+    case 'county':
+      currentServiceArea.unselected.county
+        ? (newUnselectedList = cloneDeep(
+          currentServiceArea.unselected.county
+        ))
+        : (newUnselectedList = [])
+      if (!newUnselectedList.includes(value)) {
+        newUnselectedList.push(value)
+      } else {
+        newUnselectedList = newUnselectedList.filter(
+          county => county !== value
+        )
+      }
+      currentServiceArea.unselected.county = newUnselectedList
+      break
 
-      default:
-        break
+    default:
+      break
     }
 
     currentServiceArea.zip = newZipSelection
@@ -290,25 +290,25 @@ export const AreaServiceFilterComponent = props => {
     let filteredData = null
 
     switch (true) {
-      case filterSelected.has('zip'):
-        filteredData = serviceArea.zip.filter(data => data.zip.includes(text))
-        if (filteredData.length === 0) setZipCodesList([])
-        parseSelections(filteredData)
-        break
-      case filterSelected.has('city'):
-        filteredData = serviceArea.zip.filter(data =>
-          data.city.toLowerCase().includes(text.toLowerCase())
-        )
-        if (filteredData.length === 0) setCitiesList([])
-        parseSelections(filteredData)
-        break
-      case filterSelected.has('county'):
-        filteredData = serviceArea.zip.filter(data =>
-          data.county.toLowerCase().includes(text.toLowerCase())
-        )
-        if (filteredData.length === 0) setCountiesList([])
-        parseSelections(filteredData)
-        break
+    case filterSelected.has('zip'):
+      filteredData = serviceArea.zip.filter(data => data.zip.includes(text))
+      if (filteredData.length === 0) setZipCodesList([])
+      parseSelections(filteredData)
+      break
+    case filterSelected.has('city'):
+      filteredData = serviceArea.zip.filter(data =>
+        data.city.toLowerCase().includes(text.toLowerCase())
+      )
+      if (filteredData.length === 0) setCitiesList([])
+      parseSelections(filteredData)
+      break
+    case filterSelected.has('county'):
+      filteredData = serviceArea.zip.filter(data =>
+        data.county.toLowerCase().includes(text.toLowerCase())
+      )
+      if (filteredData.length === 0) setCountiesList([])
+      parseSelections(filteredData)
+      break
     }
   }
 
@@ -359,23 +359,23 @@ export const AreaServiceFilterComponent = props => {
           <Box className={[classes.multiselectContent, classes.multiselectZip]}>
             {zipCodesList?.length > 0
               ? (
-                  zipCodesList.map((subList, index) => (
-                <GlobalSelect
-                  key={index}
-                  options={subList}
-                  onChange={changeZipSelection}
-                  label={''}
-                  field="zip"
-                  placeholder={`${t('company_profile.placeholder.select_zip')}`}
-                  uniqValue={getZipGroupLabel(subList)}
-                  value={zipValues ?? []}
-                  multiple={true}
-                />
-                  ))
-                )
+                zipCodesList.map((subList, index) => (
+                  <GlobalSelect
+                    key={index}
+                    options={subList}
+                    onChange={changeZipSelection}
+                    label={''}
+                    field="zip"
+                    placeholder={`${t('company_profile.placeholder.select_zip')}`}
+                    uniqValue={getZipGroupLabel(subList)}
+                    value={zipValues ?? []}
+                    multiple={true}
+                  />
+                ))
+              )
               : (
-              <GlobalInput value="No results" disabled />
-                )}
+                <GlobalInput value="No results" disabled />
+              )}
           </Box>
         )}
       </Box>

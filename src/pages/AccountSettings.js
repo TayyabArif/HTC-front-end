@@ -13,21 +13,21 @@ const AccountSettings = () => {
   const classes = AccountSettingsPageClasses()
 
   return (
-        <MainContainer>
-            <Container className={classes.container} maxWidth={false} disableGutters>
-                <Box className={classes.titleBackground}></Box>
-                <Box className={classes.frontBoxes} display="flex" flexDirection="row">
-                    <Typography className={classes.title}>
-                        {t('account_settings.title')}
-                    </Typography>
-                </Box>
-                <Grid className={classes.frontBoxes} container>
-                    <Grid item sm={12} md={8} lg={6}>
-                        <AccountInfoCard />
-                    </Grid>
-                </Grid>
-            </Container>
-        </MainContainer>
+    <MainContainer>
+      <Container className={classes.container} maxWidth={false} disableGutters>
+        <Box className={classes.titleBackground}></Box>
+        <Box className={classes.frontBoxes} display="flex" flexDirection="row">
+          <Typography className={classes.title}>
+            {t('account_settings.title')}
+          </Typography>
+        </Box>
+        <Grid className={classes.frontBoxes} container>
+          <Grid item sm={12} md={8} lg={6}>
+            <AccountInfoCard />
+          </Grid>
+        </Grid>
+      </Container>
+    </MainContainer>
   )
 }
 
