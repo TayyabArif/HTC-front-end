@@ -587,7 +587,12 @@ export const supportCardStyles = makeStyles(theme => ({
     borderRadius: '8px',
     boxShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)',
     borderBottom: `1px solid ${theme.colors.disabledField}`,
-    marginBottom: '16px'
+    [theme.breakpoints.down('md')]: {
+      marginBottom: '16px'
+    },
+    [theme.breakpoints.up('md')]: {
+      marginBottom: '65px'
+    }
   },
   actions: {
     display: 'flex',

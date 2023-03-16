@@ -76,6 +76,18 @@ const CompanySettings = props => {
       display: 'none'
     }
   }
+  const paperProps = {
+    sx: {
+      minWidth: {
+        xs: '100% !important',
+        sm: '70% !important'
+      },
+      maxWidth: {
+        xs: '100% !important',
+        sm: '70% !important'
+      }
+    }
+  }
 
   useEffect(() => {
     initialMethod()
@@ -95,11 +107,18 @@ const CompanySettings = props => {
       const response = await getCompanyProfile(userStore.userInfo.company_id)
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
-      if (response?.service_area) {
+      if (response?.service_area && response?.service_area.length > 0) {
         response.service_area[0].zip = await getZipCodesFiltered(
           response?.service_area[0]
         )
         parseDataToMapView(response.service_area[0])
+      }
+      if (response?.logo?.url) {
+        const date = new Date()
+        const dateFormatted = `${date.getFullYear()}-${date.getDate()}-${
+          date.getMonth() + 1
+        }_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
+        response.logo.url = response.logo.url + '?' + dateFormatted
       }
       const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
       setCompanyConfigs(configResponse)
@@ -199,7 +218,14 @@ const CompanySettings = props => {
 
   const handleSave = async (data) => {
     try {
-      const newProfile = { ...data }
+      setButtonDisabled(true)
+      const newProfile = {
+        ...data,
+        invoice_email: data.invoice_email ?? '',
+        w9: data.w9 ?? {},
+        support_24_7: data.support_24_7 ?? false,
+        service_area: data.service_area ?? []
+      }
       delete newProfile.name
       delete newProfile.company
       delete newProfile.id
@@ -248,8 +274,10 @@ const CompanySettings = props => {
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
       setOpen(false)
+      setButtonDisabled(false)
     } catch (error) {
       console.error(error)
+      setButtonDisabled(false)
     }
   }
 
@@ -662,6 +690,7 @@ const CompanySettings = props => {
         onClose={handleClose}
         scroll="paper"
         className={classes.editComponent}
+        PaperProps={paperProps}
       >
         <DialogContent style={{ overflowY: 'none' }}>
           {editComponent(component)}
