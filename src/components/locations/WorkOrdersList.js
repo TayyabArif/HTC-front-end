@@ -103,12 +103,12 @@ export const WorkOrdersList = (props) => {
       site.zipcode?.length
 
     switch (props.activeTab) {
-      case 'active_work_orders':
-        return 120
-      case 'all_sites':
-        return contentRowLength > 55 ? 95 : 78
-      default:
-        return 110
+    case 'active_work_orders':
+      return 120
+    case 'all_sites':
+      return contentRowLength > 55 ? 95 : 78
+    default:
+      return 110
     }
   }
 

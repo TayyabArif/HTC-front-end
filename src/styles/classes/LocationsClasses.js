@@ -72,7 +72,7 @@ export const locationsStyles = makeStyles((theme) => ({
     width: 'auto',
     border: `1px solid ${theme.colors.profile.borders}`,
     borderRadius: '8px',
-    backgroundColor: 'white'
+    backgroundColor: theme.colors.backdropColor
   },
   clearAdornment: {
     fontSize: 16,
@@ -1069,7 +1069,7 @@ export const woCardStyles = makeStyles((theme) => ({
     transform: 'rotate(90deg)',
     fontSize: '10px',
     fontWeight: '700',
-    color: 'white',
+    color: theme.colors.backdropColor,
     marginTop: '8px',
     width: '120px',
     position: 'absolute',
@@ -1297,7 +1297,7 @@ export const panelCountsMobileStyles = makeStyles((theme) => ({
   },
   font12: {
     fontSize: '12px',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     margin: 2
   },
   labelTypo: {

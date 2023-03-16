@@ -76,17 +76,17 @@ export const WoDetails = props => {
 
             {workOrder?.contact_person &&
               (workOrder.contact_person[0] || workOrder.contact_person[1]) && (
-                <Grid container>
-                  <Grid item xs={12}>
-                    <FormLabel component="legend" className={classes.field}>
-                      {t('work_orders.wo_details.location_contacts')}
-                    </FormLabel>
-                    <FormLabel component="legend" className={classes.fieldData}>
-                      {workOrder?.contact_person && workOrder?.contact_person[0]}
-                      {workOrder?.contact_person && workOrder?.contact_person[1]}
-                    </FormLabel>
-                  </Grid>
+              <Grid container>
+                <Grid item xs={12}>
+                  <FormLabel component="legend" className={classes.field}>
+                    {t('work_orders.wo_details.location_contacts')}
+                  </FormLabel>
+                  <FormLabel component="legend" className={classes.fieldData}>
+                    {workOrder?.contact_person && workOrder?.contact_person[0]}
+                    {workOrder?.contact_person && workOrder?.contact_person[1]}
+                  </FormLabel>
                 </Grid>
+              </Grid>
             )}
             {workOrder?.notes && (
               <Grid container>

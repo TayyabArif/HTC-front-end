@@ -109,10 +109,18 @@ export const LocationInfoCard = (props) => {
           {props.info && <CardContent className={classes.cardContent}>
             {props.info?.photos && props.info?.photos?.length > 0 && <PhotoList photos={props.info?.photos ?? []} url={props.info?.url} />}
             {props.info?.located_in && props.info?.located_in !== '' && <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.located')}:&nbsp;</Typography>{props.info?.located_in}</Typography>
+              <Typography className={classes.fieldContent}>
+                <Typography display="inline" className={classes.fieldLabel}>
+                  {t('locations.info_card.located')}:&nbsp;
+                </Typography>{props.info?.located_in}
+              </Typography>
             </Box>}
             {props.info?.address && props.info?.address !== '' && <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.address')}:&nbsp;</Typography>{props.info?.address}</Typography>
+              <Typography className={classes.fieldContent}>
+                <Typography display="inline" className={classes.fieldLabel}>
+                  {t('locations.info_card.address')}:&nbsp;
+                </Typography>{props.info?.address}
+              </Typography>
             </Box>}
             {props.info?.opening_hours && props.info?.opening_hours.length !== 0 && <Box display="flex">
               <Typography className={classes.fieldLabel}>{t('locations.info_card.hours')}:&nbsp;</Typography>
@@ -120,22 +128,34 @@ export const LocationInfoCard = (props) => {
               {expandHours && <div className={classes.rangesDiv} >{openingRangeComp()}</div>}
               {!expandHours && <Typography className={classes.fieldContent}>{openingHoursPrev()}</Typography>}
             </Box>}
-            <Typography className={classes.moreHours} onClick={() => setExpandHours(!expandHours)} >&nbsp;{expandHours ? t('locations.info_card.less_hours') : t('locations.info_card.more_hours')}</Typography>
+            <Typography className={classes.moreHours} onClick={() => setExpandHours(!expandHours)} >
+              &nbsp;{expandHours ? t('locations.info_card.less_hours') : t('locations.info_card.more_hours')}</Typography>
             {props.info?.departments && props.info?.departments !== '' && <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.departments')}:&nbsp;</Typography>{props.info?.departments}</Typography>
+              <Typography className={classes.fieldContent}>
+                <Typography display="inline" className={classes.fieldLabel}>
+                  {t('locations.info_card.departments')}:&nbsp;
+                </Typography>{props.info?.departments}
+              </Typography>
             </Box>}
             {props.info?.phone_number && props.info?.phone_number !== '' && <Box mb="6px" display="flex">
-              <Typography className={classes.fieldContent}><Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.phone')}:&nbsp;</Typography>{props.info?.phone_number}</Typography>
+              <Typography className={classes.fieldContent}>
+                <Typography display="inline" className={classes.fieldLabel}>
+                  {t('locations.info_card.phone')}:&nbsp;
+                </Typography>
+                {props.info?.phone_number}
+              </Typography>
             </Box>}
             {props.info?.website && props.info?.website !== '' && <Box mb="6px" display="flex" >
               <Typography className={classes.fieldContent} >
                 <Typography display="inline" className={classes.fieldLabel}>{t('locations.info_card.order')}:&nbsp;</Typography>
-                  {props.info?.website.length > 50
-                    ? <div className={classes.urlDiv} >
-                      {expandUrl ? props.info?.website : props.info?.website.slice(0, 45) + '...'}
-                      <Typography className={classes.moreLink} onClick={() => setExpandUrl(!expandUrl)} >&nbsp;{expandUrl ? t('locations.info_card.show_less') : t('locations.info_card.show_more')}</Typography>
-                    </div>
-                    : props.info?.website}
+                {props.info?.website.length > 50
+                  ? <div className={classes.urlDiv} >
+                    {expandUrl ? props.info?.website : props.info?.website.slice(0, 45) + '...'}
+                    <Typography className={classes.moreLink} onClick={() => setExpandUrl(!expandUrl)} >
+                      &nbsp;{expandUrl ? t('locations.info_card.show_less') : t('locations.info_card.show_more')}
+                    </Typography>
+                  </div>
+                  : props.info?.website}
               </Typography>
             </Box>}
           </CardContent>}

@@ -37,7 +37,10 @@ export const MainContainer = props => {
           overflowY: 'hidden'
         }}
       >
-        <Container className={window.location.pathname.includes(Routes.WORK_ORDERS.path) ? clsx(classes.container, classes.containerScrollHidden) : classes.container}>
+        <Container
+          className={window.location.pathname.includes(Routes.WORK_ORDERS.path)
+            ? clsx(classes.container, classes.containerScrollHidden)
+            : classes.container}>
           <Backdrop className={classes.backdrop} open={loading}>
             <CircularProgress color="inherit" />
           </Backdrop>

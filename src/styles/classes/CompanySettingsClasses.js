@@ -52,7 +52,7 @@ export const companySettingsStyles = makeStyles(theme => ({
   emptyAvatar: {
     width: '140px',
     height: '140px',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     border: '4px solid black'
   },
   editButton: {
@@ -70,7 +70,7 @@ export const companySettingsStyles = makeStyles(theme => ({
   },
   saveButton: {
     background: theme.colors.iconBlue,
-    color: 'white',
+    color: theme.colors.backdropColor,
     textTransform: 'none',
     fontSize: '20px',
     fontWeight: 'bold',
@@ -137,7 +137,7 @@ export const areaServiceFilterStyles = makeStyles(theme => ({
     paddingTop: 10
   },
   saveButton: {
-    color: 'white',
+    color: theme.colors.backdropColor,
     textTransform: 'none',
     fontSize: '12px',
     fontWeight: '400',
@@ -438,9 +438,9 @@ export const preferencesCardStyles = makeStyles(theme => ({
     padding: '0px 20px 30px 20px'
   },
   subtitle: {
-    fontSize: '14px',
+    fontSize: '17px',
     fontWeight: '500',
-    margin: '0 0 -25px 15px'
+    margin: '0 0 -25px 0'
   },
   buttonBox: {
     display: 'flex',
@@ -981,6 +981,14 @@ export const rolesCardStyles = makeStyles(theme => ({
     minWidth: '10em'
   }
 }))
+export const rolesCardSxStyles = {
+  viewOnlyCard: {
+    display: 'none'
+  },
+  divider: {
+    display: 'none'
+  }
+}
 
 export const tradesServicesCardStyles = makeStyles(theme => ({
   card: {
@@ -1106,7 +1114,7 @@ export const yesNoSelectorStyles = makeStyles(theme => ({
   },
   root: {
     fontSize: '12px',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     borderRadius: '8px',
     width: '303px',
     marginLeft: '0px',
@@ -1114,7 +1122,7 @@ export const yesNoSelectorStyles = makeStyles(theme => ({
   },
   errorRoot: {
     fontSize: '12px',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     borderRadius: '8px',
     width: '303px',
     marginLeft: '0px',

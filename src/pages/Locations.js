@@ -354,7 +354,9 @@ const Locations = () => {
                 required
                 fullWidth
                 id='search'
-                placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
+                placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite
+                  ? t('locations.work_orders.search_placeholder')
+                  : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
                 onChange={handleChangeSearch}
@@ -397,7 +399,14 @@ const Locations = () => {
               <PanelCountsMobile searchResults={sitesResponse}/>
             </Box>
             <Box paddingTop={actualWidth > mobileBreakpoint ? '0px' : actualWidth > 577 ? '60px' : '92px'}>
-              <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} searchValue={searchValue} />
+              <SearchResults
+                sites={siteListing}
+                activeTab={locationsStore.activeTab}
+                setTablePage={setPage}
+                actualPage={page}
+                hasMore={hasMore}
+                setSearch={setSearch}
+                searchValue={searchValue} />
             </Box>
           </Grid>
         </Box>

@@ -66,12 +66,12 @@ const ForgotPasswordCode = () => {
     } catch (error) {
       console.error(error)
       switch (error.message) {
-        case 'Invalid Password':
-          setError(t('forgot_password_code.invalid_password'))
-          break
-        case 'Invalid Token':
-          setError(t('forgot_password_code.invalid_token'))
-          break
+      case 'Invalid Password':
+        setError(t('forgot_password_code.invalid_password'))
+        break
+      case 'Invalid Token':
+        setError(t('forgot_password_code.invalid_token'))
+        break
       }
       dispatch(loadingActions.hide())
     }
@@ -86,21 +86,21 @@ const ForgotPasswordCode = () => {
   return (
     <SignInContainer>
       <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit, onError)}>
-      <Grid data-testid={'forgot_password_code_page'} className={classes.mainGrid} container spacing={0} direction='column' alignItems='center'>
-        <Grid className={classes.mainItem} item xs={12}>
-          <Grid container justifyContent='center' alignItems='center'>
-            <Grid item xs={12} textAlign="center">
-              <Typography align='center' className={classes.title} variant='p'>
-                {t('forgot_password_code.title').toUpperCase()}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} mt={3}>
-              <Typography align='center' className={classes.subtitle} >
-                {t('forgot_password_code.subtitle')}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Grid container className={classes.formBox}>
+        <Grid data-testid={'forgot_password_code_page'} className={classes.mainGrid} container spacing={0} direction='column' alignItems='center'>
+          <Grid className={classes.mainItem} item xs={12}>
+            <Grid container justifyContent='center' alignItems='center'>
+              <Grid item xs={12} textAlign="center">
+                <Typography align='center' className={classes.title} variant='p'>
+                  {t('forgot_password_code.title').toUpperCase()}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} mt={3}>
+                <Typography align='center' className={classes.subtitle} >
+                  {t('forgot_password_code.subtitle')}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Grid container className={classes.formBox}>
                   <Grid item xs={12}>
                     <TextField
                       className={classes.fields}
@@ -131,31 +131,37 @@ const ForgotPasswordCode = () => {
                       onKeyUp={handleNewPasswordChange}
                     />
                   </Grid>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid container justifyContent='center' alignItems='center'>
-            <Grid item xs={12} md={8}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <FormHelperText>
-                    {error || (errors.new_password && errors.new_password.message)
-                      ? <Typography align={'left'} className={classes.errorMessage} variant="p">
-                        {error || errors.new_password.message}
-                      </Typography>
-                      : <Typography align={'left'} className={classes.errorMessage} variant="p"><br/></Typography>}
-                  </FormHelperText>
-                </Grid>
-                <Grid item className={classes.buttonGrid} >
-                  <HighlightButton className={classes.resetButton} data-testid={'submit_button'} disabled={!enableSave} type='submit' variant='contained' onClick={onSubmit} >
-                    {t('forgot_password_code.reset_password')}
-                  </HighlightButton>
+            <Grid container justifyContent='center' alignItems='center'>
+              <Grid item xs={12} md={8}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <FormHelperText>
+                      {error || (errors.new_password && errors.new_password.message)
+                        ? <Typography align={'left'} className={classes.errorMessage} variant="p">
+                          {error || errors.new_password.message}
+                        </Typography>
+                        : <Typography align={'left'} className={classes.errorMessage} variant="p"><br/></Typography>}
+                    </FormHelperText>
+                  </Grid>
+                  <Grid item className={classes.buttonGrid} >
+                    <HighlightButton
+                      className={classes.resetButton}
+                      data-testid={'submit_button'}
+                      disabled={!enableSave}
+                      type='submit'
+                      variant='contained'
+                      onClick={onSubmit} >
+                      {t('forgot_password_code.reset_password')}
+                    </HighlightButton>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
       </form>
     </SignInContainer>
   )

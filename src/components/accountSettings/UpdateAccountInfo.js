@@ -181,16 +181,16 @@ export const UpdateAccountInfo = props => {
       !updatedInfo.firstName ||
       !updatedInfo.lastName ||
       !updatedInfo.email ||
-      !updatedInfo.phone ||
       (updatedInfo.password && !updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && updatedInfo.passwordConfirm) ||
       (!updatedInfo.password && !updatedInfo.passwordConfirm) ||
       !updatedInfo.username ||
       !updatedInfo.roles ||
-      (event === 'new' && (updatedInfo.password?.length < 6 || updatedInfo.passwordConfirm?.length < 6 || (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
+      (event === 'new' && (updatedInfo.password?.length < 6 ||
+        updatedInfo.passwordConfirm?.length < 6 ||
+        (updatedInfo.password !== updatedInfo.passwordConfirm))) ||
       errors?.email?.message ||
       errors?.username?.message ||
-      errors?.phone?.message ||
       errors?.password?.message ||
       errors?.passwordConfirm?.message
     ) {
@@ -343,12 +343,12 @@ export const UpdateAccountInfo = props => {
         setErrorMessage(name + ' ' + error.message)
       } else if (e.message) {
         switch (e.details.code) {
-          case 1006:
-            setErrorMessage(e.message)
-            break
-          default:
-            setErrorMessage(t('company_profile.error.general_error'))
-            break
+        case 1006:
+          setErrorMessage(e.message)
+          break
+        default:
+          setErrorMessage(t('company_profile.error.general_error'))
+          break
         }
       } else setErrorMessage(e)
     }
@@ -486,13 +486,13 @@ export const UpdateAccountInfo = props => {
                       options={
                         mobile
                           ? [
-                              {
-                                id: 'no_value',
-                                name: t('company_settings.mobile_only')
-                              }
-                            ]
+                            {
+                              id: 'no_value',
+                              name: t('company_settings.mobile_only')
+                            }
+                          ]
                           : finalRoles && finalRoles.length > 0
-                            ? [...finalRoles]
+                            ? (event === 'new' ? [...finalRoles.filter(role => role.name !== 'Portal user')] : [...finalRoles])
                             : []
                       }
                       placeholder={t('account_settings.info_card.placeholder_select')}

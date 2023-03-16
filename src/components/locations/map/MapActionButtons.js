@@ -88,12 +88,12 @@ export const MapActionButtons = (props) => {
     props.setMapType(e.currentTarget.dataset.mapType)
 
     switch (e.currentTarget.dataset.mapType) {
-      case 'light':
-        props.setMapStylesState(mapStylesLight)
-        break
-      default:
-        props.setMapStylesState(mapStylesGray)
-        break
+    case 'light':
+      props.setMapStylesState(mapStylesLight)
+      break
+    default:
+      props.setMapStylesState(mapStylesGray)
+      break
     }
     setAnchorMOEl(null)
   }
@@ -159,8 +159,10 @@ export const MapActionButtons = (props) => {
       getTileUrl: function (tile, zoom) {
         const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
 
-        if (((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng) || (geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat)) ||
-          ((geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng) || (geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat))) {
+        if (((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng) ||
+        (geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat)) ||
+          ((geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng) ||
+          (geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat))) {
           const params = [
             'wms.php?service=WMS',
             'version=1.3.0',
@@ -196,8 +198,10 @@ export const MapActionButtons = (props) => {
       getTileUrl: function (tile, zoom) {
         const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
 
-        if (((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng) || (geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat)) ||
-          ((geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng) || (geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat))) {
+        if (((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng) ||
+        (geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat)) ||
+          ((geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng) ||
+          (geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat))) {
           const params = [
             'wms.php?service=WMS',
             'version=1.3.0',
@@ -234,332 +238,344 @@ export const MapActionButtons = (props) => {
     showLoadingSpinner()
 
     switch (layerType) {
-      case 'off':
-        mapInstance.overlayMapTypes.clear()
+    case 'off':
+      mapInstance.overlayMapTypes.clear()
+      props.setLoading(false)
+      break
+    case 'radar':
+      // eslint-disable-next-line no-case-declarations
+      const imageMapTypeRadar = new window.google.maps.ImageMapType({
+        getTileUrl: function (tile, zoom) {
+          const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom, 256)
+
+          if ((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng &&
+            geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat) ||
+              (geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng &&
+                geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat)) {
+            const params = [
+              'service=WMS',
+              'version=1.1.1',
+              'request=GetMap',
+              'transparent=true',
+              'tiled=true',
+              'format=image/png',
+              'width=256',
+              'height=256',
+              'srs=EPSG:3857',
+              'layers=conus_bref_qcd',
+              `time=${props.queryTime?.conus}`,
+              `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
+            ]
+            flagConus.current = 1
+            showLoadingSpinner()
+
+            return `${process.env.REACT_APP_MAP_RADAR_SERVICE}/conus/conus_bref_qcd/ows?${params.join('&')}`
+          }
+        },
+        tileSize: new window.google.maps.Size(256, 256),
+        opacity: 0.8
+      })
+
+      // eslint-disable-next-line no-case-declarations
+      const imageMapTypeRadarAlaska = new window.google.maps.ImageMapType({
+        getTileUrl: function (tile, zoom) {
+          const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom, 256)
+
+          if ((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng &&
+            geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat) ||
+              (geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng &&
+                geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat)) {
+            const params = [
+              'service=WMS',
+              'version=1.1.1',
+              'request=GetMap',
+              'transparent=true',
+              'tiled=true',
+              'format=image/png',
+              'width=256',
+              'height=256',
+              'srs=EPSG:3857',
+              'layers=alaska_bref_qcd',
+              `time=${props.queryTime?.alaska}`,
+              `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
+            ]
+            flagAlaska.current = 1
+            showLoadingSpinner()
+
+            return `${process.env.REACT_APP_MAP_RADAR_SERVICE}/alaska/alaska_bref_qcd/ows?${params.join('&')}`
+          }
+        },
+        tileSize: new window.google.maps.Size(256, 256),
+        opacity: 0.8
+      })
+
+      if (!mapInstance.overlayMapTypes.getAt(2)) {
+        // eslint-disable-next-line no-case-declarations
+        const labelTilesRadar = {
+          getTileUrl: function (coord, zoom) {
+            return `${process.env.REACT_APP_MAP_ROADS}/v=apt.116&hl=en-US&z=${zoom}&x=${coord.x}&y=${coord.y}&client=api`
+          },
+          tileSize: new window.google.maps.Size(256, 256),
+          isPng: true
+        }
+
+        // eslint-disable-next-line no-case-declarations
+        const googleLabelLayerRadar = new window.google.maps.ImageMapType(labelTilesRadar)
+        mapInstance.overlayMapTypes.setAt(2, googleLabelLayerRadar)
+      }
+
+      mapInstance.overlayMapTypes.setAt(1, imageMapTypeRadarAlaska)
+      mapInstance.overlayMapTypes.setAt(0, imageMapTypeRadar)
+
+      imageMapTypeRadar.addListener('tilesloaded', () => {
+        flagConus.current = 0
+        if (!flagAlaska.current) {
+          props.setLoading(false)
+        }
+      })
+
+      imageMapTypeRadarAlaska.addListener('tilesloaded', () => {
+        flagAlaska.current = 0
+        if (!flagConus.current) {
+          props.setLoading(false)
+        }
+      })
+
+      break
+    case 'weather':
+      // eslint-disable-next-line no-case-declarations
+      const imageMapTypeWeather = new window.google.maps.ImageMapType({
+        getTileUrl: function (tile, zoom) {
+          const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
+
+          if (((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng) ||
+          (geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat)) ||
+              ((geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng) ||
+              (geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat))) {
+            const params = [
+              'wms.php?service=WMS',
+              'version=1.3.0',
+              'request=GetMap',
+              'transparent=true',
+              'format=image/png',
+              'width=512',
+              'height=512',
+              'srs=EPSG:3857',
+              'layers=ndfd.conus.wx',
+              'crs=EPSG:3857',
+              `vt=${props.queryTime?.conus}`,
+              `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
+            ]
+
+            flagConus.current = 1
+            showLoadingSpinner()
+
+            return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
+          }
+        },
+        tileSize: new window.google.maps.Size(512, 512),
+        opacity: 0.8
+      })
+
+      if (props.queryTime?.conusPreload?.length) {
+        preloadWeatherConus(0)
+      }
+
+      // eslint-disable-next-line no-case-declarations
+      const imageMapTypeWeatherAlaska = new window.google.maps.ImageMapType({
+        getTileUrl: function (tile, zoom) {
+          const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
+
+          if (((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng) ||
+          (geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat)) ||
+              ((geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng) ||
+              (geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat))) {
+            const params = [
+              'wms.php?service=WMS',
+              'version=1.3.0',
+              'request=GetMap',
+              'transparent=true',
+              'format=image/png',
+              'width=512',
+              'height=512',
+              'srs=EPSG:3857',
+              'layers=ndfd.alaska.wx',
+              'crs=EPSG:3857',
+              `vt=${props.queryTime?.alaska}`,
+              `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
+            ]
+
+            flagAlaska.current = 1
+            showLoadingSpinner()
+
+            return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
+          }
+        },
+        tileSize: new window.google.maps.Size(512, 512),
+        opacity: 0.8
+      })
+
+      if (props.queryTime?.alaskaPreload?.length) {
+        preloadWeatherAlaska(0)
+      }
+
+      if (!mapInstance.overlayMapTypes.getAt(2)) {
+        // eslint-disable-next-line no-case-declarations
+        const labelTilesWeather = {
+          getTileUrl: function (coord, zoom) {
+            return `${process.env.REACT_APP_MAP_ROADS}/v=apt.116&hl=en-US&z=${zoom}&x=${coord.x}&y=${coord.y}&client=api`
+          },
+          tileSize: new window.google.maps.Size(256, 256),
+          isPng: true
+        }
+
+        // eslint-disable-next-line no-case-declarations
+        const googleLabelLayerWeather = new window.google.maps.ImageMapType(labelTilesWeather)
+        mapInstance.overlayMapTypes.setAt(2, googleLabelLayerWeather)
+      }
+
+      mapInstance.overlayMapTypes.setAt(0, imageMapTypeWeather)
+      mapInstance.overlayMapTypes.setAt(1, imageMapTypeWeatherAlaska)
+
+      imageMapTypeWeather.addListener('tilesloaded', () => {
+        flagConus.current = 0
         props.setLoading(false)
-        break
-      case 'radar':
+      })
+
+      imageMapTypeWeatherAlaska.addListener('tilesloaded', () => {
+        flagAlaska.current = 0
+        if (!flagConus.current) {
+          props.setLoading(false)
+        }
+      })
+
+      break
+    case 'temperature':
+      // eslint-disable-next-line no-case-declarations
+      const imageMapTypeTemp = new window.google.maps.ImageMapType({
+        getTileUrl: function (tile, zoom) {
+          const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
+
+          if (((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng) ||
+          (geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat)) ||
+              ((geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng) ||
+              (geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat))) {
+            const params = [
+              'wms.php?service=WMS',
+              'version=1.3.0',
+              'request=GetMap',
+              'transparent=true',
+              'format=image/png',
+              'width=512',
+              'height=512',
+              'srs=EPSG:3857',
+              'layers=ndfd.conus.t',
+              'crs=EPSG:3857',
+              'element=maxt',
+              'region=conus',
+              'dataset=ndfd',
+              'season=summer',
+              `vt=${props.queryTime?.alaska}`,
+              `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
+            ]
+            flagConus.current = 1
+            showLoadingSpinner()
+            return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
+          }
+        },
+        tileSize: new window.google.maps.Size(512, 512),
+        opacity: 0.8
+      })
+
+      // eslint-disable-next-line no-case-declarations
+      const imageMapTypeTempAlaska = new window.google.maps.ImageMapType({
+        getTileUrl: function (tile, zoom) {
+          const tileSize = 512
+
+          // first convert tile coordinates to pixel coordinates for NW and SE corners of tile
+          const nwPixelX = tile.x * tileSize
+          const nwPixelY = tile.y * tileSize
+          const sePixelX = (tile.x + 1) * tileSize - 1
+          const sePixelY = (tile.y + 1) * tileSize - 1
+
+          // next convert pixel coordinates to world coordinates
+          const nwWorldX = nwPixelX / (Math.pow(2, zoom))
+          const nwWorldY = nwPixelY / (Math.pow(2, zoom))
+          const seWorldX = sePixelX / (Math.pow(2, zoom))
+          const seWorldY = sePixelY / (Math.pow(2, zoom))
+          const xySupIzq = new window.google.maps.Point(nwWorldX, nwWorldY)
+          const xyInfDer = new window.google.maps.Point(seWorldX, seWorldY)
+
+          // convert google maps points to lat lng
+          const geoSupIzq = mapInstance.getProjection().fromPointToLatLng(xySupIzq)
+          const geoInfDer = mapInstance.getProjection().fromPointToLatLng(xyInfDer)
+
+          // convert lat lng to meters
+          const geoSupIzqMeters = degrees2meters(geoSupIzq.lng(), geoSupIzq.lat())
+          const geoInfDerMeters = degrees2meters(geoInfDer.lng(), geoInfDer.lat())
+
+          if (((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng) ||
+          (geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat)) ||
+              ((geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng) ||
+              (geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat))) {
+            const params = [
+              'wms.php?service=WMS',
+              'version=1.3.0',
+              'request=GetMap',
+              'transparent=true',
+              'format=image/png',
+              'width=512',
+              'height=512',
+              'srs=EPSG:3857',
+              'layers=ndfd.alaska.t',
+              'crs=EPSG:3857',
+              'element=maxt',
+              'region=alaska',
+              'dataset=ndfd',
+              'season=summer',
+              `vt=${props.queryTime?.alaska}`,
+              `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
+            ]
+            flagAlaska.current = 1
+            showLoadingSpinner()
+            return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
+          }
+        },
+        tileSize: new window.google.maps.Size(512, 512),
+        opacity: 0.8
+      })
+
+      if (!mapInstance.overlayMapTypes.getAt(2)) {
         // eslint-disable-next-line no-case-declarations
-        const imageMapTypeRadar = new window.google.maps.ImageMapType({
-          getTileUrl: function (tile, zoom) {
-            const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom, 256)
-
-            if ((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng && geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat) ||
-              (geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng && geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat)) {
-              const params = [
-                'service=WMS',
-                'version=1.1.1',
-                'request=GetMap',
-                'transparent=true',
-                'tiled=true',
-                'format=image/png',
-                'width=256',
-                'height=256',
-                'srs=EPSG:3857',
-                'layers=conus_bref_qcd',
-                `time=${props.queryTime?.conus}`,
-                `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
-              ]
-              flagConus.current = 1
-              showLoadingSpinner()
-
-              return `${process.env.REACT_APP_MAP_RADAR_SERVICE}/conus/conus_bref_qcd/ows?${params.join('&')}`
-            }
+        const labelTilesTemp = {
+          getTileUrl: function (coord, zoom) {
+            return `${process.env.REACT_APP_MAP_ROADS}/v=apt.116&hl=en-US&z=${zoom}&x=${coord.x}&y=${coord.y}&client=api`
           },
           tileSize: new window.google.maps.Size(256, 256),
-          opacity: 0.8
-        })
-
-        // eslint-disable-next-line no-case-declarations
-        const imageMapTypeRadarAlaska = new window.google.maps.ImageMapType({
-          getTileUrl: function (tile, zoom) {
-            const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom, 256)
-
-            if ((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng && geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat) ||
-              (geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng && geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat)) {
-              const params = [
-                'service=WMS',
-                'version=1.1.1',
-                'request=GetMap',
-                'transparent=true',
-                'tiled=true',
-                'format=image/png',
-                'width=256',
-                'height=256',
-                'srs=EPSG:3857',
-                'layers=alaska_bref_qcd',
-                `time=${props.queryTime?.alaska}`,
-                `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
-              ]
-              flagAlaska.current = 1
-              showLoadingSpinner()
-
-              return `${process.env.REACT_APP_MAP_RADAR_SERVICE}/alaska/alaska_bref_qcd/ows?${params.join('&')}`
-            }
-          },
-          tileSize: new window.google.maps.Size(256, 256),
-          opacity: 0.8
-        })
-
-        if (!mapInstance.overlayMapTypes.getAt(2)) {
-          // eslint-disable-next-line no-case-declarations
-          const labelTilesRadar = {
-            getTileUrl: function (coord, zoom) {
-              return `${process.env.REACT_APP_MAP_ROADS}/v=apt.116&hl=en-US&z=${zoom}&x=${coord.x}&y=${coord.y}&client=api`
-            },
-            tileSize: new window.google.maps.Size(256, 256),
-            isPng: true
-          }
-
-          // eslint-disable-next-line no-case-declarations
-          const googleLabelLayerRadar = new window.google.maps.ImageMapType(labelTilesRadar)
-          mapInstance.overlayMapTypes.setAt(2, googleLabelLayerRadar)
-        }
-
-        mapInstance.overlayMapTypes.setAt(1, imageMapTypeRadarAlaska)
-        mapInstance.overlayMapTypes.setAt(0, imageMapTypeRadar)
-
-        imageMapTypeRadar.addListener('tilesloaded', () => {
-          flagConus.current = 0
-          if (!flagAlaska.current) {
-            props.setLoading(false)
-          }
-        })
-
-        imageMapTypeRadarAlaska.addListener('tilesloaded', () => {
-          flagAlaska.current = 0
-          if (!flagConus.current) {
-            props.setLoading(false)
-          }
-        })
-
-        break
-      case 'weather':
-        // eslint-disable-next-line no-case-declarations
-        const imageMapTypeWeather = new window.google.maps.ImageMapType({
-          getTileUrl: function (tile, zoom) {
-            const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
-
-            if (((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng) || (geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat)) ||
-              ((geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng) || (geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat))) {
-              const params = [
-                'wms.php?service=WMS',
-                'version=1.3.0',
-                'request=GetMap',
-                'transparent=true',
-                'format=image/png',
-                'width=512',
-                'height=512',
-                'srs=EPSG:3857',
-                'layers=ndfd.conus.wx',
-                'crs=EPSG:3857',
-                `vt=${props.queryTime?.conus}`,
-                `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
-              ]
-
-              flagConus.current = 1
-              showLoadingSpinner()
-
-              return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
-            }
-          },
-          tileSize: new window.google.maps.Size(512, 512),
-          opacity: 0.8
-        })
-
-        if (props.queryTime?.conusPreload?.length) {
-          preloadWeatherConus(0)
+          isPng: true
         }
 
         // eslint-disable-next-line no-case-declarations
-        const imageMapTypeWeatherAlaska = new window.google.maps.ImageMapType({
-          getTileUrl: function (tile, zoom) {
-            const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
+        const googleLabelLayerTemp = new window.google.maps.ImageMapType(labelTilesTemp)
+        mapInstance.overlayMapTypes.setAt(2, googleLabelLayerTemp)
+      }
 
-            if (((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng) || (geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat)) ||
-              ((geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng) || (geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat))) {
-              const params = [
-                'wms.php?service=WMS',
-                'version=1.3.0',
-                'request=GetMap',
-                'transparent=true',
-                'format=image/png',
-                'width=512',
-                'height=512',
-                'srs=EPSG:3857',
-                'layers=ndfd.alaska.wx',
-                'crs=EPSG:3857',
-                `vt=${props.queryTime?.alaska}`,
-                `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
-              ]
+      mapInstance.overlayMapTypes.setAt(0, imageMapTypeTemp)
+      mapInstance.overlayMapTypes.setAt(1, imageMapTypeTempAlaska)
 
-              flagAlaska.current = 1
-              showLoadingSpinner()
+      imageMapTypeTemp.addListener('tilesloaded', () => {
+        flagConus.current = 0
+        props.setLoading(false)
+      })
 
-              return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
-            }
-          },
-          tileSize: new window.google.maps.Size(512, 512),
-          opacity: 0.8
-        })
-
-        if (props.queryTime?.alaskaPreload?.length) {
-          preloadWeatherAlaska(0)
-        }
-
-        if (!mapInstance.overlayMapTypes.getAt(2)) {
-          // eslint-disable-next-line no-case-declarations
-          const labelTilesWeather = {
-            getTileUrl: function (coord, zoom) {
-              return `${process.env.REACT_APP_MAP_ROADS}/v=apt.116&hl=en-US&z=${zoom}&x=${coord.x}&y=${coord.y}&client=api`
-            },
-            tileSize: new window.google.maps.Size(256, 256),
-            isPng: true
-          }
-
-          // eslint-disable-next-line no-case-declarations
-          const googleLabelLayerWeather = new window.google.maps.ImageMapType(labelTilesWeather)
-          mapInstance.overlayMapTypes.setAt(2, googleLabelLayerWeather)
-        }
-
-        mapInstance.overlayMapTypes.setAt(0, imageMapTypeWeather)
-        mapInstance.overlayMapTypes.setAt(1, imageMapTypeWeatherAlaska)
-
-        imageMapTypeWeather.addListener('tilesloaded', () => {
-          flagConus.current = 0
+      imageMapTypeTempAlaska.addListener('tilesloaded', () => {
+        flagAlaska.current = 0
+        if (!flagConus.current) {
           props.setLoading(false)
-        })
-
-        imageMapTypeWeatherAlaska.addListener('tilesloaded', () => {
-          flagAlaska.current = 0
-          if (!flagConus.current) {
-            props.setLoading(false)
-          }
-        })
-
-        break
-      case 'temperature':
-        // eslint-disable-next-line no-case-declarations
-        const imageMapTypeTemp = new window.google.maps.ImageMapType({
-          getTileUrl: function (tile, zoom) {
-            const { geoSupIzqMeters, geoInfDerMeters } = getCoordinatesInMeters(tile, zoom)
-
-            if (((geoSupIzqMeters[0] > conusSupIzqLng && geoSupIzqMeters[0] < conusInfDerLng) || (geoSupIzqMeters[1] < conusSupIzqLat && geoSupIzqMeters[1] > conusInfDerLat)) ||
-              ((geoInfDerMeters[0] > conusSupIzqLng && geoInfDerMeters[0] < conusInfDerLng) || (geoInfDerMeters[1] < conusSupIzqLat && geoInfDerMeters[1] > conusInfDerLat))) {
-              const params = [
-                'wms.php?service=WMS',
-                'version=1.3.0',
-                'request=GetMap',
-                'transparent=true',
-                'format=image/png',
-                'width=512',
-                'height=512',
-                'srs=EPSG:3857',
-                'layers=ndfd.conus.t',
-                'crs=EPSG:3857',
-                'element=maxt',
-                'region=conus',
-                'dataset=ndfd',
-                'season=summer',
-                `vt=${props.queryTime?.alaska}`,
-                `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
-              ]
-              flagConus.current = 1
-              showLoadingSpinner()
-              return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
-            }
-          },
-          tileSize: new window.google.maps.Size(512, 512),
-          opacity: 0.8
-        })
-
-        // eslint-disable-next-line no-case-declarations
-        const imageMapTypeTempAlaska = new window.google.maps.ImageMapType({
-          getTileUrl: function (tile, zoom) {
-            const tileSize = 512
-
-            // first convert tile coordinates to pixel coordinates for NW and SE corners of tile
-            const nwPixelX = tile.x * tileSize
-            const nwPixelY = tile.y * tileSize
-            const sePixelX = (tile.x + 1) * tileSize - 1
-            const sePixelY = (tile.y + 1) * tileSize - 1
-
-            // next convert pixel coordinates to world coordinates
-            const nwWorldX = nwPixelX / (Math.pow(2, zoom))
-            const nwWorldY = nwPixelY / (Math.pow(2, zoom))
-            const seWorldX = sePixelX / (Math.pow(2, zoom))
-            const seWorldY = sePixelY / (Math.pow(2, zoom))
-            const xySupIzq = new window.google.maps.Point(nwWorldX, nwWorldY)
-            const xyInfDer = new window.google.maps.Point(seWorldX, seWorldY)
-
-            // convert google maps points to lat lng
-            const geoSupIzq = mapInstance.getProjection().fromPointToLatLng(xySupIzq)
-            const geoInfDer = mapInstance.getProjection().fromPointToLatLng(xyInfDer)
-
-            // convert lat lng to meters
-            const geoSupIzqMeters = degrees2meters(geoSupIzq.lng(), geoSupIzq.lat())
-            const geoInfDerMeters = degrees2meters(geoInfDer.lng(), geoInfDer.lat())
-
-            if (((geoSupIzqMeters[0] > alaskaSupIzqLng && geoSupIzqMeters[0] < alaskaInfDerLng) || (geoSupIzqMeters[1] < alaskaSupIzqLat && geoSupIzqMeters[1] > alaskaInfDerLat)) ||
-              ((geoInfDerMeters[0] > alaskaSupIzqLng && geoInfDerMeters[0] < alaskaInfDerLng) || (geoInfDerMeters[1] < alaskaSupIzqLat && geoInfDerMeters[1] > alaskaInfDerLat))) {
-              const params = [
-                'wms.php?service=WMS',
-                'version=1.3.0',
-                'request=GetMap',
-                'transparent=true',
-                'format=image/png',
-                'width=512',
-                'height=512',
-                'srs=EPSG:3857',
-                'layers=ndfd.alaska.t',
-                'crs=EPSG:3857',
-                'element=maxt',
-                'region=alaska',
-                'dataset=ndfd',
-                'season=summer',
-                `vt=${props.queryTime?.alaska}`,
-                `bbox=${geoSupIzqMeters[0]},${geoInfDerMeters[1]},${geoInfDerMeters[0]},${geoSupIzqMeters[1]}`
-              ]
-              flagAlaska.current = 1
-              showLoadingSpinner()
-              return `${process.env.REACT_APP_MAP_WEATHER_SERVICE}/${params.join('&')}`
-            }
-          },
-          tileSize: new window.google.maps.Size(512, 512),
-          opacity: 0.8
-        })
-
-        if (!mapInstance.overlayMapTypes.getAt(2)) {
-          // eslint-disable-next-line no-case-declarations
-          const labelTilesTemp = {
-            getTileUrl: function (coord, zoom) {
-              return `${process.env.REACT_APP_MAP_ROADS}/v=apt.116&hl=en-US&z=${zoom}&x=${coord.x}&y=${coord.y}&client=api`
-            },
-            tileSize: new window.google.maps.Size(256, 256),
-            isPng: true
-          }
-
-          // eslint-disable-next-line no-case-declarations
-          const googleLabelLayerTemp = new window.google.maps.ImageMapType(labelTilesTemp)
-          mapInstance.overlayMapTypes.setAt(2, googleLabelLayerTemp)
         }
+      })
 
-        mapInstance.overlayMapTypes.setAt(0, imageMapTypeTemp)
-        mapInstance.overlayMapTypes.setAt(1, imageMapTypeTempAlaska)
-
-        imageMapTypeTemp.addListener('tilesloaded', () => {
-          flagConus.current = 0
-          props.setLoading(false)
-        })
-
-        imageMapTypeTempAlaska.addListener('tilesloaded', () => {
-          flagAlaska.current = 0
-          if (!flagConus.current) {
-            props.setLoading(false)
-          }
-        })
-
-        break
+      break
     }
   }
 
@@ -589,8 +605,8 @@ export const MapActionButtons = (props) => {
       : props.hideLeftSection && !locationsStore.showSiteViewPanel
         ? classes.hiddenButtonsBox
         : !props.hideLeftSection && locationsStore.showSiteViewPanel
-            ? classes.mapButtonsBoxSiteLevel
-            : classes.mapButtonsBox}>
+          ? classes.mapButtonsBoxSiteLevel
+          : classes.mapButtonsBox}>
       {props.hideLeftSection && <Box pb={2} pr={2}>
         <MapButton onClick={props.handlerSearchBtnClick}>
           <MenuIcon color={props.hideLeftSection ? 'inherit' : 'primary'} />
@@ -628,7 +644,9 @@ export const MapActionButtons = (props) => {
           }}
           className={classes.dropdowns}
         >
-          <MenuItem className={classes.menuItem}><Typography className={classes.menuTitle}>{t('locations.map.action_buttons.weather')}</Typography></MenuItem>
+          <MenuItem className={classes.menuItem}>
+            <Typography className={classes.menuTitle}>{t('locations.map.action_buttons.weather')}</Typography>
+          </MenuItem>
           <MenuItem key={'radar'} data-weather={'radar'} onClick={handleClickWeather} className={classes.menuItem}>
             <Typography className={classes.menuLabel}>
               {t('locations.map.action_buttons.radar')}
@@ -696,7 +714,7 @@ export const MapActionButtons = (props) => {
           </MenuItem>
         </Menu>
       </Box>
-       <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
+      <Box hidden={!locationsStore.showSiteViewPanel} pb={2} pr={2}>
         <MapButton onClick={handleRecenter}>
           <LocationSearchingOutlined color={'inherit'} />
         </MapButton>
