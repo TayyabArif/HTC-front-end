@@ -393,7 +393,7 @@ export const getContactOffline = async (id, originEmail) => {
  * GET Selected company Profile
  * @returns CompanyProfile
  */
-export const getCompanyProfile = async (id) => {
+export const getCompanyProfile = async id => {
   const response = await callAPI(
     'GET',
     `/companyProfile/${id}`
