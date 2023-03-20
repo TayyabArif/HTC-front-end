@@ -499,6 +499,7 @@ export const UpdateAccountInfo = props => {
                       error={!!errors.roles}
                       helperText={errors.roles && errors.roles.message}
                       required={true}
+                      readOnly={true}
                       {...register('roles')}
                     />
                   </Grid>
@@ -527,6 +528,7 @@ export const UpdateAccountInfo = props => {
                       })}
                       error={!!errors.role}
                       helperText={errors.role && errors.role.message}
+                      readOnly={true}
                       {...register('role')}
                     />
                   </Grid>

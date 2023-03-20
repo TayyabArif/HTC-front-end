@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux'
 import { useWindowSize } from '@react-hook/window-size'
 
 /** Utils */
-import { mobileBreakpoint } from '../lib/Constants'
+import { mobileBreakpoint, Routes } from '../lib/Constants'
 
 /** Styles */
 import { mainContainerStyles } from '../styles/classes/CommonClasses'
@@ -38,14 +38,19 @@ export const MainContainer = props => {
         }}
       >
         <Container
-          className={window.location.pathname.includes('/work-orders')
+          className={window.location.pathname.includes(Routes.WORK_ORDERS.path)
             ? clsx(classes.container, classes.containerScrollHidden)
             : classes.container}>
           <Backdrop className={classes.backdrop} open={loading}>
             <CircularProgress color="inherit" />
           </Backdrop>
           <NavBar />
-          <Box className={classes.navBarOffset}></Box>
+          <Box className={
+            window.location.pathname.includes(Routes.ACCOUNT_SETTINGS.path) ||
+            window.location.pathname.includes(Routes.COMPANY_SETTINGS.path)
+              ? clsx(classes.navBarOffset, classes.navBarOffsetSmall)
+              : classes.navBarOffset
+          }></Box>
           <Box >{props.children}</Box>
         </Container>
       </Container>
