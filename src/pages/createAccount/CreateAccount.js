@@ -16,8 +16,8 @@ import { RoundedButton } from '../../styles/mui_custom_components'
 import { LoadingSplash } from '../../components/LoadingSplash'
 
 /** Services **/
-import { createUser } from '../../services/ApiService'
-import { useLocation } from 'react-router-dom'
+import { createUser, getContactOffline } from '../../services/ApiService'
+import { useLocation, useHistory } from 'react-router-dom'
 
 /** Styles **/
 import { createAccountStyles } from '../../styles/classes/CreateAccountClasses'
@@ -39,6 +39,7 @@ const CreateAccount = () => {
   const [accessCode, setAccessCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [errorPass, setErrorPass] = useState(null)
+  const history = useHistory()
 
   const [wWidth] = useWindowSize()
   const isMobile = wWidth <= mobileBreakpoint
@@ -95,8 +96,26 @@ const CreateAccount = () => {
   }, [password])
 
   useEffect(() => {
-    setEmail(query.get('originEmail'))
-    setAccessCode(query.get('affiliateId'))
+    async function initData () {
+      const originEmail = query.get('originEmail')
+      setEmail(originEmail)
+      setAccessCode(query.get('affiliateId'))
+      const companyId = query.get('companyId')
+      setLoading(true)
+      try {
+        const contactData = await getContactOffline(companyId, originEmail)
+        if (contactData?.last_accessed) {
+          const redirectTo = '/sign-in'
+          history.replace(redirectTo)
+          history.go(redirectTo)
+        }
+        setLoading(false)
+      } catch (e) {
+        console.error(e)
+        setLoading(false)
+      }
+    }
+    initData()
   }, [])
 
   const onSubmit = async (data) => {
