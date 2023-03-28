@@ -49,44 +49,44 @@ export const SimplePicker = React.forwardRef(props => {
       </FormLabel>
       {!disabled
         ? (
-        <TextField
-          id={id}
-          name={id}
-          size="small"
-          variant="filled"
-          ref={inputRef}
-          value={value ? options[value] || value : t('general.labels.select')}
-          onClick={handleOpen}
-          onClose={handleClose}
-          disabled
-          autoComplete="off"
-          className={`${classes.root} ${value ? classes.selectedItem : ''}`}
-          InputLabelProps={{ className: classes.label }}
-          InputProps={{
-            className: classes.textField,
-            endAdornment: (
-              <InputAdornment position="end">
-                <FontAwesomeIcon
-                  icon={['fas', 'caret-down']}
-                  className={classes.icon}
-                />
-              </InputAdornment>
-            )
-          }}
-        />
-          )
+          <TextField
+            id={id}
+            name={id}
+            size="small"
+            variant="filled"
+            ref={inputRef}
+            value={value ? options[value] || value : t('general.labels.select')}
+            onClick={handleOpen}
+            onClose={handleClose}
+            disabled
+            autoComplete="off"
+            className={`${classes.root} ${value ? classes.selectedItem : ''}`}
+            InputLabelProps={{ className: classes.label }}
+            InputProps={{
+              className: classes.textField,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <FontAwesomeIcon
+                    icon={['fas', 'caret-down']}
+                    className={classes.icon}
+                  />
+                </InputAdornment>
+              )
+            }}
+          />
+        )
         : (
-        <FormLabel
-          className={notAvailable ? classes.fieldMessage : classes.disabled}
-        >
-          {notAvailable && t('general.labels.not_available')}
-          {!notAvailable && options[value]
-            ? options[value]
-            : Object.values(options).includes(value)
-              ? value
-              : ''}
-        </FormLabel>
-          )}
+          <FormLabel
+            className={notAvailable ? classes.fieldMessage : classes.disabled}
+          >
+            {notAvailable && t('general.labels.not_available')}
+            {!notAvailable && options[value]
+              ? options[value]
+              : Object.values(options).includes(value)
+                ? value
+                : ''}
+          </FormLabel>
+        )}
       {anchorEl && (
         <Menu
           anchorEl={anchorEl}

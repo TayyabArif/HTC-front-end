@@ -71,6 +71,23 @@ const CompanySettings = props => {
   const [reloadServiceArea, setRealoadServiceArea] = useState(false)
   const [complianceFields, setComplianceFields] = useState({})
   const [companyConfigs, setCompanyConfigs] = useState([])
+  const styles = {
+    saveButton: {
+      display: 'none'
+    }
+  }
+  const paperProps = {
+    sx: {
+      minWidth: {
+        xs: '100% !important',
+        sm: '70% !important'
+      },
+      maxWidth: {
+        xs: '100% !important',
+        sm: '70% !important'
+      }
+    }
+  }
 
   useEffect(() => {
     initialMethod()
@@ -90,11 +107,18 @@ const CompanySettings = props => {
       const response = await getCompanyProfile(userStore.userInfo.company_id)
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
-      if (response?.service_area) {
+      if (response?.service_area && response?.service_area.length > 0) {
         response.service_area[0].zip = await getZipCodesFiltered(
           response?.service_area[0]
         )
         parseDataToMapView(response.service_area[0])
+      }
+      if (response?.logo?.url) {
+        const date = new Date()
+        const dateFormatted = `${date.getFullYear()}-${date.getDate()}-${
+          date.getMonth() + 1
+        }_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
+        response.logo.url = response.logo.url + '?' + dateFormatted
       }
       const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
       setCompanyConfigs(configResponse)
@@ -138,7 +162,10 @@ const CompanySettings = props => {
   const updateRoles = async () => {
     try {
       const response = await getRoles(userStore.userInfo.company_id)
-      setRoles(response)
+      if (response) {
+        // temporary hidden role "Portal user"
+        setRoles(response.filter(role => role.name.toLowerCase() !== 'portal user'))
+      }
     } catch (error) {
       console.error(error)
       setRoles([])
@@ -191,7 +218,15 @@ const CompanySettings = props => {
 
   const handleSave = async (data) => {
     try {
-      const newProfile = { ...data }
+      setButtonDisabled(true)
+      const newProfile = {
+        ...data,
+        invoice_email: data.invoice_email ?? '',
+        w9: data.w9 ?? {},
+        support_24_7: data.support_24_7 ?? false,
+        service_area: data.service_area ?? []
+      }
+      delete newProfile.name
       delete newProfile.company
       delete newProfile.id
       delete newProfile.external_token
@@ -239,43 +274,45 @@ const CompanySettings = props => {
       setAfterHoursPhone(response?.after_hours?.phone)
       setCompany(response)
       setOpen(false)
+      setButtonDisabled(false)
     } catch (error) {
       console.error(error)
+      setButtonDisabled(false)
     }
   }
 
   function editComponent (targetComponent) {
     switch (targetComponent) {
-      case 'profile':
-        return (
-          <CompanyProfileComponent
-            profile={updatedCompany}
-            handleChange={handleChange}
-            showLogo={false}
-            setValidHours={setValidHours}
-            requiredFields={complianceFields?.information?.fields}
-            afterHoursPhone={afterHoursPhone}
-          />
-        )
-      case 'insurance':
-        return (
-          <InsuranceComponent
-            profile={updatedCompany}
-            handleChange={handleChange}
-            states={states}
-            handleFileChange={handleFileChange}
-            setFileUploaded={setFileUploaded}
-            fileError={fileError}
-            setFileError={setFileError}
-            requiredFields={complianceFields?.insurance?.fields}
-          />
-        )
-      case 'trades':
-        return (
-          <ClientsComponent profile={company} handleChange={handleChange} />
-        )
-      default:
-        break
+    case 'profile':
+      return (
+        <CompanyProfileComponent
+          profile={updatedCompany}
+          handleChange={handleChange}
+          showLogo={false}
+          setValidHours={setValidHours}
+          requiredFields={complianceFields?.information?.fields}
+          afterHoursPhone={afterHoursPhone}
+        />
+      )
+    case 'insurance':
+      return (
+        <InsuranceComponent
+          profile={updatedCompany}
+          handleChange={handleChange}
+          states={states}
+          handleFileChange={handleFileChange}
+          setFileUploaded={setFileUploaded}
+          fileError={fileError}
+          setFileError={setFileError}
+          requiredFields={complianceFields?.insurance?.fields}
+        />
+      )
+    case 'trades':
+      return (
+        <ClientsComponent profile={company} handleChange={handleChange} />
+      )
+    default:
+      break
     }
   }
 
@@ -463,21 +500,21 @@ const CompanySettings = props => {
 
   const handleValidations = data => {
     switch (component) {
-      case 'profile':
-        setButtonDisabled(!profileValidation(data))
-        break
-      case 'insurance':
-        setButtonDisabled(!insuranceValidation(data))
-        break
-      case 'trades':
-        setButtonDisabled(!clientsAndTradesValidation(data))
-        break
-      case 'service':
-        setButtonDisabled(!serviceAreaValidation(data))
-        break
-      default:
-        setButtonDisabled(true)
-        break
+    case 'profile':
+      setButtonDisabled(!profileValidation(data))
+      break
+    case 'insurance':
+      setButtonDisabled(!insuranceValidation(data))
+      break
+    case 'trades':
+      setButtonDisabled(!clientsAndTradesValidation(data))
+      break
+    case 'service':
+      setButtonDisabled(!serviceAreaValidation(data))
+      break
+    default:
+      setButtonDisabled(true)
+      break
     }
   }
 
@@ -653,12 +690,14 @@ const CompanySettings = props => {
         onClose={handleClose}
         scroll="paper"
         className={classes.editComponent}
+        PaperProps={paperProps}
       >
         <DialogContent style={{ overflowY: 'none' }}>
           {editComponent(component)}
         </DialogContent>
         <DialogActions>
           <Button
+            sx={styles.saveButton}
             variant="contained"
             onClick={() => handleSave(updatedCompany)}
             className={classes.saveButton}
@@ -698,13 +737,13 @@ const CompanySettings = props => {
           </Button>
           {logoError
             ? (
-                ''
-              )
+              ''
+            )
             : (
               <Button onClick={updateProfileLogo} autoFocus>
                 {t('company_settings.card.save')}
               </Button>
-              )}
+            )}
         </DialogActions>
       </Dialog>
     </Container>

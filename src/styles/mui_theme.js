@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { createTheme } from '@mui/material/styles'
 import RubikRegular from '../assets/fonts/Rubik-Regular.ttf'
 import RubikBold from '../assets/fonts/Rubik-Bold.ttf'
@@ -148,7 +149,8 @@ const customTheme = createTheme({
       declined: '#EB5757',
       approved: '#27AE60',
       no_work_order: '#CE004A',
-      not_available: '#BDBDBD'
+      not_available: '#BDBDBD',
+      cancelled: '#828282'
     },
     profile: {
       text_grey: '#212121',

@@ -15,20 +15,22 @@ import { useSelector } from 'react-redux'
 
 /* Utils */
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
-import { mobileBreakpoint } from '../../lib/Constants'
+import { isChrome, isSafari, mobileBreakpoint } from '../../lib/Constants'
 
 // Styles
 import { searchResultsStyles } from '../../styles/classes/LocationsClasses'
 
 export const SearchResults = (props) => {
-  const { sites, actualPage, hasMore } = props
+  const { sites, actualPage, hasMore, searchValue } = props
   const classes = searchResultsStyles()
   const wWidth = useWindowWidth()
   const { t } = useTranslation()
   const wHeight = useWindowHeight()
   const locationsStore = useSelector((state) => state.locations)
+  const locationsFilters = locationsStore.locationFilters
   const [keyAutoSizer, setKeyAutoSizer] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [filtersFlag, setFiltersFlag] = useState(false)
 
   useEffect(() => {
     setKeyAutoSizer(value => value + 1)
@@ -37,6 +39,18 @@ export const SearchResults = (props) => {
   useEffect(() => {
     setLoading(false)
   }, [sites])
+
+  useEffect(() => {
+    if (searchValue === '' &&
+    locationsFilters.dateRange === 'today' &&
+    locationsFilters.status === 'all' &&
+    locationsFilters.state === 'all' &&
+    locationsFilters.city === 'all') {
+      setFiltersFlag(false)
+    } else {
+      setFiltersFlag(true)
+    }
+  }, [searchValue, locationsFilters])
 
   const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     const row = sites[index]
@@ -57,12 +71,12 @@ export const SearchResults = (props) => {
       site.zipcode?.length
 
     switch (props.activeTab) {
-      case 'active_work_orders':
-        return 120
-      case 'all_sites':
-        return contentRowLength > 55 ? 95 : 78
-      default:
-        return 110
+    case 'active_work_orders':
+      return 120
+    case 'all_sites':
+      return contentRowLength > 55 ? 95 : 78
+    default:
+      return 110
     }
   }
 
@@ -72,24 +86,36 @@ export const SearchResults = (props) => {
         {({ width }) => (
           <List
             width={width}
-            height={wWidth > mobileBreakpoint ? wHeight - 180 : wHeight - 205}
-            rowCount={sites.length + 1}
+            height={wWidth > mobileBreakpoint
+              ? wHeight - 180
+              : (wWidth > 577 ? wHeight - 208 : (isSafari && !isChrome() ? wHeight - 240 : wHeight - 240))}
+            rowCount={sites.length}
             rowHeight={getRowHeight}
             rowRenderer={rowRenderer}
           />
         )}
       </AutoSizer>
     } else {
-      return (
-        <Box pt={5}>
-          <Typography className={classes.font12} align='center'>
-            {t('locations.no_results')}
-          </Typography>
-          <Typography className={classes.font12} align='center'>
-            {t('locations.update_search')}
-          </Typography>
-        </Box>
-      )
+      if (filtersFlag) {
+        return (
+          <Box pt={5}>
+            <Typography className={classes.font12} align='center'>
+              {t('locations.no_results')}
+            </Typography>
+            <Typography className={classes.font12} align='center'>
+              {t('locations.update_search')}
+            </Typography>
+          </Box>
+        )
+      } else {
+        return (
+          <Box pt={5}>
+            <Typography className={classes.font12} align='center'>
+              {t('locations.no_locations')}
+            </Typography>
+          </Box>
+        )
+      }
     }
   } else {
     return (<div></div>)

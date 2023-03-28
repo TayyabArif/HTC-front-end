@@ -18,11 +18,12 @@ import * as ApiServices from '../../services/ApiService'
 import { userHasAuthorization } from '../../services/AuthService'
 import ReactGA from 'react-ga4'
 import GlobalChip from '../form/Chip'
-import { rolesCardStyles } from '../../styles/classes/CompanySettingsClasses'
+import { rolesCardSxStyles, rolesCardStyles } from '../../styles/classes/CompanySettingsClasses'
 
 export const RolesCard = props => {
   const { roles, updateRoles } = props
   const classes = rolesCardStyles()
+  const styles = rolesCardSxStyles
   const { t } = useTranslation()
 
   const [openPanel, setOpenPanel] = useState(false)
@@ -111,6 +112,7 @@ export const RolesCard = props => {
   }
   const permissionsList = [
     'workorders',
+    'locations',
     'company_settings'
   ]
   const permissionsMobile = [t('company_settings.roles_card.no_portal_access')]
@@ -134,7 +136,7 @@ export const RolesCard = props => {
       </CardActions>
       <CardContent classes={{ root: classes.content }}>
         <Box display="flex" flexDirection="column">
-          {roles?.map(role => {
+          {roles?.filter(role => role.name !== 'Portal user').map(role => {
             const permissions = []
             permissionsList.forEach((item) => {
               if (role.permissions[item] && !permissions.find(element => element === t('company_settings.roles_card.' + item))) {
@@ -144,37 +146,45 @@ export const RolesCard = props => {
             return (
               <Grid container key={role.name}>
                 <Grid item xs={12}>
-                  <Box display="flex" flexDirection="row" alignItems="baseline">
-                    <Typography classes={{ root: classes.roleItem }}>
-                      {role.name}
-                    </Typography>
-                    <GlobalChip
-                      chips={permissions}
-                      selected={new Set()}
-                      setSelected={() => {}}
-                      skipTranslate={true}
-                      clickable={false}
-                    />
-                  </Box>
+                  <Grid container display="flex" flexDirection="row" alignItems="baseline">
+                    <Grid item xs={5} md={3} lg={4}>
+                      <Typography classes={{ root: classes.roleItem }}>
+                        {role.name}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={7} md={9} lg={8}>
+                      <GlobalChip
+                        chips={permissions}
+                        selected={new Set()}
+                        setSelected={() => {}}
+                        skipTranslate={true}
+                        clickable={false}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item xs={11.7}>
+                <Grid item xs={11.7} sx={ roles.length > 1 ? styles.divider : '' }>
                   <Divider />
                 </Grid>
               </Grid>
             )
           })}
-          <Box display="flex" flexDirection="row" alignItems="baseline">
-            <Typography classes={{ root: classes.roleItem }}>
-              {t('company_settings.view_only')}
-            </Typography>
-            <GlobalChip
-              chips={permissionsMobile}
-              selected={new Set()}
-              setSelected={() => {}}
-              skipTranslate={true}
-              clickable={false}
-            />
-          </Box>
+          <Grid sx={styles.viewOnlyCard} container display="flex" flexDirection="row" alignItems="baseline">
+            <Grid item xs={5} md={3} lg={4}>
+              <Typography classes={{ root: classes.roleItem }}>
+                {t('company_settings.view_only')}
+              </Typography>
+            </Grid>
+            <Grid item xs={7} md={9} lg={8}>
+              <GlobalChip
+                chips={permissionsMobile}
+                selected={new Set()}
+                setSelected={() => {}}
+                skipTranslate={true}
+                clickable={false}
+              />
+            </Grid>
+          </Grid>
         </Box>
       </CardContent>
       <AccessPanel

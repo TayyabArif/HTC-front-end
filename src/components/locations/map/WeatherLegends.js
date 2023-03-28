@@ -1,19 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /** Material UI **/
-import { Box, Fade, Grid, Grow, IconButton, Paper, Typography, useTheme } from '@mui/material'
+import { Box, Fade, Grid, Slide, IconButton, Paper, Typography, useTheme } from '@mui/material'
 import { FullscreenExitOutlined, FullscreenOutlined } from '@mui/icons-material'
 
 /** Styles **/
 import { weatherLegendsStyles } from '../../../styles/classes/LocationsClasses'
 
+/** Utils **/
+import { useWindowWidth } from '@react-hook/window-size'
+import { mobileBreakpoint } from '../../../lib/Constants'
+
 export const WeatherLegends = (props) => {
   const classes = weatherLegendsStyles()
+  const actualWidth = useWindowWidth()
   const theme = useTheme()
   const { t } = useTranslation()
   const [legendsHidden, setLegendsHidden] = useState(false)
   const containerRef = React.useRef(null)
+
+  useEffect(() => {
+    if (actualWidth > mobileBreakpoint) {
+      setLegendsHidden(false)
+    } else {
+      setLegendsHidden(true)
+    }
+  }, [])
 
   const onHideLegends = () => {
     setLegendsHidden(prevState => !prevState)
@@ -21,7 +34,11 @@ export const WeatherLegends = (props) => {
 
   return (
     <Box hidden={props.hidden}>
-      <Fade className={classes.legendsContainerMinimized} timeout={2000} in={legendsHidden} container={containerRef.current}>
+      <Fade
+        className={actualWidth <= mobileBreakpoint ? classes.legendsContainerMinMobile : classes.legendsContainerMin}
+        timeout={2000}
+        in={legendsHidden}
+        container={containerRef.current}>
         <Paper className={classes.mapWeatherLegendsBoxMinimized}>
           <Box p={1}>
             <Box pl={1}>
@@ -41,7 +58,12 @@ export const WeatherLegends = (props) => {
           </Box>
         </Paper>
       </Fade>
-      <Grow className={classes.legendsContainer} timeout={1000} in={!legendsHidden} appear={false}>
+      <Slide
+        className={actualWidth <= mobileBreakpoint ? classes.legendsContainerMobile : classes.legendsContainer}
+        direction={actualWidth <= mobileBreakpoint ? 'left' : 'up'}
+        timeout={1000}
+        in={!legendsHidden}
+        appear={false}>
         <Paper>
           <Box p={1}>
             <Box pl={1}>
@@ -137,9 +159,11 @@ export const WeatherLegends = (props) => {
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'right'}>|</Typography></Box>
                 </Box>
                 <Box display={'flex'}>
-                  <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography></Box>
+                  <Box className={`${classes.legendIndividualLabelBox}`}>
+                    <Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography>
+                  </Box>
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8}
-                                                                                     align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
+                    align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
                 </Box>
               </Grid>
               <Grid item xs={6}>
@@ -153,9 +177,11 @@ export const WeatherLegends = (props) => {
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'right'}>|</Typography></Box>
                 </Box>
                 <Box display={'flex'}>
-                  <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography></Box>
+                  <Box className={`${classes.legendIndividualLabelBox}`}>
+                    <Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography>
+                  </Box>
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8}
-                                                                                     align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
+                    align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
                 </Box>
               </Grid>
               <Grid item xs={6}>
@@ -169,9 +195,11 @@ export const WeatherLegends = (props) => {
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'right'}>|</Typography></Box>
                 </Box>
                 <Box display={'flex'}>
-                  <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography></Box>
+                  <Box className={`${classes.legendIndividualLabelBox}`}>
+                    <Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography>
+                  </Box>
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8}
-                                                                                     align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
+                    align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
                 </Box>
               </Grid>
               <Grid item xs={6}>
@@ -185,9 +213,11 @@ export const WeatherLegends = (props) => {
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'right'}>|</Typography></Box>
                 </Box>
                 <Box display={'flex'}>
-                  <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography></Box>
+                  <Box className={`${classes.legendIndividualLabelBox}`}>
+                    <Typography className={classes.font8} align={'left'}>{t('locations.map.weather_labels.possible')}</Typography>
+                  </Box>
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8}
-                                                                                     align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
+                    align={'right'}>{t('locations.map.weather_labels.likely')}</Typography></Box>
                 </Box>
               </Grid>
               <Grid item xs={12}>
@@ -204,12 +234,16 @@ export const WeatherLegends = (props) => {
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'center'}>|</Typography></Box>
                 </Box>
                 <Box display={'flex'}>
-                  <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'center'}>{t('locations.map.weather_labels.blowing')}</Typography></Box>
+                  <Box className={`${classes.legendIndividualLabelBox}`}>
+                    <Typography className={classes.font8} align={'center'}>{t('locations.map.weather_labels.blowing')}</Typography>
+                  </Box>
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8}
-                                                                                     align={'center'}>{t('locations.map.weather_labels.fog')}</Typography></Box>
-                  <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8} align={'center'}>{t('locations.map.weather_labels.severe')}</Typography></Box>
+                    align={'center'}>{t('locations.map.weather_labels.fog')}</Typography></Box>
+                  <Box className={`${classes.legendIndividualLabelBox}`}>
+                    <Typography className={classes.font8} align={'center'}>{t('locations.map.weather_labels.severe')}</Typography>
+                  </Box>
                   <Box className={`${classes.legendIndividualLabelBox}`}><Typography className={classes.font8}
-                                                                                     align={'center'}>{t('locations.map.weather_labels.other')}</Typography></Box>
+                    align={'center'}>{t('locations.map.weather_labels.other')}</Typography></Box>
                 </Box>
               </Grid>
             </Grid>
@@ -307,7 +341,7 @@ export const WeatherLegends = (props) => {
             </Box>
           </Box>
         </Paper>
-      </Grow>
+      </Slide>
     </Box>
   )
 }

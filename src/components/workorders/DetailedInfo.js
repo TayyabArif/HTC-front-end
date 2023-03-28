@@ -75,6 +75,7 @@ export const DetailedInfo = props => {
   const [photoIndex, setPhotoIndex] = useState(-1)
   const classes = detailedInfoStyles()
   const { t } = useTranslation()
+  const [etaTime, setEtaTime] = useState(null)
   const { workOrder, handleClosePanel, viewMode } = props
 
   useEffect(() => {
@@ -82,6 +83,7 @@ export const DetailedInfo = props => {
   }, [workOrder])
 
   const showWO = async () => {
+    setEtaTime(null)
     if (workOrder) {
       try {
         setOpen(true)
@@ -184,7 +186,7 @@ export const DetailedInfo = props => {
         index="/audit"
         value={tabValue}
       >
-        <AuditTrail workOrders={trips} />
+        <AuditTrail workOrders={trips} etaTime={etaTime}/>
       </TabPanel>
       <TabPanel
         classes={{ root: classes.tabPanel }}
@@ -219,12 +221,19 @@ export const DetailedInfo = props => {
             updateWoData={data => {
               obj = data
               if (obj.id === workOrder.id) {
-                workOrder.status = 'completed'
+                if (obj.updateEta) {
+                  delete obj.updateEta
+                } else {
+                  workOrder.status = 'completed'
+                }
                 workOrder.invoice = data.invoice
+                workOrder.est_service_start = data.est_service_start
+                setEtaTime(workOrder.est_service_start)
               }
             }}
             setReady={setReady}
             setMessage={setLoadingMessage}
+            etaTime={etaTime}
           />
         ))}
     </div>
@@ -270,23 +279,15 @@ export const DetailedInfo = props => {
             {(viewMode && !trips[0]) || (!viewMode && !workOrder)
               ? ''
               : (viewMode ? trips[0] : workOrder)?.status
-                  ? t(
+                ? t(
                   `work_orders.wo_states.${getWOstatus(
                     viewMode ? trips[0] : workOrder
                   )}`
-                  )
-                  : t('work_orders.wo_states.no_status')}
+                )
+                : t('work_orders.wo_states.no_status')}
           </FormLabel>
-          {workOrder?.invoice?.id && (
-            <>
-              <FontAwesomeIcon
-                className={classes.invoiceIcon}
-                icon={['far', 'arrow-right-from-line']}
-              />
-            </>
-          )}
         </div>
-        <Grid style={{ opacity: ready ? 1 : 0.1 }} container spacing={1}>
+        <Grid style={{ opacity: ready ? 1 : 0.1 }} container>
           <Grid item xs={8} classes={{ root: classes.grid }}>
             <FormLabel
               component="legend"
@@ -295,7 +296,8 @@ export const DetailedInfo = props => {
               {(viewMode ? trips[0] : workOrder)?.category}
             </FormLabel>
           </Grid>
-          <Grid item xs={1} />
+        </Grid>
+        <Grid style={{ opacity: ready ? 1 : 0.1 }} container>
           <Grid item xs={12}>
             <FormLabel component="legend" classes={{ root: classes.wonum }}>
               {t('general.labels.wo')}{' '}

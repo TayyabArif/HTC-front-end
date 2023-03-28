@@ -9,7 +9,7 @@ export const workOrderStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     paddingLeft: '16px'
   },
   SearchInput: {
@@ -252,7 +252,8 @@ export const mainTableStyles = makeStyles(theme => ({
     background: theme.colors.workOrders.buttonPrimary
   },
   barColorPrimary: {
-    background: `linear-gradient(to right, ${theme.colors.workOrders.buttonPrimary},${theme.colors.workOrders.gradient},${theme.colors.workOrders.buttonPrimary})`
+    background: 'linear-gradient(to right, ' +
+    `${theme.colors.workOrders.buttonPrimary},${theme.colors.workOrders.gradient},${theme.colors.workOrders.buttonPrimary})`
   },
   dimensions: {
     height: '21px',
@@ -260,7 +261,7 @@ export const mainTableStyles = makeStyles(theme => ({
   },
   body: {
     maxHeight: '680px',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     overflowY: 'scroll'
   },
   open: {
@@ -383,6 +384,7 @@ export const activitiesCardStyle = makeStyles(theme => ({
   },
   chipRoot: {
     marginRight: 'auto',
+    marginTop: '1.5px',
     fontSize: '12px',
     alignSelf: 'center',
     minWidth: 'fit-content'
@@ -460,6 +462,10 @@ export const activitiesCardStyle = makeStyles(theme => ({
   },
   errorBox: {
     marginBottom: '20px'
+  },
+  cardActionsContainer: {
+    height: '48px',
+    alignItems: 'center'
   }
 }))
 
@@ -678,13 +684,13 @@ export const detailedInfoStyles = makeStyles(theme => ({
     backgroundColor: theme.colors.backdropColor
   },
   tabs: {
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.backdropColor,
     minHeight: 25,
     maxHeight: '34px',
     height: '20px',
     margin: '0px 30px',
     '& .Mui-selected': {
-      color: theme.palette.primary.light
+      color: theme.colors.iconBlue
     },
     zIndex: 1000
   },
@@ -694,8 +700,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
     },
     padding: '0px 0px',
     marginTop: '10px',
-    maxHeight: '56vh',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    height: 'calc(100vh - 310px)'
   },
   title: {
     padding: '12px 0px',
@@ -709,8 +715,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
     backgroundColor: theme.colors.backdropColor
   },
   description: {
-    padding: '1px 0px',
-    marginLeft: '23px',
+    padding: '0px',
+    marginLeft: '20px',
     color: theme.colors.workOrders.tab.description,
     fontSize: '14px',
     fontWeight: '400',
@@ -718,8 +724,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
   },
   drawerHeader: {
     display: 'flex',
-    height: '60px',
-    minHeight: '60px',
+    height: '50px',
+    minHeight: '50px',
     alignItems: 'center',
     margin: '0 20px'
   },
@@ -750,7 +756,7 @@ export const detailedInfoStyles = makeStyles(theme => ({
   cancelled: {
     fontSize: '16px',
     fontWeight: '800',
-    color: theme.colors.grey,
+    color: theme.colors.workOrderColors.cancelled,
     display: 'flex',
     flex: 1,
     maxWidth: '100px'
@@ -776,7 +782,8 @@ export const detailedInfoStyles = makeStyles(theme => ({
     color: theme.colors.workOrders.tab.wonum,
     fontSize: '32px',
     fontWeight: '600',
-    marginBottom: '2px'
+    marginBottom: '2px',
+    lineHeight: '0.9'
   },
   duedate: {
     padding: '3px 0px',
@@ -1002,7 +1009,7 @@ export const photoReelStyles = makeStyles(theme => ({
     margin: '50px 0px'
   },
   arrowIcon: {
-    color: 'white',
+    color: theme.colors.backdropColor,
     backgroundColor: theme.colors.opaqueBackground,
     height: '40px',
     width: '45px',
@@ -1026,7 +1033,7 @@ export const photoReelStyles = makeStyles(theme => ({
   },
   iconButton: {
     backgroundColor: theme.colors.opaqueBackground,
-    color: 'white',
+    color: theme.colors.backdropColor,
     borderRadius: '8px',
     marginLeft: '12px',
     width: '45px',
@@ -1215,5 +1222,8 @@ export const woDetailsStyles = makeStyles(theme => ({
     fontWeight: '400',
     lineHeight: '17px',
     letterSpacing: '1px'
+  },
+  cardContent: {
+    padding: '5px'
   }
 }))

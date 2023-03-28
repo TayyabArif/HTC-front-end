@@ -89,5 +89,13 @@ export const createAccountStyles = makeStyles((theme) => ({
   emailErrors: {
     marginTop: 0,
     color: theme.colors.errorText
+  },
+  lastGrid: {
+    [theme.breakpoints.down('md')]: {
+      marginTop: '32px'
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: '0px'
+    }
   }
 }))

@@ -86,11 +86,6 @@ describe('Company Settings', () => {
     const supportCard = screen.getByTestId('support_card')
     expect(supportCard).toBeInTheDocument()
 
-    const knowledgeButton = screen.getByTestId('knowledge_button')
-    expect(knowledgeButton).toBeInTheDocument()
-
-    userEvent.click(knowledgeButton)
-
     const privacyPolicyButton = screen.getByTestId('privacy_policy_button')
     expect(privacyPolicyButton).toBeInTheDocument()
 

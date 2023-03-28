@@ -114,7 +114,11 @@ export const SiteSortMenu = (props) => {
         variant="outlined"
         size="small"
         color="primary"
-        style={{ ...(locationsStore.woListFilters.sortBy === 'none' ? disableButtonStyle : enableButtonStyle), margin: '10px 0px 0px 8px', width: '80px' }}
+        style={{
+          ...(locationsStore.woListFilters.sortBy === 'none' ? disableButtonStyle : enableButtonStyle),
+          margin: '10px 0px 0px 8px',
+          width: '80px'
+        }}
         onClick={handleReset}
       >
         {t('locations.work_orders.reset')}

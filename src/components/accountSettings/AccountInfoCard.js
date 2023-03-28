@@ -49,7 +49,8 @@ export const AccountInfoCard = props => {
           setUserInfo(userInfo)
 
           if (response) {
-            setRoles(response)
+            // temporary hidden role "Portal user"
+            setRoles(response.filter(role => role.name.toLowerCase() !== 'portal user'))
           }
           firstLoad = false
         }
@@ -75,71 +76,73 @@ export const AccountInfoCard = props => {
   }
 
   return (
-        <div>
-            <UpdateAccountInfo
-                editDrawer={editDrawer}
-                handleClosePanel={handleClosePanel}
-                accountInfo={userInfo}
-                roles={roles}
-            />
-            <Card className={classes.card} data-testid={'account_info_card'} elevation={0}>
-                <Grid container justifyContent="space-between" alignItems="center">
-                    <Grid item>
-                        <Typography className={classes.title}>
-                            {t('account_settings.info_card.title')}
-                        </Typography>
-                    </Grid>
-                    <Grid item textAlign="center">
-                        <Button size="small" onClick={() => { setEditDrawer(true) }} className={classes.editButton}>
-                            <Typography pr={3}>
-                                {t('account_settings.info_card.edit_button')}
-                            </Typography>
-                        </Button>
-                    </Grid>
-                </Grid>
-                <CardContent className={classes.content}>
-                    <Grid container>
-                        <Grid item xs={4}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.first_name')}</Typography>
-                            <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.firstName}</Typography>
-                        </Grid>
-                        <Grid item xs={4} ml={2}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.last_name')}</Typography>
-                            <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.lastName ?? '--'}</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={8.3}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.email')}</Typography>
-                            <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.email}</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={4}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.phone_number')}</Typography>
-                            <Typography className={classes.info} mt={1}>{`${userInfo?.userInfo?.phone ?? ''}`}</Typography>
-                        </Grid>
-                        <Grid item xs={4} ml={2}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.password')}</Typography>
-                            <Typography className={`${classes.info} ${classes.customInfo}`} mt={1}>{'***********'}</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={4}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.company_role')}</Typography>
-                            <Typography className={classes.info} mt={1}>{roles?.find(x => x.id === userInfo.userInfo.roles)?.name ?? '--'}</Typography>
-                        </Grid>
-                        <Grid item xs={4} ml={2}>
-                            <Typography className={classes.field}>{t('account_settings.info_card.user_title')}</Typography>
-                            <Typography className={userInfo?.userInfo?.role ? classes.info : clsx(classes.info, classes.disabled)} mt={1}>{userInfo?.userInfo?.role ? t('request_access.user_roles.' + userInfo?.userInfo?.role) : 'Choose Title'}</Typography>
-                        </Grid>
-                        <Grid item xs={3} ml={2} sx={styles.employeeId}>
-                            <Typography classes={{ root: classes.field }}>{t('account_settings.info_card.employee_id')}</Typography>
-                            <Typography classes={{ root: classes.info }} mt={1}>{userInfo?.userInfo?.employee_id ?? '--'}</Typography>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
-        </div>
+    <div>
+      <UpdateAccountInfo
+        editDrawer={editDrawer}
+        handleClosePanel={handleClosePanel}
+        accountInfo={userInfo}
+        roles={roles}
+      />
+      <Card className={classes.card} data-testid={'account_info_card'} elevation={0}>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography className={classes.title}>
+              {t('account_settings.info_card.title')}
+            </Typography>
+          </Grid>
+          <Grid item textAlign="center">
+            <Button size="small" onClick={() => { setEditDrawer(true) }} className={classes.editButton}>
+              <Typography pr={3}>
+                {t('account_settings.info_card.edit_button')}
+              </Typography>
+            </Button>
+          </Grid>
+        </Grid>
+        <CardContent className={classes.content}>
+          <Grid container>
+            <Grid item xs={5} md={4}>
+              <Typography className={classes.field}>{t('account_settings.info_card.first_name')}</Typography>
+              <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.firstName}</Typography>
+            </Grid>
+            <Grid item xs={5} md={4} ml={2}>
+              <Typography className={classes.field}>{t('account_settings.info_card.last_name')}</Typography>
+              <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.lastName ?? '--'}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={10.5} md={8.3}>
+              <Typography className={classes.field}>{t('account_settings.info_card.email')}</Typography>
+              <Typography className={classes.info} mt={1}>{userInfo?.userInfo?.email}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={5} md={4}>
+              <Typography className={classes.field}>{t('account_settings.info_card.phone_number')}</Typography>
+              <Typography className={classes.info} mt={1}>{`${userInfo?.userInfo?.phone ?? ''}`}</Typography>
+            </Grid>
+            <Grid item xs={5} md={4} ml={2}>
+              <Typography className={classes.field}>{t('account_settings.info_card.password')}</Typography>
+              <Typography className={`${classes.info} ${classes.customInfo}`} mt={1}>{'***********'}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={5} md={4}>
+              <Typography className={classes.field}>{t('account_settings.info_card.company_role')}</Typography>
+              <Typography className={classes.info} mt={1}>{roles?.find(x => x.id === userInfo.userInfo.roles)?.name ?? '--'}</Typography>
+            </Grid>
+            <Grid item xs={5} md={4} ml={2}>
+              <Typography className={classes.field}>{t('account_settings.info_card.user_title')}</Typography>
+              <Typography className={userInfo?.userInfo?.role ? classes.info : clsx(classes.info, classes.disabled)} mt={1}>
+                {userInfo?.userInfo?.role ? t('request_access.user_roles.' + userInfo?.userInfo?.role) : 'Choose Title'}
+              </Typography>
+            </Grid>
+            <Grid item xs={2} md={3} ml={2} sx={styles.employeeId}>
+              <Typography classes={{ root: classes.field }}>{t('account_settings.info_card.employee_id')}</Typography>
+              <Typography classes={{ root: classes.info }} mt={1}>{userInfo?.userInfo?.employee_id ?? '--'}</Typography>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

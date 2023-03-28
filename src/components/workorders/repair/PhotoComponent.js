@@ -31,12 +31,12 @@ export const PhotoComponent = props => {
   const getCardTitle = () => {
     if (headerText) return headerText
     switch (photosType) {
-      case 'photos_before':
-        return t('work_orders.trips.photos_before')
-      case 'photos_after':
-        return t('work_orders.trips.photos_after')
-      default:
-        return t('work_orders.trips.photos')
+    case 'photos_before':
+      return t('work_orders.trips.photos_before')
+    case 'photos_after':
+      return t('work_orders.trips.photos_after')
+    default:
+      return t('work_orders.trips.photos')
     }
   }
 
@@ -122,7 +122,7 @@ export const PhotoComponent = props => {
   }
 
   return (
-    <>
+    <Grid container pl={0.6}>
       <Grid item xs={12}>
         <FormLabel
           component="legend"
@@ -135,18 +135,18 @@ export const PhotoComponent = props => {
         </FormLabel>
       </Grid>
       {disabled && (
-        <Grid container>
+        <Grid container justifyContent="space-between">
           {photos && photos.length > 0
             ? photos.map((obj, ind) => (
-                <Grid key={ind} item xs={4} md={4}>
-                  <div className={classes.thumbContainer}>
-                    <img
-                      src={obj.uri}
-                      className={classes.thumb}
-                      onClick={() => handleOpenPhotos(ind, photos)}
-                    />
-                  </div>
-                </Grid>
+              <Grid key={ind} item xs={4} md={4}>
+                <div className={classes.thumbContainer}>
+                  <img
+                    src={obj.uri}
+                    className={classes.thumb}
+                    onClick={() => handleOpenPhotos(ind, photos)}
+                  />
+                </div>
+              </Grid>
             ))
             : noImagesComp()}
         </Grid>
@@ -225,6 +225,6 @@ export const PhotoComponent = props => {
           )}
         </Grid>
       )}
-    </>
+    </Grid>
   )
 }

@@ -1,3 +1,35 @@
+export const Routes = {
+  SIGN_IN: {
+    path: '/sign-in'
+  },
+  DASHBOARD: {
+    path: '/dashboard'
+  },
+  FORGOT_PASSWORD: {
+    path: '/forgot-password',
+    SENT: {
+      path: '/forgot-password/sent'
+    },
+    CODE: {
+      path: '/forgot-password/code'
+    }
+  },
+  CREATE_ACCOUNT: {
+    path: '/create-account'
+  },
+  WORK_ORDERS: {
+    path: '/work-orders'
+  },
+  COMPANY_SETTINGS: {
+    path: '/company-settings'
+  },
+  ACCOUNT_SETTINGS: {
+    path: '/account-settings'
+  },
+  LOCATIONS: {
+    path: '/locations'
+  }
+}
 export const woStatusOptions = [
   'open',
   'in_progress',
@@ -58,7 +90,7 @@ export const legalEntities = [
 ]
 
 export const phoneRegex = /^((\([0-9]{3}\)[ -]?))*?[0-9]{3}[ -]?[0-9]{4}$/
-export const mobileBreakpoint = 1150
+export const mobileBreakpoint = 900
 export const maxFileSize = 5
 export const companyProfileFiles = ['w9', 'coi', 'comp', 'bank']
 
@@ -128,6 +160,8 @@ export const AFStateOptions = [
 
 export const navBarHeaderHeight = '100px'
 
+export const navBarHeaderHeightMobile = '75px'
+
 export const woSortOptions = [
   {
     id: 'work_order_a'
@@ -180,3 +214,32 @@ export const defWorkColumns = [
   { id: 'close_date', visible: true },
   { id: 'wo_status', visible: true }
 ]
+
+export const isChrome = () => {
+  const isChromium = window.chrome
+  const winNav = window.navigator
+  const vendorName = winNav.vendor
+  const isOpera = typeof window.opr !== 'undefined'
+  const isIEedge = winNav.userAgent.indexOf('Edg') > -1
+  const isIOSChrome = winNav.userAgent.match('CriOS')
+
+  if (isIOSChrome) {
+    return true
+  } else if (
+    isChromium !== null &&
+    typeof isChromium !== 'undefined' &&
+    vendorName === 'Google Inc.' &&
+    isOpera === false &&
+    isIEedge === false
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
+export const locationNameLimit = 32
+
+export const locationAddressLimit = 82

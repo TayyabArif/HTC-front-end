@@ -10,18 +10,21 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 /** Components **/
 import { SignInContainer } from '../../components/SignInContainer'
-
 import { useTranslation } from 'react-i18next'
 import { PersonOutline as PersonOutlineIcon } from '@mui/icons-material'
 import { RoundedButton } from '../../styles/mui_custom_components'
 import { LoadingSplash } from '../../components/LoadingSplash'
 
 /** Services **/
-import { createUser } from '../../services/ApiService'
-import { useLocation } from 'react-router-dom'
+import { createUser, getContactOffline } from '../../services/ApiService'
+import { useLocation, useHistory } from 'react-router-dom'
 
 /** Styles **/
 import { createAccountStyles } from '../../styles/classes/CreateAccountClasses'
+
+/** Utils **/
+import { mobileBreakpoint } from '../../lib/Constants'
+import { useWindowSize } from '@react-hook/window-size'
 
 const CreateAccount = () => {
   const classes = createAccountStyles()
@@ -36,6 +39,10 @@ const CreateAccount = () => {
   const [accessCode, setAccessCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [errorPass, setErrorPass] = useState(null)
+  const history = useHistory()
+
+  const [wWidth] = useWindowSize()
+  const isMobile = wWidth <= mobileBreakpoint
 
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -89,8 +96,26 @@ const CreateAccount = () => {
   }, [password])
 
   useEffect(() => {
-    setEmail(query.get('originEmail'))
-    setAccessCode(query.get('affiliateId'))
+    async function initData () {
+      const originEmail = query.get('originEmail')
+      setEmail(originEmail)
+      setAccessCode(query.get('affiliateId'))
+      const companyId = query.get('companyId')
+      setLoading(true)
+      try {
+        const contactData = await getContactOffline(companyId, originEmail)
+        if (contactData?.last_accessed) {
+          const redirectTo = '/sign-in'
+          history.replace(redirectTo)
+          history.go(redirectTo)
+        }
+        setLoading(false)
+      } catch (e) {
+        console.error(e)
+        setLoading(false)
+      }
+    }
+    initData()
   }, [])
 
   const onSubmit = async (data) => {
@@ -107,9 +132,9 @@ const CreateAccount = () => {
       )
     } catch (error) {
       switch (error.type) {
-        case 'email':
-          setEmailError(error.message)
-          break
+      case 'email':
+        setEmailError(error.message)
+        break
       }
       setLoading(false)
     }
@@ -143,23 +168,23 @@ const CreateAccount = () => {
         alignItems="center"
         justifyContent="center"
         className={classes.gridContainer}>
-        <Grid className={classes.mainItem} item xs={12}>
+        <Grid className={classes.mainItem} item xs={12} sm={12}>
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12} textAlign="center">
               <Typography className={classes.title} >
                 {t('create_account.title').toUpperCase()}
               </Typography>
             </Grid>
-            <Grid item xs={12} mt={3}>
+            <Grid item xs={12} sm={12} mt={3}>
               <Typography align='center' className={classes.subtitle} >
                 {t('create_account.subtitle')}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} sm={12} md={8}>
               <Box mt={6}>
                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
                   <Grid container justifyContent="space-between">
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12} md={6}>
                       <Grid container>
                         <Grid item xs={12}>
                           <TextField
@@ -193,10 +218,10 @@ const CreateAccount = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Grid container>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={11}>
+                    <Grid item xs={12} sm={12} md={6}>
+                      <Grid className={classes.lastGrid} container>
+                        {!isMobile && <Grid item xs={1}></Grid>}
+                        <Grid item xs={12} sm={12} md={11}>
                           <TextField
                             label={t('create_account.label.lastName')}
                             sx={labelStyle}
@@ -230,7 +255,7 @@ const CreateAccount = () => {
                     </Grid>
                   </Grid>
                   <Grid container justifyContent="space-between">
-                    <Grid item xs={12} mt={4}>
+                    <Grid item xs={12} sm={12} mt={4}>
                       <Grid container>
                         <Grid item xs={12}>
                           <TextField

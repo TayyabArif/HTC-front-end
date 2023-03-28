@@ -87,27 +87,27 @@ const callAPI = async (
   }
 
   switch (type) {
-    case 'POST':
-      response = await api.post(route, params)
-      break
-    case 'PUT':
-      response = await api.put(route, params)
-      break
-    case 'DELETE':
-      response = await api.delete(route, params)
-      break
-    case 'GET':
-      response = await api.get(route, params)
-      break
-    case 'PATCH':
-      response = await api.patch(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
+  case 'POST':
+    response = await api.post(route, params)
+    break
+  case 'PUT':
+    response = await api.put(route, params)
+    break
+  case 'DELETE':
+    response = await api.delete(route, params)
+    break
+  case 'GET':
+    response = await api.get(route, params)
+    break
+  case 'PATCH':
+    response = await api.patch(route, params)
+    break
+  default:
+    throw {
+      name: 'Method Not Allowed',
+      message: 'Call type not supported',
+      code: 405
+    }
   }
 
   if (!response.ok) {
@@ -195,7 +195,7 @@ export const workOrdersPortal = async (
   status = '',
   invoices = '',
   priority = '',
-  external_id,
+  client_tracking_number,
   sort = '',
   limit = 25,
   page = 1
@@ -218,7 +218,7 @@ export const workOrdersPortal = async (
         status,
         invoices,
         priority,
-        external_id,
+        client_tracking_number,
         sort,
         limit,
         page,
@@ -377,11 +377,13 @@ export const getCompany = async id => {
  * GET Company contact
  * @returns Contact
  */
-export const getContactOffline = async id => {
+export const getContactOffline = async (id, originEmail) => {
   const response = await callAPI(
     'GET',
     `/company-contact-offline/${id}`,
-    {},
+    {
+      origin_email: originEmail
+    },
     false
   )
   return response
@@ -392,7 +394,10 @@ export const getContactOffline = async id => {
  * @returns CompanyProfile
  */
 export const getCompanyProfile = async id => {
-  const response = await callAPI('GET', `/companyProfile/${id}`)
+  const response = await callAPI(
+    'GET',
+    `/companyProfile/${id}`
+  )
   return response
 }
 
@@ -493,27 +498,27 @@ const iframeApi = create({
 const callIframeAPI = async (type, route, params = {}) => {
   let response
   switch (type) {
-    case 'POST':
-      response = await iframeApi.post(route, params)
-      break
-    case 'PUT':
-      response = await iframeApi.put(route, params)
-      break
-    case 'DELETE':
-      response = await iframeApi.delete(route, params)
-      break
-    case 'GET':
-      response = await iframeApi.get(route, params)
-      break
-    case 'PATCH':
-      response = await iframeApi.patch(route, params)
-      break
-    default:
-      throw {
-        name: 'Method Not Allowed',
-        message: 'Call type not supported',
-        code: 405
-      }
+  case 'POST':
+    response = await iframeApi.post(route, params)
+    break
+  case 'PUT':
+    response = await iframeApi.put(route, params)
+    break
+  case 'DELETE':
+    response = await iframeApi.delete(route, params)
+    break
+  case 'GET':
+    response = await iframeApi.get(route, params)
+    break
+  case 'PATCH':
+    response = await iframeApi.patch(route, params)
+    break
+  default:
+    throw {
+      name: 'Method Not Allowed',
+      message: 'Call type not supported',
+      code: 405
+    }
   }
 
   if (!response.ok) {
@@ -770,6 +775,19 @@ export const putCompanyConfigs = async (companyId, data) => {
     const response = await callAPI('PUT', `/companies/${companyId}/configs`, {
       configs: data
     })
+    return response
+  } catch {
+    return false
+  }
+}
+
+/**
+ * POST send portal invitation
+ * @returns company profile
+ */
+export const sendPortalInvitation = async (userId) => {
+  try {
+    const response = await callAPI('POST', `/users/sendportalcreation/${userId}`)
     return response
   } catch {
     return false

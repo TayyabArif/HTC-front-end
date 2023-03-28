@@ -18,13 +18,14 @@ import { WorkOrdersList } from '../components/locations/WorkOrdersList'
 import { SiteSortMenu } from '../components/locations/SiteSortMenu'
 import { SiteFiltersMenu } from '../components/locations/SiteFiltersMenu'
 import { DetailedInfo } from '../components/workorders/DetailedInfo'
+import { PanelCountsMobile } from '../components/locations/PanelCountsMobile'
 
 /** Services **/
 import { getLocations, callLocationApi, getSitesAdvancedFiltersInfo, getLocationCallTypes } from '../services/ApiService'
 
 // Constants
 import { useWindowWidth } from '@react-hook/window-size'
-import { locationsPerPage } from '../lib/Constants'
+import { locationsPerPage, mobileBreakpoint } from '../lib/Constants'
 
 // Styles
 import { locationsStyles } from '../styles/classes/LocationsClasses'
@@ -40,12 +41,14 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       duration: theme.transitions.duration.leavingScreen
     }),
     marginLeft: 430,
+    overflowY: 'hidden',
     ...(!open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
       }),
-      marginLeft: 0
+      marginLeft: 0,
+      overflowY: 'hidden'
     })
   })
 )
@@ -96,6 +99,7 @@ const Locations = () => {
   const isFiltersMenuOpen = Boolean(anchorFilters)
   const theme = useTheme()
   const [searchValue, setSearch] = useState('')
+  const [searchWO, setSearchWO] = useState('')
   const [invisibleFilterBadge, setFilterInvisible] = useState(true)
   const [invisibleSortBadge, setSortInvisible] = useState(true)
   const [page, setPage] = useState(1)
@@ -148,6 +152,15 @@ const Locations = () => {
         } else {
           setSiteListing(prevList => [...prevList, ...response.sites])
         }
+        dispatch(locationsActions.resetZoomAndCenter({
+          center: {
+            lat: 40.175472,
+            lng: -101.466083
+          },
+          zoom: 4,
+          hideMarkers: false,
+          selectedMarkerIndex: null
+        }))
       }
     } catch (err) {
       console.error(err)
@@ -221,7 +234,11 @@ const Locations = () => {
   ]
 
   const handleClearSearchBox = async (event) => {
-    setSearch('')
+    if (locationsStore.selectedSite) {
+      setSearchWO('')
+    } else {
+      setSearch('')
+    }
   }
 
   const handleFiltersOpen = (event) => {
@@ -252,8 +269,7 @@ const Locations = () => {
               background: theme.colors.iconBlue,
               height: '3px',
               borderRadius: '4px',
-              width: 'calc(100% / 3 - 100% / 6)',
-              marginLeft: 'calc(100% / 19)'
+              maxWidth: '30%'
             }
           }}
           style={{ zIndex: 1000 }} >
@@ -286,7 +302,7 @@ const Locations = () => {
         </Tabs>
       </AppBar>
       <TabPanel classes={{ root: classes.tabPanel }} index="/work-orders" value={tabValue}>
-        <WorkOrdersList searchValue={searchValue} />
+        <WorkOrdersList searchValue={searchWO} />
       </TabPanel>
       <TabPanel classes={{ root: classes.tabPanel }} index="/proposals" value={tabValue}>
         { }
@@ -320,18 +336,24 @@ const Locations = () => {
     dispatch(locationsActions.setSelectedWorkOrder(null))
   }
 
+  const handleChangeSearch = (event) => {
+    dispatch(locationsActions.setSelectedSite(null))
+    if (locationsStore.selectedSite) {
+      setSearchWO(event.target.value)
+    } else {
+      setSearch(event.target.value)
+    }
+  }
+
   const drawerBoxComponent = () => {
     return <Box data-testid={'search_section'} >
       <Box className={classes.leftColumnSites} >
         <Grid container alignItems='center' className={classes.gridFilters}>
           <Grid item xs={11}>
             <Box display="flex" pr={1}>
-              {locationsStore.selectedSite && <IconButton className={classes.backButton} onClick={backSiteView}>
-                <ArrowBackIos className={classes.backIcon} />
-              </IconButton>}
               <TextField
                 className={classes.searchBox}
-                value={searchValue}
+                value={locationsStore.selectedSite ? searchWO : searchValue}
                 size='small'
                 disabled={false}
                 variant='outlined'
@@ -339,10 +361,12 @@ const Locations = () => {
                 required
                 fullWidth
                 id='search'
-                placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite ? t('locations.work_orders.search_placeholder') : t('locations.search_placeholder')}
+                placeholder={locationsStore.showSiteViewPanel && locationsStore.selectedSite
+                  ? t('locations.work_orders.search_placeholder')
+                  : t('locations.search_placeholder')}
                 autoComplete='off'
                 name='search'
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={handleChangeSearch}
                 InputProps={{
                   endAdornment: (searchValue !== '' &&
                     <InputAdornment
@@ -361,13 +385,16 @@ const Locations = () => {
           </Grid>
           <Grid item xs={1}>
             <Box>
-              <IconButton
+              {(locationsStore.selectedSite && locationsStore.showSiteViewPanel) && <IconButton className={classes.backButton} onClick={backSiteView}>
+                <ArrowBackIos className={classes.backIcon} /><small>Back</small>
+              </IconButton>}
+              {(!locationsStore.selectedSite || !locationsStore.showSiteViewPanel) && <IconButton
                 onClick={() => {
                   setHideLeftSection(true)
                 }}
                 className={classes.arrowButton}>
                 <Menu className={classes.menuIcon} />
-              </IconButton>
+              </IconButton>}
             </Box>
           </Grid>
         </Grid>
@@ -378,7 +405,19 @@ const Locations = () => {
         {/* RESULTS */}
         <Box display={locationsStore.showSiteViewPanel && locationsStore.selectedSite !== null ? 'none' : 'inline'} container >
           <Grid item >
-            <SearchResults sites={siteListing} activeTab={locationsStore.activeTab} setTablePage={setPage} actualPage={page} hasMore={hasMore} setSearch={setSearch} />
+            <Box className={classes.mobileCountsBox}>
+              <PanelCountsMobile searchResults={sitesResponse}/>
+            </Box>
+            <Box paddingTop={actualWidth > mobileBreakpoint ? '0px' : actualWidth > 577 ? '60px' : '92px'}>
+              <SearchResults
+                sites={siteListing}
+                activeTab={locationsStore.activeTab}
+                setTablePage={setPage}
+                actualPage={page}
+                hasMore={hasMore}
+                setSearch={setSearch}
+                searchValue={searchValue} />
+            </Box>
           </Grid>
         </Box>
       </Box>

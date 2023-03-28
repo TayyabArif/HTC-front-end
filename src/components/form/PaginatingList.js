@@ -76,13 +76,13 @@ export default function GlobalPaginatingList (props) {
     <FormControl variant="standard" fullWidth={true}>
       {label
         ? (
-        <Typography id="text-label" className={classes.label}>
-          {label}
-        </Typography>
-          )
+          <Typography id="text-label" className={classes.label}>
+            {label}
+          </Typography>
+        )
         : (
-            ''
-          )}
+          ''
+        )}
       <Box
         className={[classes.multiselectContent, classes.multiselectZip]}
         ref={listInnerRef}

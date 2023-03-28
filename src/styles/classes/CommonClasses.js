@@ -1,6 +1,6 @@
 
 import { makeStyles } from '@mui/styles'
-import { navBarHeaderHeight } from '../../lib/Constants'
+import { navBarHeaderHeight, navBarHeaderHeightMobile } from '../../lib/Constants'
 
 export const addButtonStyles = makeStyles(theme => ({
   icon: {
@@ -23,7 +23,7 @@ export const mainContainerStyles = makeStyles(theme => ({
     padding: '0px !important',
     maxWidth: '100%',
     maxHeight: '100%',
-    overflowY: 'auto'
+    position: 'fixed'
   },
   container: {
     height: '100vh',
@@ -32,24 +32,19 @@ export const mainContainerStyles = makeStyles(theme => ({
     paddingRight: '0px',
     margin: '0px',
     maxWidth: '100%',
+    overflow: 'auto'
+  },
+  containerScrollHidden: {
+    height: '100vh',
     [theme.breakpoints.up('md')]: {
-      minWidth: '800px',
-      overflowY: 'auto'
+      overflowY: 'hidden'
     },
     [theme.breakpoints.down('md')]: {
-      overflowY: 'auto',
+      overflowY: 'hidden',
       '&::-webkit-scrollbar': {
         display: 'none'
       },
       touchAction: 'pan-y'
-    },
-    [theme.breakpoints.up('md')]: {
-      overflowY: 'auto'
-    }
-  },
-  containerScrollHidden: {
-    [theme.breakpoints.up('md')]: {
-      overflowY: 'hidden'
     }
   },
   backdrop: {
@@ -57,10 +52,22 @@ export const mainContainerStyles = makeStyles(theme => ({
     color: theme.colors.backdropColor
   },
   navBarOffset: {
-    height: navBarHeaderHeight
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    }
+  },
+  navBarOffsetSmall: {
+    [theme.breakpoints.down('md')]: {
+      height: '50px'
+    }
   },
   contentBox: {
-    height: 'fit-content'
+    height: 'fit-content',
+    overflowY: 'scroll',
+    touchAction: 'pan-y'
   }
 }))
 
@@ -75,10 +82,16 @@ export const navBarStyles = makeStyles(theme => ({
   },
   menu: {
     borderRadius: '0px',
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     '&:hover': {
       backgroundColor: 'transparent'
-    }
+    },
+    margin: 'auto 0px'
   },
   title: {
     fontSize: '18px',
@@ -88,13 +101,41 @@ export const navBarStyles = makeStyles(theme => ({
   menuItem: {
     fontSize: '12px'
   },
+  selectedItem: {
+    fontSize: '12px',
+    color: theme.palette.primary.light
+  },
+  menuItemMobile: {
+    fontSize: '12px',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  selectedMobile: {
+    fontSize: '12px',
+    color: theme.palette.primary.light,
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
   menuIcon: {
     height: '23px',
     color: theme.colors.text
   },
   navBar: {
     backgroundColor: theme.colors.navBarColor,
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     position: 'fixed',
     top: '0px',
     left: '0px',
@@ -145,7 +186,12 @@ export const navBarStyles = makeStyles(theme => ({
   },
   logoImage: {
     width: '170px',
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     padding: '12px 0',
     objectFit: 'contain'
   },
@@ -154,12 +200,22 @@ export const navBarStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   header: {
-    height: navBarHeaderHeight,
+    [theme.breakpoints.up('md')]: {
+      height: navBarHeaderHeight
+    },
+    [theme.breakpoints.down('md')]: {
+      height: navBarHeaderHeightMobile
+    },
     display: 'flex',
     flexDirection: 'row'
   },
   boxLogo: {
-    display: 'flex'
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
   },
   logoLink: {
     [theme.breakpoints.up('xs')]: {
@@ -173,8 +229,26 @@ export const navBarStyles = makeStyles(theme => ({
     width: '170px',
     maxHeight: '42px'
   },
+  logoLinkMobile: {
+    margin: 'auto auto auto 0px',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  logoMobile: {
+    maxWidth: '80px',
+    maxHeight: '30px'
+  },
   companyName: {
-    fontSize: '24px',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '24px'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '20px'
+    },
     fontWeight: '600',
     color: theme.colors.text,
     margin: 'auto 15px auto 0px',
@@ -183,10 +257,23 @@ export const navBarStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   tabs: {
-    [theme.breakpoints.up('xs')]: {
+    marginTop: '32px'
+  },
+  mobileGrid: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  gridBrowser: {
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
       marginTop: '0px'
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
       marginTop: '32px'
     }
   }
