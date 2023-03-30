@@ -11,7 +11,7 @@ const initialAuthState = {
   refreshTokenFlag: 0,
   prevToken: null,
   email: null,
-  redirect: '/work-orders'
+  redirect: '/dashboard'
 }
 
 /**
@@ -78,7 +78,7 @@ const authSlice = createSlice({
       state.redirect = action.payload
     },
     resetRedirect (state, action) {
-      state.redirect = '/work-orders'
+      state.redirect = '/dashboard'
     }
   }
 })

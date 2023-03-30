@@ -11,7 +11,7 @@ import { decodeToken } from '../lib/Global'
  * @param password
  * @returns {Promise<void>}
  */
-export const login = async (username, password, redirect = '/work-orders') => {
+export const login = async (username, password, redirect = '/dashboard') => {
   try {
     const response = await Auth.login(username, password)
     store.dispatch(authActions.login(response))

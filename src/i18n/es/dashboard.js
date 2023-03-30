@@ -12,6 +12,7 @@ export const dashboard = () => {
       last_six_months: 'Últimos Seis Meses',
       custom: 'Personalizado'
     },
-    updated: 'Actualizado'
+    updated: 'Actualizado',
+    addReport: 'Agregar Reporte'
   }
 }
