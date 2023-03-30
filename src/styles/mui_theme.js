@@ -92,6 +92,7 @@ const customTheme = createTheme({
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
     mainBlue: '#0072CE',
+    textSelect: '#F6F8FB',
     invoiceColors: {
       open: 'rgba(77, 166, 233, 0.85)',
       open_solid: 'rgba(77, 166, 233)',

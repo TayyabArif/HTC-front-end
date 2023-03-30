@@ -14,7 +14,7 @@ export const dashboardStyles = makeStyles(theme => ({
     color: theme.colors.gray
   },
   emptyPaper: {
-    border: '1px dashed #828282',
+    border: '1px dashed ' + theme.colors.textButton,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
@@ -25,5 +25,29 @@ export const dashboardStyles = makeStyles(theme => ({
     fontWeight: '500',
     fontStyle: 'italic',
     textTransform: 'none'
+  },
+  reportHeader: {
+    padding: '17px 25px'
+  },
+  reportTitle: {
+    fontSize: '20px',
+    lineHeight: '24px',
+    fontWeight: '500'
+  },
+  reportDates: {
+    fontSize: '8px',
+    color: theme.colors.textButton,
+    paddingTop: '5px',
+    textAlign: 'right'
+  },
+  editReport: {
+    color: theme.colors.gray,
+    fontSize: '12px',
+    cursor: 'pointer'
+  },
+  menu: {
+    fontSize: '14px',
+    fontWeight: '400',
+    color: theme.colors.gray
   }
 }))
