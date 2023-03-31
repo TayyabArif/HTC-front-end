@@ -27,6 +27,24 @@ export const dashboard = () => {
       scatter: 'Scatter',
       line: 'Line',
       continue: 'Continue'
+    },
+    reports: {
+      open: 'Open Work Orders',
+      completed: 'Completed Work Orders',
+      in_progress: 'In Progress Work Orders',
+      open_by_trade: 'Open Work Orders By Trade',
+      completed_by_trade: 'Completed Work Orders by Trade',
+      open_vs_complete: '% Open vs Complete',
+      average_age: 'Average Age Of Work Orders',
+      count: '(Count)'
+    },
+    date_ranges: {
+      today: 'Today',
+      last_3_days: 'Last 3 Days',
+      last_5_days: 'Last 5 Days',
+      last_7_days: 'Last 7 Days',
+      last_30_days: 'Last 30 Days',
+      custom: 'Custom Date'
     }
   }
 }

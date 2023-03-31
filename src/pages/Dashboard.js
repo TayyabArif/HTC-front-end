@@ -12,10 +12,10 @@ const Dashboard = props => {
     <Container display="flex" just className={classes.globalContainer}>
       <Grid container spacing={2}>
         <Grid item xs={6} md={4}>
-          <ReportCard report={'test 1'}/>
+          <ReportCard report={'open'}/>
         </Grid>
         <Grid item xs={6} md={4}>
-          <ReportCard report={'test 2'}/>
+          <ReportCard report={'completed'}/>
         </Grid>
         <Grid item xs={6} md={4}>
           <ReportCard />
