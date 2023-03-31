@@ -4,6 +4,7 @@ import {
   Button,
   CircularProgress,
   Dialog,
+  IconButton,
   Paper,
   Typography
 } from '@mui/material'
@@ -99,15 +100,16 @@ export const ReportCard = props => {
       <Box height="100%">
         {reportHeader()}
         {ready
-          ? (
-            <Box>{props.report}</Box>
-          )
+          ? (<Box>
+            {/* TODO show report selected */}
+            {'Report selected'}
+          </Box>)
           : (
             <Box
               display="flex"
               justifyContent="center"
               alignItems="center"
-              height="inherit"
+              height='50%'
             >
               <CircularProgress />
             </Box>
@@ -139,12 +141,13 @@ export const ReportCard = props => {
               value={reportDate}
               setValue={setReportDate}
             />
-            <FontAwesomeIcon
-              id="edit"
-              icon="fa-regular fa-pen"
-              className={classes.editReport}
-              onClick={handleOpenAddReport}
-            />
+            <IconButton name="edit" onClick={handleOpenAddReport}>
+              <FontAwesomeIcon
+                icon="fa-regular fa-pen"
+                className={classes.editReport}
+                // onClick={handleOpenAddReport('edit')}
+              />
+            </IconButton>
           </Box>
           <Typography className={classes.reportDates}>
             {dateRange.from} - {dateRange.to}
@@ -155,8 +158,12 @@ export const ReportCard = props => {
   }
 
   const handleOpenAddReport = event => {
+    if (event.target.name === 'open') {
+      console.log('Add report')
+    } else {
+      console.log('Edit report')
+    }
     // TODO display Add or Edit component
-    console.log('>>> action: ', event.target.id)
     setOpen(true)
   }
   const handleCloseAddReport = () => {
@@ -175,7 +182,7 @@ export const ReportCard = props => {
         )
         : (
           <Button
-            id="add"
+            name="add"
             className={classes.addButton}
             variant="text"
             onClick={handleOpenAddReport}

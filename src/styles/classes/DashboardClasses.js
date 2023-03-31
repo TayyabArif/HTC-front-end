@@ -96,8 +96,9 @@ export const dashboardStyles = makeStyles(theme => ({
     cursor: 'pointer'
   },
   menu: {
-    fontSize: '14px',
+    fontSize: '12px',
     fontWeight: '400',
-    color: theme.colors.gray
+    color: theme.colors.gray,
+    width: '150px'
   }
 }))
