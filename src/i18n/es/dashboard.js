@@ -13,6 +13,20 @@ export const dashboard = () => {
       custom: 'Personalizado'
     },
     updated: 'Actualizado',
-    addReport: 'Agregar Reporte'
+    addReport: 'Agregar Reporte',
+    add_report: {
+      subtitle:
+        'Haga las selecciones a continuación para crear sus informes y personalizar su tablero.',
+      access: 'Acceso',
+      select_report: 'Seleccionar Reporte',
+      display_as: 'Mostrar Como',
+      none: 'Ninguno',
+      bar: 'Barras',
+      column: 'Columna',
+      pie: 'Pastel',
+      scatter: 'Dispersión',
+      line: 'Línea',
+      continue: 'Continuar'
+    }
   }
 }

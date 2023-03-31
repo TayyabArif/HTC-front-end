@@ -88,6 +88,30 @@ export const legalEntities = [
     value: 'Sole Proprietorship'
   }
 ]
+export const reports = [
+  { value: 'Open Work Orders (Count)', label: 'Open Work Orders (Count)' },
+  {
+    value: 'Completed Work Orders (Count)',
+    label: 'Completed Work Orders (Count)'
+  },
+  {
+    value: 'In Progress Work Orders (Count)',
+    label: 'In Progress Work Orders (Count)'
+  },
+  { value: 'Open Work Orders By Trade', label: 'Open Work Orders By Trade' },
+  {
+    value: 'Completed Work Orders by Trade',
+    label: 'Completed Work Orders by Trade'
+  },
+  { value: '% Open vs Complete', label: '% Open vs Complete' },
+  { value: 'Average Age Of Work Orders', label: 'Average Age Of Work Orders' }
+]
+
+export const accesses = [
+  { value: 'All Access', label: 'All Access' },
+  { value: 'Administrator', label: 'Administrator' },
+  { value: 'Company Admin', label: 'Company Admin' }
+]
 
 export const phoneRegex = /^((\([0-9]{3}\)[ -]?))*?[0-9]{3}[ -]?[0-9]{4}$/
 export const mobileBreakpoint = 900
@@ -201,7 +225,8 @@ export const profileCardLimits = {
   bottom: 1200
 }
 
-export const whiteImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+export const whiteImage =
+  'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
 
 export const defWorkColumns = [
   { id: 'location', visible: true },
@@ -238,7 +263,9 @@ export const isChrome = () => {
   }
 }
 
-export const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+export const isSafari = /^((?!chrome|android).)*safari/i.test(
+  navigator.userAgent
+)
 
 export const locationNameLimit = 32
 

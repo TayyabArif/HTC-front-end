@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Box, Button, CircularProgress, Dialog, Paper } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { dashboardStyles } from '../../styles/classes/DashboardClasses'
+import { AddReport } from './AddReport'
 
 export const ReportCard = props => {
   const classes = dashboardStyles()
@@ -69,7 +70,7 @@ export const ReportCard = props => {
         )}
       <Dialog open={open} onClose={handleCloseAddReport}>
         {/* TODO */}
-        {'Add report container'}
+        <AddReport />
       </Dialog>
     </Paper>
   )

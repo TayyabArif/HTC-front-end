@@ -25,5 +25,55 @@ export const dashboardStyles = makeStyles(theme => ({
     fontWeight: '500',
     fontStyle: 'italic',
     textTransform: 'none'
+  },
+  title: {
+    display: 'flex',
+    justifyContent: 'center',
+    fontWeight: '700'
+  },
+  subtitle: {
+    fontSize: '12px'
+  },
+  sectionTitle: {
+    fontSize: '16px',
+    fontWeight: '500'
+  },
+  icon: {
+    transform: 'scale(2.5)'
+  },
+  selectBox: {
+    background: 'red'
+  },
+  btn: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingRight: '4em',
+    paddingLeft: '4em'
+  },
+  iconLabel: {
+    textTransform: 'capitalize',
+    fontSize: '12px',
+    marginTop: '5px',
+    fontWeight: '400'
+  },
+  sendButton: {
+    height: '61px'
+  },
+  formContainer: {
+    width: '100%'
+  },
+  flex: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: '5px',
+    color: theme.dashboard.displayAsIcons
+  },
+  iconClicked: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: '5px',
+    color: theme.dashboard.iconSelected
   }
 }))

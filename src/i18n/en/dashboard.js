@@ -13,6 +13,20 @@ export const dashboard = () => {
       custom: 'Custom'
     },
     updated: 'Updated',
-    addReport: 'Add Report'
+    addReport: 'Add Report',
+    add_report: {
+      subtitle:
+        'Make selections below to build out your reports and customize your dashboard',
+      access: 'Access',
+      select_report: 'Select Report',
+      display_as: 'Display As',
+      none: 'None',
+      bar: 'Bar',
+      column: 'Column',
+      pie: 'Pie',
+      scatter: 'Scatter',
+      line: 'Line',
+      continue: 'Continue'
+    }
   }
 }

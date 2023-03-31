@@ -57,7 +57,8 @@ const customTheme = createTheme({
     }
   },
   shadow: {
-    paperBoxShadow: '0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
+    paperBoxShadow:
+      '0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
     cardDefaultShadow: '6px 9px 43px rgba(216, 216, 216, 0.25)'
   },
   colors: {
@@ -92,6 +93,7 @@ const customTheme = createTheme({
     complianceBlue: '#E2EBF3',
     iconBlue: '#2F80ED',
     mainBlue: '#0072CE',
+    lightGrey: '#F6F6F6',
     invoiceColors: {
       open: 'rgba(77, 166, 233, 0.85)',
       open_solid: 'rgba(77, 166, 233)',
@@ -467,7 +469,11 @@ const customTheme = createTheme({
     gray: '#4F4F4F',
     disabled: '#6C7172',
     darkBlue: '#0072CE',
-    underlineColor: '#333333'
+    underlineColor: '#333333',
+    selectBg: '#F6F6F6',
+    checkIcon: '#4696EC',
+    displayAsIcons: '#828282',
+    iconSelected: '#2F80ED'
   },
   mapClasses: {
     '& .storemapper-iw-close': {
