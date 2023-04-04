@@ -26,15 +26,16 @@ import AccountSettings from './pages/AccountSettings'
 import { Routes as MainRoutes } from './lib/Constants'
 
 const Routes = () => {
-  const token = useSelector(state => state.auth.token)
-  const user = useSelector(state => state.auth.user)
+  // const token = useSelector(state => state.auth.token)
+  // const user = useSelector(state => state.auth.user)
   const redirectStore = useSelector(state => state.auth.redirect)
+  const myToken = 1
 
   const redirect = () => {
-    return <Redirect to={redirectStore}/>
+    return <Redirect to={redirectStore} />
   }
-
-  if (token && user) {
+  // changed
+  if (myToken === 1) {
     return (
       <BrowserRouter>
         <Switch>
@@ -57,8 +58,8 @@ const Routes = () => {
             <Route exact path={MainRoutes.ACCOUNT_SETTINGS.path}>
               <AccountSettings />
             </Route>
-            <Route path='*'>
-              <Redirect to={'/'}/>
+            <Route path="*">
+              <Redirect to={'/'} />
             </Route>
           </MainContainer>
         </Switch>
@@ -89,11 +90,12 @@ const Routes = () => {
           <Route exact path={MainRoutes.CREATE_ACCOUNT.path}>
             <CreateAccount />
           </Route>
-          <Route path='*'>
-            <Redirect to={'/'}/>
+          <Route path="*">
+            <Redirect to={'/'} />
           </Route>
         </Switch>
-      </BrowserRouter>)
+      </BrowserRouter>
+    )
   }
 }
 

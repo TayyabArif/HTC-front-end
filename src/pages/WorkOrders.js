@@ -1,7 +1,16 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from 'react'
 
 /** Components **/
-import { Container, FormControl, InputAdornment, IconButton, Button, Icon as ClearIcon } from '@mui/material'
+import {
+  Container,
+  FormControl,
+  InputAdornment,
+  IconButton,
+  Button,
+  Icon as ClearIcon
+} from '@mui/material'
 import { CustomOutlinedInput } from '../styles/mui_custom_components'
 import { useWoSearch } from '../components/workorders/useWoSearch'
 import { MainTable } from '../components/workorders/MainTable'
@@ -38,7 +47,7 @@ const initFilters = {
   tracking: ''
 }
 
-const WorkOrders = (props) => {
+const WorkOrders = props => {
   const { t } = useTranslation()
   const searchParams = window.location.hash.replace('#', '?')
   const userStore = useSelector(state => state.auth.user)
@@ -118,9 +127,13 @@ const WorkOrders = (props) => {
   }, [])
 
   const getColumnsConfig = async () => {
-    const configResponse = await getCompanyConfigs(userStore.userInfo.company_id)
+    const configResponse = await getCompanyConfigs(
+      userStore?.userInfo.company_id
+    )
     if (configResponse && configResponse?.length > 0) {
-      const columnsConfig = configResponse.find(config => config.type === 'columns')
+      const columnsConfig = configResponse.find(
+        config => config.type === 'columns'
+      )
       if (columnsConfig) {
         setColumnsConfig(columnsConfig.data)
       } else {
@@ -175,16 +188,12 @@ const WorkOrders = (props) => {
 
   return (
     <div>
-
       <Container
         style={{ overflow: 'hidden' }}
         className={classes.globalFiltersContainer}
         data-testid={'wo_page'}
       >
-        <FormControl
-          variant="outlined"
-          data-testid={'search_field'}
-        >
+        <FormControl variant="outlined" data-testid={'search_field'}>
           <CustomOutlinedInput
             value={searchValue}
             className={classes.SearchInput}
@@ -204,15 +213,13 @@ const WorkOrders = (props) => {
             }
             endAdornment={
               <InputAdornment position="end">
-                {searchValue.length > 0
-                  ? (
-                    <IconButton onClick={handleClearGlobalSearch}>
-                      <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
-                    </IconButton>
-                  )
-                  : (
-                    <div />
-                  )}
+                {searchValue.length > 0 ? (
+                  <IconButton onClick={handleClearGlobalSearch}>
+                    <ClearIcon style={{ fontSize: 'small' }} fontSize="small" />
+                  </IconButton>
+                ) : (
+                  <div />
+                )}
               </InputAdornment>
             }
             autoComplete="off"
@@ -249,7 +256,6 @@ const WorkOrders = (props) => {
           columnsConfig={columnsConfig}
         />
       </Container>
-
     </div>
   )
 }

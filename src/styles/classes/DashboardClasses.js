@@ -100,5 +100,11 @@ export const dashboardStyles = makeStyles(theme => ({
     fontWeight: '400',
     color: theme.colors.gray,
     width: '150px'
+  },
+  abcdisable: {
+    color: 'red'
+  },
+  abcnotdisable: {
+    color: theme.dashboard.displayAsIcons
   }
 }))

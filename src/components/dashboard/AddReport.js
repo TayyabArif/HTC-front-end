@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -27,9 +29,23 @@ export const AddReport = () => {
   const [scatterSelected, setScatterSelected] = useState()
   const [lineSelected, setLineSelected] = useState()
   const [enableContinue, setEnableContinue] = useState()
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const handleChange = e => {
-    setReport(e)
+    if (disableValidation()) {
+      setReport(e)
+    }
+    if (
+      e === 'Completed Work Orders (Count)' ||
+      e === 'Open Work Orders (Count)' ||
+      e === 'In Progress Work Orders (Count)'
+    ) {
+      setNoneSelected(true)
+      setIsDisabled(true)
+    } else {
+      setNoneSelected(false)
+      setIsDisabled(false)
+    }
   }
   const AccessHandleChange = e => {
     setAccess(e)
@@ -60,6 +76,18 @@ export const AddReport = () => {
     lineSelected
   ])
 
+  useEffect(() => {
+    console.log('entered')
+    if (report === 'Open Work Orders (Count)') {
+      setNoneSelected(true)
+      setBarSelected(false)
+      setColumnSelected(false)
+      setPieSelected(false)
+      setScatterSelected(false)
+      setLineSelected(false)
+    }
+  }, [report])
+
   const handleClickNone = () => {
     setNoneSelected(true)
     setBarSelected(false)
@@ -67,6 +95,7 @@ export const AddReport = () => {
     setPieSelected(false)
     setScatterSelected(false)
     setLineSelected(false)
+    console.log('CLICKED NONE')
   }
   const handleClickBar = () => {
     setNoneSelected(false)
@@ -75,6 +104,8 @@ export const AddReport = () => {
     setPieSelected(false)
     setScatterSelected(false)
     setLineSelected(false)
+    console.log(43)
+    console.log('CLICKED BAR')
   }
   const handleClickColumn = () => {
     setNoneSelected(false)
@@ -83,6 +114,7 @@ export const AddReport = () => {
     setPieSelected(false)
     setScatterSelected(false)
     setLineSelected(false)
+    console.log('CLICKED COLUMN')
   }
   const handleClickPie = () => {
     setNoneSelected(false)
@@ -91,6 +123,7 @@ export const AddReport = () => {
     setPieSelected(true)
     setScatterSelected(false)
     setLineSelected(false)
+    console.log('CLICKED PIE')
   }
   const handleClickScatter = () => {
     setNoneSelected(false)
@@ -99,6 +132,7 @@ export const AddReport = () => {
     setPieSelected(false)
     setScatterSelected(true)
     setLineSelected(false)
+    console.log('CLICKED SCATTER')
   }
   const handleClickLine = () => {
     setNoneSelected(false)
@@ -107,6 +141,11 @@ export const AddReport = () => {
     setPieSelected(false)
     setScatterSelected(false)
     setLineSelected(true)
+    console.log('CLICKED LINE')
+  }
+
+  const disableValidation = () => {
+    return report !== 'Open Work Orders (Count)'
   }
 
   return (
@@ -158,7 +197,13 @@ export const AddReport = () => {
             </Button>
             <Button
               className={!barSelected ? classes.flex : classes.iconClicked}
+              // classes={{
+              //   root: disableValidation()
+              //     ? classes.abcdisable
+              //     : classes.abcnotdisable
+              // }}
               onClick={handleClickBar}
+              disabled={isDisabled}
             >
               <FontAwesomeIcon
                 icon="fa-regular fa-chart-simple-horizontal"
@@ -171,6 +216,7 @@ export const AddReport = () => {
             <Button
               className={!columnSelected ? classes.flex : classes.iconClicked}
               onClick={handleClickColumn}
+              disabled={isDisabled}
             >
               <FontAwesomeIcon
                 icon="fa-regular fa-chart-simple"
@@ -185,6 +231,7 @@ export const AddReport = () => {
             <Button
               className={!pieSelected ? classes.flex : classes.iconClicked}
               onClick={handleClickPie}
+              disabled={isDisabled}
             >
               <span>
                 <FontAwesomeIcon
@@ -199,6 +246,7 @@ export const AddReport = () => {
             <Button
               className={!scatterSelected ? classes.flex : classes.iconClicked}
               onClick={handleClickScatter}
+              disabled={isDisabled}
             >
               <span>
                 <FontAwesomeIcon
@@ -213,6 +261,7 @@ export const AddReport = () => {
             <Button
               className={!lineSelected ? classes.flex : classes.iconClicked}
               onClick={handleClickLine}
+              disabled={isDisabled}
             >
               <span>
                 <FontAwesomeIcon

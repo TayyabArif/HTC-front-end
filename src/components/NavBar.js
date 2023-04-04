@@ -99,7 +99,7 @@ export const NavBar = () => {
   }
 
   const getCompanyLogo = () => {
-    if (!userStore.userInfo.logo?.url) {
+    if (!userStore?.userInfo?.logo?.url) {
       return ADLogo
     }
     return userStore.userInfo.logo?.url
